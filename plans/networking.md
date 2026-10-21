@@ -24,8 +24,7 @@ links and gotchas; this file summarises it and tracks what V2 still needs.
 - **Unicast sACN** to each controller. With 10/100 PixLites, multicast without
   IGMP snooping overruns small switches' per-port buffers on every frame. Empyrean
   supports unicast by fixed IP or by MAC (resolved automatically).
-- **WAN can plug in at any node.** A VLAN-only "WAN transport" network (e.g. VLAN
-  4000) is tagged on the ring links; one labelled port on every switch is native
+- **WAN can plug in at any node.** A VLAN-only "WAN transport" network (e.g. VLAN 4000) is tagged on the ring links; one labelled port on every switch is native
   VLAN 4000. The UCG's WAN port plugs into any of those; its LAN port into any
   ordinary port.
 - **Leading switch: UniFi USW-Ultra** ($129), powered from the box's own supply,
@@ -35,7 +34,7 @@ links and gotchas; this file summarises it and tracks what V2 still needs.
 ## The USW-Ultra in a node box
 
 - 8 × GbE: ring in, ring out, PixLite, WAN (labelled), and 4 spare PoE+ ports
-  (30 W/port) for expansion. The eighth port is the PoE++ *input*.
+  (30 W/port) for expansion. The eighth port is the PoE++ _input_.
 - DC input 50–57 V on a 5.5 × 2.1 mm barrel. Run the box's "48 V" supply at about
   54 V (PoE+ needs at least 50 V at the switch). PoE budget up to 202 W.
 - Rated −20/−30 to 60 °C. The official 210 W adapter is rated only 0–40 °C, which

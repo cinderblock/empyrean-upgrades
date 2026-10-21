@@ -11,13 +11,13 @@ upgrade is worked out before anything is bought or built.
 
 ## Upgrade categories
 
-| Category | Goal | Plan |
-|---|---|---|
-| Power | Replace V1's non-weatherproof 110 VAC cables and plugs with watertight, daisy-chained segments permanently installed in each of the 16 truss segments | [plans/power.md](plans/power.md) |
-| Networking | A switch in every node box, daisy-chained around the ring, with spare ports for expansion | [plans/networking.md](plans/networking.md) |
-| Compute | A new show computer with a better GPU | [plans/compute.md](plans/compute.md) |
-| Weatherproofing | New node and brain boxes, living inside the truss beside separate power boxes | [plans/weatherproofing.md](plans/weatherproofing.md) |
-| Expansion | Future PoE devices: cameras, streaming audio to speakers | [plans/expansion.md](plans/expansion.md) |
+| Category        | Goal                                                                                                                                                  | Plan                                                 |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Power           | Replace V1's non-weatherproof 110 VAC cables and plugs with watertight, daisy-chained segments permanently installed in each of the 16 truss segments | [plans/power.md](plans/power.md)                     |
+| Networking      | A switch in every node box, daisy-chained around the ring, with spare ports for expansion                                                             | [plans/networking.md](plans/networking.md)           |
+| Compute         | A new show computer with a better GPU                                                                                                                 | [plans/compute.md](plans/compute.md)                 |
+| Weatherproofing | New node and brain boxes, living inside the truss beside separate power boxes                                                                         | [plans/weatherproofing.md](plans/weatherproofing.md) |
+| Expansion       | Future PoE devices: cameras, streaming audio to speakers                                                                                              | [plans/expansion.md](plans/expansion.md)             |
 
 ## Reference
 
