@@ -1,1 +1,7 @@
-* text=auto
+# CRLF in every working tree (Windows and Linux CI alike), LF in the repo.
+# oxfmt has no "auto" end of line, so it is pinned to CRLF in .oxfmtrc.json
+# and this keeps checkouts matching it everywhere.
+* text=auto eol=crlf
+*.png binary
+*.jpg binary
+*.woff2 binary

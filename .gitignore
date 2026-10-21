@@ -34,3 +34,10 @@ playwright/.cache/
 
 # Misc
 *.tsbuildinfo
+
+# Local Worker secrets for `wrangler dev` (SITE_PASSWORD)
+.dev.vars
+.wrangler/
+
+# Scratch output
+/tmp/

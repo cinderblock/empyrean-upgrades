@@ -1,29 +1,22 @@
-import type { MetaFunction } from "react-router";
-import { Link } from "react-router";
+import { Link, type MetaFunction } from "react-router";
+import Shell from "../components/Shell";
+import { pageMeta } from "../meta";
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Page Not Found" },
-    {
-      name: "description",
-      content: "The page you're looking for doesn't exist.",
-    },
-  ];
-};
+export const meta: MetaFunction = () =>
+  pageMeta("Not found: Empyrean Gate V2", "There's no page here.");
 
 export default function NotFound() {
   return (
-    <main className="container">
-      <section className="hero">
-        <h1>404</h1>
-        <p className="tagline">Page Not Found</p>
-        <p className="intro">
-          The page you're looking for doesn't exist or has been moved.
+    <Shell>
+      <section className="hero hero-small">
+        <p className="kicker">404</p>
+        <h1>Nothing here.</h1>
+        <p className="lede">
+          That page doesn't exist, or has moved. The{" "}
+          <Link to="/">overview</Link> and the <Link to="/budget">budget</Link>{" "}
+          have everything.
         </p>
-        <Link to="/" className="back-link">
-          Go back home
-        </Link>
       </section>
-    </main>
+    </Shell>
   );
 }

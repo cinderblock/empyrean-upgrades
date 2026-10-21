@@ -1,0 +1,51 @@
+{
+  // Cloudflare Workers static-assets deploy, run by Workers Builds, the same
+  // way as empyreangate.org. The site is prerendered HTML; the one Worker
+  // script (worker/index.ts) runs first on every request only to ask for the
+  // password while SITE_LOCK is "on". github.com/cinderblock/ops provisions
+  // this worker and attaches v2.empyreangate.org; the name here must match.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "empyreangate-v2",
+  "compatibility_date": "2026-10-01",
+  "main": "./worker/index.ts",
+  "assets": {
+    "directory": "./build/client",
+    "binding": "ASSETS",
+    // Every request, so nothing is served past the lock. With the lock off
+    // the Worker just hands each request to the assets.
+    "run_worker_first": true,
+    // Every route is prerendered to its own index.html, so a miss is a real
+    // miss and gets the 404 page rather than an SPA shell.
+    "not_found_handling": "404-page",
+  },
+  // Production answers only at v2.empyreangate.org.
+  "workers_dev": false,
+  "preview_urls": true,
+  // THE LOCK. "on": visitors need the password (the SITE_PASSWORD secret).
+  // "off": the site is open. Change it here and push; see README "The lock".
+  "vars": { "SITE_LOCK": "on" },
+  // Previews don't inherit vars or bindings. They stay locked; their
+  // password is set with `wrangler preview secret put SITE_PASSWORD`.
+  "previews": {
+    "vars": { "SITE_LOCK": "on" },
+    "ratelimits": [
+      {
+        "name": "UNLOCK_LIMIT",
+        "namespace_id": "2001",
+        "simple": { "limit": 10, "period": 60 },
+      },
+    ],
+  },
+  // Password tries per visitor. Nothing to provision: the namespace id is any
+  // integer unique in the account's Workers (empyreangate.org uses 1001).
+  "ratelimits": [
+    {
+      "name": "UNLOCK_LIMIT",
+      "namespace_id": "2001",
+      "simple": { "limit": 10, "period": 60 },
+    },
+  ],
+  "observability": {
+    "enabled": true,
+  },
+}
