@@ -58,8 +58,8 @@ wants to raise, and donors can see where their money goes.
 1. [x] Initial commit of the planning docs (`956c54a`, before this thread).
 2. [x] Merge ssg-base (`14a45e3`); Workers static assets setup like the parent.
 3. [x] Budget data model (`app/content/budget.ts`), with draft figures.
-4. [ ] Replace the draft figures with the pricing research
-       (`docs/pricing-2026-10.md`, a background agent). ← current
+4. [x] Real prices from the research (`docs/pricing-2026-10.md`,
+       `e7fe35b`): V2 $27,000 to raise, $52,000 with every stretch goal.
 5. [x] Overview: the ask, tier ladder, donut, category cards, ring diagram.
 6. [x] Category pages and the segment diagram; /budget.
 7. [x] Print: a dedicated one-page handout, colour and greyscale.
@@ -67,7 +67,7 @@ wants to raise, and donors can see where their money goes.
        64/128-spoke switch + link to the playground.
 9. [x] Password Worker, unit tests, checked under wrangler dev.
 10. [x] Playwright suite (3 engines), CI workflow, README.
-11. [ ] User review of the local site (dev server).
+11. [ ] User review of the local site (dev server). ← current
 12. [ ] Publish: GitHub repo, ops entry, Workers Builds, the password secret.
         Needs the user's go-ahead for each piece (see Open questions).
 
@@ -94,6 +94,13 @@ ops checkout had another thread's uncommitted changes in this very file on
 2026-10-21, so stage on top of whatever is there then.)
 
 ## Findings / gotchas
+
+- **Pricing research, 2026-10-21** (`docs/pricing-2026-10.md`): full white may
+  need 3–6 separately fed power chains (not one daisy chain); only the
+  industrial PC is rated for a sealed box in the sun; TRUE1 TOP cable connectors
+  are being phased out; the Ultra is $142 with surcharge, and its 202 W PoE
+  budget on a third-party supply is unconfirmed. Each category plan has the
+  details.
 
 - **workerd refuses non-handler named exports from the main module.**
   `wrangler dev` failed with "Incorrect type for map entry 'COOKIE': the
@@ -122,7 +129,9 @@ ops checkout had another thread's uncommitted changes in this very file on
 
 - [x] Read the repo docs, parent site README/deploy, ops config
 - [x] Scaffold, pages, print, demo, lock, tests, CI (`efd4101`, `245977a`)
-- [ ] Real prices in budget.ts; then `DRAFT = false` only when the user agrees
+- [x] Real prices in budget.ts (`e7fe35b`); findings copied into each
+      category plan
+- [ ] `DRAFT = false` only when the user agrees
 - [ ] Publish
 
 ## Open questions for the user
@@ -136,9 +145,14 @@ ops checkout had another thread's uncommitted changes in this very file on
    V2 want its own fund/page? Recommendation: confirm with whoever holds it.
 5. Contact for larger gifts: the site says "reach the crew through Entheos".
    Want a direct email instead?
-6. The stretch-goal tiers and their order (Hardened, Eyes and ears, 128
-   spokes) are my proposal. Reorder or rename?
+6. The stretch-goal tiers and their order (Built for the heat, Eyes and
+   ears, 128 spokes) are my proposal. Reorder or rename?
 7. Contingency 15%, rounding to $500: OK?
+8. Compute in the V2 goal is a ~$1,600–$2,000 consumer build (rated to about
+   35–40 °C); the industrial PC rated for the heat is the first stretch goal.
+   Put the industrial PC in the V2 goal instead (+about $5K)? Recommendation:
+   decide after logging a real box's temperature.
+9. Sun shields on all 33 boxes are in the V2 goal ($1,320–$3,960). Keep?
 
 ## Things not to do
 

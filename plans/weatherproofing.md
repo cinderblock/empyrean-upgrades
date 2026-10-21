@@ -32,6 +32,29 @@ power boxes**. Power and data never share a box.
 - Power boxes are separate from node/brain boxes (user, 2026-10-21).
 - Boxes live inside the truss (user, 2026-10-21).
 
+## Findings from the pricing research
+
+Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
+
+- **Node box:** Hammond PCJ14126H (14 × 12 × 6 in, $91–$98), fits the Ultra and
+  PixLite on DIN rows with room for 8 pixel outputs. **Hammond PCJ is IP66, not
+  IP67**; NEMA 4X, UV f1. If the target becomes IP67, Fibox ARCA (IP66/IP67) is
+  the option (brain-box size $356).
+- **Power box:** Hammond PCJ12106H (12 × 10 × 6 in), fits the SDR-240's depth.
+- **Brain box:** Hammond PCJ181610H ($139–$145) fits an SFF PC plus gateway.
+- **Glands:** Lapp SKINTOP ST-M M20, IP68; 11 per node box (4 pixel, 1 DC,
+  6 Ethernet with RJ45s crimped inside).
+- **Vents:** the Gore PMF100318 is undersized (M12 × 1, boxes up to 5 L). Amphenol
+  LTW VENT-PS1YBK-O8002 (M12 × 1.5, about $3) is the budgeted part.
+- **Sun shields:** no maker sells one for these boxes. nVent Hoffman's wall-mount
+  shield ($357) measured about 56 % less temperature rise, so shading works;
+  DIY white aluminium on standoffs is budgeted at $40–$120 a box (33 boxes).
+- **Loggers:** Onset HOBO MX2303 (probes −40 to 100 °C, $255) or Elitech RC-5+ TE
+  ($21, only to 70 °C).
+- **Parts rated at or below what a box in the sun may reach:** USW-Ultra 60 °C,
+  consumer PCs 35–40 °C, UCG 40 °C, APC UPS 40 °C, powerCON 40 °C (IEC 60320-1),
+  breakers calibrated at 40 °C. Log a real box first.
+
 ## Open questions
 
 1. Truss profile and the space available inside it for a box.
@@ -46,4 +69,5 @@ power boxes**. Power and data never share a box.
 
 - [ ] Measure the truss and the available volume
 - [ ] Log the temperature inside a V1 box in the sun
-- [ ] Choose an enclosure family and connector strategy
+- [x] Price an enclosure family (Hammond PCJ) and a connector strategy
+- [ ] Decide the IP target (IP66 boxes as budgeted, or IP67)

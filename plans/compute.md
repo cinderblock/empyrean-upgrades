@@ -34,6 +34,24 @@ the weatherproof brain box.
 - A mini PC with a strong integrated GPU (current AMD APUs) as the lower-power
   option.
 
+## Findings from the pricing research
+
+Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
+
+- **Only an industrial PC is rated for a sealed box in the sun.** The Neousys
+  Nuvo-9160GC with an RTX 2000E Ada is −25 to 60 °C, fanless, 8–48 V DC,
+  $6,065–$7,160. The Dell Pro Max Micro (RTX A1000, $3,629) is rated 0–35 °C;
+  the mini PCs (UM890 Pro $919, Beelink SER8 $799) publish no rating.
+- The site budgets a **small build with a low-profile RTX 5060** ($1,600–$2,000,
+  Estimate) for V2, and the industrial PC as the "Built for the heat" stretch
+  goal (the difference, $4,065–$5,560).
+- **DRAM prices are spiking** (Oct 2026): every 32 GB configuration carries it.
+- The **UCG gateway** in the brain box is itself rated only to 40 °C (UCG-Max:
+  −10 to 40 °C).
+- **Backup power:** APC BE600M1 ($101, 0–40 °C) or a Mean Well DRS-240-24 DIN DC
+  UPS ($200, −30 to 70 °C, feeds the industrial PC directly). Listed as an extra.
+- Restore-on-AC-loss is undocumented for the consumer options.
+
 ## Open questions
 
 1. What is "better" measured against? Which features or loads are limited by
@@ -50,4 +68,4 @@ the weatherproof brain box.
 
 - [ ] Baseline benchmark on the current show machine
 - [ ] Define "better": target loads
-- [ ] Shortlist machines
+- [x] Shortlist machines (three tiers priced; `docs/pricing-2026-10.md`)

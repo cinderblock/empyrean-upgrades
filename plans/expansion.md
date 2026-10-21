@@ -31,6 +31,22 @@ yet: **PoE cameras**, **streaming audio to speakers**, and whatever comes after.
   shares links with the sACN bursts.
 - Weatherproofing: expansion ports reachable from outside the node box.
 
+## Findings from the pricing research
+
+Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
+
+- **Cameras:** UniFi G6 Bullet ($233, 4K, IP66, −20 to 50 °C) over the G5 Bullet
+  ($151, IP55, only to 40 °C). The UCG-Ultra **can't run Protect**; recording
+  needs a UCG-Max ($307), which could replace it as the gateway.
+- **Audio:** AXIS C1310-E Mk II PoE horn ($689, IP66, −40 to 60 °C, no AES67
+  listed) or an Aurora DTX-AMP25-M Dante/AES67 PoE amp ($498; needs a speaker
+  and a sealed box; temperature rating not found).
+- **128 spokes (Assumed 12 V WS2815 60/m):** 403 m of strip, 86 BTF 5 m reels,
+  $3,783–$5,044; BTF rates the strip −20 to 40 °C. Plus leads ($594–$914) and a
+  supply set per segment ($97–$302 each). Doubles the mains load: more chains,
+  GFCIs and circuits, not priced.
+- Every device above fits a 30 W PoE+ port.
+
 ## Open questions
 
 1. Which expansion is most likely first: cameras, audio, or 128 spokes?

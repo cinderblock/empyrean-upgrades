@@ -42,6 +42,24 @@ links and gotchas; this file summarises it and tracks what V2 still needs.
 - No IGMP snooping (fine with unicast).
 - Spec: <https://techspecs.ui.com/unifi/switching/usw-ultra>
 
+## Findings from the pricing research
+
+Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
+
+- **USW-Ultra is $142** with the store's surcharge ($129 base), not $129.
+  Ubiquiti lists the 202 W PoE budget **only with the 210 W adapter**; nothing
+  confirms the bare SKU can be set to it on a third-party 54 V supply. If not,
+  the USW-Ultra-210W kit is $219 (+$1,309 for 17).
+- The **Industrial DIN 8 PoE** is $362 (2.5× the Ultra, not "about twice"),
+  −30 to 70 °C, 8 × 60 W PoE, 44–57 V DC. **Listed "available November 2026".**
+  Now the networking half of the "Built for the heat" stretch goal.
+- **Joints:** etherCON NE8MXR1-B-TOP plug ×2 + NE8FFX6-W inline coupler, about
+  $61 a joint; IP65 mated, or unmated with the SCMX-TOP cap. −30 to 80 °C.
+  Amphenol RJField has no inline coupler (box-mount only), about $310 a joint.
+- **Cable:** UISP Cable Pro ($135 / 1000 ft) is shielded Cat5e, solid core,
+  UV-rated, −40 to 80 °C: fine fixed along the truss, not for flexing at
+  joints. Stranded tactical Cat6A (about $537 for 270 ft) is the flexible option.
+
 ## Open questions
 
 1. Bench checks on a real Ultra: barrel polarity (expected centre positive), and
@@ -59,5 +77,5 @@ links and gotchas; this file summarises it and tracks what V2 still needs.
 - [x] Controller addressing by IP or MAC (Empyrean `34644f2`)
 - [ ] Choose the switch (leaning USW-Ultra) and buy one for bench checks
 - [ ] Heat check in a real box
-- [ ] Watertight Ethernet joint between segments
+- [x] Price a watertight Ethernet joint (etherCON plug + inline coupler)
 - [ ] UniFi configuration written down: VLANs, port profiles, RSTP root priority
