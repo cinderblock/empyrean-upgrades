@@ -17,6 +17,10 @@ binds more than one category.
   not yet chosen; see `plans/weatherproofing.md`.)
 - **The network is a ring**: a switch in every node box, daisy-chained, ring closed
   so RSTP routes around a dead segment. (`plans/networking.md`.)
+- **Power comes in at one point**: a single waterproof twist-lock plug, 30–50 A,
+  three-phase preferred, split-phase acceptable, powers the whole ring in one
+  loop. Every joint and power box carries that trunk. (User, 2026-10-21;
+  `plans/power.md`.)
 
 ## Site conditions (design for these)
 

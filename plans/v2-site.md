@@ -67,8 +67,13 @@ wants to raise, and donors can see where their money goes.
        64/128-spoke switch + link to the playground.
 9. [x] Password Worker, unit tests, checked under wrangler dev.
 10. [x] Playwright suite (3 engines), CI workflow, README.
-11. [ ] User review of the local site (dev server). ← current
-12. [ ] Publish: GitHub repo, ops entry, Workers Builds, the password secret.
+11. [ ] User review of the local site (dev server).
+12. [ ] **Power: one 30–50 A waterproof twist-lock feed for the whole ring**
+        (user, 2026-10-21). The site still says "3–6 separately fed chains"
+        (categories.ts power text, RingDiagram's four feeds, the powerCON and
+        GFCI line items). Update all of it from
+        `docs/pricing-power-feed-2026-10.md` once that research lands. ← current
+13. [ ] Publish: GitHub repo, ops entry, Workers Builds, the password secret.
         Needs the user's go-ahead for each piece (see Open questions).
 
 ## Proposed ops change (NOT applied, not written to the ops repo yet)
