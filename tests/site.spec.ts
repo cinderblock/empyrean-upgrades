@@ -11,6 +11,10 @@ test.describe("every page", () => {
     }) => {
       const errors: string[] = [];
       page.on("pageerror", (e) => errors.push(e.message));
+      // A hydration mismatch is only a console error, not a page error.
+      page.on("console", (m) => {
+        if (m.type() === "error") errors.push(m.text());
+      });
       const res = await page.goto(path);
       expect(res?.status()).toBe(200);
       await expect(page.locator("h1")).toHaveCount(1);

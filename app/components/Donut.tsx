@@ -128,8 +128,8 @@ export default function Donut({
             return (
               <text
                 key={d.key}
-                x={x}
-                y={y}
+                x={x.toFixed(2)}
+                y={y.toFixed(2)}
                 className="donut-pct"
                 textAnchor="middle"
                 dominantBaseline="central"
