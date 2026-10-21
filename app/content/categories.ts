@@ -28,6 +28,27 @@ export interface Point {
   body: string;
 }
 
+/** Where a candidate part stands. */
+export type Verdict = "leading" | "stretch" | "considered" | "ruled-out";
+
+export const VERDICT_LABEL: Record<Verdict, string> = {
+  leading: "Leading choice",
+  stretch: "Stretch goal",
+  considered: "Considered",
+  "ruled-out": "Ruled out",
+};
+
+/** A part we looked at for this category, and why it stands where it does. */
+export interface Option {
+  name: string;
+  verdict: Verdict;
+  /** A price as a reader would say it: "$142 each", "about $3,500 the set". */
+  price?: string;
+  why: string;
+  /** The maker's page for it. */
+  url?: string;
+}
+
 export interface Category {
   id: CategoryId;
   name: string;
@@ -38,6 +59,8 @@ export interface Category {
   /** What V2 does about it, in a sentence or two. */
   v2: string;
   points: Point[];
+  /** Parts we compared, leading choice first. */
+  options: Option[];
   /** What we still have to find out before buying. Said honestly. */
   unknowns: string[];
   maturity: Maturity;
@@ -52,7 +75,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     headline: "Sealed power, built into every truss segment",
     today:
       "Mains power reaches the truss over ordinary extension cords and plugs. They aren't rated for rain or dust, and they are run by hand at every build.",
-    v2: "Each of the 16 truss segments carries its own sealed power run with locking, watertight connectors, so joining the truss joins the power. A separate sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
+    v2: "Each of the 16 truss segments carries its own sealed power run with locking, watertight connectors, so joining the truss joins the power. Power comes in at several points around the ring, and a sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
     points: [
       {
         title: "Watertight, locking connectors",
@@ -63,16 +86,52 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         body: "Each segment arrives with its power run in place and daisy-chains to its neighbours. Setup becomes joining segments, not running cable.",
       },
       {
-        title: "Ground-fault protection",
-        body: "A wet, public, outdoor installation gets ground-fault protection on its feeds, and overcurrent protection on every branch.",
+        title: "Several feeds, each protected",
+        body: "At full white the ring could draw up to about 67 A at 120 V: too much for one chain. So it is fed as 3 to 6 separate chains, each with its own ground-fault protection that resets itself after a power cut, and a breaker in every power box.",
       },
       {
         title: "Power boxes apart from data boxes",
         body: "Supplies and mains live in their own boxes. Only low-voltage DC crosses to the electronics, on its own cable.",
       },
     ],
+    options: [
+      {
+        name: "Neutrik powerCON TRUE1 (cable) with TRUE1 TOP (panel)",
+        verdict: "leading",
+        price: "about $820 for every connector and cap on the ring",
+        why: "Locking, rated to be unplugged under load, IP65/67 when mated or capped, 20 A UL. A standard in stage power, so spares are easy to find.",
+        url: "https://www.neutrik.com/en/product/nac3f-true1-l",
+      },
+      {
+        name: "Neutrik TRUE1 TOP cable connectors",
+        verdict: "ruled-out",
+        why: "Named in the first plan, but Neutrik is phasing them out. The TRUE1-L cable parts replace them; the TOP panel parts are still current.",
+        url: "https://www.neutrik.com/en/product/nac3mx-w-top",
+      },
+      {
+        name: "Bulgin Buccaneer 900",
+        verdict: "considered",
+        price: "about $3,500 for the same set",
+        why: "Tougher on paper (IP68 mated, IP69K, 32 A) but over four times the price, a 26-week lead time, and no stated rating for unplugging under load.",
+        url: "https://www.bulgin.com/products/pub/media/import/attachments/900%20Series.pdf",
+      },
+      {
+        name: "12/3 SOOW or SJOOW cord",
+        verdict: "leading",
+        price: "$695–$855 for 500 ft",
+        why: "Sunlight and water resistant, flexible, 25 A. 10/3 would carry more, but at 16.9 mm it is too thick for any TRUE1 connector.",
+        url: "https://www.southwire.com/wire-cable/flexible-cord/600v-royal-soow-cord-with-black-jacket-90-c-msha-approved/p/SPEC70000",
+      },
+      {
+        name: "Mean Well SDR-240-48 for the switch's 54 V",
+        verdict: "leading",
+        price: "$95 each",
+        why: "Adjusts to 54 V and holds full load to 60 °C. The cheaper NDR-240-48 ($48) starts derating at 50 °C, too early for a hot box.",
+        url: "https://www.meanwell.com/Upload/PDF/SDR-240/SDR-240-SPEC.PDF",
+      },
+    ],
     unknowns: [
-      "The LED strips' voltage and watts per pixel, which sets the size of everything else.",
+      "The LED strips' voltage and watts per pixel. At full white the ring could draw 30 to 67 A at 120 V, which sets how many chains, supplies and circuits V2 needs. Measuring one spoke at full white settles it.",
       "Generator or grid at each event, and how many circuits at what current.",
       "Whether V2 keeps today's pixel supplies or replaces them.",
     ],
@@ -104,8 +163,37 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         body: "Sixty-four powered network ports around the ring, ready for cameras, speakers or whatever comes next.",
       },
     ],
+    options: [
+      {
+        name: "UniFi USW-Ultra",
+        verdict: "leading",
+        price: "$142 each",
+        why: "Eight gigabit ports with PoE+, runs from a 50–57 V DC supply, and it is managed by the UniFi gateway the Gate already uses. Rated to 60 °C: the weakest part in the node box.",
+        url: "https://techspecs.ui.com/unifi/switching/usw-ultra",
+      },
+      {
+        name: "UniFi Industrial DIN 8 PoE",
+        verdict: "stretch",
+        price: "$362 each",
+        why: "Rated to 70 °C, with 60 W per port and DIN mounting built in. About 2.5 times the Ultra, and not on sale until November 2026.",
+        url: "https://techspecs.ui.com/unifi/switching/usw-industrial-din-8-poe",
+      },
+      {
+        name: "Neutrik etherCON plug and inline coupler at each joint",
+        verdict: "leading",
+        price: "about $61 a joint",
+        why: "Locking and IP65 when mated, −30 to 80 °C, rated for PoE+. The cable enters the node box through a gland and is crimped inside.",
+        url: "https://www.neutrik.com/en/product/ne8ffx6-w",
+      },
+      {
+        name: "Amphenol RJField",
+        verdict: "considered",
+        price: "about $310 a joint",
+        why: "IP67/68 and a wider temperature range, but there's no inline coupler: it only works mounted on a box wall.",
+      },
+    ],
     unknowns: [
-      "A bench test of the chosen switch on DC power.",
+      "A bench test of the chosen switch on DC power, including whether the bare $142 switch can use its full 202 W PoE budget on our own supply (Ubiquiti only lists that with its own adapter).",
       "Whether a sealed box in the sun stays inside the switch's 60 °C rating.",
     ],
     maturity: "settled",
@@ -128,8 +216,40 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         body: "Powers on after an outage and starts the show without anyone touching it, as today's machine does.",
       },
       {
+        title: "Built for the heat (a stretch goal)",
+        body: "Consumer computers are rated to about 35–40 °C, and a sealed box in the sun gets hotter. The first stretch goal swaps in a fanless industrial computer rated to 60 °C.",
+      },
+      {
         title: "A backup that already works",
         body: "The software already supports a follower machine. The current NUC takes that role.",
+      },
+    ],
+    options: [
+      {
+        name: "Small build with a low-profile GeForce RTX 5060",
+        verdict: "leading",
+        price: "about $1,600–$2,000",
+        why: "A real GPU for the money. Consumer parts, rated to about 35–40 °C, so it needs shade and airflow in the brain box.",
+      },
+      {
+        name: "Neousys Nuvo-9160GC with an RTX 2000E Ada",
+        verdict: "stretch",
+        price: "$6,065–$7,160",
+        why: "Fanless and rated −25 to 60 °C, the only option rated for a sealed box in the sun. Runs from DC, so it can share a battery backup with the network.",
+        url: "https://www.neousys-tech.com/en/product/feature/mezio/nuvo-9160gc-intel-12th-gpu-computing-platform",
+      },
+      {
+        name: "Dell Pro Max Micro with an RTX A1000",
+        verdict: "considered",
+        price: "$3,629",
+        why: "Small and supported, but rated only 0–35 °C and twice the price of the build for a smaller GPU.",
+      },
+      {
+        name: "Mini PC with an AMD Radeon 780M (Minisforum UM890 Pro)",
+        verdict: "considered",
+        price: "$919",
+        why: "Cheap and small, but integrated graphics again, and no published temperature rating.",
+        url: "https://store.minisforum.com/products/minisforum-um890pro-mini-pc",
       },
     ],
     unknowns: [
@@ -149,7 +269,11 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "Rated for dust and rain",
-        body: "Enclosures rated IP65 or better, with every cable entry sealed.",
+        body: "Enclosures rated IP66 and NEMA 4X, UV-stable, with every cable through an IP68 gland and a breather vent that keeps dust out.",
+      },
+      {
+        title: "In the shade",
+        body: "A white aluminium shield over every box, on standoffs. Shading cuts a box's temperature rise by about half.",
       },
       {
         title: "Measured, not guessed",
@@ -158,6 +282,29 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         title: "Swappable on site",
         body: "Any node box can be swapped with a screwdriver without powering down its neighbours, with a complete spare on hand.",
+      },
+    ],
+    options: [
+      {
+        name: "Hammond PCJ hinged polycarbonate boxes",
+        verdict: "leading",
+        price: "$91–$98 for a node box",
+        why: "IP66, NEMA 4X and UV-rated, with stainless hardware. The 14 × 12 × 6 in size fits the switch and the light controller on DIN rail with room to bend 8 pixel cables.",
+        url: "https://asset.solutionsdirectonline.com/doc/Hammond_Manufacturing/hammond_pcj_h_data_sheet.pdf",
+      },
+      {
+        name: "Fibox ARCA",
+        verdict: "considered",
+        price: "$356 for the brain box size",
+        why: "IP66 and IP67, and tougher, at over twice the price. The option if V2 settles on IP67.",
+        url: "https://www.fibox.com/products/arca/ar-20168/8561369",
+      },
+      {
+        name: "nVent Hoffman solar shield",
+        verdict: "considered",
+        price: "$357 each",
+        why: "Measured about 56% less temperature rise, which shows shading works, but it is made for wall-mounted boxes. Simple white aluminium shields do the job for a fraction.",
+        url: "https://www.nvent.com/sites/default/files/acquiadam/assets/Spec-01113.pdf",
       },
     ],
     unknowns: [
@@ -177,7 +324,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "Cameras",
-        body: "Views of the crowd and the rig, for monitoring or streaming.",
+        body: "Views of the crowd and the rig, for monitoring or streaming, recorded on site by a gateway that can store video.",
       },
       {
         title: "Sound around the ring",
@@ -186,6 +333,34 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         title: "128 spokes",
         body: "Twice the spokes. The controllers already have the outputs for it; the strips, mounting and power are what it takes.",
+      },
+    ],
+    options: [
+      {
+        name: "UniFi G6 Bullet camera",
+        verdict: "leading",
+        price: "$233",
+        why: "4K, IP66, rated to 50 °C, and managed with the rest of the network.",
+        url: "https://techspecs.ui.com/unifi/cameras-nvrs/uvc-g6-bullet",
+      },
+      {
+        name: "UniFi G5 Bullet camera",
+        verdict: "ruled-out",
+        price: "$151",
+        why: "Cheaper, but only IP55 and rated to 40 °C.",
+      },
+      {
+        name: "AXIS C1310-E horn speaker, or an Aurora Dante PoE amplifier",
+        verdict: "considered",
+        price: "$689 or $498",
+        why: "The horn is all-weather and powered by the network; the amplifier speaks Dante/AES67 but needs its own speaker and box. The choice waits on what the sound is for.",
+      },
+      {
+        name: "12 V WS2815 strip for 64 more spokes",
+        verdict: "leading",
+        price: "about $3,800–$5,000",
+        why: "Matches what we believe the Gate uses today (not yet confirmed). The light controllers already have the outputs reserved.",
+        url: "https://www.btf-lighting.com/products/ws2815-rgb-addressable-led-strip-dc12v",
       },
     ],
     unknowns: [

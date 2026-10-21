@@ -2,11 +2,13 @@ import { describe, expect, test } from "bun:test";
 import { CATEGORY_IDS } from "./categories";
 import {
   CONTINGENCY,
+  EXTRAS,
   ITEMS,
   TIER_IDS,
   itemRange,
   moneyRange,
   moneyShort,
+  moneyUnit,
   roundUp,
   slicesOf,
   subtotal,
@@ -15,9 +17,14 @@ import {
 } from "./budget";
 
 describe("line items", () => {
-  test("ids are unique", () => {
-    const ids = ITEMS.map((i) => i.id);
+  test("ids are unique, extras included", () => {
+    const ids = [...ITEMS, ...EXTRAS].map((i) => i.id);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  test("only extras say what they depend on", () => {
+    for (const item of ITEMS) expect(item.onlyIf).toBeUndefined();
+    for (const item of EXTRAS) expect(item.onlyIf).toBeTruthy();
   });
 
   test("every item has a known tier and category", () => {
@@ -27,26 +34,25 @@ describe("line items", () => {
     }
   });
 
-  test("ranges run low to high, and quotes are exact", () => {
-    for (const item of ITEMS) {
+  test("ranges run low to high", () => {
+    for (const item of [...ITEMS, ...EXTRAS]) {
       const [lo, hi] = itemRange(item);
       expect(lo).toBeGreaterThan(0);
       expect(hi).toBeGreaterThanOrEqual(lo);
+    }
+  });
+
+  test("a quoted price links to where it was seen", () => {
+    for (const item of [...ITEMS, ...EXTRAS]) {
       if (item.confidence === "quoted") {
-        expect(typeof item.unit).toBe("number");
+        expect(item.source?.url).toMatch(/^https:\/\//);
       }
     }
   });
 
-  test("a quoted price names its source", () => {
-    for (const item of ITEMS.filter((i) => i.confidence === "quoted")) {
-      expect(item.source?.url ?? item.datasheet).toBeTruthy();
-    }
-  });
-
   test("an assumed price says what it assumes", () => {
-    for (const item of ITEMS.filter((i) => i.confidence === "assumed")) {
-      expect(item.note).toBeTruthy();
+    for (const item of [...ITEMS, ...EXTRAS]) {
+      if (item.confidence === "assumed") expect(item.note).toBeTruthy();
     }
   });
 });
@@ -114,5 +120,9 @@ describe("formatting", () => {
     expect(moneyShort(950)).toBe("$950");
     expect(moneyShort(12_900)).toBe("$12.9K");
     expect(moneyShort(4000)).toBe("$4K");
+    expect(moneyUnit(14.57)).toBe("$14.57");
+    expect(moneyUnit(42)).toBe("$42");
+    expect(moneyUnit(126.45)).toBe("$126");
+    expect(moneyRange([2.48, 4.17], moneyUnit)).toBe("$2.48–$4.17");
   });
 });

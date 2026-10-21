@@ -3,12 +3,19 @@ import LineItems from "../components/LineItems";
 import RingDiagram from "../components/RingDiagram";
 import SegmentDiagram from "../components/SegmentDiagram";
 import Shell from "../components/Shell";
-import { TIERS, itemsIn, moneyRange, subtotal } from "../content/budget";
+import {
+  EXTRAS,
+  TIERS,
+  itemsIn,
+  moneyRange,
+  subtotal,
+} from "../content/budget";
 import {
   CATEGORIES,
   CATEGORY_IDS,
   CATEGORY_LIST,
   MATURITY_LABEL,
+  VERDICT_LABEL,
   type CategoryId,
 } from "../content/categories";
 import { pageMeta } from "../meta";
@@ -40,6 +47,7 @@ export default function Plan() {
   const index = CATEGORY_IDS.indexOf(id);
   const next = CATEGORY_LIST[(index + 1) % CATEGORY_LIST.length];
   const all = itemsIn({ category: id });
+  const extras = itemsIn({ category: id }, EXTRAS);
   const diagram = DIAGRAM[id];
 
   return (
@@ -109,7 +117,44 @@ export default function Plan() {
               />
             );
           })}
+          {extras.length > 0 && (
+            <LineItems
+              items={extras}
+              caption="Only if needed (not in the totals)"
+              extras
+            />
+          )}
         </section>
+
+        {c.options.length > 0 && (
+          <section className="section section-tight" aria-labelledby="options">
+            <h2 id="options">Choosing the parts</h2>
+            <p className="section-lede">
+              What we looked at, and why the leading choice leads. Specs are
+              from the makers' datasheets.
+            </p>
+            <ul className="options">
+              {c.options.map((o) => (
+                <li key={o.name} className={`option option-${o.verdict}`}>
+                  <span className={`verdict verdict-${o.verdict}`}>
+                    {VERDICT_LABEL[o.verdict]}
+                  </span>
+                  <h3>
+                    {o.url ? (
+                      <a href={o.url} target="_blank" rel="noreferrer">
+                        {o.name}
+                      </a>
+                    ) : (
+                      o.name
+                    )}
+                  </h3>
+                  {o.price && <p className="option-price">{o.price}</p>}
+                  <p>{o.why}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <section className="section section-tight" aria-labelledby="unknowns">
           <h2 id="unknowns">Still to find out</h2>

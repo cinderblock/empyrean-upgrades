@@ -4,6 +4,7 @@ import Shell from "../components/Shell";
 import {
   CONFIDENCE,
   CONTINGENCY,
+  EXTRAS,
   ITEMS,
   itemsIn,
   money,
@@ -34,9 +35,10 @@ export default function Budget() {
         <p className="kicker">Budget</p>
         <h1>Every line item</h1>
         <p className="lede">
-          {ITEMS.length} line items across the goal and three stretch goals.
-          Each price says how sure we are of it; tap the label for what that
-          means and where the number came from.
+          {ITEMS.length} line items across the goal and three stretch goals, and{" "}
+          {EXTRAS.length} extras we'd buy only if needed. Each price says how
+          sure we are of it; tap the label for what that means and where the
+          number came from.
         </p>
         <ul className="confidence-key">
           {(Object.keys(CONFIDENCE) as Confidence[]).map((c) => (
@@ -116,9 +118,19 @@ export default function Budget() {
         </section>
       ))}
 
-      <p className="section section-tight fine">
-        <Link to="/">Back to the overview</Link>
-      </p>
+      <section className="section section-tight" aria-labelledby="extras">
+        <h2 id="extras">Only if needed</h2>
+        <p className="section-lede">
+          Bought only if something we haven't measured yet turns out to be true.
+          Not counted in any total above.
+        </p>
+        <LineItems items={EXTRAS} caption="Extras" extras />
+        <p className="fine">
+          The research behind every price, with links and spec checks:{" "}
+          <code>docs/pricing-2026-10.md</code> in the plans repo.{" "}
+          <Link to="/">Back to the overview</Link>
+        </p>
+      </section>
     </Shell>
   );
 }

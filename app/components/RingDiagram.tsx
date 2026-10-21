@@ -15,6 +15,12 @@ const STANDBY_AFTER = N / 2 - 1;
 const WAN_AT = 4;
 /** Where the brain box and the gateway are drawn. Not decided yet. */
 const BRAIN_AT = 0;
+/**
+ * Segments per power chain. Full white needs 3 to 6 separately fed chains
+ * (docs/pricing-2026-10.md, load estimate); the diagram draws the middle of
+ * that range, four chains of four.
+ */
+const CHAIN = 4;
 
 type Layer = "power" | "network" | "spokes";
 const LAYERS: { id: Layer; label: string }[] = [
@@ -141,13 +147,15 @@ export default function RingDiagram({
 
           {layers.power && (
             <g className="ring-power">
-              {/* An open chain from the feed: whether it closes is undecided. */}
-              {Array.from({ length: N - 1 }, (_, i) => (
-                <path
-                  key={i}
-                  d={arc(R_POWER, segMid(i) + 0.07, segMid(i + 1) + 0.07)}
-                />
-              ))}
+              {/* Each chain runs from its feed to the end of its last segment. */}
+              {Array.from({ length: N }, (_, i) =>
+                (i + 1) % CHAIN === 0 ? null : (
+                  <path
+                    key={i}
+                    d={arc(R_POWER, segMid(i) + 0.07, segMid(i + 1) + 0.07)}
+                  />
+                ),
+              )}
               {Array.from({ length: N }, (_, i) => {
                 const [x0, y0] = pt(R_POWER, segMid(i) + 0.07);
                 const { x, y } = power(i);
@@ -235,19 +243,29 @@ export default function RingDiagram({
             })()}
 
           {layers.power &&
-            (() => {
-              const [x0, y0] = pt(R_POWER, segMid(0) + 0.07);
-              const [x1, y1] = pt(R_POWER + 10, segMid(0) + 0.07);
-              const [tx, ty] = pt(R_POWER + 6, segMid(0) + 0.3);
+            Array.from({ length: N / CHAIN }, (_, c) => {
+              const a = segMid(c * CHAIN) + 0.07;
+              const [x0, y0] = pt(R_POWER, a);
+              const [x1, y1] = pt(R_POWER + 9, a);
+              const [tx, ty] = pt(R_POWER + 13, a);
+              const left = tx < -1;
               return (
-                <g className="ring-feed">
+                <g key={c} className="ring-feed">
                   <line x1={f(x1)} y1={f(y1)} x2={f(x0)} y2={f(y0)} />
-                  <text x={f(tx)} y={f(ty)} dominantBaseline="central">
-                    Power in
-                  </text>
+                  <circle cx={f(x1)} cy={f(y1)} r="1.6" />
+                  {c === 0 && (
+                    <text
+                      x={f(tx)}
+                      y={f(ty - 3)}
+                      textAnchor={left ? "end" : "start"}
+                      dominantBaseline="central"
+                    >
+                      Power in
+                    </text>
+                  )}
                 </g>
               );
-            })()}
+            })}
 
           {interactive &&
             Array.from({ length: N }, (_, i) => {
@@ -289,7 +307,8 @@ export default function RingDiagram({
           </li>
           <li>
             <span className="key key-power" aria-hidden="true" /> Power, chained
-            segment to segment
+            segment to segment and fed in at several points (3 to 6, set by the
+            pixels' load)
           </li>
         </ul>
 
@@ -346,7 +365,20 @@ export default function RingDiagram({
                 <dt>Power box {seg + 1}</dt>
                 <dd>Supplies for the pixels and the switch, and a breaker</dd>
                 <dt>Joins segment {((seg + 1) % N) + 1}</dt>
-                <dd>One sealed power joint, one sealed Ethernet joint</dd>
+                <dd>
+                  {(seg + 1) % CHAIN === 0
+                    ? "One sealed Ethernet joint; the power chain ends here"
+                    : "One sealed power joint, one sealed Ethernet joint"}
+                </dd>
+                {seg % CHAIN === 0 && (
+                  <>
+                    <dt>Power feed</dt>
+                    <dd>
+                      Mains comes in here, through its own auto-resetting GFCI,
+                      for segments {seg + 1}–{seg + CHAIN}
+                    </dd>
+                  </>
+                )}
                 {seg === BRAIN_AT && (
                   <>
                     <dt>Brain box</dt>

@@ -122,7 +122,7 @@ export default function PrintSheet() {
 
       <footer className="ps-foot">
         <p>
-          {DRAFT && <strong>Draft estimates. </strong>}
+          {DRAFT && <strong>Early figures. </strong>}
           Figures as of {SITE.figuresAsOf}: the high end of each estimate, plus
           15% contingency, rounded up. Every line item, its source and how sure
           we are of it: {host}/budget.

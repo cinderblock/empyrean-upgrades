@@ -63,8 +63,8 @@ export default function Shell({ children }: { children: ReactNode }) {
       </header>
       {DRAFT && (
         <p className="draft-banner" role="note">
-          Draft: these figures are early estimates, not quotes. Every number
-          says how sure we are of it.
+          Early figures: most prices are real quotes, some are estimates, and a
+          few rest on things we haven't measured yet. Each says which.
         </p>
       )}
       <main id="main">{children}</main>

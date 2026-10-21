@@ -952,6 +952,10 @@ p {
   fill: var(--ink-muted);
 }
 
+.ring-feed circle {
+  fill: var(--gold);
+}
+
 .ring-num {
   font-size: 5px;
   fill: var(--ink-faint);
@@ -1389,6 +1393,67 @@ p {
   font-size: 0.95rem;
 }
 
+.options {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: 1rem;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-raised);
+}
+
+.option h3 a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+}
+
+.option p {
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+}
+
+.option .option-price {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.option-ruled-out {
+  opacity: 0.7;
+}
+
+/* A verdict is a word first; the colour only echoes it. */
+.verdict {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-muted);
+}
+
+.verdict-leading {
+  border-color: rgba(50, 213, 210, 0.55);
+  color: var(--teal);
+}
+
+.verdict-stretch {
+  border-color: rgba(158, 197, 244, 0.55);
+  color: var(--tier-0);
+}
+
 .unknowns {
   display: grid;
   gap: 0.5rem;
@@ -1453,6 +1518,18 @@ p {
 .items tfoot td {
   font-weight: 600;
   border-bottom: 0;
+}
+
+.item-part {
+  display: block;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  margin-top: 0.1rem;
+}
+
+.item-if {
+  color: var(--gold);
 }
 
 .item-sub {
