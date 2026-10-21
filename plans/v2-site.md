@@ -56,15 +56,20 @@ wants to raise, and donors can see where their money goes.
 ## Plan / steps
 
 1. [x] Initial commit of the planning docs (`956c54a`, before this thread).
-2. [ ] Merge ssg-base; Workers static assets setup like the parent. ← current
-3. [ ] Budget data model + pricing research (`docs/pricing-2026-10.md`).
-4. [ ] Root page: the ask, pie, tiers, category cards.
-5. [ ] Category detail pages, diagrams.
-6. [ ] Print stylesheet (single sheet, colour and greyscale).
-7. [ ] Mini demo (GateRender port from empyreangate.org) + link to the playground.
-8. [ ] Password Worker + tests.
-9. [ ] Publish: GitHub repo, ops entry, Workers Builds. Needs the user's go-ahead
-       for each piece (see Open questions).
+2. [x] Merge ssg-base (`14a45e3`); Workers static assets setup like the parent.
+3. [x] Budget data model (`app/content/budget.ts`), with draft figures.
+4. [ ] Replace the draft figures with the pricing research
+       (`docs/pricing-2026-10.md`, a background agent). ← current
+5. [x] Overview: the ask, tier ladder, donut, category cards, ring diagram.
+6. [x] Category pages and the segment diagram; /budget.
+7. [x] Print: a dedicated one-page handout, colour and greyscale.
+8. [x] Mini demo (render copied from empyreangate.org `f6f02be`) with a
+       64/128-spoke switch + link to the playground.
+9. [x] Password Worker, unit tests, checked under wrangler dev.
+10. [x] Playwright suite (3 engines), CI workflow, README.
+11. [ ] User review of the local site (dev server).
+12. [ ] Publish: GitHub repo, ops entry, Workers Builds, the password secret.
+        Needs the user's go-ahead for each piece (see Open questions).
 
 ## Proposed ops change (NOT applied, not written to the ops repo yet)
 
@@ -90,12 +95,35 @@ ops checkout had another thread's uncommitted changes in this very file on
 
 ## Findings / gotchas
 
-- (none yet)
+- **workerd refuses non-handler named exports from the main module.**
+  `wrangler dev` failed with "Incorrect type for map entry 'COOKIE': the
+  provided value is not of type 'function or ExportedHandler'" while
+  worker/index.ts exported constants for its tests. Fix: the logic lives in
+  worker/lock.ts; index.ts exports only `default { fetch }`. Bun unit tests
+  don't catch this; only the real runtime does.
+- **Git Bash rewrites curl arguments that look like paths**: `-d next=/budget/`
+  reached the Worker as `C:/Program Files/Git/budget/`. Use
+  `MSYS_NO_PATHCONV=1` when testing redirects by hand.
+- **oxfmt has no "auto" end of line.** Pinned `endOfLine: crlf` and
+  `.gitattributes * text=auto eol=crlf`, so checkouts are CRLF on Windows and
+  on CI alike (the parent site chose LF instead).
+- **The prerendered print sheet must not carry a second h1** (Playwright caught
+  it): its title is a styled `<p>`.
+- **Tip stale closure**: a hover-open followed by a click closed the tip when
+  the hover's render hadn't committed. The click reads a ref now.
+- The dev server logs "transport was disconnected, cannot call fetchModule"
+  once when many files change at once (a mass `oxfmt --write`). It restarts
+  itself; not a bug in the site.
+- Print checks without poppler: `tmp/print-shot.ts` (gitignored) screenshots
+  print media at Letter width, in colour and greyscale; the Playwright suite
+  counts PDF pages.
 
 ## Progress log
 
 - [x] Read the repo docs, parent site README/deploy, ops config
-- [ ] Scaffold
+- [x] Scaffold, pages, print, demo, lock, tests, CI (`efd4101`, `245977a`)
+- [ ] Real prices in budget.ts; then `DRAFT = false` only when the user agrees
+- [ ] Publish
 
 ## Open questions for the user
 
@@ -103,6 +131,14 @@ ops checkout had another thread's uncommitted changes in this very file on
    Workers Builds needs one. Recommendation: yes, private.
 2. Apply the ops change above (worker + custom domain)?
 3. The password itself (set as a Worker secret, never committed).
+4. The "Give" button points at the same Givsum page empyreangate.org uses
+   (Entheos Community Village). Is that the right place for V2 money, or does
+   V2 want its own fund/page? Recommendation: confirm with whoever holds it.
+5. Contact for larger gifts: the site says "reach the crew through Entheos".
+   Want a direct email instead?
+6. The stretch-goal tiers and their order (Hardened, Eyes and ears, 128
+   spokes) are my proposal. Reorder or rename?
+7. Contingency 15%, rounding to $500: OK?
 
 ## Things not to do
 
