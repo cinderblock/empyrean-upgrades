@@ -35,10 +35,14 @@ export default function Tip({
   useEffect(() => {
     if (!open) return;
     const onDown = (e: PointerEvent) => {
-      if (!root.current?.contains(e.target as Node)) setOpen(false);
+      if (root.current?.contains(e.target as Node)) return;
+      byHover.current = false;
+      setOpen(false);
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key !== "Escape") return;
+      byHover.current = false;
+      setOpen(false);
     };
     document.addEventListener("pointerdown", onDown);
     document.addEventListener("keydown", onKey);
@@ -74,7 +78,9 @@ export default function Tip({
         setOpen(true);
       }}
       onPointerLeave={(e) => {
-        if (e.pointerType === "mouse" && byHover.current) setOpen(false);
+        if (e.pointerType !== "mouse" || !byHover.current) return;
+        byHover.current = false;
+        setOpen(false);
       }}
     >
       <button
@@ -83,12 +89,14 @@ export default function Tip({
         aria-expanded={open}
         aria-controls={id}
         onClick={() => {
-          // A click after a hover-open pins it open rather than closing it.
-          if (byHover.current && open) {
+          // A click on a hover-opened tip pins it open rather than closing
+          // it. Read from the ref: the hover's render may not have committed
+          // yet, so `open` here can be stale.
+          if (byHover.current) {
             byHover.current = false;
+            setOpen(true);
             return;
           }
-          byHover.current = false;
           setOpen((o) => !o);
         }}
       >

@@ -31,7 +31,9 @@ export default function PrintSheet() {
       <header className="ps-head">
         <div>
           <p className="ps-kicker">The Empyrean Gate</p>
-          <h1>Version 2: built for the weather, ready to grow</h1>
+          <p className="ps-title">
+            Version 2: built for the weather, ready to grow
+          </p>
           <p className="ps-lede">
             A 50 ft ring of 64 LED spokes over a dance floor. V1 works, but its
             power and boxes aren't weatherproof, one switch carries the whole

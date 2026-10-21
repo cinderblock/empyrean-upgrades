@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import worker, { COOKIE, UNLOCK_PATH, accessToken, type Env } from "./index";
+import worker from "./index";
+import { COOKIE, UNLOCK_PATH, accessToken, type Env } from "./lock";
 
 const PASSWORD = "ring of light";
 
