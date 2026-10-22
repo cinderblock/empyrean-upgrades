@@ -56,6 +56,11 @@ wants to raise, and donors can see where their money goes.
   build is now a considered option. "Built for the heat" holds only the
   industrial switches. V2 goal $43,000; cumulative $47,500 / $49,500 /
   $62,000.
+- **Source drawings stay out of the repo for now** (user, 2026-10-22: "we
+  don't need to include these images in the repo... we could change that
+  decision though"). Applies to the Entheos sheets A-06/A-07 and the three V1
+  layout PDFs (`EG AC Power`, `EG Network Cabling`, `EG Strip plugs`): their
+  facts live in `docs/v1-hardware.md`, the files don't. Reversible.
 - **Larger gifts: James Logistic** (user, 2026-10-21). The site names him
   and points through Entheos; no email published yet (the repo is public).
 
