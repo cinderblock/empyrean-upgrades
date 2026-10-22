@@ -81,6 +81,12 @@ prices are search snippets or estimates (rigging dealers sell by quote).
 - The spread comes from: reusing the V1 legs or not, load monitoring
   ($2–25K), and the engineering fee ($3–15K).
 
+## Weight on the ring
+
+If panels or a service walkway go on top of the ring (`plans/solar.md`), the
+hoists lift them too: about 650 kg of panels for 12 kW, plus racking. Size
+the hoists and check the truss with that in.
+
 ## Open questions
 
 1. ~~What truss is it~~ Tomcat 12" light-duty (A-06). How do the legs meet

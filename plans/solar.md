@@ -37,6 +37,25 @@ Research under way: `docs/pricing-solar-2026-10.md` (energy budget, battery,
 array and inverter sizing, products, a hybrid with a small generator, and how
 other camps do it).
 
+## Panels on top of the ring?
+
+**Idea (user, 2026-10-22): solar panels, or a service walkway, on top of
+the ring**, which would also shade the boxes in the truss ("moot if we add
+solar on top... not sure though. could be nice to add a platform on top for
+walking for service... doubles as shade"). Rough numbers (reasoning, not
+researched):
+
+- The ring top is 16 arcs of about 3.57 m on a 0.3 m (12") truss. Panels
+  (about 2.3 × 1.1 m, 460 W) laid along it fit about one per arc: **about
+  7.4 kW**. Laid across, two or three per arc overhang about 1 m each side:
+  12–22 kW, enough for the solar goal's 12 kW (26 panels).
+- **Weight at 21 ft**: 26 panels are about 650 kg, plus racking, on a
+  **light-duty** truss; the self-climbing hoists would lift it too. Needs
+  Tomcat's load table for the TC 1212 and a wind check (panels are sails).
+- **A walkway** for service at 21 ft needs a rated deck, fall-arrest anchors
+  and a truss rated for people and point loads; light-duty truss may not be.
+- If it happens, the sun shields (and maybe the solar racking line) go away.
+
 ## Open questions
 
 1. The speakers: what system, how many watts on average, and for how many
