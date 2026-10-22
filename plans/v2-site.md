@@ -93,9 +93,10 @@ wants to raise, and donors can see where their money goes.
           0 to update, 0 to delete; the verify pass was 0/0/0.
     - [x] `SITE_PASSWORD` secret set on `empyreangate-v2` with
           `wrangler secret put` (2026-10-21).
-    - [ ] **Workers Builds**: the user connects the repo in the Cloudflare
-          dashboard (settings in README → Deployment), as for the parent.
-          Until then v2.empyreangate.org is ops' 503 stub.
+    - [x] **Workers Builds**: connected by the user in the Cloudflare
+          dashboard (2026-10-21), settings as in README → Deployment. The
+          GitHub app ("Cloudflare Workers and Pages") needed access to the new
+          repo. Connecting doesn't build; the first build waits for a push.
     - [ ] Verify: the lock page, `?key=` unlock, every page, robots, headers.
 
 ## The ops change (applied 2026-10-21, ops `7b23091`)
@@ -163,7 +164,8 @@ of them.
 - [x] Repo public, ops applied, password secret set (2026-10-21)
 - [x] The same at-rest spoke bug fixed in empyreangate.org: PR #3 against
       its `dev` (github.com/cinderblock/empyreangate.org/pull/3), with a test
-- [ ] Workers Builds connected (user, dashboard) and the first deploy verified
+- [x] Workers Builds connected (user, dashboard, 2026-10-21)
+- [ ] First deploy verified
 
 ## Open questions for the user
 
