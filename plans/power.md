@@ -29,7 +29,7 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   wet outdoor public installation.
 - **Local outlets** (user, 2026-10-21): each segment's power box also has "a
   handful" of 120 V outlets for things mounted in that segment, behind the
-  segment's ground-fault protection. Count and type to confirm; priced at 4.
+  segment's ground-fault protection. **Four per box** (user, 2026-10-21).
   In the budget (`power-outlets`): a die-cast 2-gang weatherproof box bolted
   to the power box, two 20 A weather-resistant duplexes, an extra-duty in-use
   cover; $45–97 a box, $773–1,656 for 17 (`docs/pricing-joint-cords-2026-10.md`

@@ -13,6 +13,8 @@ export const SITE = {
   /** The same donation page empyreangate.org uses. */
   donate: "https://www.givsum.com/charities/entheos-community-village",
   entheos: "https://www.entheosrising.org/",
+  /** Who to talk to about a larger gift. */
+  giftsContact: "James Logistic",
   /** When the figures on the site were last gathered. */
   figuresAsOf: "2026-10-21",
 } as const;

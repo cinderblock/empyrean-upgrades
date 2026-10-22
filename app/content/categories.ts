@@ -240,7 +240,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     headline: "A show computer with a real graphics card",
     today:
       "An Intel NUC with integrated graphics renders all 24,192 pixels sixty times a second, plus the live preview, video layers and patterns. It is at its limit.",
-    v2: "A show computer with a discrete GPU, in a sealed brain box, that starts the show by itself after a power cut. Today's NUC stays on as the backup.",
+    v2: "A fanless industrial show computer with a discrete GPU, rated for a sealed brain box in the sun, that starts the show by itself after a power cut. Today's NUC stays on as the backup.",
     points: [
       {
         title: "Headroom for the patterns",
@@ -251,8 +251,8 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         body: "Powers on after an outage and starts the show without anyone touching it, as today's machine does.",
       },
       {
-        title: "Built for the heat (a stretch goal)",
-        body: "Consumer computers are rated to about 35–40 °C, and a sealed box in the sun gets hotter. The first stretch goal swaps in a fanless industrial computer rated to 60 °C.",
+        title: "Built for the heat",
+        body: "Consumer computers are rated to about 35–40 °C, and a sealed box in the sun gets hotter. V2's computer is fanless and rated to 60 °C.",
       },
       {
         title: "A backup that already works",
@@ -261,17 +261,17 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     ],
     options: [
       {
-        name: "Small build with a low-profile GeForce RTX 5060",
-        verdict: "leading",
-        price: "about $1,600–$2,000",
-        why: "A real GPU for the money. Consumer parts, rated to about 35–40 °C, so it needs shade and airflow in the brain box.",
-      },
-      {
         name: "Neousys Nuvo-9160GC with an RTX 2000E Ada",
-        verdict: "stretch",
+        verdict: "leading",
         price: "$6,065–$7,160",
         why: "Fanless and rated −25 to 60 °C, the only option rated for a sealed box in the sun. Runs from DC, so it can share a battery backup with the network.",
         url: "https://www.neousys-tech.com/en/product/feature/mezio/nuvo-9160gc-intel-12th-gpu-computing-platform",
+      },
+      {
+        name: "Small build with a low-profile GeForce RTX 5060",
+        verdict: "considered",
+        price: "about $1,600–$2,000",
+        why: "A real GPU for the money, but consumer parts are rated to about 35–40 °C: too low for a sealed box in the sun.",
       },
       {
         name: "Dell Pro Max Micro with an RTX A1000",

@@ -50,6 +50,14 @@ wants to raise, and donors can see where their money goes.
 - The ops change (worker + domain) was approved (user, 2026-10-21) and applied.
 - The password was given by the user in chat (2026-10-21) and set as the
   `SITE_PASSWORD` secret on `empyreangate-v2`.
+- **Contingency 15 %, goals rounded up to $500** (user, 2026-10-21: "good
+  idea. round up").
+- **The industrial PC is in the V2 goal** (user, 2026-10-21). The consumer
+  build is now a considered option. "Built for the heat" holds only the
+  industrial switches. V2 goal $43,000; cumulative $47,500 / $49,500 /
+  $62,000.
+- **Larger gifts: James Logistic** (user, 2026-10-21). The site names him
+  and points through Entheos; no email published yet (the repo is public).
 
 ## Design
 
@@ -180,19 +188,22 @@ of them.
 
 ## Open questions for the user
 
-1. The "Give" button points at the same Givsum page empyreangate.org uses
-   (Entheos Community Village). Is that the right place for V2 money, or does
-   V2 want its own fund/page? Recommendation: confirm with whoever holds it.
-2. Contact for larger gifts: the site says "reach the crew through Entheos".
-   Want a direct email instead?
-3. The stretch-goal tiers and their order (Built for the heat, Eyes and
-   ears, 128 spokes) are my proposal. Reorder or rename?
-4. Contingency 15%, rounding to $500: OK?
-5. Compute in the V2 goal is a ~$1,600–$2,000 consumer build (rated to about
-   35–40 °C); the industrial PC rated for the heat is the first stretch goal.
-   Put the industrial PC in the V2 goal instead (+about $5K)? Recommendation:
-   decide after logging a real box's temperature.
-6. Sun shields on all 33 boxes are in the V2 goal ($1,320–$3,960). Keep?
+1. The "Give" button points at the Givsum page empyreangate.org uses (Entheos
+   Community Village). User, 2026-10-21: "entheos? i gotta ask james".
+   Waiting on James.
+2. Publish a direct email for James Logistic as the larger-gifts contact?
+   The repo is public, so an address there gets harvested; the site itself
+   is behind the password. Recommendation: only with James's OK, and
+   ideally a role address rather than a personal one.
+3. The stretch-goal tiers and their order (Built for the heat, now just the
+   industrial switches at $4,500; Eyes and ears; 128 spokes) are my
+   proposal. Keep, rename, reorder, or fold "Built for the heat" into V2?
+4. Sun shields on all 33 boxes ($1,320–$3,960). User, 2026-10-21: "maybe
+   excessive? how much does this help? i guess if it's built into the truss
+   it's easy". Answered with the Hoffman figure; proposal: one shield per
+   segment over both boxes. Waiting on the user.
+5. Remove the draft banner? Recommendation: after the open prices above
+   settle.
 
 ## Things not to do
 

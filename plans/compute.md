@@ -25,7 +25,9 @@ the weatherproof brain box.
 
 ## Decisions already made (don't re-ask)
 
-- (none yet)
+- **The fanless industrial PC is the V2 show computer** (user, 2026-10-21):
+  the Neousys Nuvo-9160GC with an RTX 2000E Ada, $6,065–$7,160, in the V2
+  goal. The consumer build is a considered option only.
 
 ## Options to evaluate
 
@@ -42,9 +44,9 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
   Nuvo-9160GC with an RTX 2000E Ada is −25 to 60 °C, fanless, 8–48 V DC,
   $6,065–$7,160. The Dell Pro Max Micro (RTX A1000, $3,629) is rated 0–35 °C;
   the mini PCs (UM890 Pro $919, Beelink SER8 $799) publish no rating.
-- The site budgets a **small build with a low-profile RTX 5060** ($1,600–$2,000,
-  Estimate) for V2, and the industrial PC as the "Built for the heat" stretch
-  goal (the difference, $4,065–$5,560).
+- The site first budgeted a **small build with a low-profile RTX 5060**
+  ($1,600–$2,000, Estimate) for V2, with the industrial PC as a stretch goal.
+  Superseded 2026-10-21: the industrial PC is in the V2 goal.
 - **DRAM prices are spiking** (Oct 2026): every 32 GB configuration carries it.
 - The **UCG gateway** in the brain box is itself rated only to 40 °C (UCG-Max:
   −10 to 40 °C).

@@ -52,13 +52,13 @@ export const TIERS: Tier[] = [
     id: "core",
     name: "V2",
     promise:
-      "Weatherproof power and boxes, the ring network, and a show computer with a real GPU.",
+      "Weatherproof power and boxes, the ring network, and a fanless show computer with a real GPU, rated for the heat.",
   },
   {
     id: "hardened",
     name: "Built for the heat",
     promise:
-      "Industrial switches and a fanless industrial show computer, rated for a sealed box in the desert sun.",
+      "Industrial switches rated to 70 °C, for a sealed box in the desert sun.",
   },
   {
     id: "senses",
@@ -499,29 +499,14 @@ export const ITEMS: LineItem[] = [
   },
   // --- Compute -------------------------------------------------------------
   {
-    id: "compute-pc",
-    category: "compute",
-    tier: "core",
-    name: "Show computer: small build with a low-profile GPU",
-    part: "Mini-ITX with a GeForce RTX 5060 Low Profile",
-    qty: 1,
-    unit: [1600, 2000],
-    confidence: "estimate",
-    source: {
-      label: "BuildCores (GPU)",
-      url: "https://www.buildcores.com/products/GPU/ortf45z0f/GIGABYTE-GeForce-RTX-5060-OC-Low-Profile-8G-GDDR7",
-    },
-    note: "Consumer parts are rated to about 35–40 °C, below what a sealed box in the sun reaches; the 'Built for the heat' goal replaces it with an industrial machine. Memory prices are unusually high this month.",
-  },
-  {
     id: "compute-industrial",
     category: "compute",
-    tier: "hardened",
-    name: "Fanless industrial show computer instead (the difference)",
+    tier: "core",
+    name: "Fanless industrial show computer",
     part: "Neousys Nuvo-9160GC, RTX 2000E Ada 16 GB, wide-temperature memory",
     detail: "Rated −25 to 60 °C, runs on DC.",
     qty: 1,
-    unit: [4065, 5560],
+    unit: [6065, 7160],
     confidence: "estimate",
     source: {
       label: "Coast IPC",
@@ -529,7 +514,7 @@ export const ITEMS: LineItem[] = [
     },
     datasheet:
       "https://www.neousys-tech.com/en/product/feature/mezio/nuvo-9160gc-intel-12th-gpu-computing-platform",
-    note: "Quoted at $6,065–$7,160 by a reseller, less the small build it replaces.",
+    note: "Reseller prices; the range is the memory and storage options. Consumer parts are rated to about 35–40 °C, below what a sealed box in the sun reaches.",
   },
   // --- Weatherproofing -----------------------------------------------------
   {

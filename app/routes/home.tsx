@@ -186,7 +186,7 @@ export default function Home() {
           <p className="section-lede">
             Every dollar goes to parts on the budget, starting with V2 itself.
             To talk about a larger gift, a part you can donate, or a stretch
-            goal you'd like to adopt, reach the crew through{" "}
+            goal you'd like to adopt, talk to {SITE.giftsContact}, through{" "}
             <a href={SITE.entheos} target="_blank" rel="noreferrer">
               Entheos
             </a>
