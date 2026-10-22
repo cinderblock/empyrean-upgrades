@@ -118,6 +118,17 @@ wants to raise, and donors can see where their money goes.
           `tmp/verify-live.ts <password>` (gitignored; copy it out if it should
           be kept).
 
+14. [ ] **Feed ampacity: show 30 A and 50 A side by side** (user, 2026-10-21:
+        open to more ampacity for maximum expansion, or both options with
+        prices). Research: `docs/pricing-feed-options-2026-10.md`. ← current
+15. [ ] **New category: Rigging, a self-climbing ring** (user, 2026-10-21),
+        two options: pass-through arcs, or a shelf on each vertical. A
+        stretch goal. Plan `plans/rigging.md`; research
+        `docs/pricing-self-climbing-2026-10.md`. ← current
+16. [ ] **New stretch goal: solar**, possibly enough for the speakers (user,
+        2026-10-21). Plan `plans/solar.md`; research
+        `docs/pricing-solar-2026-10.md`. ← current
+
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 
 In `cloudflare/config/projects/empyreangate.yaml`, after the empyreangate.org
