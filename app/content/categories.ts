@@ -493,7 +493,6 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
     ],
     unknowns: [
-      "How many legs: six in the 2022 design, eight in the later layout drawings. Every per-leg cost scales with it.",
       "Whether the legs meet the ring at a junction block today, and the ring's weight with everything on it.",
       "Whether the V1 legs can be reused as tower sections.",
       "Three-phase power at setup: the hoists need it.",
