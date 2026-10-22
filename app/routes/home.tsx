@@ -205,7 +205,7 @@ export default function Home() {
           <RingDiagram />
         </section>
 
-        <section className="section split demo" aria-labelledby="demo">
+        <section className="section split demo night" aria-labelledby="demo">
           <div>
             <h2 id="demo">See it move</h2>
             <p className="section-lede">

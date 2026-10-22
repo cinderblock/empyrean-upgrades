@@ -9,7 +9,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#06060f" />
+        {/* Before the stylesheet loads, so the browser's own canvas already
+            matches the system scheme on the first frame. */}
+        <meta name="color-scheme" content="light dark" />
+        <meta
+          name="theme-color"
+          content="#f7f6fb"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#06060f"
+          media="(prefers-color-scheme: dark)"
+        />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <Meta />
         <Links />

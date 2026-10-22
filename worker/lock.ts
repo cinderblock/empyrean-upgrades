@@ -137,30 +137,42 @@ export function lockPage(next: string, message?: string): string {
 <meta name="robots" content="noindex, nofollow">
 <title>Empyrean Gate V2</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#06060f" media="(prefers-color-scheme: dark)">
 <style>
-  :root { color-scheme: dark; }
+  /* The site's tokens (app/styles/global.css), following the system scheme. */
+  :root { color-scheme: light dark;
+    --bg: light-dark(#f7f6fb, #06060f); --bg-raised: light-dark(#fff, #0d0d1c);
+    --ink: light-dark(#17162c, #f2f0f7); --ink-muted: light-dark(#4a475f, #a9a6bd);
+    --line-strong: light-dark(rgba(23,22,44,.22), rgba(255,255,255,.18));
+    --glow: light-dark(rgba(65,63,146,.12), rgba(65,63,146,.35));
+    --teal: light-dark(#087573, #32d5d2); --pink: light-dark(#b8326f, #ffb5d7);
+    --accent-ink: light-dark(#fff, #061213); }
   * { box-sizing: border-box; }
   body { margin: 0; min-height: 100vh; display: grid; place-items: center;
     font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    color: #f2f0f7; background: radial-gradient(50rem 50rem at 70% -10%, rgba(65,63,146,.35), transparent 60%), #06060f; }
+    color: var(--ink); background: radial-gradient(50rem 50rem at 70% -10%, var(--glow), transparent 60%), var(--bg); }
   main { width: min(22rem, calc(100vw - 2.5rem)); text-align: center; }
   svg { width: 7rem; height: 7rem; margin-bottom: 1rem; }
+  .ring-outer { stroke: var(--teal); }
+  .ring-inner { stroke: var(--pink); }
   h1 { font: 500 1.9rem/1.2 Georgia, serif; margin: 0 0 .25rem; letter-spacing: .02em; }
-  p { color: #a9a6bd; margin: 0 0 1.5rem; }
+  p { color: var(--ink-muted); margin: 0 0 1.5rem; }
   form { display: grid; gap: .75rem; }
-  input[type=password] { font: inherit; padding: .7rem .9rem; border-radius: 8px; border: 1px solid rgba(255,255,255,.18);
-    background: #0d0d1c; color: inherit; }
-  input[type=password]:focus-visible, button:focus-visible { outline: 2px solid #ffb5d7; outline-offset: 2px; }
-  button { font: inherit; font-weight: 600; padding: .7rem; border: 0; border-radius: 8px; background: #32d5d2; color: #061213; cursor: pointer; }
-  .error { color: #ffb5d7; margin: 0; }
+  input[type=password] { font: inherit; padding: .7rem .9rem; border-radius: 8px; border: 1px solid var(--line-strong);
+    background: var(--bg-raised); color: inherit; }
+  input[type=password]:focus-visible, button:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+  button { font: inherit; font-weight: 600; padding: .7rem; border: 0; border-radius: 8px; background: var(--teal); color: var(--accent-ink); cursor: pointer; }
+  .error { color: var(--pink); margin: 0; }
   .hidden { display: none; }
 </style>
 </head>
 <body>
 <main>
   <svg viewBox="-50 -50 100 100" aria-hidden="true">
-    <circle r="46" fill="none" stroke="#32d5d2" stroke-opacity=".5" stroke-width="1.5"/>
-    <circle r="16" fill="none" stroke="#ffb5d7" stroke-opacity=".6" stroke-width="1.5"/>
+    <circle class="ring-outer" r="46" fill="none" stroke-opacity=".5" stroke-width="1.5"/>
+    <circle class="ring-inner" r="16" fill="none" stroke-opacity=".6" stroke-width="1.5"/>
     <g stroke="#413f92" stroke-width="1.2">${Array.from(
       { length: 16 },
       (_, i) => {

@@ -88,6 +88,18 @@ wants to raise, and donors can see where their money goes.
   `?key=<password>` in a link does the same, so a donor can get a one-click link.
   Lock on with no secret set fails closed (503). Turning it off: set
   `SITE_LOCK` to `"off"` and push.
+- **Light and dark follow the system** (user, 2026-10-22: "proper light mode,
+  don't assume dark mode... where it doesn't flash at the start"). Every
+  colour token in `app/styles/global.css` is `light-dark(light, dark)` under
+  `color-scheme: light dark`, plus `<meta name="color-scheme">` and a
+  theme-color per scheme in `app/root.tsx`. No script and no toggle, so the
+  first paint is already right. The password page does the same. Light values:
+  the dataviz palette's light steps (as print used), the house teal/pink/gold
+  deepened to ≥5:1 on the page. The demo stays dark in both (additive LEDs on a
+  transparent canvas): `.night` is a full-width band that fades in and out of
+  the light page. Gotcha: Vite's minifier (Lightning CSS) polyfills
+  `light-dark()` by resolving it where a token is declared, so the tokens are
+  declared on `:root, .night`, not inherited, or the band stays light.
 
 ## Plan / steps
 
@@ -160,6 +172,9 @@ wants to raise, and donors can see where their money goes.
         Research: `docs/pricing-vj-console-2026-10.md`. Done 2026-10-22:
         Stretch goal 3 (before 128 spokes, which stays last, as the demo's
         text says), $4,500, option A.
+
+19. [x] **Light mode, following the system** (user, 2026-10-22). See Design.
+        Tests: `colour scheme` in `tests/site.spec.ts`, with JavaScript off.
 
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 

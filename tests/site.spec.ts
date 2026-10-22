@@ -144,6 +144,37 @@ test.describe("budget", () => {
   });
 });
 
+test.describe("colour scheme", () => {
+  const SCHEMES = {
+    light: { bg: "rgb(247, 246, 251)", ink: "rgb(23, 22, 44)" },
+    dark: { bg: "rgb(6, 6, 15)", ink: "rgb(242, 240, 247)" },
+  } as const;
+  const NIGHT_INK = SCHEMES.dark.ink;
+
+  for (const [scheme, want] of Object.entries(SCHEMES)) {
+    test.describe(scheme, () => {
+      // No script: the stylesheet alone picks the scheme, so the first paint
+      // is already right and nothing flashes.
+      test.use({
+        colorScheme: scheme as keyof typeof SCHEMES,
+        javaScriptEnabled: false,
+      });
+
+      test("follows the system before any script runs", async ({ page }) => {
+        await page.goto("/");
+        const html = page.locator("html");
+        await expect(html).toHaveCSS("background-color", want.bg);
+        await expect(html).toHaveCSS("color", want.ink);
+      });
+
+      test("the demo is always night", async ({ page }) => {
+        await page.goto("/");
+        await expect(page.locator(".demo h2")).toHaveCSS("color", NIGHT_INK);
+      });
+    });
+  }
+});
+
 test.describe("print", () => {
   test("the overview prints the handout and nothing else", async ({ page }) => {
     await page.goto("/");

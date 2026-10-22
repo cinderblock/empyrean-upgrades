@@ -1,6 +1,9 @@
 /* ---------------------------------------------------------------------------
- * Empyrean Gate V2. Dark on screen, like empyreangate.org: the piece exists
- * at night. Print is its own light layout (see "Print" at the end).
+ * Empyrean Gate V2. Follows the system's light or dark setting. Every colour
+ * is a token written as light-dark(light, dark), so the stylesheet alone picks
+ * the scheme before first paint: no script, no flash. `.night` forces the dark
+ * values on a subtree (the demo: LEDs are light on a dark sky). Print is its
+ * own light layout (see "Print" at the end).
  * ------------------------------------------------------------------------- */
 
 *,
@@ -12,49 +15,67 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
+}
 
-  --bg: #06060f;
-  --bg-raised: #0d0d1c;
+/* The colour tokens are declared again on `.night`, not just inherited: the
+ * build's minifier (Lightning CSS) polyfills light-dark() by resolving it
+ * where the token is declared, so a token only declared on :root would keep
+ * the page's scheme inside the night band. */
+:root,
+.night {
+  --bg: light-dark(#f7f6fb, #06060f);
+  --bg-raised: light-dark(#ffffff, #0d0d1c);
   --surface: var(--bg-raised);
-  --ink: #f2f0f7;
-  --ink-muted: #a9a6bd;
-  --ink-faint: #75728e;
-  --line: rgba(255, 255, 255, 0.09);
-  --line-strong: rgba(255, 255, 255, 0.18);
+  --ink: light-dark(#17162c, #f2f0f7);
+  --ink-muted: light-dark(#4a475f, #a9a6bd);
+  --ink-faint: light-dark(#666379, #75728e);
+  --line: light-dark(rgba(23, 22, 44, 0.11), rgba(255, 255, 255, 0.09));
+  --line-strong: light-dark(rgba(23, 22, 44, 0.22), rgba(255, 255, 255, 0.18));
+  /* A wash of ink, for hover and active rows. */
+  --hover: color-mix(in srgb, var(--ink) 6%, transparent);
+  --shadow: light-dark(rgba(23, 22, 44, 0.14), rgba(0, 0, 0, 0.45));
+  --tip-bg: light-dark(#ffffff, #1a1a2e);
 
-  /* The house palette: nebula indigo, ring teal, glitter pink, ember gold. */
+  /* The house palette: nebula indigo, ring teal, glitter pink, ember gold.
+   * On light, each is taken deep enough to read as text on --bg. */
   --indigo: #413f92;
-  --teal: #32d5d2;
-  --pink: #ffb5d7;
-  --gold: #ffb347;
+  --teal: light-dark(#087573, #32d5d2);
+  --pink: light-dark(#b8326f, #ffb5d7);
+  --gold: light-dark(#955200, #ffb347);
 
   --accent: var(--teal);
-  --accent-ink: #061213;
+  --accent-ink: light-dark(#ffffff, #061213);
+
+  --glow-indigo: light-dark(rgba(65, 63, 146, 0.1), rgba(65, 63, 146, 0.28));
+  --glow-teal: light-dark(rgba(8, 117, 115, 0.06), rgba(50, 213, 210, 0.07));
 
   /* Chart series: one fixed slot per category, in category order, never
-   * reassigned (the dataviz reference palette's dark steps, validated on
-   * --bg-raised: lightness band, chroma, CVD and contrast all pass).
-   * Contingency is not a category, so it is neutral grey. */
-  --series-power: #3987e5;
-  --series-networking: #d95926;
-  --series-compute: #199e70;
-  --series-weatherproofing: #c98500;
-  --series-expansion: #d55181;
-  /* Slots 6–8 of the same validated palette (dark surface). */
+   * reassigned (the dataviz reference palette: light steps validated on
+   * white, dark steps on --bg-raised; lightness band, chroma, CVD and
+   * contrast all pass). Contingency is not a category, so it is neutral grey. */
+  --series-power: light-dark(#2a78d6, #3987e5);
+  --series-networking: light-dark(#eb6834, #d95926);
+  --series-compute: light-dark(#1baf7a, #199e70);
+  --series-weatherproofing: light-dark(#eda100, #c98500);
+  --series-expansion: light-dark(#e87ba4, #d55181);
+  /* Slots 6–8 of the same validated palette. */
   --series-rigging: #008300;
-  --series-solar: #9085e9;
-  --series-transport: #e66767;
-  --series-contingency: #5c5a70;
-  --texture-ink: rgba(0, 0, 0, 0.45);
+  --series-solar: light-dark(#6250d6, #9085e9);
+  --series-transport: light-dark(#e34948, #e66767);
+  --series-contingency: light-dark(#c9c9cf, #5c5a70);
+  --texture-ink: light-dark(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.45));
 
-  /* Tiers are ordered, so one hue, brightest first (validated --ordinal). */
-  --tier-0: #9ec5f4;
-  --tier-1: #6da7ec;
-  --tier-2: #3987e5;
-  --tier-3: #256abf;
-  --tier-4: #184f95;
+  /* Tiers are ordered, so one hue, strongest against the surface first
+   * (validated --ordinal): darkest first on light, brightest first on dark. */
+  --tier-0: light-dark(#104281, #9ec5f4);
+  --tier-1: light-dark(#1c5cab, #6da7ec);
+  --tier-2: light-dark(#2a78d6, #3987e5);
+  --tier-3: light-dark(#5598e7, #256abf);
+  --tier-4: light-dark(#86b6ef, #184f95);
+}
 
+:root {
   --font-display: "Cormorant Variable", "Cormorant Garamond", Georgia, serif;
   --font-sans:
     "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -91,14 +112,10 @@ body {
   background:
     radial-gradient(
       60rem 60rem at 80% -10%,
-      rgba(65, 63, 146, 0.28),
+      var(--glow-indigo),
       transparent 60%
     ),
-    radial-gradient(
-      40rem 40rem at 0% 30%,
-      rgba(50, 213, 210, 0.07),
-      transparent 60%
-    ),
+    radial-gradient(40rem 40rem at 0% 30%, var(--glow-teal), transparent 60%),
     var(--bg);
 }
 
@@ -334,7 +351,7 @@ p {
   background: var(--bg-raised);
   border: 1px solid var(--line-strong);
   border-radius: 10px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 30px var(--shadow);
 }
 
 .nav-plans li a {
@@ -346,7 +363,7 @@ p {
 
 .nav-plans li a:hover,
 .nav-plans li a.active {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--hover);
   color: var(--ink);
   text-decoration: none;
 }
@@ -374,8 +391,8 @@ p {
   text-align: center;
   font-size: 0.85rem;
   padding: 0.45rem var(--gutter);
-  color: var(--bg);
-  background: var(--gold);
+  color: #06060f;
+  background: #ffb347;
 }
 
 .footer {
@@ -721,10 +738,14 @@ p {
   opacity: 0.35;
 }
 
+/* Dark on the slice; on light, the lighter steps need a halo to hold it. */
 .donut-pct {
   font-size: 9px;
   font-weight: 650;
-  fill: var(--bg);
+  fill: light-dark(#111, var(--bg));
+  paint-order: stroke;
+  stroke: light-dark(rgba(255, 255, 255, 0.85), transparent);
+  stroke-width: 2px;
   pointer-events: none;
 }
 
@@ -769,7 +790,7 @@ p {
 }
 
 .donut-legend tr[data-active] {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--hover);
 }
 
 .donut-legend a {
@@ -859,7 +880,7 @@ p {
 }
 
 .maturity-settled {
-  border-color: rgba(50, 213, 210, 0.5);
+  border-color: color-mix(in srgb, var(--teal) 50%, transparent);
   color: var(--teal);
 }
 
@@ -897,7 +918,7 @@ p {
 }
 
 .ring-segment {
-  fill: rgba(255, 255, 255, 0.05);
+  fill: color-mix(in srgb, var(--ink) 5%, transparent);
   stroke: var(--line-strong);
   stroke-width: 0.4;
 }
@@ -907,11 +928,11 @@ p {
 }
 
 .ring[data-interactive] .ring-segment:hover {
-  fill: rgba(255, 255, 255, 0.1);
+  fill: color-mix(in srgb, var(--ink) 10%, transparent);
 }
 
 .ring-segment[data-active] {
-  fill: rgba(255, 181, 215, 0.16);
+  fill: color-mix(in srgb, var(--pink) 16%, transparent);
   stroke: var(--pink);
 }
 
@@ -1141,7 +1162,7 @@ p {
 }
 
 .seg-power {
-  border-color: rgba(255, 179, 71, 0.55);
+  border-color: color-mix(in srgb, var(--gold) 55%, transparent);
 }
 
 .seg-power h4 {
@@ -1149,7 +1170,7 @@ p {
 }
 
 .seg-node {
-  border-color: rgba(50, 213, 210, 0.55);
+  border-color: color-mix(in srgb, var(--teal) 55%, transparent);
 }
 
 .seg-node h4 {
@@ -1166,14 +1187,14 @@ p {
 
 .seg-dc span {
   padding: 0.2rem 0.6rem;
-  border: 1px dashed rgba(255, 179, 71, 0.6);
+  border: 1px dashed color-mix(in srgb, var(--gold) 60%, transparent);
   border-radius: 999px;
 }
 
 .seg[data-focus="power"] .seg-power,
 .seg[data-focus="weatherproofing"] .seg-box,
 .seg[data-focus="expansion"] .seg-node {
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px var(--hover);
 }
 
 .seg figcaption {
@@ -1333,6 +1354,42 @@ p {
   margin-top: 1rem;
 }
 
+/* A patch of night: the dark values on any page. In light mode it is a
+ * full-width band whose edges fade into the page, so scrolling down passes
+ * through dusk into the demo and back out. In dark mode the band is the page
+ * itself and nothing shows. */
+.night {
+  color-scheme: dark;
+  color: var(--ink);
+  position: relative;
+  isolation: isolate;
+}
+
+.night::before {
+  --fade: clamp(4rem, 10vw, 8rem);
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: calc(var(--fade) * -0.5);
+  bottom: calc(var(--fade) * -0.5);
+  left: 50%;
+  width: 100vw;
+  translate: -50% 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--bg) var(--fade),
+    var(--bg) calc(100% - var(--fade)),
+    transparent
+  );
+}
+
+.section.night,
+.night + .section {
+  border-top-color: transparent;
+}
+
 /* --- Call to action ------------------------------------------------------ */
 
 .cta {
@@ -1471,12 +1528,12 @@ p {
 }
 
 .verdict-leading {
-  border-color: rgba(50, 213, 210, 0.55);
+  border-color: color-mix(in srgb, var(--teal) 55%, transparent);
   color: var(--teal);
 }
 
 .verdict-stretch {
-  border-color: rgba(158, 197, 244, 0.55);
+  border-color: color-mix(in srgb, var(--tier-0) 55%, transparent);
   color: var(--tier-0);
 }
 
@@ -1666,9 +1723,9 @@ p {
   max-width: min(20rem, calc(100vw - 2rem));
   padding: 0.75rem 0.9rem;
   border-radius: 10px;
-  background: #1a1a2e;
+  background: var(--tip-bg);
   border: 1px solid var(--line-strong);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 30px var(--shadow);
   font-size: 0.85rem;
   line-height: 1.45;
   color: var(--ink-muted);
@@ -1697,6 +1754,8 @@ p {
 }
 
 @media print {
+  /* Always the light values (series and tiers follow from the scheme),
+   * on plain paper. */
   :root {
     color-scheme: light;
     --bg: #fff;
@@ -1707,23 +1766,6 @@ p {
     --ink-faint: #66666e;
     --line: #d6d6dc;
     --line-strong: #b0b0b8;
-    /* The light steps of the same palette, validated on white. */
-    --series-power: #2a78d6;
-    --series-networking: #eb6834;
-    --series-compute: #1baf7a;
-    --series-weatherproofing: #eda100;
-    --series-expansion: #e87ba4;
-    --series-rigging: #008300;
-    --series-solar: #6250d6;
-    --series-transport: #e34948;
-    --series-contingency: #c9c9cf;
-    --texture-ink: rgba(0, 0, 0, 0.55);
-    /* Tiers on white: darkest first. */
-    --tier-0: #104281;
-    --tier-1: #1c5cab;
-    --tier-2: #2a78d6;
-    --tier-3: #5598e7;
-    --tier-4: #86b6ef;
   }
 
   html {
