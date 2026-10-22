@@ -184,6 +184,27 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
    a look? Recommendation: price one alternative before buying.
 2. (2026-10-21) The software needs a brightness cap so full white stays
    inside 30 A. Agreed? (A change in the Empyrean app.)
+   2a. (2026-10-21) **Remote, human-triggered reset of a segment's tripped
+   ground-fault breaker, with no home runs** (user asked). Proposed, not yet
+   researched:
+   - The control rides the ring network that already reaches every
+     segment. A small network relay in each node box drives a reset
+     actuator in the power box beside it, over a short control cable. An
+     operator presses "reset segment 7" in the Empyrean app.
+   - The catch: if the GFCI also feeds the 54 V supply, a trip kills that
+     segment's switch and relay, so nothing is left to send the reset. Fix:
+     put the 54 V supply (switch and relay) on its own small breaker on the
+     line side of the GFCI, which then protects only the pixel supplies, the
+     part that meets rain. The ring keeps every node; RSTP handles the rest
+     anyway. Needs a code check: an outdoor supply not behind a GFCI.
+   - The actuator: a motor operator or remote-reset accessory on the GFCI
+     breaker, or an industrial ground-fault relay with a remote-reset input
+     driving a contactor. Most remote-operable DIN parts are IEC (30 mA
+     RCDs), not UL 943 Class A (5 mA). Finding a UL 943 part with remote
+     reset is the research.
+   - Resetting into a fault that's still there just trips again within a
+     few tens of milliseconds, so a person-pressed remote reset is about as
+     safe as walking over.
 
 3. What is the pixel strip voltage and chipset, and its watts per pixel at full
    white? Everything else is sized from this.
