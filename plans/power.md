@@ -53,6 +53,53 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   twist). Being researched: `docs/pricing-power-feed-2026-10.md`.
 - Cable: outdoor- and UV-rated flexible cord, gauge set by the per-run current.
 
+## The feed research: L14-30 (leading)
+
+Source: `docs/pricing-power-feed-2026-10.md` (research, 2026-10-21). This is
+what the site's budget now uses.
+
+- **What rental generators have** (maker spec sheets):
+  - **Portables** (31 models, 5–18 kW): almost every 120/240 V model has exactly
+    one **L14-30R**. Only one (Westinghouse iGen8200TFc) has none.
+  - **Towables** (15 models: MultiQuip, Generac Mobile, Atlas Copco, Wacker): all
+    have 2–3 **CS6369** (50 A twist-lock), and none has an L14-30R.
+  - **Three-phase:** no rental unit has a three-phase twist-lock. Three-phase
+    comes only on lugs or optional cam-loks.
+- **So: L14-30 feed** (30 A, 125/250 V split-phase, 3-pole 4-wire), plus a
+  **CS6365-to-L14-30 adapter with its own 30 A breaker** for towables (about
+  $470–560, Estimate). No single twist-lock fits both.
+- **Leading parts: Hubbell Watertight Safety-Shroud.** Plug HBL2711SW $171.43,
+  connector HBL2713SW $184.29, inlet HBL2715SW $211.82. IP66, −40 to 75 °C,
+  certified to break full current. Leviton Wetguard seals better (IP69K) and
+  costs about $1,500 less, but it is rated only to 60 °C. Eaton's parts take
+  10 AWG at most.
+- **Trunk: 8/4 UL SOOW** ($6.09/ft, 24 mm, about 6 lb a segment). It carries
+  32.8 A at 50 °C. 10/4 holds only 24.6 A at 50 °C, so it would need a 25 A
+  breaker. Event wiring must be UL listed (NEC 525.20); unlisted cord is
+  thinner but doesn't qualify. The trunk needs M32–M40 glands, not M20.
+- **Feed box** at the feed joint: the inlet, a 2-pole 30 A breaker, and an outlet
+  for segment 1.
+- **Ground faults: a 1-pole Class A GFCI in each power box.**
+  - One 5 mA GFCI for the ring would see 2–5 mA of leakage with the legs
+    balanced, and 8–18 mA if they aren't: nuisance trips.
+  - Options: Allen-Bradley 1492-MCGAT115 DIN GFCI breaker ($276, replaces the
+    plain breaker), or an inline Leviton GSIA2 ($43, auto-reset).
+  - A generator whose L14-30R is itself GFCI-protected might trip the same way.
+    Not checked.
+- **Capacity:** 30 A split-phase is 5.76 kVA continuous, about 3× the
+  1.5–2 kW average. Full white doesn't fit (4.5–9.0 kW at 64 spokes), so **the
+  software needs a brightness cap**: about 60–74 % at 64 spokes, 30–67 % at 128,
+  on the mid and high strip estimates. Measuring a spoke sets the real cap.
+- **Closed loop: no.** NEC 310.10(G) allows paralleled conductors only at 1/0 AWG
+  and up. A loop fed from both ends would also leave a live male plug exposed
+  wherever it's broken. Feed at one joint, run one way, and cap the last
+  connector. Voltage drop on 8/4 is 1.9 % at 24 A balanced, and under 1 % at
+  the real load.
+- **Three-phase (not recommended):** Hubbell L21-30 with 8/5 SOOW is about
+  $13.9–18.2K, plus a cam-lok distro, and it plugs into no rental directly.
+- **Cost:** about $9.3–13.7K all in for the feed, trunk, joints and protection.
+  The joints dominate (16 × about $355).
+
 ## The single feed: what it implies
 
 My working, from the load estimate below (Assumed strip specs; to be checked
@@ -128,18 +175,23 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
 
 ## Open questions
 
-0. (New, 2026-10-21) What will the feed plug into: the camp's generator
-   (which outlets: L14-30, 14-50, CS6365?) or a distro? The inlet should match
-   it, or the Gate carries an adapter cord. And "one loop": open electrically
-   (recommended) or closed?
+0. (2026-10-21) Confirm the leading design: an L14-30 feed (plus the towable
+   adapter), 8/4 trunk, open loop capped at the far end, a GFCI per segment.
+   Recommendation: yes.
+1. (2026-10-21) The joints don't have to match the generator; only the feed
+   does. A cheaper watertight 4-pole 30 A connector at the 16 joints (or
+   Wetguard, with shade) would cut the largest power cost (about $5.7K). Worth
+   a look? Recommendation: price one alternative before buying.
+2. (2026-10-21) The software needs a brightness cap so full white stays
+   inside 30 A. Agreed? (A change in the Empyrean app.)
 
-1. What is the pixel strip voltage and chipset, and its watts per pixel at full
+3. What is the pixel strip voltage and chipset, and its watts per pixel at full
    white? Everything else is sized from this.
-2. Where are the pixel power supplies today, and how many per segment?
-3. What does the existing 12 V supply in each node box feed?
-4. Power source: generator or grid? How many circuits, and how many amps each?
-5. 120 V only, or is 240 V available?
-6. Does V2 keep the existing pixel supplies, or replace them?
+4. Where are the pixel power supplies today, and how many per segment?
+5. What does the existing 12 V supply in each node box feed?
+6. Power source: generator or grid? How many circuits, and how many amps each?
+7. 120 V only, or is 240 V available?
+8. Does V2 keep the existing pixel supplies, or replace them?
 
 ## Dependencies
 

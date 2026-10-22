@@ -16,11 +16,10 @@ const WAN_AT = 4;
 /** Where the brain box and the gateway are drawn. Not decided yet. */
 const BRAIN_AT = 0;
 /**
- * Segments per power chain. Full white needs 3 to 6 separately fed chains
- * (docs/pricing-2026-10.md, load estimate); the diagram draws the middle of
- * that range, four chains of four.
+ * Segments per power chain: all of them. One twist-lock feed powers the whole
+ * ring, running one way round and capped at the far end (plans/power.md).
  */
-const CHAIN = 4;
+const CHAIN = N;
 
 type Layer = "power" | "network" | "spokes";
 const LAYERS: { id: Layer; label: string }[] = [
@@ -306,9 +305,8 @@ export default function RingDiagram({
             (dashed: the standby link)
           </li>
           <li>
-            <span className="key key-power" aria-hidden="true" /> Power, chained
-            segment to segment and fed in at several points (3 to 6, set by the
-            pixels' load)
+            <span className="key key-power" aria-hidden="true" /> Power: one
+            twist-lock feed, chained segment to segment around the ring
           </li>
         </ul>
 
@@ -363,19 +361,22 @@ export default function RingDiagram({
                   , with four spare PoE+ ports
                 </dd>
                 <dt>Power box {seg + 1}</dt>
-                <dd>Supplies for the pixels and the switch, and a breaker</dd>
+                <dd>
+                  Supplies for the pixels and the switch, and a ground-fault
+                  breaker
+                </dd>
                 <dt>Joins segment {((seg + 1) % N) + 1}</dt>
                 <dd>
                   {(seg + 1) % CHAIN === 0
-                    ? "One sealed Ethernet joint; the power chain ends here"
+                    ? "One sealed Ethernet joint; the power chain ends here, capped"
                     : "One sealed power joint, one sealed Ethernet joint"}
                 </dd>
                 {seg % CHAIN === 0 && (
                   <>
                     <dt>Power feed</dt>
                     <dd>
-                      Mains comes in here, through its own auto-resetting GFCI,
-                      for segments {seg + 1}–{seg + CHAIN}
+                      The generator plugs in here: one 30 A twist-lock (L14-30)
+                      for the whole ring
                     </dd>
                   </>
                 )}

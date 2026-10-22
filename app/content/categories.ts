@@ -75,7 +75,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     headline: "Sealed power, built into every truss segment",
     today:
       "Mains power reaches the truss over ordinary extension cords and plugs. They aren't rated for rain or dust, and they are run by hand at every build.",
-    v2: "Each of the 16 truss segments carries its own sealed power run with locking, watertight connectors, so joining the truss joins the power. Power comes in at several points around the ring, and a sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
+    v2: "One watertight twist-lock plug, the kind every portable rental generator has, powers the whole ring. The power runs segment to segment inside the truss through locking, watertight joints, so joining the truss joins the power. A sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
     points: [
       {
         title: "Watertight, locking connectors",
@@ -86,8 +86,16 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         body: "Each segment arrives with its power run in place and daisy-chains to its neighbours. Setup becomes joining segments, not running cable.",
       },
       {
-        title: "Several feeds, each protected",
-        body: "At full white the ring could draw up to about 67 A at 120 V: too much for one chain. So it is fed as 3 to 6 separate chains, each with its own ground-fault protection that resets itself after a power cut, and a breaker in every power box.",
+        title: "Plugs into any rental generator",
+        body: "The feed is a 30 A twist-lock (L14-30): the locking outlet on nearly every portable generator. Towable rentals have a 50 A twist-lock instead, and the Gate carries an adapter for them.",
+      },
+      {
+        title: "Room to spare",
+        body: "The Gate averages 1.5 to 2 kW. The 30 A feed carries about 5.8 kW continuously: three times that, with room for 128 spokes.",
+      },
+      {
+        title: "Each segment protected on its own",
+        body: "A ground-fault breaker in every power box. A fault darkens one segment, not the whole Gate, and sixteen small protectors don't trip on the supplies' normal leakage the way one big one would.",
       },
       {
         title: "Power boxes apart from data boxes",
@@ -96,31 +104,46 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     ],
     options: [
       {
-        name: "Neutrik powerCON TRUE1 (cable) with TRUE1 TOP (panel)",
+        name: "Hubbell Watertight Safety-Shroud L14-30",
         verdict: "leading",
-        price: "about $820 for every connector and cap on the ring",
-        why: "Locking, rated to be unplugged under load, IP65/67 when mated or capped, 20 A UL. A standard in stage power, so spares are easy to find.",
+        price: "about $355 a joint (plug and connector)",
+        why: "The 30 A twist-lock rental generators carry, in a watertight version: IP66, −40 to 75 °C, certified to break full current, and the only watertight set whose inlet mates the standard connector.",
+        url: "https://www.hubbell.com/hubbell/en/p/170109",
+      },
+      {
+        name: "Leviton Wetguard L14-30",
+        verdict: "considered",
+        price: "about $265 a joint",
+        why: "Seals better (IP69K mated or capped) and saves about $1,500, but it is rated only to 60 °C, close to what a dark connector reaches in desert sun.",
+        url: "https://leviton.com/products/28w74",
+      },
+      {
+        name: "50 A twist-lock (CS6365) as the feed",
+        verdict: "considered",
+        why: "Every towable rental has it, but no portable does, and no watertight version is confirmed. The Gate carries a CS6365-to-L14-30 adapter for towables instead.",
+      },
+      {
+        name: "Three-phase twist-lock (L21-30)",
+        verdict: "ruled-out",
+        why: "No rental generator has the outlet, and it adds about $4,500 for little more capacity (7.2 kVA against 5.8).",
+      },
+      {
+        name: "RV 50 A (14-50) and SmartPlug",
+        verdict: "ruled-out",
+        why: "The RV 14-50 doesn't lock; SmartPlug is push-in, IP56.",
+      },
+      {
+        name: "Neutrik powerCON TRUE1",
+        verdict: "ruled-out",
+        why: "Watertight and locking, but single-phase 20 A: it can't carry a 30 A split-phase trunk.",
         url: "https://www.neutrik.com/en/product/nac3f-true1-l",
       },
       {
-        name: "Neutrik TRUE1 TOP cable connectors",
-        verdict: "ruled-out",
-        why: "Named in the first plan, but Neutrik is phasing them out. The TRUE1-L cable parts replace them; the TOP panel parts are still current.",
-        url: "https://www.neutrik.com/en/product/nac3mx-w-top",
-      },
-      {
-        name: "Bulgin Buccaneer 900",
-        verdict: "considered",
-        price: "about $3,500 for the same set",
-        why: "Tougher on paper (IP68 mated, IP69K, 32 A) but over four times the price, a 26-week lead time, and no stated rating for unplugging under load.",
-        url: "https://www.bulgin.com/products/pub/media/import/attachments/900%20Series.pdf",
-      },
-      {
-        name: "12/3 SOOW or SJOOW cord",
+        name: "8/4 SOOW trunk, UL listed",
         verdict: "leading",
-        price: "$695–$855 for 500 ft",
-        why: "Sunlight and water resistant, flexible, 25 A. 10/3 would carry more, but at 16.9 mm it is too thick for any TRUE1 connector.",
-        url: "https://www.southwire.com/wire-cable/flexible-cord/600v-royal-soow-cord-with-black-jacket-90-c-msha-approved/p/SPEC70000",
+        price: "$6.09 a foot",
+        why: "Carries the full 30 A at 50 °C and fits the connectors. 10/4 is lighter but holds only 24.6 A at 50 °C.",
+        url: "https://cabletechsupport.southwire.com/tile/10/spec/70000/?country=US",
       },
       {
         name: "Mean Well SDR-240-48 for the switch's 54 V",
@@ -131,7 +154,8 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
     ],
     unknowns: [
-      "The LED strips' voltage and watts per pixel. At full white the ring could draw 30 to 67 A at 120 V, which sets how many chains, supplies and circuits V2 needs. Measuring one spoke at full white settles it.",
+      "The LED strips' voltage and watts per pixel. Full white could draw more than the 30 A feed, so the software caps brightness; measuring one spoke at full white sets the cap.",
+      "Whether a generator's own ground-fault outlet trips on the ring's leakage.",
       "Generator or grid at each event, and how many circuits at what current.",
       "Whether V2 keeps today's pixel supplies or replaces them.",
     ],

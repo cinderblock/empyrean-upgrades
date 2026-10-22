@@ -21,8 +21,8 @@ export default function SegmentDiagram({ focus }: { focus?: CategoryId }) {
         <div className="seg-box seg-power">
           <h4>Power box</h4>
           <ul>
-            <li>Sealed mains inlet and outlet</li>
-            <li>Breaker; ground-fault protection on the feed</li>
+            <li>The 30 A trunk passes through, sealed in and out</li>
+            <li>A ground-fault breaker for this segment</li>
             <li>12 V supply for the light controller (and pixels)</li>
             <li>54 V supply for the switch and its PoE ports</li>
           </ul>

@@ -68,11 +68,11 @@ wants to raise, and donors can see where their money goes.
 9. [x] Password Worker, unit tests, checked under wrangler dev.
 10. [x] Playwright suite (3 engines), CI workflow, README.
 11. [ ] User review of the local site (dev server).
-12. [ ] **Power: one 30–50 A waterproof twist-lock feed for the whole ring**
-        (user, 2026-10-21). The site still says "3–6 separately fed chains"
-        (categories.ts power text, RingDiagram's four feeds, the powerCON and
-        GFCI line items). Update all of it from
-        `docs/pricing-power-feed-2026-10.md` once that research lands. ← current
+12. [x] **Power: one waterproof twist-lock feed for the whole ring** (user,
+        2026-10-21). Site updated from `docs/pricing-power-feed-2026-10.md`:
+        an L14-30 feed, Hubbell watertight joints, 8/4 trunk, a GFCI per
+        segment, a towable adapter; one feed on the ring diagram. V2 goal now
+        $40,500 (power $13.7–18.7K). ← awaiting the user's review
 13. [ ] Publish: GitHub repo, ops entry, Workers Builds, the password secret.
         Needs the user's go-ahead for each piece (see Open questions).
 
