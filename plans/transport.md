@@ -29,6 +29,16 @@ See `docs/v1-hardware.md` → Structure and geometry.
 
 - A dedicated shipping container and transport carts are an upgrade category
   (user, 2026-10-21).
+- **The container lives in Oakland** between events; "we probably have a
+  storage solution" (user, 2026-10-22). So buy it there ($3,690 at Western
+  Container Sales' Oakland depot) and budget storage at about $0.
+- **The Gate goes to other events too** (user, 2026-10-22).
+- **At Burning Man it is with a camp, on the Esplanade** (user, 2026-10-22),
+  which is where containers are allowed.
+- **A rack to hang the sails**, so the LEDs can stay in them (user,
+  2026-10-22: today the LEDs come out of the sails at every event, after they
+  were damaged once when left in; the user thinks that was a bad call, and
+  leaving them in makes setup easier).
 
 ## Options
 
@@ -54,18 +64,32 @@ as a big project, goal $49,000 (parts $15.9–42.2K before contingency).
 - Add-ons if bought: hoist transport $3.1–8.4K, solar kit transport
   $1.8–3.7K.
 
+## Sizing check against the 26 ft truck
+
+The user asked how the research got "a 20 ft is too small" (2026-10-22):
+the agent estimated 21–24 m² of floor from assumed footprints (16 arcs on
+two carts, legs, hub, cases). The user's figure agrees: **V1 fills a 26 ft
+box truck**. Typical inside sizes (Assumed, not measured):
+
+| Box             | Inside, about            | Floor   |
+| --------------- | ------------------------ | ------- |
+| 20 ft container | 19'4" × 7'8"             | 13.8 m² |
+| 26 ft box truck | 26' × 8'                 | 19.3 m² |
+| 40 ft high cube | 39'5" × 7'8", 8'10" high | 28.1 m² |
+
+So a 20 ft container is about a third shorter than the truck, not slightly;
+a 40 ft has about 40 % more floor, which the carts need, and the high cube's
+extra height takes the sail rack above them.
+
 ## Open questions
 
-1. How is V1 stored and moved today?
-2. Where would the container live between events (near the playa, Reno, the
-   Bay Area, someone's land)?
-3. One-time costs only on the site (as now), or the yearly cost too?
-4. Truss profile; how far the V2 boxes stick out of the truss; leg section
-   lengths and whether the legs are owned; how the hub breaks down; whether
-   the spokes coil.
-5. Which events; at Burning Man, open-playa art or with a camp?
-6. Do the hoists or the solar kit ride in the box?
-7. Permission to request quotes later (hauling, custom carts).
+1. The sails: how many, their size, and how the LEDs attach (sizes the rack).
+2. One-time costs only on the site (as now), or the yearly hauling too?
+3. How far the V2 boxes stick out of the truss; leg section lengths and
+   whether the legs are owned.
+4. Which other events, and how far from Oakland (sets the yearly hauling).
+5. Do the hoists or the solar kit ride in the box?
+6. Permission to request quotes later (hauling, custom carts).
 
 ## Dependencies
 

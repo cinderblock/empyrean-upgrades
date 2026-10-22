@@ -564,12 +564,16 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     name: "Transport",
     headline: "Roll it in, roll it out",
     today:
-      "The Gate's parts travel and live in borrowed space, and are carried in and out by hand.",
-    v2: "The Gate gets its own 40 ft container, fitted with a ramp, tie-downs and shelves, and a cart for every kind of part on wheels big enough for playa dust. Segments ride with their boxes installed.",
+      "The Gate fills a 26 ft box truck and is carried in and out by hand. The LEDs come out of the sails at every event, because they were damaged once when left in.",
+    v2: "The Gate gets its own 40 ft container, kept in Oakland and set in camp on the playa, fitted with a ramp, tie-downs, shelves and a rack the sails hang from with their LEDs in. A cart for every kind of part, on wheels big enough for playa dust. Segments ride with their boxes installed.",
     points: [
       {
         title: "One box for the whole Gate",
         body: "A 40 ft high cube with doors at both ends holds the Gate with a little room to spare; a 20 ft is too small.",
+      },
+      {
+        title: "Sails ride with their LEDs in",
+        body: "A rack under the container roof holds every sail hanging, so the LEDs stay in them between events instead of coming out and going back in at every build.",
       },
       {
         title: "Wheels that work on the playa",
@@ -581,15 +585,15 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         title: "Yearly costs, kept apart",
-        body: "Storing the box and hauling it to the playa and back is about $1,900–$8,000 a year, depending on where it lives. That isn't in this goal.",
+        body: "Hauling the box from Oakland to the playa and back is an estimated $5,000–$10,000 a year, more for other events; storage is likely covered. That isn't in this goal.",
       },
     ],
     options: [
       {
         name: "40 ft high cube, one-trip, doors at both ends",
         verdict: "leading",
-        price: "$3,690 in Oakland, $6,564 delivered to Reno",
-        why: "Fits the Gate. Buying in the Bay Area is cheaper: Reno dealers sell Oakland stock.",
+        price: "$3,690 in Oakland",
+        why: "Fits the Gate with its carts, where it lives. Containers go in camps at Burning Man, and the Gate's camp is on the Esplanade.",
         url: "https://www.westerncontainersales.com/shipping-containers-for-sale/california/oakland",
       },
       {
@@ -601,7 +605,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         name: "A 20 ft box",
         verdict: "ruled-out",
-        why: "About 14 m² of floor against the 21–24 m² the Gate needs.",
+        why: "About 14 m² of floor, a third less than the 26 ft truck the Gate fills today.",
       },
       {
         name: "A second 20 ft box",
@@ -611,9 +615,9 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
     ],
     unknowns: [
-      "The truss profile: 20.5 inch truss overflows one 40 ft box.",
-      "How far the V2 boxes stick out of the truss, and how the hub breaks down.",
-      "Where the container lives between events, which sets the yearly cost.",
+      "The sails' size and count, which size the rack.",
+      "How far the V2 boxes stick out of the truss.",
+      "Hauling quotes, Oakland to the playa and to other events.",
     ],
     maturity: "exploring",
     planFile: "plans/transport.md",

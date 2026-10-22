@@ -1124,16 +1124,17 @@ export const ITEMS: LineItem[] = [
     id: "tr-container",
     category: "transport",
     tier: "transport",
-    name: "40 ft high-cube container, one-trip, doors at both ends",
-    detail: "A 20 ft box is too small: the Gate needs about 21–24 m² of floor.",
+    name: "40 ft high-cube container, one-trip, doors at both ends, kept in Oakland",
+    detail:
+      "V1 fills a 26 ft box truck. A 20 ft container has about a third less floor than that truck; a 40 ft has about 40 % more, room for the carts.",
     qty: 1,
-    unit: [4000, 6600],
+    unit: [4000, 4800],
     confidence: "estimate",
     source: {
       label: "Western Container Sales (Oakland)",
       url: "https://www.westerncontainersales.com/shipping-containers-for-sale/california/oakland",
     },
-    note: "$3,690 at the Oakland depot; $6,564 delivered to Reno. Reno dealers sell Oakland stock.",
+    note: "$3,690 at the Oakland depot, plus local delivery (estimated).",
   },
   {
     id: "tr-mods",
@@ -1218,14 +1219,16 @@ export const ITEMS: LineItem[] = [
     confidence: "estimate",
   },
   {
-    id: "tr-spoke-trunks",
+    id: "tr-sail-rack",
     category: "transport",
     tier: "transport",
-    name: "Spoke trunks with dividers, for 64 coiled spokes",
+    name: "Sail rack: the sails hang with their LEDs left in",
+    detail:
+      "Rails under the container roof with a hanging bar per sail, using the high cube's extra height above the carts. Leaving the LEDs in the sails makes setup faster.",
     qty: 1,
-    unit: [1500, 3900],
+    unit: [2400, 5100],
     confidence: "estimate",
-    note: "2–4 trunks, depending on how tightly the spokes coil.",
+    note: "Not priced from a design yet: about 160 ft of strut rail, a trolley and a hanging bar per sail, brackets. Depends on the sails' size and count.",
   },
   {
     id: "tr-spares",
