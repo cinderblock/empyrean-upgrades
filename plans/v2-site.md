@@ -19,7 +19,12 @@ wants to raise, and donors can see where their money goes.
 ## Environment / context
 
 - This repo: `C:\Users\camer\git\Personal Projects\Empyrean Upgrades`, branch
-  `master`. No GitHub remote yet.
+  `master`. Remote `origin` = github.com/cinderblock/empyrean-upgrades
+  (public, created 2026-10-21).
+- Cloudflare: worker `empyreangate-v2` in "Cameron Tacklind's Account"
+  (`c5987fbfdbb396ef3121459c26125cc0`; wrangler's login sees several
+  accounts, so pass `CLOUDFLARE_ACCOUNT_ID`), custom domain
+  `v2.empyreangate.org`, both from ops `7b23091`.
 - Started from `cinderblock/ssg-base` (remote `template`), merged with
   `--allow-unrelated-histories`, the same way empyreangate.org was started.
 - Parent site: `../empyreangate.org` (github.com/cinderblock/empyreangate.org).
@@ -40,6 +45,11 @@ wants to raise, and donors can see where their money goes.
 - Build and review locally before publishing (user, 2026-10-21).
 - Start from ssg-base (user, 2026-10-21).
 - Simple password protection, easy to turn off with a push (user, 2026-10-21).
+- The GitHub repo is **public** (user, 2026-10-21). So the password never goes
+  in the repo, a plan or a commit; it lives only in the Worker secret.
+- The ops change (worker + domain) was approved (user, 2026-10-21) and applied.
+- The password was given by the user in chat (2026-10-21) and set as the
+  `SITE_PASSWORD` secret on `empyreangate-v2`.
 
 ## Design
 
@@ -73,13 +83,24 @@ wants to raise, and donors can see where their money goes.
         an L14-30 feed, Hubbell watertight joints, 8/4 trunk, a GFCI per
         segment, a towable adapter; one feed on the ring diagram. V2 goal now
         $40,500 (power $13.7–18.7K). ← awaiting the user's review
-13. [ ] Publish: GitHub repo, ops entry, Workers Builds, the password secret.
-        Needs the user's go-ahead for each piece (see Open questions).
+13. [ ] Publish. ← current
+    - [x] GitHub repo, public; master pushed (2026-10-21).
+    - [x] ops entry: pushed as ops `7b23091` from a worktree off
+          origin/master (the shared ops checkout has other threads'
+          uncommitted edits in the same file). Dry run and the `Cloudflare`
+          CI run (39723784768) both: 2 to create (the worker, its domain),
+          0 to update, 0 to delete; the verify pass was 0/0/0.
+    - [x] `SITE_PASSWORD` secret set on `empyreangate-v2` with
+          `wrangler secret put` (2026-10-21).
+    - [ ] **Workers Builds**: the user connects the repo in the Cloudflare
+          dashboard (settings in README → Deployment), as for the parent.
+          Until then v2.empyreangate.org is ops' 503 stub.
+    - [ ] Verify: the lock page, `?key=` unlock, every page, robots, headers.
 
-## Proposed ops change (NOT applied, not written to the ops repo yet)
+## The ops change (applied 2026-10-21, ops `7b23091`)
 
-Add to `cloudflare/config/projects/empyreangate.yaml`, after the empyreangate.org
-entry, once the user approves:
+In `cloudflare/config/projects/empyreangate.yaml`, after the empyreangate.org
+entry (the committed comment is longer):
 
 ```yaml
 # V2 plans and the donor pitch (github.com/cinderblock/empyrean-upgrades), a
@@ -94,9 +115,10 @@ entry, once the user approves:
     provision: true
 ```
 
-(Schema to be checked against `cloudflare/config/schema.json` when applying; the
-ops checkout had another thread's uncommitted changes in this very file on
-2026-10-21, so stage on top of whatever is there then.)
+The shared ops checkout held another thread's uncommitted edits in this same
+file (removing the parent's `previews: true`), so the change was made in a
+worktree off origin/master (`~/.t3/worktrees/ops/empyreangate-v2`), not on top
+of them.
 
 ## Findings / gotchas
 
@@ -137,30 +159,31 @@ ops checkout had another thread's uncommitted changes in this very file on
 - [x] Real prices in budget.ts (`e7fe35b`); findings copied into each
       category plan
 - [ ] `DRAFT = false` only when the user agrees
-- [ ] Publish
+- [x] Repo public, ops applied, password secret set (2026-10-21)
+- [x] The same at-rest spoke bug fixed in empyreangate.org: PR #3 against
+      its `dev` (github.com/cinderblock/empyreangate.org/pull/3), with a test
+- [ ] Workers Builds connected (user, dashboard) and the first deploy verified
 
 ## Open questions for the user
 
-1. GitHub repo for this project: create `cinderblock/empyrean-upgrades` (private)?
-   Workers Builds needs one. Recommendation: yes, private.
-2. Apply the ops change above (worker + custom domain)?
-3. The password itself (set as a Worker secret, never committed).
-4. The "Give" button points at the same Givsum page empyreangate.org uses
+1. The "Give" button points at the same Givsum page empyreangate.org uses
    (Entheos Community Village). Is that the right place for V2 money, or does
    V2 want its own fund/page? Recommendation: confirm with whoever holds it.
-5. Contact for larger gifts: the site says "reach the crew through Entheos".
+2. Contact for larger gifts: the site says "reach the crew through Entheos".
    Want a direct email instead?
-6. The stretch-goal tiers and their order (Built for the heat, Eyes and
+3. The stretch-goal tiers and their order (Built for the heat, Eyes and
    ears, 128 spokes) are my proposal. Reorder or rename?
-7. Contingency 15%, rounding to $500: OK?
-8. Compute in the V2 goal is a ~$1,600–$2,000 consumer build (rated to about
+4. Contingency 15%, rounding to $500: OK?
+5. Compute in the V2 goal is a ~$1,600–$2,000 consumer build (rated to about
    35–40 °C); the industrial PC rated for the heat is the first stretch goal.
    Put the industrial PC in the V2 goal instead (+about $5K)? Recommendation:
    decide after logging a real box's temperature.
-9. Sun shields on all 33 boxes are in the V2 goal ($1,320–$3,960). Keep?
+6. Sun shields on all 33 boxes are in the V2 goal ($1,320–$3,960). Keep?
 
 ## Things not to do
 
 - Don't link to v2 from empyreangate.org.
 - Don't touch the ops checkout or Cloudflare without per-change approval.
+- Don't commit the password anywhere: the repo is public.
+- Don't `wrangler deploy` by hand: Workers Builds deploys (ops' rule).
 - Don't create a branch named `v2` in the empyreangate.org repo.

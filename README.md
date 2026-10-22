@@ -121,9 +121,26 @@ bun run preview:worker      # http://localhost:8788
 Same as empyreangate.org: **Cloudflare Workers Builds** builds the repo with
 `bun run build` and ships it as Workers static assets using `wrangler.jsonc`
 (worker `empyreangate-v2`). GitHub Actions runs the checks and never deploys.
-The worker and its custom domain are provisioned by
-[cinderblock/ops](https://github.com/cinderblock/ops). Publishing hasn't
-happened yet; [plans/v2-site.md](plans/v2-site.md) has the steps.
+The worker and its custom domain, `v2.empyreangate.org`, are provisioned by
+[cinderblock/ops](https://github.com/cinderblock/ops)
+(`cloudflare/config/projects/empyreangate.yaml`); ops never touches the code.
+The `SITE_PASSWORD` secret is set on the worker by hand (above), since a person
+needs to know it.
+
+Workers Builds settings (Workers & Pages → `empyreangate-v2` → Settings →
+Build), matching empyreangate.org's:
+
+| Setting           | Value                                            |
+| ----------------- | ------------------------------------------------ |
+| Repository        | `cinderblock/empyrean-upgrades`                  |
+| Production branch | `master`                                         |
+| Build command     | `bun install --frozen-lockfile && bun run build` |
+| Deploy command    | `bunx wrangler deploy`                           |
+| Build variables   | `SKIP_DEPENDENCY_INSTALL=1`, `BUN_VERSION=1.4.2` |
+| Non-production    | off (or on, after setting the Preview secret)    |
+
+`BUN_VERSION` should match the Bun that wrote `bun.lock`; the image's default
+Bun is older. Every push to master publishes.
 
 ## Status
 
