@@ -32,6 +32,10 @@ See `docs/v1-hardware.md` → Structure and geometry.
 - **The container lives in Oakland** between events; "we probably have a
   storage solution" (user, 2026-10-22). So buy it there ($3,690 at Western
   Container Sales' Oakland depot) and budget storage at about $0.
+- **"We might already have a container"** (user, 2026-10-22). The budget's
+  container line is now $0–4,800: $0 if the existing one serves. It only
+  serves if it's a 40 ft (a 20 ft is too small, see the sizing check); a
+  high cube also leaves room for the sail rack.
 - **The Gate goes to other events too** (user, 2026-10-22).
 - **At Burning Man it is with a camp, on the Esplanade** (user, 2026-10-22),
   which is where containers are allowed.
@@ -83,6 +87,8 @@ extra height takes the sail rack above them.
 
 ## Open questions
 
+0. The container the crew may already have: 20 ft or 40 ft, high cube or
+   standard, its condition (doors, floor, rust), and where it is.
 1. The sails: how many, their size, and how the LEDs attach (sizes the rack).
 2. One-time costs only on the site (as now), or the yearly hauling too?
 3. How far the V2 boxes stick out of the truss; leg section lengths and

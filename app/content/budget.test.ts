@@ -37,8 +37,11 @@ describe("line items", () => {
   test("ranges run low to high", () => {
     for (const item of [...ITEMS, ...EXTRAS]) {
       const [lo, hi] = itemRange(item);
-      expect(lo).toBeGreaterThan(0);
+      expect(lo).toBeGreaterThanOrEqual(0);
+      expect(hi).toBeGreaterThan(0);
       expect(hi).toBeGreaterThanOrEqual(lo);
+      // A $0 low (something we may already own) must say why.
+      if (lo === 0) expect(item.note).toBeTruthy();
     }
   });
 
