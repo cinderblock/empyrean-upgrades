@@ -20,7 +20,7 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   The drawing lists "Circuit Loads" of 15 A for 1–5 and 5 A for 6: 80 A at
   120 V, 9.6 kVA. **If those are measured draws rather than breaker sizes,
   full white needs more than the L14-30 feed's 5.76 kVA continuous** (it
-  would match the high load estimate). Ask James which they are.
+  would match the high load estimate). Asked the user which they are.
 
 ## Requirements
 
@@ -218,9 +218,13 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
 
 ## Open questions
 
-- (2026-10-21) **For James:** are the V1 drawing's "Circuit Loads" (15 A
-  × 5, 5 A) breaker sizes or measured draws? If measured at full white, the
-  30 A feed can't carry full white without a cap (see Capacity).
+- (2026-10-21) **For the user** (who knows the Gate's power best; James knows
+  the generators): are the V1 drawing's "Circuit Loads" (15 A × 5, 5 A)
+  breaker sizes or measured draws? If measured at full white, the 30 A feed
+  can't carry full white without a cap (see Capacity).
+- (2026-10-21) **For James** (generators): what generator(s) does the Gate
+  actually run on, and do their L14-30 outlets have built-in GFCI (which
+  could trip on the ring's summed leakage)?
 
 0. ~~Confirm the leading design~~: confirmed (user, 2026-10-21), now under
    Decisions.
