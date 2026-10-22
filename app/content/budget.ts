@@ -1128,13 +1128,13 @@ export const ITEMS: LineItem[] = [
     detail:
       "V1 fills a 26 ft box truck. A 20 ft container has about a third less floor than that truck; a 40 ft has about 40 % more, room for the carts.",
     qty: 1,
-    unit: [4000, 4800],
+    unit: [0, 4800],
     confidence: "estimate",
     source: {
       label: "Western Container Sales (Oakland)",
       url: "https://www.westerncontainersales.com/shipping-containers-for-sale/california/oakland",
     },
-    note: "$3,690 at the Oakland depot, plus local delivery (estimated).",
+    note: "Low: the crew may already have a container (if it's a 40 ft). High: $3,690 at the Oakland depot, plus local delivery (estimated).",
   },
   {
     id: "tr-mods",
