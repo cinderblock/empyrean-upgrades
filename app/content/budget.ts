@@ -5,8 +5,9 @@
  * Prices are USD, before tax and shipping. A unit price is one number, or a
  * [low, high] range when two parts are still in the running or the price is
  * an estimate. The research behind every line, with links and the spec
- * checks, is docs/pricing-2026-10.md and, for the power feed,
- * docs/pricing-power-feed-2026-10.md (both 2026-10-21).
+ * checks, is docs/pricing-2026-10.md and, for the power feed and joints,
+ * docs/pricing-power-feed-2026-10.md and docs/pricing-joint-cords-2026-10.md
+ * (all 2026-10-21).
  */
 
 import type { CategoryId } from "./categories";
@@ -131,59 +132,69 @@ const UI = (slug: string, path = "products"): Source => ({
 export const ITEMS: LineItem[] = [
   // --- Power ---------------------------------------------------------------
   {
-    id: "power-joint-plug",
+    id: "power-joint-cords",
     category: "power",
     tier: "core",
-    name: "Watertight 30 A twist-lock plug (L14-30), one per joint",
-    part: "Hubbell HBL2711SW Watertight Safety-Shroud",
+    name: "Joint cords: a 10 ft 8/4 L14-30 cord per joint, cut in half",
+    part: "AC Works SDL1430PR-010 (8/4 SOOW, separately listed ends)",
     detail:
-      "The plug every portable rental generator takes. Rated to break full current.",
+      "The plug half ends one segment and the connector half starts the next, so each cord is a joint and that segment's trunk. Carries the full 30 A.",
     qty: 18,
-    qtyNote: "16 joints + the feeder cord + a spare",
-    unit: 171.43,
+    qtyNote: "16 joints + 2 spares",
+    unit: 129.99,
     confidence: "quoted",
     source: {
-      label: "Standard Electric",
-      url: "https://www.standardelectricsupply.com/Hubbell-HBL2711SW-Locking-Plug",
+      label: "AC Works",
+      url: "https://acworks.com/products/sdl1430pr-8-4-soow-super-duty-nema-l14-30-30a-125-250v-generator-rubber-cord",
     },
-    datasheet: "https://www.hubbell.com/hubbell/en/p/170109",
-    note: "IP66, NEMA 4X, −40 to 75 °C.",
+    note: "Trial-fit one first: the jacket print should say 90 °C (unmarked means 60 °C and a 20 A feed), and 10 ft is marginal for a 9.8 ft segment.",
   },
   {
-    id: "power-joint-connector",
+    id: "power-joint-covers",
     category: "power",
     tier: "core",
-    name: "Watertight 30 A twist-lock connector, one per joint",
-    part: "Hubbell HBL2713SW Watertight Safety-Shroud",
+    name: "Rain cover over each mated joint",
+    part: "Twist and Seal Cord Vault",
+    detail:
+      "Rain-proof (NEMA 3R / IP44), not watertight: joints stay off the ground.",
     qty: 18,
-    qtyNote: "16 joints + the feeder cord + a spare",
-    unit: 184.29,
+    qtyNote: "16 joints + 2 spares",
+    unit: 12.95,
     confidence: "quoted",
     source: {
-      label: "Standard Electric",
-      url: "https://www.standardelectricsupply.com/Hubbell-HBL2713SW-Locking-Connector",
+      label: "Twist and Seal",
+      url: "https://twistandseal.com/products/twist-and-seal-cord-vault-keeps-large-cord-connections-dry-and-secure",
     },
-    datasheet: "https://www.hubbell.com/hubbell/en/p/170150",
-    note: "IP66 with its closure cap, which also seals the open end of the chain.",
+    note: "Fit on a mated L14-30 pair not yet checked.",
   },
   {
-    id: "power-trunk",
+    id: "power-feeder",
     category: "power",
     tier: "core",
-    name: "Power trunk around the ring: 8/4 outdoor cord (ft)",
-    part: "Southwire 8/4 SOOW 600 V, UL listed",
-    detail: "Two hots, neutral, ground. Carries the full 30 A at 50 °C.",
-    qty: 200,
-    qtyNote: "157 ft around the ring, plus the feeder",
-    unit: 6.09,
+    name: "Feeder cord, generator to the feed box: 50 ft 8/4 L14-30",
+    part: "AC Works SDL1430PR-050, uncut",
+    qty: 1,
+    unit: 499.99,
     confidence: "quoted",
     source: {
-      label: "Wire & Cable Your Way",
-      url: "https://www.wireandcableyourway.com/8-4-soow-portable-cord-600v-ul-csa",
+      label: "AC Works",
+      url: "https://acworks.com/products/sdl1430pr-8-4-soow-super-duty-nema-l14-30-30a-125-250v-generator-rubber-cord",
     },
-    datasheet:
-      "https://cabletechsupport.southwire.com/tile/10/spec/70000/?country=US",
-    note: "UL listing is required for event wiring; unlisted cord is cheaper and thinner. About 6 lb a segment.",
+  },
+  {
+    id: "power-end-cap",
+    category: "power",
+    tier: "core",
+    name: "Cap for the open connector at the far end of the ring",
+    part: "AC Works CVFE",
+    qty: 1,
+    unit: 8.99,
+    confidence: "quoted",
+    source: {
+      label: "AC Works",
+      url: "https://acworks.com/products/cvfe-cable-end-weather-cover",
+    },
+    note: "Fit not yet checked.",
   },
   {
     id: "power-feed-sockets",

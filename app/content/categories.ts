@@ -75,11 +75,11 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     headline: "Sealed power, built into every truss segment",
     today:
       "Mains power reaches the truss over ordinary extension cords and plugs. They aren't rated for rain or dust, and they are run by hand at every build.",
-    v2: "One watertight twist-lock plug, the kind every portable rental generator has, powers the whole ring. The power runs segment to segment inside the truss through locking, watertight joints, so joining the truss joins the power. A sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
+    v2: "One twist-lock plug, the kind every portable rental generator has, powers the whole ring. The power runs segment to segment inside the truss through locking, rain-proof joints, so joining the truss joins the power. A sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
     points: [
       {
-        title: "Watertight, locking connectors",
-        body: "Every joint between segments and every box entry uses connectors rated for rain and dust, mated or not, that can't be pulled apart by a kicked cable.",
+        title: "Rain-proof, locking joints",
+        body: "Each joint is a twist-lock that a kicked cable can't pull apart, under a rain cover. Every box entry is sealed. Rain-proof is enough: the Gate never stands in water.",
       },
       {
         title: "Installed once, joined on site",
@@ -104,17 +104,29 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     ],
     options: [
       {
-        name: "Hubbell Watertight Safety-Shroud L14-30",
+        name: "AC Works 8/4 L14-30 cords, cut in half, under rain covers",
         verdict: "leading",
-        price: "about $355 a joint (plug and connector)",
-        why: "The 30 A twist-lock rental generators carry, in a watertight version: IP66, −40 to 75 °C, certified to break full current, and the only watertight set whose inlet mates the standard connector.",
+        price: "about $143 a joint, cord included",
+        why: "An off-the-shelf 10 ft cord on 8/4 SOOW with separately listed ends: each cut half is a listed plug on listed cord, it carries the full 30 A, and the cord is the segment's trunk. Rain-proof, not watertight.",
+        url: "https://acworks.com/products/sdl1430pr-8-4-soow-super-duty-nema-l14-30-30a-125-250v-generator-rubber-cord",
+      },
+      {
+        name: "Cheap molded generator cords (10/4 STW and similar)",
+        verdict: "ruled-out",
+        why: "60 °C cord, good for only about 17 A at 50 °C, and a cut molded end is no longer a listed plug.",
+      },
+      {
+        name: "Hubbell Watertight Safety-Shroud L14-30",
+        verdict: "considered",
+        price: "about $410 a joint with trunk cord",
+        why: "Watertight (IP66) and rated to 75 °C, but about $4,800 more for the ring than the cut cords, and watertight isn't needed. Its inlet stays at the feed box.",
         url: "https://www.hubbell.com/hubbell/en/p/170109",
       },
       {
         name: "Leviton Wetguard L14-30",
         verdict: "considered",
-        price: "about $265 a joint",
-        why: "Seals better (IP69K mated or capped) and saves about $1,500, but it is rated only to 60 °C, close to what a dark connector reaches in desert sun.",
+        price: "about $320 a joint with trunk cord",
+        why: "The cheaper watertight route, rated only to 60 °C. Watertight isn't needed.",
         url: "https://leviton.com/products/28w74",
       },
       {
@@ -139,10 +151,9 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         url: "https://www.neutrik.com/en/product/nac3f-true1-l",
       },
       {
-        name: "8/4 SOOW trunk, UL listed",
+        name: "8/4 SOOW, not 10/4",
         verdict: "leading",
-        price: "$6.09 a foot",
-        why: "Carries the full 30 A at 50 °C and fits the connectors. 10/4 is lighter but holds only 24.6 A at 50 °C.",
+        why: "8/4 carries the full 30 A at 50 °C. 10/4 is lighter but holds only 24.6 A at 50 °C, which would mean a 25 A feed.",
         url: "https://cabletechsupport.southwire.com/tile/10/spec/70000/?country=US",
       },
       {

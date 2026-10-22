@@ -16,7 +16,9 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
 
 ## Requirements
 
-- Watertight connectors at every segment joint and box entry.
+- **Rain-proof** locking connectors at every segment joint (user, 2026-10-21:
+  "rain proof is enough for us. we're not going underwater"); joints stay off
+  the ground. Box entries sealed.
 - Permanently installed in the truss: a segment arrives with its power run in place.
 - Daisy-chain from segment to segment around the ring, from **one feed**.
 - Power lives in **power boxes**, never in the node/brain boxes
@@ -51,6 +53,11 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   CS6365-to-L14-30 adapter for towables, an **8/4 UL SOOW trunk**, an **open
   loop** fed at one joint and capped at the far end, and **a Class A GFCI in
   each segment's power box**.
+- **Joints: rain-proof is enough** (user, 2026-10-21). The joints are AC Works
+  SDL1430PR-010 cords cut in half under Twist and Seal Cord Vault covers; the
+  feeder is an uncut SDL1430PR-050. In the budget; Hubbell SW is now the
+  watertight alternative (its inlet stays at the feed box). Trial-fit one cord
+  first: jacket print, cover fit, length across a segment.
 - **No brightness cap in the software** (user, 2026-10-21). What that leaves
   open is under "Capacity" below: whether full white fits in 30 A is settled
   by measuring a spoke, not by the app.
@@ -222,10 +229,8 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
      about $5.7K for the ring; factory watertight cords don't help.
    - Ampacity: keep 8/4 and the 30 A feed. Any 10/4 means a 25 A feed (still
      4.8 kVA continuous, 2.4× the average).
-     **Decision needed:** relax "watertight" to "rain-resistant, kept off the
-     ground" at the joints and switch to the AC Works cords (saves about
-     $4.8K), or keep watertight (Hubbell, or Wetguard with shade)? The budget
-     still carries Hubbell. The earlier framing, kept for reference:
+     **Decided** (user, 2026-10-21): rain-proof is enough; the AC Works cords
+     are in the budget. The earlier framing, kept for reference:
      **The 16 truss joints** (each an HBL2711SW plug + HBL2713SW
      connector, about $355, $5.7K for the ring) don't have to match the
      generator; only the feed does. The user asked which connectors would
