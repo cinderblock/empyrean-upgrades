@@ -714,7 +714,7 @@ export const ITEMS: LineItem[] = [
       url: "https://www.trcelectronics.com/products/mean-well-hlg-320h-12",
     },
     datasheet: "https://www.meanwell.com/Upload/PDF/HLG-320H/HLG-320H-SPEC.PDF",
-    note: "Sized for 8 to 18 W per metre at full white, the range for this kind of strip. The 30 A feed carries 128 spokes at their average draw; full white needs the software's brightness cap.",
+    note: "Sized for 8 to 18 W per metre at full white, the range for this kind of strip. The 30 A feed carries 128 spokes at their average draw; whether it carries full white waits on measuring a spoke.",
   },
 ];
 

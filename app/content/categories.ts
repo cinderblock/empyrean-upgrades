@@ -154,7 +154,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
     ],
     unknowns: [
-      "The LED strips' voltage and watts per pixel. Full white could draw more than the 30 A feed, so the software caps brightness; measuring one spoke at full white sets the cap.",
+      "The LED strips' voltage and watts per pixel. The estimates put full white above what the 30 A feed carries (the Gate averages far less); measuring one spoke at full white settles whether it fits.",
       "Whether a generator's own ground-fault outlet trips on the ring's leakage.",
       "Generator or grid at each event, and how many circuits at what current.",
       "Whether V2 keeps today's pixel supplies or replaces them.",

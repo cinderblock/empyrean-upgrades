@@ -38,8 +38,14 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   2026-10-21): that is the most important criterion, ahead of phase count and
   rating. The watertight version of that connector is the one to pick.
 - **Size for the real load, not full white**: V1 averages about 1,500–2,000 W
-  for the whole Gate (user, 2026-10-21). Full white is a theoretical ceiling
-  the software can cap.
+  for the whole Gate (user, 2026-10-21). Full white is a theoretical ceiling.
+- **The design** (user confirmed, 2026-10-21): an **L14-30 feed** plus the
+  CS6365-to-L14-30 adapter for towables, an **8/4 UL SOOW trunk**, an **open
+  loop** fed at one joint and capped at the far end, and **a Class A GFCI in
+  each segment's power box**.
+- **No brightness cap in the software** (user, 2026-10-21). What that leaves
+  open is under "Capacity" below: whether full white fits in 30 A is settled
+  by measuring a spoke, not by the app.
 
 ## Options to evaluate
 
@@ -87,9 +93,13 @@ what the site's budget now uses.
   - A generator whose L14-30R is itself GFCI-protected might trip the same way.
     Not checked.
 - **Capacity:** 30 A split-phase is 5.76 kVA continuous, about 3× the
-  1.5–2 kW average. Full white doesn't fit (4.5–9.0 kW at 64 spokes), so **the
-  software needs a brightness cap**: about 60–74 % at 64 spokes, 30–67 % at 128,
-  on the mid and high strip estimates. Measuring a spoke sets the real cap.
+  1.5–2 kW average. On the Assumed strip specs, full white doesn't fit
+  (4.5–9.0 kW at 64 spokes); it would fit at about 60–74 % brightness (64
+  spokes) or 30–67 % (128). There is no software cap (user decision), so if
+  a pattern did hold full white long enough, the feed breaker or the
+  generator's would trip and the whole ring would go dark. **Measure one
+  spoke at full white before buying**: if it fits, nothing changes; if not,
+  the choices are a 50 A feed (towables only) or living with the risk.
 - **Closed loop: no.** NEC 310.10(G) allows paralleled conductors only at 1/0 AWG
   and up. A loop fed from both ends would also leave a live male plug exposed
   wherever it's broken. Feed at one joint, run one way, and cap the last
@@ -175,18 +185,28 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
 
 ## Open questions
 
-0. (2026-10-21) Confirm the leading design: an L14-30 feed (plus the towable
-   adapter), 8/4 trunk, open loop capped at the far end, a GFCI per segment.
-   Recommendation: yes.
-1. (2026-10-21) The joints don't have to match the generator; only the feed
-   does. A cheaper watertight 4-pole 30 A connector at the 16 joints (or
-   Wetguard, with shade) would cut the largest power cost (about $5.7K). Worth
-   a look? Recommendation: price one alternative before buying.
-2. (2026-10-21) The software needs a brightness cap so full white stays
-   inside 30 A. Agreed? (A change in the Empyrean app.)
+0. ~~Confirm the leading design~~: confirmed (user, 2026-10-21), now under
+   Decisions.
+1. (2026-10-21) **The 16 truss joints** (each an HBL2711SW plug + HBL2713SW
+   connector, about $355, $5.7K for the ring) don't have to match the
+   generator; only the feed does. The user asked which connectors would
+   replace them. What the joint needs: 4 poles, 30 A at 50 °C, watertight
+   mated and capped, locking, takes 24 mm 8/4 cord, and **UL listed** (event
+   wiring, NEC 525). Already looked at: Leviton Wetguard L14-30 (about $264 a
+   joint, saves about $1,500, rated only to 60 °C); IEC 60309 pin-and-sleeve
+   (dearer, $644+ a joint, no twist-lock); Harting Han E (16 A a contact: too
+   small); Amphenol Socapex 19-pin (25 A, no US price). Not yet looked at:
+   4-pole circular industrial connectors (Bulgin Buccaneer, Wieland RST,
+   Amphenol, Phoenix Contact), most of which are UL _recognised_ components
+   rather than _listed_ devices, which an event inspector may not accept.
+   Recommendation: price Wetguard with shade as the default saving, and
+   research one circular family to see if it's listed.
+2. ~~Brightness cap in the software~~: no (user, 2026-10-21), now under
+   Decisions.
    2a. (2026-10-21) **Remote, human-triggered reset of a segment's tripped
-   ground-fault breaker, with no home runs** (user asked). Proposed, not yet
-   researched:
+   ground-fault breaker, with no home runs** (user asked). The user said yes
+   to researching it (2026-10-21): research under way, results to land in
+   `docs/pricing-remote-reset-2026-10.md`. The proposal:
    - The control rides the ring network that already reaches every
      segment. A small network relay in each node box drives a reset
      actuator in the power box beside it, over a short control cable. An
