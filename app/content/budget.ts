@@ -40,6 +40,7 @@ export const TIER_IDS = [
   "core",
   "hardened",
   "senses",
+  "console",
   "spokes",
   "rigging",
   "solar",
@@ -81,6 +82,12 @@ export const TIERS: Tier[] = [
     id: "senses",
     name: "Eyes and ears",
     promise: "Cameras on the rig and networked sound at the ring.",
+  },
+  {
+    id: "console",
+    name: "VJ console",
+    promise:
+      "A touch screen and real faders at the VJ booth, wired to the show computer: play the Gate by hand.",
   },
   {
     id: "spokes",
@@ -815,6 +822,69 @@ export const ITEMS: LineItem[] = [
     },
     datasheet: "https://www.meanwell.com/Upload/PDF/HLG-320H/HLG-320H-SPEC.PDF",
     note: "Sized for 8 to 18 W per metre at full white, the range for this kind of strip. The 30 A feed carries 128 spokes at their average draw; whether it carries full white waits on measuring a spoke.",
+  },
+  // --- VJ console (stretch goal, Compute) -----------------------------------
+  // Option A, "Simple", at a ~30 m link (docs/pricing-vj-console-2026-10.md).
+  {
+    id: "vj-screen",
+    category: "compute",
+    tier: "console",
+    name: "Industrial touch screen, 15.6 inch, sealed front",
+    part: "faytech FT156TMCAPOB",
+    detail: "Rated −10 to 60 °C; portable touch monitors stop at 40 °C.",
+    qty: 1,
+    unit: [566, 650],
+    confidence: "estimate",
+    note: "Price from a search listing.",
+  },
+  {
+    id: "vj-link",
+    category: "compute",
+    tier: "console",
+    name: "Link to the brain box, about 30 m: video, USB and Ethernet on one cable",
+    part: "Kramer EXT3-XR-TR × 2, Cat6a, a Mini DisplayPort adapter",
+    detail:
+      "The show computer's USB-C port carries no video, so the screen runs from the graphics card and USB rides alongside. The far-end box is the dock.",
+    qty: 1,
+    unit: [1480, 1950],
+    confidence: "quoted",
+    source: {
+      label: "ConferenceRoomAV",
+      url: "https://conferenceroomav.com/p/kramer-av-ext3-xr-tr",
+    },
+    datasheet: "https://files.hdtvsupply.com/kramer-ext3-xr-tr-ds.pdf",
+    note: "About $415–1,075 at 10 m; $900–1,840 over fibre at 50–100 m. Measure the cable route first.",
+  },
+  {
+    id: "vj-controls",
+    category: "compute",
+    tier: "console",
+    name: "Motorized faders, knobs and buttons",
+    part: "Behringer X-Touch Compact, optionally an Akai APC mini mk2",
+    detail:
+      "Nine motorized faders that follow the show. Class-compliant MIDI: no drivers.",
+    qty: 1,
+    unit: [309, 408],
+    confidence: "estimate",
+    note: "Prices from listings. The show app doesn't map MIDI controls yet: software work, not a cost here.",
+  },
+  {
+    id: "vj-case",
+    category: "compute",
+    tier: "console",
+    name: "Hard case for the console, with a lid against the dust",
+    qty: 1,
+    unit: [200, 450],
+    confidence: "estimate",
+  },
+  {
+    id: "vj-power-covers",
+    category: "compute",
+    tier: "console",
+    name: "Console power strip, dust covers, cleaning kit",
+    qty: 1,
+    unit: [40, 100],
+    confidence: "estimate",
   },
   // --- Rigging: a self-climbing ring (big project) ------------------------
   // Option 1b, electric (docs/pricing-self-climbing-2026-10.md): stock sleeve

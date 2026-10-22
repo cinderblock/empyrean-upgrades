@@ -139,7 +139,9 @@ wants to raise, and donors can see where their money goes.
 18. [ ] **New stretch goal: a VJ console** (user, 2026-10-22), on the ladder
         under Compute. A 5-step tier ramp validates on both surfaces (dark
         #9ec5f4 … #184f95; print #104281 … #86b6ef), already in the CSS.
-        Research: `docs/pricing-vj-console-2026-10.md`. ← current
+        Research: `docs/pricing-vj-console-2026-10.md`. Done 2026-10-22:
+        Stretch goal 3 (before 128 spokes, which stays last, as the demo's
+        text says), $4,500, option A.
 
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 

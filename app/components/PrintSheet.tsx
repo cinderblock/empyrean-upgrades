@@ -87,7 +87,11 @@ export default function PrintSheet() {
                   <span className="ps-tier-name">
                     {i === 0 ? t.tier.name : `Stretch ${i}: ${t.tier.name}`}
                   </span>
-                  <span className="ps-tier-promise">{t.tier.promise}</span>
+                  {/* Only V2 gets its promise: the sheet has no room for five, and the
+                      stretch goals' names say enough on paper. */}
+                  {i === 0 && (
+                    <span className="ps-tier-promise">{t.tier.promise}</span>
+                  )}
                 </li>
               ))}
           </ol>

@@ -62,9 +62,33 @@ with a good touch screen and physical controls: buttons, maybe sliders and
 knobs, maybe motorized ("flying") faders. It goes on the stretch-goal ladder
 (a normal-sized ask, not a big project), under Compute.
 
-- Research under way: `docs/pricing-vj-console-2026-10.md` (the long link by
-  distance, the dock, touch screens, MIDI controllers with motorized faders, a
-  custom build, a case).
+- Researched 2026-10-22: `docs/pricing-vj-console-2026-10.md`. On the site
+  as Stretch goal 3 (before 128 spokes), option A "Simple", goal $4,500.
+- **The USB-C dock idea doesn't work with this computer:** the Nuvo-9160GC's
+  one USB-C port is data only (no DisplayPort Alt Mode, datasheet). Video
+  comes from a GPU Mini DisplayPort; USB travels alongside; the extender's
+  far-end box is the dock. USB 3 fiber cables are out too: they don't carry
+  USB 2.0 devices (touch, MIDI).
+- **Link by distance:** ~10 m DP fiber cable + Icron USB 2.0 extender
+  $415–1,075; ~30 m two Kramer EXT3-XR-TR on one Cat6a (video, USB 2.0,
+  Ethernet) $1,480–1,950 (or $900–1,330 two-cable); 50–100 m Black Box
+  KVXLCDPF-100 over armoured fiber $900–1,840.
+- **Options:** A Simple (faytech 15.6" industrial touch panel, −10 to 60 °C,
+  sealed front; X-Touch Compact; Kramer link; hard case) $2.6–3.6K. B Full
+  (21.5" panel, X-Touch + Midi Fighter Twister + Launchpad X, fiber, Pelican
+  cases) $3.7–6.0K. C Custom (Teensy, motorized faders, custom case)
+  $3.0–6.5K + 120–240 h. D Network console (a small PC at the booth running
+  Empyrean's web UI over Ethernet) $1.4–3.3K + software work.
+- Portable touch monitors are all 0–40 °C at best; the industrial panels cost
+  about the same. The brain-box end of the extender is rated 40–50 °C, the
+  same limit as the gateway.
+- Recommendation: buy the X-Touch Compact ($309) first and build the MIDI
+  mapping in the show app against it; then measure the cable route and buy
+  the link for that distance.
+- Open (user): the cable-route distance; whether the booth screen is the only
+  screen; motorized faders a must?; who plays it; screen size; shade by day;
+  the booth's power; how the cable runs; is a network console acceptable; a
+  budget ceiling.
 - **Software dependency:** the Empyrean app takes MIDI Timing Clock today but
   doesn't map MIDI controls (faders, knobs, buttons) to show parameters, nor
   drive motorized faders back. That is work in the Empyrean repo, not a cost

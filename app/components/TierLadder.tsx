@@ -16,6 +16,7 @@ export default function TierLadder({ totals }: { totals: TierTotal[] }) {
   const [active, setActive] = useState<string | null>(null);
   const tiers = totals.filter((t) => t.goal > 0);
   const whole = tiers[tiers.length - 1]?.cumulative ?? 0;
+  const labelled = crowdFree(tiers.map((t) => t.cumulative / whole));
 
   return (
     <div className="ladder">
@@ -32,7 +33,9 @@ export default function TierLadder({ totals }: { totals: TierTotal[] }) {
               setActive((a) => (a === t.tier.id ? null : t.tier.id))
             }
           >
-            <span className="ladder-mark">{moneyShort(t.cumulative)}</span>
+            {labelled[i] && (
+              <span className="ladder-mark">{moneyShort(t.cumulative)}</span>
+            )}
           </div>
         ))}
       </div>
@@ -65,4 +68,25 @@ export default function TierLadder({ totals }: { totals: TierTotal[] }) {
       <p className="visually-hidden">All tiers together: {money(whole)}.</p>
     </div>
   );
+}
+
+/**
+ * Which running totals to label under the bar: the goal and the grand total
+ * always, and a middle one only if it stands far enough from its labelled
+ * neighbours not to collide (a small stretch goal makes a narrow step). Each
+ * card carries its running total either way.
+ */
+function crowdFree(ends: number[], gap = 0.08): boolean[] {
+  const show = ends.map(() => false);
+  if (ends.length === 0) return show;
+  show[0] = true;
+  show[ends.length - 1] = true;
+  let last = ends[0];
+  for (let i = 1; i < ends.length - 1; i++) {
+    if (ends[i] - last >= gap && ends[ends.length - 1] - ends[i] >= gap) {
+      show[i] = true;
+      last = ends[i];
+    }
+  }
+  return show;
 }

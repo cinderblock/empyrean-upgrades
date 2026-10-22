@@ -266,6 +266,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         body: "Consumer computers are rated to about 35–40 °C, and a sealed box in the sun gets hotter. V2's computer is fanless and rated to 60 °C.",
       },
       {
+        title: "A VJ console (a stretch goal)",
+        body: "A sealed touch screen and motorized faders at the VJ booth, on one cable from the brain box, so the Gate can be played by hand.",
+      },
+      {
         title: "A backup that already works",
         body: "The software already supports a follower machine. The current NUC takes that role.",
       },
@@ -285,6 +289,29 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         why: "A real GPU for the money, but consumer parts are rated to about 35–40 °C: too low for a sealed box in the sun.",
       },
       {
+        name: "VJ console: a touch panel, an X-Touch Compact, one cable",
+        verdict: "stretch",
+        price: "about $2,600–$3,600",
+        why: "A 15.6 inch industrial touch panel and nine motorized faders, linked over one Cat6a run. The best start: build the show app's MIDI mapping against it.",
+      },
+      {
+        name: "VJ console, full: 21.5 inch panel, faders, knobs and pads, fiber",
+        verdict: "considered",
+        price: "about $3,700–$6,000",
+        why: "For a guest VJ who expects pads and knobs too, at any distance over fiber.",
+      },
+      {
+        name: "VJ console, custom-built surface",
+        verdict: "considered",
+        price: "about $3,000–$6,500 in parts",
+        why: "Eight motorized faders, sixteen lit knobs and thirty-two buttons on a Teensy, in a sealed case. Plus an estimated 120–240 hours of design and build.",
+      },
+      {
+        name: "A USB-C dock on a long USB-C cable",
+        verdict: "ruled-out",
+        why: "The show computer's USB-C port carries no video, and long USB 3 fiber cables don't carry the USB 2 devices touch screens and MIDI controllers are.",
+      },
+      {
         name: "Dell Pro Max Micro with an RTX A1000",
         verdict: "considered",
         price: "$3,629",
@@ -301,6 +328,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     unknowns: [
       "A benchmark on today's machine, to set a measured target for the new one.",
       "How much heat a GPU adds inside a sealed box in the sun.",
+      "For the VJ console: the cable route to the booth, and who will play it.",
     ],
     maturity: "exploring",
     planFile: "plans/compute.md",
