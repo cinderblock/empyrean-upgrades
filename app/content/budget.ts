@@ -338,6 +338,24 @@ export const ITEMS: LineItem[] = [
     },
     note: RECHECK,
   },
+  {
+    id: "power-outlets",
+    category: "power",
+    tier: "core",
+    name: "Local outlets on each power box: four 120 V, behind the segment's ground-fault breaker",
+    part: "Bell 5337-0 die-cast box, 2 × 20 A weather-resistant duplex, Eaton WIU-2WX in-use cover",
+    detail:
+      "For whatever is mounted on that segment. The cover closes over plugged-in cords.",
+    qty: 17,
+    qtyNote: "16 + 1 spare",
+    unit: [45.47, 97.44],
+    confidence: "estimate",
+    source: {
+      label: "homelectrical (cover)",
+      url: "https://www.homelectrical.com/2-gang-weather-protective-cover-extra-dutywhite.etw-wiu2wx.1.html",
+    },
+    note: 'Parts are quoted; the nipple or short lead to the power box is estimated. Four outlets is a placeholder for "a handful". docs/pricing-joint-cords-2026-10.md.',
+  },
   // --- Networking ----------------------------------------------------------
   {
     id: "power-towable-adapter",

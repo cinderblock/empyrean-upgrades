@@ -82,7 +82,8 @@ wants to raise, and donors can see where their money goes.
         2026-10-21). Site updated from `docs/pricing-power-feed-2026-10.md`:
         an L14-30 feed, Hubbell watertight joints, 8/4 trunk, a GFCI per
         segment, a towable adapter; one feed on the ring diagram. V2 goal now
-        $40,500 (power $13.7–18.7K). ← awaiting the user's review
+        $40,500 (power $13.7–18.7K); $42,500 after the local outlets
+        (2026-10-21). ← awaiting the user's review
 13. [ ] Publish. ← current
     - [x] GitHub repo, public; master pushed (2026-10-21).
     - [x] ops entry: pushed as ops `7b23091` from a worktree off

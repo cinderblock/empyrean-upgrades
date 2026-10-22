@@ -25,6 +25,14 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   supplies plus PoE expansion (`plans/expansion.md`).
 - Protection: overcurrent per branch, and ground-fault protection appropriate to a
   wet outdoor public installation.
+- **Local outlets** (user, 2026-10-21): each segment's power box also has "a
+  handful" of 120 V outlets for things mounted in that segment, behind the
+  segment's ground-fault protection. Count and type to confirm; priced at 4.
+  In the budget (`power-outlets`): a die-cast 2-gang weatherproof box bolted
+  to the power box, two 20 A weather-resistant duplexes, an extra-duty in-use
+  cover; $45–97 a box, $773–1,656 for 17 (`docs/pricing-joint-cords-2026-10.md`
+  §6). Watertight receptacles would be $323–480 a box plus a watertight plug
+  on every load cord.
 
 ## Decisions already made (don't re-ask)
 
@@ -187,26 +195,90 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
 
 0. ~~Confirm the leading design~~: confirmed (user, 2026-10-21), now under
    Decisions.
-1. (2026-10-21) **The 16 truss joints** (each an HBL2711SW plug + HBL2713SW
-   connector, about $355, $5.7K for the ring) don't have to match the
-   generator; only the feed does. The user asked which connectors would
-   replace them. What the joint needs: 4 poles, 30 A at 50 °C, watertight
-   mated and capped, locking, takes 24 mm 8/4 cord, and **UL listed** (event
-   wiring, NEC 525). Already looked at: Leviton Wetguard L14-30 (about $264 a
-   joint, saves about $1,500, rated only to 60 °C); IEC 60309 pin-and-sleeve
-   (dearer, $644+ a joint, no twist-lock); Harting Han E (16 A a contact: too
-   small); Amphenol Socapex 19-pin (25 A, no US price). Not yet looked at:
-   4-pole circular industrial connectors (Bulgin Buccaneer, Wieland RST,
-   Amphenol, Phoenix Contact), most of which are UL _recognised_ components
-   rather than _listed_ devices, which an event inspector may not accept.
-   Recommendation: price Wetguard with shade as the default saving, and
-   research one circular family to see if it's listed.
+1. (2026-10-21) **Joints: off-the-shelf extension cords, cut in half** (user,
+   2026-10-21, finding $355 a joint too expensive). One listed L14-30
+   generator cord per joint: its plug half ends one segment, its connector
+   half starts the next, cord already attached. Researched 2026-10-21
+   (`docs/pricing-joint-cords-2026-10.md`):
+   - **Most generator cords don't qualify.** The common 10/4 molded STW/SJ
+     cords (AC Works STW, Reliance, Parkworld, Amazon brands) are 60 °C cord:
+     17.4 A at 50 °C, which would force a 15 A feed. SJ is "hard usage";
+     NEC 525.20 wants extra-hard usage. A molded end is listed only as part
+     of the whole cord set, so a cut half is no longer a listed assembly.
+   - **The one that fits: AC Works SDL1430PR-010**, 10 ft of 8/4 SOOW with
+     field-attachable (separately listed) ends, $129.99. Cut in half, it is
+     the same kind of assembly as the Hubbell route. With a Twist and Seal
+     Cord Vault over each mated joint ($12.95): about **$143 a joint, $2,573
+     for 16 + 2 spares**, against about $7,358 for Hubbell SW plus its trunk
+     cord. It also replaces all 157 ft of 8/4 trunk cord.
+   - **The catch: rain-resistant, not watertight.** The Cord Vault is about
+     Type 3R / IP44; the joints would have to stay off the ground. That
+     breaks the requirement "watertight connectors at every segment joint".
+   - **To check before buying 18:** the jacket print says 90 °C (unmarked
+     means 60 °C, i.e. a 20 A feed); a mated pair fits the Cord Vault; 10 ft
+     reaches across a 9.8 ft segment (the 25 ft cord, $267.99, loses the
+     saving). Trial-fit one.
+   - **If watertight stays required:** field-built Leviton Wetguard on 8/4,
+     about $5.7K for the ring; factory watertight cords don't help.
+   - Ampacity: keep 8/4 and the 30 A feed. Any 10/4 means a 25 A feed (still
+     4.8 kVA continuous, 2.4× the average).
+     **Decision needed:** relax "watertight" to "rain-resistant, kept off the
+     ground" at the joints and switch to the AC Works cords (saves about
+     $4.8K), or keep watertight (Hubbell, or Wetguard with shade)? The budget
+     still carries Hubbell. The earlier framing, kept for reference:
+     **The 16 truss joints** (each an HBL2711SW plug + HBL2713SW
+     connector, about $355, $5.7K for the ring) don't have to match the
+     generator; only the feed does. The user asked which connectors would
+     replace them. What the joint needs: 4 poles, 30 A at 50 °C, watertight
+     mated and capped, locking, takes 24 mm 8/4 cord, and **UL listed** (event
+     wiring, NEC 525). Already looked at: Leviton Wetguard L14-30 (about $264 a
+     joint, saves about $1,500, rated only to 60 °C); IEC 60309 pin-and-sleeve
+     (dearer, $644+ a joint, no twist-lock); Harting Han E (16 A a contact: too
+     small); Amphenol Socapex 19-pin (25 A, no US price). Not yet looked at:
+     4-pole circular industrial connectors (Bulgin Buccaneer, Wieland RST,
+     Amphenol, Phoenix Contact), most of which are UL _recognised_ components
+     rather than _listed_ devices, which an event inspector may not accept.
+     Recommendation: price Wetguard with shade as the default saving, and
+     research one circular family to see if it's listed.
 2. ~~Brightness cap in the software~~: no (user, 2026-10-21), now under
    Decisions.
    2a. (2026-10-21) **Remote, human-triggered reset of a segment's tripped
    ground-fault breaker, with no home runs** (user asked). The user said yes
-   to researching it (2026-10-21): research under way, results to land in
-   `docs/pricing-remote-reset-2026-10.md`. The proposal:
+   to researching it (2026-10-21). **Findings**
+   (`docs/pricing-remote-reset-2026-10.md`):
+   - **No UL 943 Class A GFCI, DIN or inline, has a remote reset input,
+     motor operator or reset accessory** (searched Allen-Bradley, Littelfuse,
+     Eaton, Square D, Leviton, Hubbell, Woodhead, Siemens, Ericson). Bender
+     LifeGuard has a reset terminal but lists as UL 508A, not UL 943, and has
+     no public price. UL 943C applies only above 150 V to ground; UL 1053
+     relays and IEC RCDs with motor reclose are equipment protection. None
+     of these satisfies NEC 525.23 at 120 V.
+   - **Recommended: reset by a remote power cycle, with listed parts.** A
+     normally-closed 2-pole relay (Finder 62.32, 24 V DC coil, 70 °C) ahead
+     of an Ericson 1075-AR (hard-wired Class A GFCI that re-powers itself
+     after an outage, −35 to 66 °C, $58.56). A network relay in the node box
+     (ICP DAS tPET-PD2R1, PoE, 75 °C, about $116 from Europe; US option
+     ControlByWeb X-401-E $330–366) opens it for about 2 s when an operator
+     asks. A small 120 V sense relay tells the app which segment tripped.
+   - **The network supply gets its own Class A GFCI** ($59–126), not the
+     unprotected line side proposed below: that is marginal under
+     525.23(A)(2) and unsafe on a metal-case supply. A pixel fault then can't
+     take down the relay that sends the reset.
+   - **Cost:** $344–731 a segment, **$5.8–12.4K for 17**, about $5.1–7.5K
+     more than the GFCI line already budgeted. Fallback (below): $6.8–13.6K.
+   - **Hinges on a bench test:** does the 1075-AR (or GSIA2) re-arm when its
+     power is cycled after a ground-fault trip? UL 943 forbids self-reset
+     after a fault but requires it after a power loss; which one a cycled
+     trip counts as isn't stated. If not, the fallback is a second GFCI per
+     segment that the relay switches the load onto: one remote recovery per
+     segment between visits.
+   - Other unknowns: whether inspectors accept a remote human reset; box
+     interiors vs the parts' 55–75 °C ratings; the tPET may be discontinued,
+     no US price; Bender needs a quote (needs the user's go-ahead). The 2023
+     wording of 525.23 wasn't read (2017/2020 text used).
+     **Decision needed:** put it in the budget (in the V2 goal, or as a
+     stretch goal), after the bench test? Not in the budget yet.
+     The original proposal, kept for reference:
    - The control rides the ring network that already reaches every
      segment. A small network relay in each node box drives a reset
      actuator in the power box beside it, over a short control cable. An
