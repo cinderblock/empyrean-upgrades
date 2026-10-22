@@ -27,6 +27,11 @@ See `docs/v1-hardware.md` → Structure and geometry.
 
 ## Decisions already made (don't re-ask)
 
+- **The crew already has a 40 ft container, in fair condition** (user, 2026-10-22).
+  The container line is now $0–1,500 to fix it up (door seals, floor, rust);
+  a new one-trip high cube ($3,690, Oakland) only if it won't do. Whether it
+  is a high cube (8'10" inside, room for the sail rolls above the carts) is
+  still to check.
 - A dedicated shipping container and transport carts are an upgrade category
   (user, 2026-10-21).
 - **The container lives in Oakland** between events; "we probably have a

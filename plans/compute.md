@@ -94,6 +94,22 @@ knobs, maybe motorized ("flying") faders. It goes on the stretch-goal ladder
   drive motorized faders back. That is work in the Empyrean repo, not a cost
   here.
 
+### The computer in the air (user, 2026-10-22)
+
+"Would be nice to put the computer in the air... but 20' is limit of normal
+USB-C4... there are extender boxes that send the data over fiber that should
+work, right?" **Yes.** The V2 brain box already sits in the truss (about 21
+ft up) by the stage leg. Two working routes, both in the research:
+
+- **Fibre KVM extender** (Black Box KVXLCDPF-100): DisplayPort video and USB
+  2.0 (touch, MIDI) over one fibre, to 100 m and beyond. $900–1,840 with
+  armoured fibre.
+- **DisplayPort fibre cable + an Icron USB 2.0-over-fibre extender**:
+  $1,300–2,000 at 50–100 m.
+
+Not USB4/Thunderbolt optical cables: the Nuvo-9160GC's USB-C port carries no
+video, and those cables don't carry USB 2.0 devices.
+
 ## Open questions
 
 1. What is "better" measured against? Which features or loads are limited by

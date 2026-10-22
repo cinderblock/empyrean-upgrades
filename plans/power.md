@@ -51,6 +51,18 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
 
 ## Decisions already made (don't re-ask)
 
+- **No remote reset** (user, 2026-10-22): "point the breakers down and use a stick
+  to reset." Each segment's GFCI is an Ericson 1075-AR (20 A, UL 943 Class A,
+  NEMA 4/4X face, powers itself up after an outage) mounted through the power
+  box's floor with its reset button facing down; an insulated pole resets it
+  from the ground. The remote-reset research (`docs/pricing-remote-reset-2026-10.md`)
+  stays as background only.
+- **Feed** (user, 2026-10-22): "30A 3 phase should be enough. but let's price out 50A
+  and 100A just in case." 30 A three-phase and 100 A are being priced
+  (`docs/pricing-feed-options-2-2026-10.md`). The site still carries 30 A
+  split-phase (L14-30), the design rental portables plug into; whether "3
+  phase" meant the L14-30 (3 poles + ground) or true three-phase (L21-30, on no
+  rental generator) is asked.
 - Power and data never share a box (user, 2026-10-21).
 - **One feed for the whole ring** (user, 2026-10-21): a single **waterproof
   twist-lock** plug, **30–50 A**, powers the whole ring in one loop.
@@ -310,7 +322,7 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
      research one circular family to see if it's listed.
 2. ~~Brightness cap in the software~~: no (user, 2026-10-21), now under
    Decisions.
-   2a. (2026-10-21) **Remote, human-triggered reset of a segment's tripped
+   2a. ~~(2026-10-21)~~ **Dropped (user, 2026-10-22): no remote reset; reset with a pole.** Kept for reference: **Remote, human-triggered reset of a segment's tripped
    ground-fault breaker, with no home runs** (user asked). The user said yes
    to researching it (2026-10-21). **Findings**
    (`docs/pricing-remote-reset-2026-10.md`):

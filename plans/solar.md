@@ -29,6 +29,9 @@ See `docs/v1-hardware.md` → Power distribution and Site and operation.
 
 ## Decisions already made (don't re-ask)
 
+- **Solar and battery are their own dedicated stretch category** (user, 2026-10-22):
+  as the site has it, a big project with its own page and goal.
+- **No panels on top of the ring** (user, 2026-10-22): a separate array.
 - Solar is a stretch goal; the speakers are a "possibly" (user, 2026-10-21).
 
 ## Options

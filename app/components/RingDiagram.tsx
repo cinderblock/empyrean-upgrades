@@ -20,6 +20,14 @@ const BRAIN_AT = 0;
  * ring, running one way round and capped at the far end (plans/power.md).
  */
 const CHAIN = N;
+/**
+ * Segments are lettered A–P as the crew does (the V1 layout drawings):
+ * clockwise seen from above, starting at the leg by the stage, which is drawn
+ * at the bottom. Power comes in, and the brain box sits, at that leg.
+ */
+const LETTERS = "ABCDEFGHIJKLMNOP";
+const letter = (i: number) => LETTERS[i] ?? String(i + 1);
+const START = Math.PI;
 
 type Layer = "power" | "network" | "spokes";
 const LAYERS: { id: Layer; label: string }[] = [
@@ -45,8 +53,8 @@ function band(r0: number, r1: number, a0: number, a1: number): string {
   return `M${f(x0)} ${f(y0)}A${r1} ${r1} 0 0 1 ${f(x1)} ${f(y1)}L${f(x2)} ${f(y2)}A${r0} ${r0} 0 0 0 ${f(x3)} ${f(y3)}Z`;
 }
 
-const segAngle = (i: number) => (i / N) * Math.PI * 2;
-const segMid = (i: number) => ((i + 0.5) / N) * Math.PI * 2;
+const segAngle = (i: number) => START + (i / N) * Math.PI * 2;
+const segMid = (i: number) => START + ((i + 0.5) / N) * Math.PI * 2;
 /** A box glyph centred on the truss, nudged along the ring by `da`. */
 function boxAt(i: number, da: number, size = 6) {
   const [x, y] = pt(R_BOX, segMid(i) + da);
@@ -74,7 +82,11 @@ export default function RingDiagram({
 
   const node = (i: number) => boxAt(i, -0.07);
   const power = (i: number) => boxAt(i, 0.07);
-  const firstSpoke = seg * SPOKES_PER + 1;
+  // Each controller drives its four spokes from every other output.
+  const spokes = Array.from(
+    { length: SPOKES_PER },
+    (_, k) => `${letter(seg)}${2 * k + 1}`,
+  ).join(", ");
 
   return (
     <figure className="ring" data-interactive={interactive || undefined}>
@@ -82,12 +94,12 @@ export default function RingDiagram({
         <svg
           viewBox="-138 -114 276 228"
           role="img"
-          aria-label="The Gate from above: sixteen truss segments in a ring, each with a node box and a power box. Power and the network both run segment to segment around the ring."
+          aria-label="The Gate from above: sixteen truss segments in a ring, lettered A to P clockwise from the stage, each with a node box and a power box. Power and the network both run segment to segment around the ring."
         >
           {layers.spokes && (
             <g className="ring-spokes">
               {Array.from({ length: GATE.spokes }, (_, s) => {
-                const a = ((s + 0.5) / GATE.spokes) * Math.PI * 2;
+                const a = START + ((s + 0.5) / GATE.spokes) * Math.PI * 2;
                 const [x0, y0] = pt(R_HUB, a);
                 const [x1, y1] = pt(R_TRUSS_IN - 2, a);
                 return (
@@ -234,7 +246,12 @@ export default function RingDiagram({
               return (
                 <g className="ring-wan">
                   <line x1={f(x1)} y1={f(y1)} x2={f(x0)} y2={f(y0)} />
-                  <text x={f(tx)} y={f(ty)} dominantBaseline="central">
+                  <text
+                    x={f(tx)}
+                    y={f(ty)}
+                    textAnchor={tx < -1 ? "end" : "start"}
+                    dominantBaseline="central"
+                  >
                     Internet in
                   </text>
                 </g>
@@ -279,7 +296,7 @@ export default function RingDiagram({
                   dominantBaseline="central"
                   data-active={seg === i || undefined}
                 >
-                  {i + 1}
+                  {letter(i)}
                 </text>
               );
             })}
@@ -340,7 +357,7 @@ export default function RingDiagram({
                 >
                   ‹
                 </button>
-                <strong>Segment {seg + 1}</strong>
+                <strong>Segment {letter(seg)}</strong>
                 <button
                   type="button"
                   className="chip"
@@ -352,20 +369,18 @@ export default function RingDiagram({
               </div>
               <dl>
                 <dt>Spokes</dt>
+                <dd>{spokes}</dd>
+                <dt>Node box {letter(seg)}</dt>
                 <dd>
-                  {firstSpoke}–{firstSpoke + SPOKES_PER - 1}
+                  Light controller {letter(seg)} (PixLite E4-S) and switch{" "}
+                  {letter(seg)}, with four spare PoE+ ports
                 </dd>
-                <dt>Node box {seg + 1}</dt>
-                <dd>
-                  Light controller {seg + 1} (PixLite E4-S) and switch {seg + 1}
-                  , with four spare PoE+ ports
-                </dd>
-                <dt>Power box {seg + 1}</dt>
+                <dt>Power box {letter(seg)}</dt>
                 <dd>
                   Supplies for the pixels and the switch, and a ground-fault
                   breaker
                 </dd>
-                <dt>Joins segment {((seg + 1) % N) + 1}</dt>
+                <dt>Joins segment {letter((seg + 1) % N)}</dt>
                 <dd>
                   {(seg + 1) % CHAIN === 0
                     ? "One sealed Ethernet joint; the power chain ends here, capped"

@@ -40,6 +40,14 @@ wants to raise, and donors can see where their money goes.
 
 ## Decisions already made (don't re-ask)
 
+- **The draft banner is off** (user, 2026-10-22).
+- **Tier names and order: not important now** (user, 2026-10-22); dropped from the
+  open questions.
+- **Ring diagram lettered A–P** like the V1 layout (user, 2026-10-22: "let's keep it
+  consistent"): clockwise seen from above, A at the stage leg, drawn at the
+  bottom.
+- **PR #3 on empyreangate.org is merged** (`ad71e59`, 2026-10-21 9:51 PM PDT
+  (2026-10-22 04:51Z)).
 - Subdomain `v2.empyreangate.org`, published like the parent (user, 2026-10-21).
 - Don't link to it from empyreangate.org (user, 2026-10-21).
 - Build and review locally before publishing (user, 2026-10-21).
@@ -235,22 +243,11 @@ of them.
 
 ## Open questions for the user
 
-1. The "Give" button points at the Givsum page empyreangate.org uses (Entheos
-   Community Village). User, 2026-10-21: "entheos? i gotta ask james".
-   Waiting on James.
-2. Publish a direct email for James Logistic as the larger-gifts contact?
-   The repo is public, so an address there gets harvested; the site itself
-   is behind the password. Recommendation: only with James's OK, and
-   ideally a role address rather than a personal one.
-3. The stretch-goal tiers and their order (Built for the heat, now just the
-   industrial switches at $4,500; Eyes and ears; 128 spokes) are my
-   proposal. Keep, rename, reorder, or fold "Built for the heat" into V2?
-4. Sun shields on all 33 boxes ($1,320–$3,960). User, 2026-10-21: "maybe
-   excessive? how much does this help? i guess if it's built into the truss
-   it's easy". Answered with the Hoffman figure; proposal: one shield per
-   segment over both boxes. Waiting on the user.
-5. Remove the draft banner? Recommendation: after the open prices above
-   settle.
+1. **For James** (the user asks him; list given 2026-10-22): the generators
+   (which ones, GFCI on their outlets), the Give link, and whether to publish
+   an email for larger gifts. Listed in the thread and in `plans/power.md`.
+2. The feed: does "30 A 3 phase" mean the L14-30 (split-phase) or true
+   three-phase? (`plans/power.md`)
 
 ## Things not to do
 

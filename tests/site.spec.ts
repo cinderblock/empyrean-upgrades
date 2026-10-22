@@ -62,13 +62,13 @@ test.describe("overview", () => {
   test("the ring diagram steps through segments", async ({ page }) => {
     await page.goto("/");
     const detail = page.locator(".ring-detail");
-    await expect(detail).toContainText("Segment 1");
+    await expect(detail).toContainText("Segment A");
     await page.getByRole("button", { name: "Next segment" }).click();
-    await expect(detail).toContainText("Segment 2");
-    await expect(detail).toContainText("Spokes5–8");
+    await expect(detail).toContainText("Segment B");
+    await expect(detail).toContainText("SpokesB1, B3, B5, B7");
     await page.getByRole("button", { name: "Previous segment" }).click();
     await page.getByRole("button", { name: "Previous segment" }).click();
-    await expect(detail).toContainText("Segment 16");
+    await expect(detail).toContainText("Segment P");
   });
 
   test("the ring at rest draws every spoke, at 64 and 128", async ({

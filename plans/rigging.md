@@ -39,6 +39,11 @@ See `docs/v1-hardware.md` → Structure and geometry.
 
 ## Decisions already made (don't re-ask)
 
+- **How V1 is raised** (user, 2026-10-22): a **crane at Burning Man**; at other
+  events, **eight hand chain hoists, rented for every deploy**. So owning
+  hoists (hand or electric) replaces a recurring rental, and the hand-hoist
+  option is what the crew already does.
+- **Nothing goes on top of the ring** (no panels, no walkway; user, 2026-10-22).
 - Two options to compare (user, 2026-10-21):
   1. **Pass-through arcs:** replace half of the arced segments (the 8 that meet
      the legs) with arcs that have a pass-through for the vertical, so the
@@ -93,9 +98,10 @@ the hoists and check the truss with that in.
    the ring today (a junction block at each leg?)?
 2. ~~How tall are the legs~~ 20 ft, ring at about 21 ft (A-06). 8 legs (user,
    2026-10-22).
-3. How much does the ring weigh with everything on it? Does the hub hang
-   from the spokes?
-4. How is V1 raised today (forklift, telehandler, hand chain hoists)?
+3. How much does the ring weigh with everything on it? (user, 2026-10-22:
+   "not sure")
+4. ~~How is V1 raised today?~~ A crane at Burning Man; eight rented hand
+   hoists elsewhere (user, 2026-10-22). What does the rental cost per deploy?
 5. Motorised (electric hoists and a controller) or manual (hand chain hoists)?
 6. Own or rent the lifting gear? Is 3-phase power available at setup?
 7. Which events, and who inspects?

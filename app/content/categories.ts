@@ -98,7 +98,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         title: "Each segment protected on its own",
-        body: "A ground-fault breaker in every power box. A fault darkens one segment, not the whole Gate, and sixteen small protectors don't trip on the supplies' normal leakage the way one big one would.",
+        body: "A ground-fault breaker in every power box. A fault darkens one segment, not the whole Gate, and sixteen small protectors don't trip on the supplies' normal leakage the way one big one would. Each resets from the ground with a pole: its button faces down.",
       },
       {
         title: "Power boxes apart from data boxes",
@@ -347,7 +347,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         title: "In the shade",
-        body: "A white aluminium shield over every box, on standoffs. Shading cuts a box's temperature rise by about half.",
+        body: "A simple white sheet on the truss above each segment's boxes. Shading cuts a box's temperature rise by about half.",
       },
       {
         title: "Measured, not guessed",
@@ -449,7 +449,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     name: "Rigging",
     headline: "A ring that raises itself",
     today:
-      "The 60 ft ring has to be lifted onto its eight legs by other means at every build.",
+      "A crane lifts the 60 ft ring at Burning Man. At other events, eight hand chain hoists do it, rented for every deploy.",
     v2: "Each leg gets a sleeve that the ring rides up, and an electric hoist at the top. The whole ring climbs its own legs, level at all eight, and locks off at height so it never hangs on the chains for the week.",
     points: [
       {

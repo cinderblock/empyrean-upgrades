@@ -176,7 +176,7 @@ export const ROUND_TO = 500;
  * Early figures carry a banner. Turn it off once the crew has reviewed the
  * line items and the open questions that move them (pixel load, compute).
  */
-export const DRAFT = true;
+export const DRAFT = false;
 
 /** For a price seen only in a search snippet or an aggregator. */
 const RECHECK =
@@ -371,19 +371,32 @@ export const ITEMS: LineItem[] = [
     id: "power-gfci",
     category: "power",
     tier: "core",
-    name: "20 A breaker with ground-fault protection in each power box",
-    part: "Allen-Bradley 1492-MCGAT120 (UL 489 + UL 943 Class A), or a 20 A breaker + Leviton GSIA2",
+    name: "20 A breaker and ground-fault protector in each power box, reset from the ground",
+    part: "A 20 A breaker + Ericson 1075-AR panel-mount Class A GFCI (UL 943)",
     detail:
-      "Each segment protected on its own: a fault darkens one segment, not the Gate.",
+      "Each segment protected on its own: a fault darkens one segment, not the Gate. The GFCI mounts through the box's floor, its reset button facing down, so a pole resets it from the ground.",
     qty: 17,
     qtyNote: "16 + 1 spare",
-    unit: [82.77, 290.77],
+    unit: [98.56, 290.77],
     confidence: "quoted",
     source: {
-      label: "HESCO",
-      url: "https://store.hesconet.com/Catalog/Automation-And-Control/Control-Circuit-And-Load-Protection/Circuit-Breakers-Miniature-Circuit-Breakers/1492-MC-Thermal-magnetic-Miniature-Circuit-Breakers/Allen-Bradley-1492-MCGAT120-AB1492MCGAT120",
+      label: "RSP Supply (1075-AR)",
+      url: "https://rspsupply.com/p-583935-ericson-1075-ar-panel-mount-gfci-20-amp-2400-watts-1-ft-cable-nema-3r.aspx",
     },
-    note: "One 5 mA GFCI for the whole ring would trip on the summed leakage of the supplies. 20 A per segment, matching its 20 A outlets. Low: a $40 breaker and a $42.77 inline GFCI (20 A); high: the DIN GFCI breaker (about $276 + adapters; the 20 A price is from a search listing, recheck).",
+    datasheet:
+      "https://www.homelectrical.com/sites/default/files/ERC-1075ARKIT-SPEC.pdf",
+    note: "One 5 mA GFCI for the whole ring would trip on the summed leakage of the supplies. 20 A per segment, matching its 20 A outlets. The 1075-AR is 20 A, −35 to 66 °C, NEMA 4/4X face, and powers itself back up after an outage. Low: a $40 breaker + the 1075-AR at $58.56 (sale; $70.27 regular). High: an Allen-Bradley 1492-MCGAT120 DIN GFCI breaker (about $276 + adapters) behind a sealed window.",
+  },
+  {
+    id: "power-reset-pole",
+    category: "power",
+    tier: "core",
+    name: "Insulated reset pole, for the ground-fault protectors overhead",
+    detail: "A tripped segment is reset from the ground, no ladder.",
+    qty: 2,
+    unit: [40, 150],
+    confidence: "estimate",
+    note: "A fibreglass telescoping pole with a push tip; one spare.",
   },
   {
     id: "power-54v",
@@ -723,12 +736,11 @@ export const ITEMS: LineItem[] = [
     id: "wp-shields",
     category: "weatherproofing",
     tier: "core",
-    name: "Sun shields: white aluminium on standoffs",
-    detail:
-      "On every box. A shield cuts the heat a box takes on by about half.",
-    qty: 33,
-    qtyNote: "16 node + 16 power + 1 brain",
-    unit: [40, 120],
+    name: "Sun shields: a simple white sheet on the truss above each segment's boxes",
+    detail: "Shading cuts the heat a box takes on by about half.",
+    qty: 17,
+    qtyNote: "16 segments + the brain box",
+    unit: [50, 150],
     confidence: "estimate",
     source: {
       label: "Zoro (sheet, for reference)",
@@ -1124,17 +1136,17 @@ export const ITEMS: LineItem[] = [
     id: "tr-container",
     category: "transport",
     tier: "transport",
-    name: "40 ft high-cube container, one-trip, doors at both ends, kept in Oakland",
+    name: "Container: fix up the crew's own 40 ft, kept in Oakland",
     detail:
       "V1 fills a 26 ft box truck. A 20 ft container has about a third less floor than that truck; a 40 ft has about 40 % more, room for the carts.",
     qty: 1,
-    unit: [0, 4800],
+    unit: [0, 1500],
     confidence: "estimate",
     source: {
       label: "Western Container Sales (Oakland)",
       url: "https://www.westerncontainersales.com/shipping-containers-for-sale/california/oakland",
     },
-    note: "Low: the crew may already have a container (if it's a 40 ft). High: $3,690 at the Oakland depot, plus local delivery (estimated).",
+    note: "The crew has a 40 ft container in fair condition (user). Low: as it is; high: door seals, floor and rust repair (estimated). A new one-trip high cube is $3,690 in Oakland if it won't do.",
   },
   {
     id: "tr-mods",

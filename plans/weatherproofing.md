@@ -29,6 +29,10 @@ power boxes**. Power and data never share a box.
 
 ## Decisions already made (don't re-ask)
 
+- **Sun shields: something simple attached to the truss above the boxes**
+  (user, 2026-10-22), one per segment over both its boxes (16 + the brain box), in the
+  budget at $50–150 each.
+- **No solar panels or service walkway on top of the ring** (user, 2026-10-22).
 - Power boxes are separate from node/brain boxes (user, 2026-10-21).
 - Boxes live inside the truss (user, 2026-10-21).
 
