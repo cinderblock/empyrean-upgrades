@@ -136,6 +136,11 @@ wants to raise, and donors can see where their money goes.
         `plans/transport.md`; research `docs/pricing-container-carts-2026-10.md`.
         ← current
 
+18. [ ] **New stretch goal: a VJ console** (user, 2026-10-22), on the ladder
+        under Compute. A 5-step tier ramp validates on both surfaces (dark
+        #9ec5f4 … #184f95; print #104281 … #86b6ef), already in the CSS.
+        Research: `docs/pricing-vj-console-2026-10.md`. ← current
+
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 
 In `cloudflare/config/projects/empyreangate.yaml`, after the empyreangate.org

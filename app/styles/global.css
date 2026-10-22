@@ -52,6 +52,7 @@
   --tier-1: #6da7ec;
   --tier-2: #3987e5;
   --tier-3: #256abf;
+  --tier-4: #184f95;
 
   --font-display: "Cormorant Variable", "Cormorant Garamond", Georgia, serif;
   --font-sans:
@@ -516,6 +517,9 @@ p {
 }
 .tier-3 {
   --tier: var(--tier-3);
+}
+.tier-4 {
+  --tier: var(--tier-4);
 }
 
 .ladder-bar {
@@ -1707,10 +1711,11 @@ p {
     --series-contingency: #c9c9cf;
     --texture-ink: rgba(0, 0, 0, 0.55);
     /* Tiers on white: darkest first. */
-    --tier-0: #184f95;
-    --tier-1: #256abf;
-    --tier-2: #5598e7;
-    --tier-3: #86b6ef;
+    --tier-0: #104281;
+    --tier-1: #1c5cab;
+    --tier-2: #2a78d6;
+    --tier-3: #5598e7;
+    --tier-4: #86b6ef;
   }
 
   html {

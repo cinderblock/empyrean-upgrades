@@ -54,6 +54,22 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
   UPS ($200, −30 to 70 °C, feeds the industrial PC directly). Listed as an extra.
 - Restore-on-AC-loss is undocumented for the consumer options.
 
+## VJ console (stretch goal)
+
+Asked for 2026-10-22: a **VJ console**, a USB-C dock-based unit that plugs
+into the show computer over a long USB-C link (fiber-extended?) plus power,
+with a good touch screen and physical controls: buttons, maybe sliders and
+knobs, maybe motorized ("flying") faders. It goes on the stretch-goal ladder
+(a normal-sized ask, not a big project), under Compute.
+
+- Research under way: `docs/pricing-vj-console-2026-10.md` (the long link by
+  distance, the dock, touch screens, MIDI controllers with motorized faders, a
+  custom build, a case).
+- **Software dependency:** the Empyrean app takes MIDI Timing Clock today but
+  doesn't map MIDI controls (faders, knobs, buttons) to show parameters, nor
+  drive motorized faders back. That is work in the Empyrean repo, not a cost
+  here.
+
 ## Open questions
 
 1. What is "better" measured against? Which features or loads are limited by
