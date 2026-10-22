@@ -84,20 +84,29 @@ wants to raise, and donors can see where their money goes.
         segment, a towable adapter; one feed on the ring diagram. V2 goal now
         $40,500 (power $13.7–18.7K); $42,500 after the local outlets
         (2026-10-21). ← awaiting the user's review
-13. [ ] Publish. ← current
+13. [x] Publish (live 2026-10-21).
+
     - [x] GitHub repo, public; master pushed (2026-10-21).
-    - [x] ops entry: pushed as ops `7b23091` from a worktree off
-          origin/master (the shared ops checkout has other threads'
-          uncommitted edits in the same file). Dry run and the `Cloudflare`
-          CI run (39723784768) both: 2 to create (the worker, its domain),
-          0 to update, 0 to delete; the verify pass was 0/0/0.
+    - [x] ops entry: pushed as ops `7b23091` from a worktree off origin/master
+          (the shared ops checkout has other threads' uncommitted edits in the
+          same file). Dry run and the `Cloudflare` CI run (39723784768) both: 2 to
+          create (the worker, its domain), 0 to update, 0 to delete; the verify
+          pass was 0/0/0.
     - [x] `SITE_PASSWORD` secret set on `empyreangate-v2` with
           `wrangler secret put` (2026-10-21).
-    - [x] **Workers Builds**: connected by the user in the Cloudflare
-          dashboard (2026-10-21), settings as in README → Deployment. The
-          GitHub app ("Cloudflare Workers and Pages") needed access to the new
-          repo. Connecting doesn't build; the first build waits for a push.
-    - [ ] Verify: the lock page, `?key=` unlock, every page, robots, headers.
+    - [x] **Workers Builds**: connected by the user in the Cloudflare dashboard
+          (2026-10-21), settings as in README → Deployment. The GitHub app
+          ("Cloudflare Workers and Pages") needed access to the new repo.
+          Connecting doesn't build; the first build waits for a push.
+    - [x] Verified live after the first Workers Build (24bc0769, success): the
+          lock page (401, no figures, noindex, `no-store`); a wrong password
+          refused (401); the right one 303s to `next` with an HttpOnly, Secure,
+          SameSite=Lax cookie (90 days); `?key=` unlocks and drops the key; every
+          page 200 with meta noindex and a private, no-cache Cache-Control;
+          nosniff, Referrer-Policy, X-Frame-Options and X-Robots-Tag present;
+          robots.txt disallows all; a miss is 404. Script:
+          `tmp/verify-live.ts <password>` (gitignored; copy it out if it should
+          be kept).
 
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 
@@ -165,7 +174,7 @@ of them.
 - [x] The same at-rest spoke bug fixed in empyreangate.org: PR #3 against
       its `dev` (github.com/cinderblock/empyreangate.org/pull/3), with a test
 - [x] Workers Builds connected (user, dashboard, 2026-10-21)
-- [ ] First deploy verified
+- [x] First deploy verified (2026-10-21)
 
 ## Open questions for the user
 
