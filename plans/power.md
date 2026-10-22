@@ -18,9 +18,10 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   bundle up the truss leg by the stage; circuits 1–5 each feed three segments
   through 3-way extension cords, circuit 6 the network switch and segment P.
   The drawing lists "Circuit Loads" of 15 A for 1–5 and 5 A for 6: 80 A at
-  120 V, 9.6 kVA. **If those are measured draws rather than breaker sizes,
-  full white needs more than the L14-30 feed's 5.76 kVA continuous** (it
-  would match the high load estimate). Asked the user which they are.
+  120 V, 9.6 kVA. **They are estimated max draw** (user, 2026-10-21), not
+  measured: "the strips never really draw what everyone expects". That
+  estimate is more than the L14-30 feed's 5.76 kVA continuous, and 128
+  spokes would double it.
 
 ## Requirements
 
@@ -37,7 +38,11 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   wet outdoor public installation.
 - **Local outlets** (user, 2026-10-21): each segment's power box also has "a
   handful" of 120 V outlets for things mounted in that segment, behind the
-  segment's ground-fault protection. **Four per box** (user, 2026-10-21).
+  segment's ground-fault protection. **Four per box, 20 A** (user,
+  2026-10-21: "20A outlets at our in-truss spider boxes"), so each segment's
+  ground-fault breaker is 20 A too (1492-MCGAT120, or a 20 A breaker +
+  GSIA2), with 12 AWG from it to the outlets. The user calls the power boxes
+  "spider boxes".
   In the budget (`power-outlets`): a die-cast 2-gang weatherproof box bolted
   to the power box, two 20 A weather-resistant duplexes, an extra-duty in-use
   cover; $45–97 a box, $773–1,656 for 17 (`docs/pricing-joint-cords-2026-10.md`
@@ -120,7 +125,7 @@ what the site's budget now uses.
 - **Ground faults: a 1-pole Class A GFCI in each power box.**
   - One 5 mA GFCI for the ring would see 2–5 mA of leakage with the legs
     balanced, and 8–18 mA if they aren't: nuisance trips.
-  - Options: Allen-Bradley 1492-MCGAT115 DIN GFCI breaker ($276, replaces the
+  - Options: Allen-Bradley 1492-MCGAT120 (20 A) DIN GFCI breaker (about $276, replaces the
     plain breaker), or an inline Leviton GSIA2 ($43, auto-reset).
   - A generator whose L14-30R is itself GFCI-protected might trip the same way.
     Not checked.
@@ -218,10 +223,11 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
 
 ## Open questions
 
-- (2026-10-21) **For the user** (who knows the Gate's power best; James knows
-  the generators): are the V1 drawing's "Circuit Loads" (15 A × 5, 5 A)
-  breaker sizes or measured draws? If measured at full white, the 30 A feed
-  can't carry full white without a cap (see Capacity).
+- (2026-10-21) **Feed ampacity: 30 A or 50 A?** The V1 "Circuit Loads" are
+  estimated max draw (user). The user is open to more ampacity for maximum
+  expansion, or to showing both options with prices. Research under way:
+  `docs/pricing-feed-options-2026-10.md` (L14-30 vs a 50 A CS-series feed on
+  6/4, both rain-proof, on the 60 ft geometry).
 - (2026-10-21) **For James** (generators): what generator(s) does the Gate
   actually run on, and do their L14-30 outlets have built-in GFCI (which
   could trip on the ring's summed leakage)?

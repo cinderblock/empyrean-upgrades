@@ -313,8 +313,8 @@ export const ITEMS: LineItem[] = [
     id: "power-gfci",
     category: "power",
     tier: "core",
-    name: "Breaker with ground-fault protection in each power box",
-    part: "Allen-Bradley 1492-MCGAT115 (UL 489 + UL 943 Class A), or a breaker + Leviton GSIA2",
+    name: "20 A breaker with ground-fault protection in each power box",
+    part: "Allen-Bradley 1492-MCGAT120 (UL 489 + UL 943 Class A), or a 20 A breaker + Leviton GSIA2",
     detail:
       "Each segment protected on its own: a fault darkens one segment, not the Gate.",
     qty: 17,
@@ -323,9 +323,9 @@ export const ITEMS: LineItem[] = [
     confidence: "quoted",
     source: {
       label: "HESCO",
-      url: "https://store.hesconet.com/Product/Allen-Bradley-1492-MCGAT115-AB1492MCGAT115",
+      url: "https://store.hesconet.com/Catalog/Automation-And-Control/Control-Circuit-And-Load-Protection/Circuit-Breakers-Miniature-Circuit-Breakers/1492-MC-Thermal-magnetic-Miniature-Circuit-Breakers/Allen-Bradley-1492-MCGAT120-AB1492MCGAT120",
     },
-    note: "One 5 mA GFCI for the whole ring would trip on the summed leakage of the supplies. Low: a $40 breaker and a $42.77 inline GFCI; high: the DIN GFCI breaker ($275.77 + adapters).",
+    note: "One 5 mA GFCI for the whole ring would trip on the summed leakage of the supplies. 20 A per segment, matching its 20 A outlets. Low: a $40 breaker and a $42.77 inline GFCI (20 A); high: the DIN GFCI breaker (about $276 + adapters; the 20 A price is from a search listing, recheck).",
   },
   {
     id: "power-54v",
@@ -388,7 +388,7 @@ export const ITEMS: LineItem[] = [
     id: "power-outlets",
     category: "power",
     tier: "core",
-    name: "Local outlets on each power box: four 120 V, behind the segment's ground-fault breaker",
+    name: "Local outlets on each power box: four 20 A, 120 V, behind the segment's 20 A ground-fault breaker",
     part: "Bell 5337-0 die-cast box, 2 × 20 A weather-resistant duplex, Eaton WIU-2WX in-use cover",
     detail:
       "For whatever is mounted on that segment. The cover closes over plugged-in cords.",
