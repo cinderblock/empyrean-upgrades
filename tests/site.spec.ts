@@ -71,6 +71,44 @@ test.describe("overview", () => {
     await expect(detail).toContainText("Segment 16");
   });
 
+  test("the ring at rest draws every spoke, at 64 and 128", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    /** Rasterise the still SVG and count spokes with no paint at mid-radius. */
+    const blankSpokes = () =>
+      page.evaluate(async () => {
+        const svg = document.querySelector<SVGSVGElement>(".gate-still")!;
+        const spokes = svg.querySelectorAll("line").length;
+        const xml = new XMLSerializer().serializeToString(svg);
+        const img = new Image();
+        img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(xml)}`;
+        await img.decode();
+        const size = 400;
+        const canvas = document.createElement("canvas");
+        canvas.width = canvas.height = size;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0, size, size);
+        const blank: number[] = [];
+        for (let s = 0; s < spokes; s++) {
+          const a = (s / spokes) * Math.PI * 2;
+          // Halfway along the spoke, in viewBox units (-100..100).
+          const r = 60;
+          const x = Math.round(((Math.sin(a) * r + 100) / 200) * size);
+          const y = Math.round(((-Math.cos(a) * r + 100) / 200) * size);
+          const px = ctx.getImageData(x - 1, y - 1, 3, 3).data;
+          let alpha = 0;
+          for (let i = 3; i < px.length; i += 4) alpha = Math.max(alpha, px[i]);
+          if (alpha === 0) blank.push(s);
+        }
+        return { spokes, blank };
+      });
+    expect(await blankSpokes()).toEqual({ spokes: 64, blank: [] });
+    await page.getByRole("button", { name: /Stretch goal: 128/ }).click();
+    await expect(page.locator(".gate-still line")).toHaveCount(128);
+    expect(await blankSpokes()).toEqual({ spokes: 128, blank: [] });
+  });
+
   test("the demo switches to 128 spokes and links to the playground", async ({
     page,
   }) => {
