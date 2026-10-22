@@ -36,19 +36,52 @@ See `docs/v1-hardware.md` → Structure and geometry.
 
 ## Options
 
-Research under way: `docs/pricing-self-climbing-2026-10.md` (lifting gear,
-sleeve blocks, arcs with pass-throughs, top sections, a controller, safety,
-and manual alternatives).
+Researched 2026-10-21: `docs/pricing-self-climbing-2026-10.md`. Ranges assume
+a 12" (F34-class) ring; a 20.5" ring moves everything to the high end. Many
+prices are search snippets or estimates (rigging dealers sell by quote).
+
+| Whole rig, 8 legs                                   | Electric (8 × D8+ 500 kg) | Manual (hand chain hoists) |
+| --------------------------------------------------- | ------------------------- | -------------------------- |
+| **1b: stock sleeve blocks, V1 arcs kept** (leaning) | $82–171K                  | $54–115K                   |
+| 1a: custom pass-through arcs, 60 ft kept            | $100–231K                 | $71–174K                   |
+| 2: shelf on sleeve blocks, ring unchanged           | $85–184K                  | $57–128K                   |
+
+- **A stock 4-way ground-support sleeve block already is a pass-through**:
+  the leg runs through it and the arcs bolt to two faces. So option 1 needs
+  no special arc (1b): all 16 V1 arcs stay, 8 sleeve blocks go in at the
+  legs, and the ring grows about 1.0–1.3 m across (less if V1 already has a
+  junction block at each leg; Unknown). Keeping exactly 60 ft needs custom
+  arcs (1a, quote-only).
+- **Option 2's limit is the cantilever**: Prolyte rates a sleeve 400 kg at
+  0.5 m, 200 kg at 1 m. Enough for a 12" ring, marginal for 20.5".
+- **Hoists**: 8 × 500 kg D8+ (double brake), cheapest Chainmaster D8+ Ultra
+  at $3,199. **All are 3-phase**, while V2's feed is split-phase: a 3-phase
+  supply just for setup and strike. None is rated past 40 °C at full duty:
+  lift in the cool hours, lock off, shade or remove the hoists.
+- **Manual is viable** for one lift up and one down per event: 8 people in
+  step, slow, saves about $29–56K.
+- **Safety must-haves**: double-brake hoists (or rated secondaries), a
+  mechanical lock-off at every sleeve at height, a cleared floor while it
+  moves, an 8-channel controller with a kill switch, load monitoring that
+  cuts the motors, guys or ballast to an anchor plan, a logging anemometer
+  and wind plan, and an engineer's package (Burning Man asks for one over
+  20 ft; the legs would be about 20–26 ft).
+- The spread comes from: reusing the V1 legs or not, load monitoring
+  ($2–25K), and the engineering fee ($3–15K).
 
 ## Open questions
 
-1. What truss is it (make, profile, e.g. 12" or 20.5" box), and how tall are
-   the legs?
-2. How much does the ring weigh with everything on it?
-3. How is V1 raised today (forklift, telehandler, hand chain hoists)?
-4. Motorised (electric hoists and a controller) or manual (hand chain hoists
-   or a winch per leg)?
-5. Where does this sit among the stretch goals?
+1. What truss is it (make, profile, e.g. 12" or 20.5" box, connector type),
+   and how do the legs meet the ring today (a junction block at each leg?)?
+2. How tall are the legs, and how high does the ring sit?
+3. How much does the ring weigh with everything on it? Does the hub hang
+   from the spokes?
+4. How is V1 raised today (forklift, telehandler, hand chain hoists)?
+5. Motorised (electric hoists and a controller) or manual (hand chain hoists)?
+6. Own or rent the lifting gear? Is 3-phase power available at setup?
+7. Which events, and who inspects?
+8. Permission to request quotes (custom arcs, load monitoring, engineering)?
+9. Where does this sit among the stretch goals?
 
 ## Dependencies
 
@@ -59,5 +92,5 @@ and manual alternatives).
 ## Progress
 
 - [x] Plan created; the user's two options recorded (2026-10-21)
-- [ ] Research both options (`docs/pricing-self-climbing-2026-10.md`)
+- [x] Research both options (`docs/pricing-self-climbing-2026-10.md`, 2026-10-21)
 - [ ] Add the category and its stretch goal to the site
