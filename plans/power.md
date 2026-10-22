@@ -34,6 +34,12 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   **Three-phase preferred; split-phase (120/240 V, two hots) is enough.** An
   "RV" connector is acceptable only if it is twist-lock and waterproof. This
   supersedes "3–6 separately fed chains" from the first pricing research.
+- **The feed connector is whatever rental generators commonly have** (user,
+  2026-10-21): that is the most important criterion, ahead of phase count and
+  rating. The watertight version of that connector is the one to pick.
+- **Size for the real load, not full white**: V1 averages about 1,500–2,000 W
+  for the whole Gate (user, 2026-10-21). Full white is a theoretical ceiling
+  the software can cap.
 
 ## Options to evaluate
 
@@ -58,7 +64,14 @@ by the feed research, `docs/pricing-power-feed-2026-10.md`):
   leg, legs alternated to balance (8 + 8 on split-phase; 6 + 5 + 5 on 3φ),
   through its own breaker. So the joints carry the **full feed current on 4
   or 5 poles**: powerCON TRUE1 (20 A, single-phase) no longer fits the trunk.
-- **Capacity vs full white** (64 spokes: 3.6–8.1 kW AC):
+- **Capacity vs the real load.** V1 averages 1,500–2,000 W (Reported): about
+  13–17 A at 120 V, or 6–8 A a leg on split-phase. Any 30 A feed carries that
+  with a wide margin (split-phase 30 A: 7.2 kVA, 5.8 kVA continuous), even
+  with 128 spokes at double the average. So the feed rating can follow the
+  generators, and the trunk and joints can be sized for 30 A (e.g. 10/4 SOOW)
+  rather than 50 A.
+- **Capacity vs full white** (64 spokes: 3.6–8.1 kW AC; a ceiling, not the
+  load):
   - Split-phase 30 A: 7.2 kVA, 5.8 kVA continuous (80 %). Low estimate only.
   - Split-phase 50 A: 12 kVA, 9.6 kVA continuous. Covers the high estimate
     (about 34 A a leg balanced).

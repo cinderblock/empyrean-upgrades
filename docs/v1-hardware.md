@@ -54,6 +54,7 @@ Datasheet: <https://www.ac-et.com/storage/product_images/advatek/e4_s_mk3/pixlit
 | ------------------------------------------------------------------------- | ------------------- | ----------------------------- |
 | 110 VAC to the truss, over cables and plugs that are **not weatherproof** | Reported 2026-10-21 | User                          |
 | Power source (generator, grid, how many circuits, amps per circuit)       | Unknown             |                               |
+| Average draw of the whole Gate in operation: about **1,500–2,000 W**      | Reported 2026-10-21 | User                          |
 | Total load: pixels at full white, plus everything else                    | Unknown             | Needs pixel watts (see above) |
 
 ## Network
