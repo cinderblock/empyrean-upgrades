@@ -11,17 +11,26 @@ Every fact has a confidence and a source. Keep it that way when adding to this f
 
 ## Structure and geometry
 
-| Fact                                                           | Confidence           | Source                                       |
-| -------------------------------------------------------------- | -------------------- | -------------------------------------------- |
-| A ring of **16 truss segments**                                | Reported 2026-10-21  | User                                         |
-| 64 LED spokes in a radial "wagon wheel", viewed from below     | Confirmed            | `Empyrean/plans/empyrean-gate.md`            |
-| Outer diameter **60 ft** (was recorded as about 50 ft)         | Reported 2026-10-21  | James Logistic, via the user                 |
-| Inner diameter about 15–20 ft                                  | Reported (uncertain) | same                                         |
-| 378 pixels per spoke, 24,192 total                             | Confirmed 2026-08-23 | same                                         |
-| Each strip is fed from the outside (pixel 0 at the outer ring) | Confirmed 2026-08-23 | same                                         |
-| 4 spokes per truss segment (64 / 16)                           | Assumed              | Arithmetic; matches 4 strings per controller |
-| LED density: 30 or 60 LED/m                                    | Unknown              | The software defaults to 60                  |
-| Pixel chipset, strip voltage, watts per pixel                  | Unknown              |                                              |
+"V1 drawings" below means three one-page layout PDFs received 2026-10-21:
+`EG AC Power.pdf` (AC power distribution and layout), `EG Network Cabling.pdf`
+(network cable wiring layout) and `EG Strip plugs.pdf` (LED strip plugging
+diagram, top-down view). They are not in the repo.
+
+| Fact                                                                                                                        | Confidence           | Source                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| A ring of **16 truss segments**                                                                                             | Reported 2026-10-21  | User                                                                                                               |
+| 64 LED spokes in a radial "wagon wheel", viewed from below                                                                  | Confirmed            | `Empyrean/plans/empyrean-gate.md`                                                                                  |
+| Outer diameter **60 ft** (was recorded as about 50 ft)                                                                      | Reported 2026-10-21  | James Logistic, via the user                                                                                       |
+| Inner diameter about 15–20 ft                                                                                               | Reported (uncertain) | same                                                                                                               |
+| Inner hub drawn about 11–13 ft across                                                                                       | Assumed              | Scaled off the V1 drawings against a 60 ft ring                                                                    |
+| Controllers about **11.3 ft** apart along the ring, so the circle they sit on is about **57.5 ft** across (180.6 ft around) | Derived 2026-10-21   | Arc dimensions on `EG Network Cabling.pdf`: A 3'-1" to H 82'-1", P 8'-3" to I 87'-3" from the switch, 7 steps each |
+| Segments lettered **A–P** clockwise seen from above, A and P either side of the truss leg by the stage                      | Reported 2026-10-21  | V1 drawings                                                                                                        |
+| **8 truss legs**, 45° apart: by the stage (between A and P), and between B/C, D/E, F/G, H/I, J/K, L/M, N/O                  | Reported 2026-10-21  | V1 drawings (boxed-X symbols, read as legs: Assumed)                                                               |
+| 378 pixels per spoke, 24,192 total                                                                                          | Confirmed 2026-08-23 | same                                                                                                               |
+| Each strip is fed from the outside (pixel 0 at the outer ring)                                                              | Confirmed 2026-08-23 | same                                                                                                               |
+| 4 spokes per truss segment, on outputs 1, 3, 5, 7 (A1…P7)                                                                   | Confirmed 2026-10-21 | `EG Strip plugs.pdf`; matches 4 strings per controller                                                             |
+| LED density: 30 or 60 LED/m                                                                                                 | Unknown              | The software defaults to 60                                                                                        |
+| Pixel chipset, strip voltage, watts per pixel                                                                               | Unknown              |                                                                                                                    |
 
 ## Pixel controllers ("nodes")
 
@@ -50,22 +59,28 @@ Datasheet: <https://www.ac-et.com/storage/product_images/advatek/e4_s_mk3/pixlit
 
 ## Power distribution
 
-| Fact                                                                      | Confidence          | Source                        |
-| ------------------------------------------------------------------------- | ------------------- | ----------------------------- |
-| 110 VAC to the truss, over cables and plugs that are **not weatherproof** | Reported 2026-10-21 | User                          |
-| Power source (generator, grid, how many circuits, amps per circuit)       | Unknown             |                               |
-| Average draw of the whole Gate in operation: about **1,500–2,000 W**      | Reported 2026-10-21 | User                          |
-| Total load: pixels at full white, plus everything else                    | Unknown             | Needs pixel watts (see above) |
+| Fact                                                                                                                                                                                                                                                                                                                | Confidence          | Source                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ----------------------------- |
+| 110 VAC to the truss, over cables and plugs that are **not weatherproof**                                                                                                                                                                                                                                           | Reported 2026-10-21 | User                          |
+| Power source (generator or grid)                                                                                                                                                                                                                                                                                    | Unknown             |                               |
+| A **6-circuit, 50 ft bundle** runs up the truss leg by the stage and ends on top next to the network switch                                                                                                                                                                                                         | Reported 2026-10-21 | `EG AC Power.pdf`             |
+| Circuits 1–5 each feed **three segments** through a 3-way cord: a run to the first (circuit 1: 10 ft to A; 2: 50 ft to D; 3: 100 ft to G; 4: 50 ft to L; 5: 25 ft to O), then 15 ft (red) and 25 ft (orange) tails to the next two (B, C; E, F; H, I; K, J; N, M). Circuit 6 feeds the network switch and P (15 ft) | Reported 2026-10-21 | `EG AC Power.pdf`             |
+| "Circuit Loads": 15 A each for circuits 1–5, 5 A for circuit 6 (80 A in all at 120 V)                                                                                                                                                                                                                               | Reported 2026-10-21 | `EG AC Power.pdf`             |
+| Whether those 15 A figures are breaker sizes or measured draw                                                                                                                                                                                                                                                       | Unknown             | Ask James                     |
+| Average draw of the whole Gate in operation: about **1,500–2,000 W**                                                                                                                                                                                                                                                | Reported 2026-10-21 | User                          |
+| Total load: pixels at full white, plus everything else                                                                                                                                                                                                                                                              | Unknown             | Needs pixel watts (see above) |
 
 ## Network
 
-| Fact                                                                                | Confidence                             | Source                           |
-| ----------------------------------------------------------------------------------- | -------------------------------------- | -------------------------------- |
-| One central switch, every node homed to it                                          | Reported 2026-10-19                    | User                             |
-| Gateway: a UniFi Cloud Gateway (UCG) running the UniFi Network app on-prem          | Reported 2026-10-20                    | User; exact model Unknown        |
-| WAN varies by event: Starlink, the Burning Man uplink, or a local Ethernet cabinet  | Reported 2026-10-20                    | User                             |
-| sACN load about 52 Mbps at 60 fps, sent as one burst per frame                      | Confirmed (calculation from the patch) | `Empyrean/plans/gate-network.md` |
-| Software supports unicast to each controller, by fixed IP or by MAC (auto-resolved) | Confirmed                              | `Empyrean` commit `34644f2`      |
+| Fact                                                                                                                                                   | Confidence                             | Source                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------- | -------------------------------- |
+| One central switch, every node homed to it                                                                                                             | Reported 2026-10-19                    | User                             |
+| The switch sits on top of the truss by the stage leg, between A and P                                                                                  | Reported 2026-10-21                    | V1 drawings                      |
+| Home-run cable per controller: A 7, B 35, C 35, D 50, E 50, F 75, G 75, H 100, I 100, J 75+7, K 75, L 75, M 50, N 35, O 35, P 14 ft: **893 ft** in all | Reported 2026-10-21                    | `EG Network Cabling.pdf`         |
+| Gateway: a UniFi Cloud Gateway (UCG) running the UniFi Network app on-prem                                                                             | Reported 2026-10-20                    | User; exact model Unknown        |
+| WAN varies by event: Starlink, the Burning Man uplink, or a local Ethernet cabinet                                                                     | Reported 2026-10-20                    | User                             |
+| sACN load about 52 Mbps at 60 fps, sent as one burst per frame                                                                                         | Confirmed (calculation from the patch) | `Empyrean/plans/gate-network.md` |
+| Software supports unicast to each controller, by fixed IP or by MAC (auto-resolved)                                                                    | Confirmed                              | `Empyrean` commit `34644f2`      |
 
 ## Show computer ("brain")
 

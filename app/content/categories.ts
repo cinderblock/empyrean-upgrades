@@ -74,7 +74,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     name: "Power",
     headline: "Sealed power, built into every truss segment",
     today:
-      "Mains power reaches the truss over ordinary extension cords and plugs. They aren't rated for rain or dust, and they are run by hand at every build.",
+      "Six circuits come up a truss leg by the stage, then fan out over ordinary 3-way extension cords, 10 to 100 ft long, each feeding three segments. None of it is rated for rain or dust, and it is all run by hand at every build.",
     v2: "One twist-lock plug, the kind every portable rental generator has, powers the whole ring. The power runs segment to segment inside the truss through locking, rain-proof joints, so joining the truss joins the power. A sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
     points: [
       {
@@ -185,7 +185,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     name: "Networking",
     headline: "A ring network that routes around a failure",
     today:
-      "One central switch, with a long cable out to each of the 16 light controllers. That switch, or any one of those cables, can take part of the Gate dark.",
+      "One central switch by the stage, with its own cable out to each of the 16 light controllers: 7 to 100 ft each, 893 ft in all. That switch, or any one of those cables, can take part of the Gate dark.",
     v2: "A small managed switch in every node box, chained segment to segment and closed into a ring. If any one link fails, traffic goes the other way around. Internet can plug in at any segment, and every node gets spare powered ports for what comes next.",
     points: [
       {

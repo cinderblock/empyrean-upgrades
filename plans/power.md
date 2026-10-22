@@ -14,6 +14,14 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
 - Each node box has a 12 V supply. The networking plan adds a ~54 V supply per box
   for the switch and PoE (`plans/networking.md`).
 
+- **V1 distribution** (`EG AC Power.pdf`, 2026-10-21): a 6-circuit 50 ft
+  bundle up the truss leg by the stage; circuits 1–5 each feed three segments
+  through 3-way extension cords, circuit 6 the network switch and segment P.
+  The drawing lists "Circuit Loads" of 15 A for 1–5 and 5 A for 6: 80 A at
+  120 V, 9.6 kVA. **If those are measured draws rather than breaker sizes,
+  full white needs more than the L14-30 feed's 5.76 kVA continuous** (it
+  would match the high load estimate). Ask James which they are.
+
 ## Requirements
 
 - **Rain-proof** locking connectors at every segment joint (user, 2026-10-21:
@@ -209,6 +217,10 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
 - **GFCI distro**, if the event has none: $1,522–$3,226.
 
 ## Open questions
+
+- (2026-10-21) **For James:** are the V1 drawing's "Circuit Loads" (15 A
+  × 5, 5 A) breaker sizes or measured draws? If measured at full white, the
+  30 A feed can't carry full white without a cap (see Capacity).
 
 0. ~~Confirm the leading design~~: confirmed (user, 2026-10-21), now under
    Decisions.

@@ -17,6 +17,10 @@ links and gotchas; this file summarises it and tracks what V2 still needs.
 - PixLite E4-S Mk3: a single 10/100 port per node.
 - sACN about 52 Mbps at 60 fps, as one unpaced burst per frame.
 
+- **V1 cabling** (`EG Network Cabling.pdf`, 2026-10-21): a home run from the
+  switch by the stage to each controller, 7 to 100 ft, **893 ft** in all
+  (`docs/v1-hardware.md`). V2's ring needs about 325 ft.
+
 ## Decisions already made (don't re-ask)
 
 - **Ring of switches, one per node box, ring closed** so RSTP routes around a dead
