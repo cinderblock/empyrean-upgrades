@@ -22,6 +22,7 @@ plans and the budget to the people we're asking to fund them.
 | Expansion       | Future PoE devices: cameras, streaming audio to speakers                                                                                              | [plans/expansion.md](plans/expansion.md)             |
 | Rigging         | A self-climbing ring that raises itself up its legs (stretch goal)                                                                                    | [plans/rigging.md](plans/rigging.md)                 |
 | Solar           | A solar power system for the Gate, maybe the speakers too (stretch goal)                                                                              | [plans/solar.md](plans/solar.md)                     |
+| Transport       | A dedicated shipping container and carts to roll everything in and out (stretch goal)                                                                 | [plans/transport.md](plans/transport.md)             |
 
 ## Reference
 

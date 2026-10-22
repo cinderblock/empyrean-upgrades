@@ -129,6 +129,11 @@ wants to raise, and donors can see where their money goes.
         2026-10-21). Plan `plans/solar.md`; research
         `docs/pricing-solar-2026-10.md`. ← current
 
+17. [ ] **New category: Transport**, a dedicated shipping container and carts
+        to roll everything in and out (user, 2026-10-21). Plan
+        `plans/transport.md`; research `docs/pricing-container-carts-2026-10.md`.
+        ← current
+
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 
 In `cloudflare/config/projects/empyreangate.yaml`, after the empyreangate.org
