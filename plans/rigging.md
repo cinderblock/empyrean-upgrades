@@ -93,4 +93,5 @@ prices are search snippets or estimates (rigging dealers sell by quote).
 
 - [x] Plan created; the user's two options recorded (2026-10-21)
 - [x] Research both options (`docs/pricing-self-climbing-2026-10.md`, 2026-10-21)
-- [ ] Add the category and its stretch goal to the site
+- [x] On the site as a category and a big project (option 1b, electric hoists;
+      goal $197,000), 2026-10-21

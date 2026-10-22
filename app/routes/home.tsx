@@ -6,10 +6,12 @@ import RingDiagram from "../components/RingDiagram";
 import Shell from "../components/Shell";
 import TierLadder from "../components/TierLadder";
 import {
+  PROJECTS,
   itemsIn,
   money,
   moneyRange,
   moneyShort,
+  projectTotals,
   slicesOf,
   subtotal,
   tierTotals,
@@ -33,6 +35,8 @@ export default function Home() {
   const core = totals[0];
   const all = totals[totals.length - 1].cumulative;
   const slices = slicesOf("core");
+  const projects = projectTotals();
+  const isProject = (tier: string) => PROJECTS.some((p) => p.id === tier);
 
   return (
     <Shell>
@@ -80,6 +84,38 @@ export default function Home() {
           <TierLadder totals={totals} />
         </section>
 
+        <section className="section" aria-labelledby="projects">
+          <h2 id="projects">Big projects</h2>
+          <p className="section-lede">
+            Bigger asks, each raised on its own and kept out of the running
+            total above. Early figures with wide ranges: the research is days
+            old.
+          </p>
+          <ul className="cards">
+            {projects.map((t) => {
+              const c = CATEGORIES[t.tier.project!];
+              return (
+                <li key={t.tier.id} className={`card cat-${c.id}`}>
+                  <span className={`card-rule series-fill series-${c.id}`} />
+                  <h3>
+                    <Link to={`/plans/${c.id}`}>{t.tier.name}</Link>
+                  </h3>
+                  <p className="card-headline">{t.tier.promise}</p>
+                  <p className="card-meta">
+                    <span>
+                      To raise: <b>{money(t.goal)}</b>
+                    </span>
+                    <span>Parts: {moneyRange(t.parts)}</span>
+                  </p>
+                  <Link className="card-more" to={`/plans/${c.id}`}>
+                    The plan <span aria-hidden="true">→</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
         <section className="section split split-wide" aria-labelledby="where">
           <div>
             <h2 id="where">Where V2's {moneyShort(core.goal)} goes</h2>
@@ -113,7 +149,12 @@ export default function Home() {
             {CATEGORY_LIST.map((c) => {
               const parts = subtotal(itemsIn({ tier: "core", category: c.id }));
               const stretch = subtotal(
-                itemsIn({ category: c.id }).filter((i) => i.tier !== "core"),
+                itemsIn({ category: c.id }).filter(
+                  (i) => i.tier !== "core" && !isProject(i.tier),
+                ),
+              );
+              const project = subtotal(
+                itemsIn({ category: c.id }).filter((i) => isProject(i.tier)),
               );
               return (
                 <li key={c.id} className={`card cat-${c.id}`}>
@@ -134,6 +175,11 @@ export default function Home() {
                     {stretch[1] > 0 && (
                       <span>
                         Stretch: <b>{moneyRange(stretch)}</b>
+                      </span>
+                    )}
+                    {project[1] > 0 && (
+                      <span>
+                        Big project: <b>{moneyRange(project)}</b>
                       </span>
                     )}
                     <span className={`maturity maturity-${c.maturity}`}>

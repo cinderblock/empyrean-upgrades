@@ -3,6 +3,7 @@ import {
   itemsIn,
   money,
   moneyShort,
+  projectTotals,
   slicesOf,
   subtotal,
   tierTotals,
@@ -24,6 +25,7 @@ export default function PrintSheet() {
   const core = totals[0];
   const all = totals[totals.length - 1].cumulative;
   const slices = slicesOf("core");
+  const projects = projectTotals();
   const host = new URL(SITE.origin).host;
 
   return (
@@ -89,6 +91,11 @@ export default function PrintSheet() {
                 </li>
               ))}
           </ol>
+          <p className="ps-projects">
+            <b>Big projects</b>, each raised on its own:{" "}
+            {projects.map((t) => `${t.tier.name} ${money(t.goal)}`).join(" · ")}
+            .
+          </p>
         </div>
       </div>
 
@@ -104,7 +111,9 @@ export default function PrintSheet() {
           </tr>
         </thead>
         <tbody>
-          {CATEGORY_LIST.map((c) => {
+          {CATEGORY_LIST.filter(
+            (c) => !projects.some((t) => t.tier.project === c.id),
+          ).map((c) => {
             const parts = subtotal(itemsIn({ tier: "core", category: c.id }));
             return (
               <tr key={c.id}>

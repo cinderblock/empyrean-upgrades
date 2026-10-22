@@ -10,6 +10,8 @@ export const CATEGORY_IDS = [
   "compute",
   "weatherproofing",
   "expansion",
+  "rigging",
+  "solar",
 ] as const;
 
 export type CategoryId = (typeof CATEGORY_IDS)[number];
@@ -74,7 +76,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     name: "Power",
     headline: "Sealed power, built into every truss segment",
     today:
-      "Six circuits come up a truss leg by the stage, then fan out over ordinary 3-way extension cords, 10 to 100 ft long, each feeding three segments. None of it is rated for rain or dust, and it is all run by hand at every build.",
+      "Six circuits fan out from the stage over ordinary 3-way extension cords, 10 to 100 ft long. None of it is rated for rain or dust, and it is all run by hand at every build.",
     v2: "One twist-lock plug, the kind every portable rental generator has, powers the whole ring. The power runs segment to segment inside the truss through locking, rain-proof joints, so joining the truss joins the power. A sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
     points: [
       {
@@ -186,7 +188,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     name: "Networking",
     headline: "A ring network that routes around a failure",
     today:
-      "One central switch by the stage, with its own cable out to each of the 16 light controllers: 7 to 100 ft each, 893 ft in all. That switch, or any one of those cables, can take part of the Gate dark.",
+      "One switch by the stage, with its own cable to each of the 16 light controllers: 893 ft in all. That switch, or any one cable, can take part of the Gate dark.",
     v2: "A small managed switch in every node box, chained segment to segment and closed into a ring. If any one link fails, traffic goes the other way around. Internet can plug in at any segment, and every node gets spare powered ports for what comes next.",
     points: [
       {
@@ -412,6 +414,121 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     ],
     maturity: "exploring",
     planFile: "plans/expansion.md",
+  },
+  rigging: {
+    id: "rigging",
+    name: "Rigging",
+    headline: "A ring that raises itself",
+    today:
+      "The 60 ft ring has to be lifted onto its eight legs by other means at every build.",
+    v2: "Each leg gets a sleeve that the ring rides up, and an electric hoist at the top. The whole ring climbs its own legs, level at all eight, and locks off at height so it never hangs on the chains for the week.",
+    points: [
+      {
+        title: "Climbs its own legs",
+        body: "A stock ground-support sleeve at each leg is the pass-through: the leg runs through it and the ring's arcs bolt to it. The ring is built at ground level and climbs.",
+      },
+      {
+        title: "Level at all eight points",
+        body: "One controller runs all eight hoists together, with a kill switch, and load monitoring stops the motors if any point carries too much or too little.",
+      },
+      {
+        title: "Safe over a dance floor",
+        body: "Double-brake hoists, a mechanical lock at every leg once up, guys or ballast for the wind, a wind gauge, and an engineer's sign-off.",
+      },
+    ],
+    options: [
+      {
+        name: "Stock sleeve blocks in the ring, V1 arcs kept",
+        verdict: "leading",
+        price: "about $82,000–$171,000 with electric hoists",
+        why: "Every part is stock and load-rated, the load sits centred on each leg, and the ring ties all eight legs into one frame. The ring grows about 1.0–1.3 m across.",
+        url: "https://www.globaltruss.com/ground-support",
+      },
+      {
+        name: "Custom arcs with a built-in pass-through, keeping exactly 60 ft",
+        verdict: "considered",
+        price: "about $100,000–$231,000",
+        why: "Half the arcs replaced with custom ones that carry the sleeve. Keeps the size, but custom truss is quote-only and needs its own certification.",
+      },
+      {
+        name: "A shelf hanging off each vertical, ring unchanged",
+        verdict: "considered",
+        price: "about $85,000–$184,000",
+        why: "The arcs stay as they are and sit on eight shelves. The load hangs off-centre: rated 400 kg at 0.5 m, enough for 12-inch truss but marginal for 20.5-inch.",
+      },
+      {
+        name: "Hand chain hoists instead of electric",
+        verdict: "considered",
+        price: "saves about $29,000–$56,000",
+        why: "Fine for one lift up and one down per event, with eight people pulling in step. Slow, and the same safety gear applies.",
+      },
+    ],
+    unknowns: [
+      "The truss: make, profile and how the legs meet the ring today.",
+      "The legs' height, and the ring's weight with everything on it.",
+      "Whether the V1 legs can be reused as tower sections.",
+      "Three-phase power at setup: the hoists need it.",
+    ],
+    maturity: "exploring",
+    planFile: "plans/rigging.md",
+  },
+  solar: {
+    id: "solar",
+    name: "Solar",
+    headline: "Run the Gate on sunlight",
+    today: "A rental generator runs all night, every night.",
+    v2: "A 12 kW array and a 57 kWh battery run the Gate through the night on the day's sun. The inverter plugs into the same twist-lock the generator used, and starts a small generator itself only on a dust-storm day or a loud night.",
+    points: [
+      {
+        title: "Same plug as the generator",
+        body: "The inverter makes 120/240 V split-phase into the Gate's L14-30, so nothing else on the Gate changes.",
+      },
+      {
+        title: "Sized for the playa",
+        body: "About 6.9 kWh per kW of panels a day in late August, with dust and heat counted. The battery carries a 10–11 hour night with margin for a bad day.",
+      },
+      {
+        title: "Kept cool",
+        body: "Batteries stop charging at about 50 °C, so they live shaded, insulated and cooled.",
+      },
+      {
+        title: "Speakers, maybe",
+        body: "Each kW of speakers adds about $6,000–$9,000 of panels and battery, or a few hours of the backup generator.",
+      },
+    ],
+    options: [
+      {
+        name: "Gate on sun, small generator as backup",
+        verdict: "leading",
+        price: "about $25,000–$50,000",
+        why: "Runs the Gate on sun alone in a typical year; the generator only bridges a dust storm or a loud night. Covers 2 kW of speakers with a few generator hours over ten days.",
+      },
+      {
+        name: "Gate and speakers on sun alone",
+        verdict: "considered",
+        price: "about $35,000–$66,000 (2 kW of speakers)",
+        why: "50 % more panels and battery, to avoid a few generator hours. Worth it only if a generator is ruled out.",
+      },
+      {
+        name: "A smaller hybrid",
+        verdict: "considered",
+        price: "about $15,000–$35,000",
+        why: "Half the battery: the generator covers bad nights and can't keep up with speakers.",
+      },
+      {
+        name: "A turnkey solar trailer",
+        verdict: "ruled-out",
+        price: "about $65,000",
+        why: "The one listed (5.6 kW, 41 kWh) is too small to run the Gate through the night.",
+      },
+    ],
+    unknowns: [
+      "A one-night energy reading on the Gate's feed: every size here scales from it.",
+      "The speakers: how many watts, for how many hours.",
+      "Where the array goes (about 90–120 m², or a shade roof) and who cleans it.",
+    ],
+    maturity: "exploring",
+    planFile: "plans/solar.md",
   },
 };
 

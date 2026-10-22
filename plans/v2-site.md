@@ -124,10 +124,12 @@ wants to raise, and donors can see where their money goes.
 15. [ ] **New category: Rigging, a self-climbing ring** (user, 2026-10-21),
         two options: pass-through arcs, or a shelf on each vertical. A
         stretch goal. Plan `plans/rigging.md`; research
-        `docs/pricing-self-climbing-2026-10.md`. ← current
+        `docs/pricing-self-climbing-2026-10.md`. Done 2026-10-21: a "big
+        project" (its own goal, off the cumulative ladder), $197,000.
 16. [ ] **New stretch goal: solar**, possibly enough for the speakers (user,
         2026-10-21). Plan `plans/solar.md`; research
-        `docs/pricing-solar-2026-10.md`. ← current
+        `docs/pricing-solar-2026-10.md`. Done 2026-10-21: a big project,
+        $57,500 (option C, the hybrid).
 
 17. [ ] **New category: Transport**, a dedicated shipping container and carts
         to roll everything in and out (user, 2026-10-21). Plan
@@ -158,6 +160,17 @@ worktree off origin/master (`~/.t3/worktrees/ops/empyreangate-v2`), not on top
 of them.
 
 ## Findings / gotchas
+
+- **Big projects are off the tier ladder** (2026-10-21). A 7-step single-hue
+  ordinal ramp fails the dataviz validator (adjacent steps too close), and
+  rigging/solar/transport are independent asks, not rungs. So `Tier.project`
+  names the category; `tierTotals()` is the ladder, `projectTotals()` the
+  projects; each project category takes a categorical slot (6 green, 7
+  violet; 8 red is left for transport), validated on both surfaces.
+- **The print handout is one page with almost no slack.** Adding the big
+  projects line pushed the footer to page 2; shortening the power and
+  networking "today" text fixed it. Check `tmp/printpdf.ts`-style before
+  adding anything to the sheet.
 
 - **The Gate is 60 ft across, not 50 ft** (James Logistic, 2026-10-21). The
   50 ft came from the Empyrean repo, where it was a guess. Corrected in

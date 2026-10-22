@@ -53,5 +53,7 @@ other camps do it).
 ## Progress
 
 - [x] Plan created (2026-10-21)
-- [ ] Research the sizing and products (`docs/pricing-solar-2026-10.md`)
-- [ ] Add the category and its stretch goal to the site
+- [x] Research the sizing and products (`docs/pricing-solar-2026-10.md`,
+      2026-10-21): option C recommended, $25–50K
+- [x] On the site as a category and a big project (option C; goal $57,500),
+      2026-10-21

@@ -36,7 +36,14 @@ export const CONFIDENCE: Record<
   },
 };
 
-export const TIER_IDS = ["core", "hardened", "senses", "spokes"] as const;
+export const TIER_IDS = [
+  "core",
+  "hardened",
+  "senses",
+  "spokes",
+  "rigging",
+  "solar",
+] as const;
 export type TierId = (typeof TIER_IDS)[number];
 
 export interface Tier {
@@ -44,9 +51,18 @@ export interface Tier {
   name: string;
   /** What reaching this tier gets the Gate, in one line. */
   promise: string;
+  /**
+   * A big project, and the category whose plan it is: its own goal, raised on
+   * its own. It stays off the ladder of stretch goals and out of their running
+   * total.
+   */
+  project?: CategoryId;
 }
 
-/** In order: each stretch goal builds on the ones before it. */
+/**
+ * In order: V2, then each stretch goal building on the ones before it, then
+ * the big projects.
+ */
 export const TIERS: Tier[] = [
   {
     id: "core",
@@ -70,7 +86,34 @@ export const TIERS: Tier[] = [
     name: "128 spokes",
     promise: "Double the spokes: twice the light, on the same ring.",
   },
+  {
+    id: "rigging",
+    name: "A ring that raises itself",
+    promise:
+      "The ring climbs its own legs on eight hoists, level and locked off at height: no forklift, no crane.",
+    project: "rigging",
+  },
+  {
+    id: "solar",
+    name: "Run on sunlight",
+    promise:
+      "Panels and a battery that run the Gate through the night, with a small generator only as backup.",
+    project: "solar",
+  },
 ];
+
+/** V2 and the stretch goals, in order. */
+export const LADDER = TIERS.filter((t) => !t.project);
+/** The big projects, each raised on its own. */
+export const PROJECTS = TIERS.filter((t) => t.project);
+
+/** How a tier is named in captions: "V2", "Stretch goal 2: …", "Big project: …". */
+export function tierLabel(tier: Tier, short = false): string {
+  if (tier.project) return `Big project: ${tier.name}`;
+  const i = LADDER.indexOf(tier);
+  if (i === 0) return tier.name;
+  return `${short ? "Stretch" : "Stretch goal"} ${i}: ${tier.name}`;
+}
 
 export interface Source {
   label: string;
@@ -765,6 +808,236 @@ export const ITEMS: LineItem[] = [
     datasheet: "https://www.meanwell.com/Upload/PDF/HLG-320H/HLG-320H-SPEC.PDF",
     note: "Sized for 8 to 18 W per metre at full white, the range for this kind of strip. The 30 A feed carries 128 spokes at their average draw; whether it carries full white waits on measuring a spoke.",
   },
+  // --- Rigging: a self-climbing ring (big project) ------------------------
+  // Option 1b, electric (docs/pricing-self-climbing-2026-10.md): stock sleeve
+  // blocks at the 8 legs, V1 arcs kept. Assumes 12" (F34-class) truss.
+  {
+    id: "rig-sleeves",
+    category: "rigging",
+    tier: "rigging",
+    name: "Sleeve block at each leg: the pass-through the ring rides up",
+    part: "Global Truss GT-BLOCK or F34 4-way box sleeve",
+    detail:
+      "The leg runs through it and two arcs bolt to its faces, so the V1 arcs stay.",
+    qty: 8,
+    unit: [1267, 1959],
+    confidence: "estimate",
+    datasheet: "https://www.globaltruss.com/ground-support",
+    note: "Prices partly from search listings. The ring grows about 1.0–1.3 m across unless V1 already has a block at each leg.",
+  },
+  {
+    id: "rig-sleeve-fittings",
+    category: "rigging",
+    tier: "rigging",
+    name: "Couplers for the sleeves, and longer spoke ties",
+    qty: 8,
+    unit: [200, 440],
+    confidence: "estimate",
+    note: "Not priced: conical couplers and pins, and the 0.5–0.65 m the outer spoke ties grow.",
+  },
+  {
+    id: "rig-towers",
+    category: "rigging",
+    tier: "rigging",
+    name: "Tower parts per leg: base, outriggers, a top section for the hoist",
+    part: "Global Truss F34 ground support (GT-44BS-1, GT-49214S-1, GT-TOP/CM)",
+    qty: 8,
+    unit: [3285, 5197],
+    confidence: "estimate",
+    datasheet: "https://www.globaltruss.com/ground-support",
+    note: "Base $1,166, four outriggers $1,480, top section $639–799, hinges up to $252, and up to $1,500 of new tower sections if the V1 legs can't be reused.",
+  },
+  {
+    id: "rig-hoists",
+    category: "rigging",
+    tier: "rigging",
+    name: "Electric chain hoists, 500 kg, double brake (D8+)",
+    part: "Chainmaster D8+ Ultra DC 500 kg, up to a CM Lodestar D8+",
+    qty: 8,
+    unit: [3199, 4556],
+    confidence: "quoted",
+    source: {
+      label: "Thomann",
+      url: "https://www.thomannmusic.com/chainmaster_d8_ultra_dc_500kg_1875m_h_h.htm",
+    },
+    note: "Three-phase, and rated to 40 °C: lift in the cool hours. Hand chain hoists ($400–1,200 each) work too, slowly, and save about $29–56K.",
+  },
+  {
+    id: "rig-hoist-cables",
+    category: "rigging",
+    tier: "rigging",
+    name: "Motor cable, controller to each hoist",
+    qty: 8,
+    unit: [100, 300],
+    confidence: "estimate",
+  },
+  {
+    id: "rig-safety",
+    category: "rigging",
+    tier: "rigging",
+    name: "Safety per leg: lock-off at height, secondary steels, guys or ballast",
+    detail:
+      "The ring never hangs on the chains for the week, and the legs stay up in wind.",
+    qty: 8,
+    unit: [1038, 2600],
+    confidence: "estimate",
+    note: "Two slings and four shackles $338–600, a sleeve lock-off $100–500, guys or ballast $600–1,500.",
+  },
+  {
+    id: "rig-controller",
+    category: "rigging",
+    tier: "rigging",
+    name: "8-channel hoist controller with a kill switch",
+    part: "Gamma, up to a Motion Labs 1200-8 (ETL, UL 1640)",
+    qty: 1,
+    unit: [3860, 5656],
+    confidence: "estimate",
+    note: "Prices from search listings.",
+  },
+  {
+    id: "rig-load-monitoring",
+    category: "rigging",
+    tier: "rigging",
+    name: "Load monitoring at the 8 points",
+    detail:
+      "Low: dynamometers for setup checks. High: load cells that stop the motors.",
+    qty: 1,
+    unit: [2000, 25000],
+    confidence: "estimate",
+    note: "Entertainment systems are sold by quote.",
+  },
+  {
+    id: "rig-anemometer",
+    category: "rigging",
+    tier: "rigging",
+    name: "Logging wind gauge at height, for the wind plan",
+    qty: 1,
+    unit: [535, 3320],
+    confidence: "estimate",
+  },
+  {
+    id: "rig-engineering",
+    category: "rigging",
+    tier: "rigging",
+    name: "Engineer's calculations, wind and anchor plan, sign-off",
+    detail: "Burning Man asks for one over 20 ft; the legs would be 20–26 ft.",
+    qty: 1,
+    unit: [3000, 15000],
+    confidence: "estimate",
+  },
+  {
+    id: "rig-3phase",
+    category: "rigging",
+    tier: "rigging",
+    name: "Three-phase power for setup and strike",
+    qty: 1,
+    unit: [300, 1500],
+    confidence: "estimate",
+    note: "The hoists are three-phase; the Gate's feed isn't. Rental generators carry no L21-30 outlet.",
+  },
+  // --- Solar (big project) --------------------------------------------------
+  // Option C (docs/pricing-solar-2026-10.md): 12 kW of panels, 57 kWh of
+  // battery, one split-phase inverter, a small generator as backup.
+  {
+    id: "solar-panels",
+    category: "solar",
+    tier: "solar",
+    name: "Solar panels, 12 kW",
+    part: "About 26 × 460 W bifacial, by the pallet",
+    qty: 1,
+    unit: [3720, 5400],
+    confidence: "estimate",
+    source: {
+      label: "Signature Solar (pallets)",
+      url: "https://signaturesolar.com/shop-all/solar-panels/pallets/?page=1",
+    },
+    note: "Low is a full pallet's price; high, loose panels.",
+  },
+  {
+    id: "solar-freight",
+    category: "solar",
+    tier: "solar",
+    name: "Panel freight",
+    qty: 1,
+    unit: [400, 1000],
+    confidence: "estimate",
+  },
+  {
+    id: "solar-racking",
+    category: "solar",
+    tier: "solar",
+    name: "Racking and anchors for the array",
+    detail: "A low-tilt frame, or the array as a shade roof.",
+    qty: 1,
+    unit: [1800, 7200],
+    confidence: "estimate",
+  },
+  {
+    id: "solar-batteries",
+    category: "solar",
+    tier: "solar",
+    name: "Batteries, 57 kWh in all",
+    part: "EG4 WallMount All-Weather 14.3 kWh LiFePO4",
+    detail:
+      "Carries the Gate through a 10–11 hour night, with margin for a dust-storm day.",
+    qty: 4,
+    unit: [3125, 3800],
+    confidence: "quoted",
+    source: {
+      label: "Signature Solar",
+      url: "https://signaturesolar.com/eg4-powerpro-14kwh-all-weather-lithium-solar-battery-wallmount/",
+    },
+    datasheet:
+      "https://eg4electronics.com/wp-content/uploads/2025/09/EG4-WallMount-All-Weather-Battery-Spec-Sheet.pdf",
+    note: "Low is a sale price. LiFePO4 stops charging at about 50–55 °C: the batteries need shade and cooling.",
+  },
+  {
+    id: "solar-inverter",
+    category: "solar",
+    tier: "solar",
+    name: "Inverter: 120/240 V split-phase into the Gate's L14-30",
+    part: "EG4 18kPV-12LV (or a Sol-Ark 15K)",
+    detail:
+      "Replaces the generator at the same plug, and starts a backup generator itself.",
+    qty: 1,
+    unit: [4000, 5000],
+    confidence: "quoted",
+    source: {
+      label: "Signature Solar",
+      url: "https://signaturesolar.com/all-products/inverters/",
+    },
+    datasheet:
+      "https://eg4electronics.com/wp-content/uploads/2024/04/EG4-18KPV-12LV-Spec-Sheet.pdf",
+  },
+  {
+    id: "solar-bos",
+    category: "solar",
+    tier: "solar",
+    name: "Wiring, fuses, combiner, a subpanel with the L14-30, monitoring, cleaning kit",
+    qty: 1,
+    unit: [2000, 4100],
+    confidence: "estimate",
+  },
+  {
+    id: "solar-cooling",
+    category: "solar",
+    tier: "solar",
+    name: "Shaded, insulated, cooled enclosure for the batteries and inverter",
+    qty: 1,
+    unit: [500, 6000],
+    confidence: "estimate",
+  },
+  {
+    id: "solar-generator",
+    category: "solar",
+    tier: "solar",
+    name: "Backup generator hookup, or a bought 5.5 kW generator",
+    detail:
+      "The rental on standby costs nothing extra; a bought inverter generator with remote start is the high end.",
+    qty: 1,
+    unit: [150, 5900],
+    confidence: "estimate",
+  },
 ];
 
 /** Bought only if something turns out to be true. Never in a total. */
@@ -865,15 +1138,28 @@ export interface TierTotal {
   cumulative: number;
 }
 
+function totalOf(tier: Tier, items: LineItem[]): Omit<TierTotal, "cumulative"> {
+  const parts = subtotal(itemsIn({ tier: tier.id }, items));
+  const contingency = contingencyOf(parts);
+  const total: Range = [parts[0] + contingency[0], parts[1] + contingency[1]];
+  return { tier, parts, contingency, total, goal: roundUp(total[1]) };
+}
+
+/** V2 and the stretch goals, with the running total. */
 export function tierTotals(items: LineItem[] = ITEMS): TierTotal[] {
   let running = 0;
-  return TIERS.map((tier) => {
-    const parts = subtotal(itemsIn({ tier: tier.id }, items));
-    const contingency = contingencyOf(parts);
-    const total: Range = [parts[0] + contingency[0], parts[1] + contingency[1]];
-    const goal = roundUp(total[1]);
-    running += goal;
-    return { tier, parts, contingency, total, goal, cumulative: running };
+  return LADDER.map((tier) => {
+    const t = totalOf(tier, items);
+    running += t.goal;
+    return { ...t, cumulative: running };
+  });
+}
+
+/** The big projects: each one's own goal, never added to the ladder. */
+export function projectTotals(items: LineItem[] = ITEMS): TierTotal[] {
+  return PROJECTS.map((tier) => {
+    const t = totalOf(tier, items);
+    return { ...t, cumulative: t.goal };
   });
 }
 

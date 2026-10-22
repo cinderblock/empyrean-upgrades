@@ -7,6 +7,7 @@ import {
   EXTRAS,
   TIERS,
   itemsIn,
+  tierLabel,
   moneyRange,
   subtotal,
 } from "../content/budget";
@@ -38,6 +39,8 @@ const DIAGRAM: Record<CategoryId, "segment" | "ring" | null> = {
   compute: null,
   weatherproofing: "segment",
   expansion: "segment",
+  rigging: null,
+  solar: null,
 };
 
 export default function Plan() {
@@ -106,15 +109,11 @@ export default function Plan() {
           <h2 id="parts">
             Parts <span className="h-amount">{moneyRange(subtotal(all))}</span>
           </h2>
-          {TIERS.map((t, i) => {
+          {TIERS.map((t) => {
             const items = itemsIn({ tier: t.id, category: id });
             if (items.length === 0) return null;
             return (
-              <LineItems
-                key={t.id}
-                items={items}
-                caption={i === 0 ? "V2" : `Stretch goal ${i}: ${t.name}`}
-              />
+              <LineItems key={t.id} items={items} caption={tierLabel(t)} />
             );
           })}
           {extras.length > 0 && (
