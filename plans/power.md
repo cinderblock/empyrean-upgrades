@@ -233,6 +233,44 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
   shaded. $1,743–$5,135 for the ring, depending on the load.
 - **GFCI distro**, if the event has none: $1,522–$3,226.
 
+## Feed options, all six (researched 2026-10-22)
+
+`docs/pricing-feed-options-2-2026-10.md` extends the 30 A vs 50 A comparison
+after the user's "30A 3 phase should be enough. but let's price out 50A and
+100A just in case." Same basis (60 ft ring, rain-proof joints, 50 ft feeder,
+20 A GFCI and four outlets per segment); shared lines from today's budget, so
+30 A and 50 A are about $350 higher than in the first comparison. Subtotals
+before the 15 % contingency:
+
+| Option                                 | Power subtotal | Continuous                    | Plugs straight into                                  |
+| -------------------------------------- | -------------- | ----------------------------- | ---------------------------------------------------- |
+| **30 A split-phase, L14-30 (current)** | $10,298–16,101 | 5.76 kVA                      | Portables' L14-30R                                   |
+| 30 A three-phase, L21-30 on 8/5        | $10,906–20,804 | 8.65 on paper, really 5.1–6.4 | No rental generator                                  |
+| 50 A split-phase, CS6364/65 on 6/4     | $12,769–22,186 | 9.6 kVA                       | Towables' CS6369                                     |
+| 100 A split-phase, cam-lok, single #2  | $15,046–30,382 | 19.2 kVA                      | 36–45 kVA towables (cam-loks or lugs)                |
+| 100 A three-phase                      | $17,104–34,090 | 28.8 kVA                      | 45 kVA towables                                      |
+| 2 × 50 A half-rings                    | $13,935–23,931 | 19.2 kVA                      | Any towable's two CS6369                             |
+| 3 × 30 A thirds                        | $13,774–20,334 | 17.3 kVA                      | Generac MLG20IF4 (three L14-30R), or three portables |
+
+- **30 A three-phase isn't really 30 A:** LED drivers make the neutral a
+  current-carrying conductor, so 8/5 cord carries only 23 A at 50 °C (a 20 A
+  breaker, 25 A at a 40 °C design ambient); no L21-30 takes 6/5. Split 6/5/5
+  across phases it gives no more usable capacity than today, for $600–4,700
+  more, and no rental generator has an L21-30R (a cam-lok-to-L21-30R box:
+  ~$580 home-made and unlisted, ~$3,900 listed, or rented).
+- **100 A is impractical in a lifted truss:** SOOW tops out at 52 A at
+  50 °C, so single #2 conductors; 7.8–14 kg a segment instead of 3.6 (70–160
+  kg more on the ring); 64–80 single-pole connections at every setup; 8–10
+  entries per power box; no rain boots for those connectors. Pin-and-sleeve
+  instead is $14.5–37K in joints alone.
+- **Recommendation: keep 30 A split-phase.** For headroom, wire the ring as
+  two halves running opposite ways from joint 0: about $60–170 now, about
+  $1.1K later for 11.5 kVA (a second L14-30 feed). Or two 50 A halves for
+  19.2 kVA. Not 100 A.
+- **Rain cover warning:** the Twist and Seal Cord Vault's published closed
+  depth (1.75 in) is smaller than the 58 mm plug bodies, so it may not fit the
+  L14-30 joints either. Trial-fit one; find another cover if not.
+
 ## Open questions
 
 - (2026-10-21) **Feed ampacity: 30 A or 50 A?** The V1 "Circuit Loads" are

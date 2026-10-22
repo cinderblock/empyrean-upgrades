@@ -41,6 +41,11 @@ wants to raise, and donors can see where their money goes.
 ## Decisions already made (don't re-ask)
 
 - **The draft banner is off** (user, 2026-10-22).
+- **Ring size fixed in the Empyrean repo too** (user, 2026-10-22: "use the
+  real drawing's dimensions"): TomSawyerLabs/empyrean-gate PR #6, open, not
+  merged (the user's call). Outer radius 28.99 ft (sail edge), inner 8.38 ft
+  (the strip's end at 60 LED/m); the show machine keeps its saved 25 / 8
+  until changed in Settings → Geometry.
 - **Tier names and order: not important now** (user, 2026-10-22); dropped from the
   open questions.
 - **Ring diagram lettered A–P** like the V1 layout (user, 2026-10-22: "let's keep it

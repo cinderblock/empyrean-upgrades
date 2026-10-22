@@ -258,7 +258,7 @@ export const ITEMS: LineItem[] = [
       label: "Twist and Seal",
       url: "https://twistandseal.com/products/twist-and-seal-cord-vault-keeps-large-cord-connections-dry-and-secure",
     },
-    note: "Fit on a mated L14-30 pair not yet checked.",
+    note: "May not fit: its published closed depth (1.75 in) is smaller than the 58 mm plug bodies. Trial-fit one before buying 18.",
   },
   {
     id: "power-feeder",

@@ -146,9 +146,21 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         why: "9.6 kVA continuous against 5.76: enough for V1's estimated maximum with no margin, and half of what 128 spokes might draw at full white (two 50 A feeds would cover it). Plugs straight into towable rentals; portables connect through an adapter at 30 A. Heavier cord, and the joints need boots instead of the rain covers.",
       },
       {
+        name: "Two half-rings from the same joint",
+        verdict: "considered",
+        price: "about $60–$170 now, about $1,100 later",
+        why: "Wire the ring as two halves running opposite ways from the feed joint. Today one L14-30 feeds both; a second L14-30 later gives about 11.5 kVA. The cheapest headroom.",
+      },
+      {
         name: "Three-phase twist-lock (L21-30)",
         verdict: "ruled-out",
-        why: "No rental generator has the outlet, and it adds about $4,500 for little more capacity (7.2 kVA against 5.8).",
+        why: "LED drivers load the neutral, so the 8/5 cord carries only about 23 A at 50 °C: no more usable power than today, for $600–$4,700 more. No rental generator has the outlet.",
+      },
+      {
+        name: "A 100 A feed",
+        verdict: "ruled-out",
+        price: "about $15,000–$34,000 for the power category",
+        why: "Needs single heavy conductors: up to 14 kg a segment on a lifted ring, and 64–80 single-pole connections at every setup, with no rain boots for them. Two 50 A half-rings give 19.2 kVA for less.",
       },
       {
         name: "RV 50 A (14-50) and SmartPlug",
