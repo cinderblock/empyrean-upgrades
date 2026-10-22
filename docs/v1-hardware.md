@@ -11,17 +11,17 @@ Every fact has a confidence and a source. Keep it that way when adding to this f
 
 ## Structure and geometry
 
-| Fact                                                           | Confidence                              | Source                                       |
-| -------------------------------------------------------------- | --------------------------------------- | -------------------------------------------- |
-| A ring of **16 truss segments**                                | Reported 2026-10-21                     | User                                         |
-| 64 LED spokes in a radial "wagon wheel", viewed from below     | Confirmed                               | `Empyrean/plans/empyrean-gate.md`            |
-| Outer diameter about 50 ft                                     | Reported (user unsure of exact numbers) | same                                         |
-| Inner diameter about 15–20 ft                                  | Reported (uncertain)                    | same                                         |
-| 378 pixels per spoke, 24,192 total                             | Confirmed 2026-08-23                    | same                                         |
-| Each strip is fed from the outside (pixel 0 at the outer ring) | Confirmed 2026-08-23                    | same                                         |
-| 4 spokes per truss segment (64 / 16)                           | Assumed                                 | Arithmetic; matches 4 strings per controller |
-| LED density: 30 or 60 LED/m                                    | Unknown                                 | The software defaults to 60                  |
-| Pixel chipset, strip voltage, watts per pixel                  | Unknown                                 |                                              |
+| Fact                                                           | Confidence           | Source                                       |
+| -------------------------------------------------------------- | -------------------- | -------------------------------------------- |
+| A ring of **16 truss segments**                                | Reported 2026-10-21  | User                                         |
+| 64 LED spokes in a radial "wagon wheel", viewed from below     | Confirmed            | `Empyrean/plans/empyrean-gate.md`            |
+| Outer diameter **60 ft** (was recorded as about 50 ft)         | Reported 2026-10-21  | James Logistic, via the user                 |
+| Inner diameter about 15–20 ft                                  | Reported (uncertain) | same                                         |
+| 378 pixels per spoke, 24,192 total                             | Confirmed 2026-08-23 | same                                         |
+| Each strip is fed from the outside (pixel 0 at the outer ring) | Confirmed 2026-08-23 | same                                         |
+| 4 spokes per truss segment (64 / 16)                           | Assumed              | Arithmetic; matches 4 strings per controller |
+| LED density: 30 or 60 LED/m                                    | Unknown              | The software defaults to 60                  |
+| Pixel chipset, strip voltage, watts per pixel                  | Unknown              |                                              |
 
 ## Pixel controllers ("nodes")
 

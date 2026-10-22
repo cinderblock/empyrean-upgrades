@@ -1,5 +1,10 @@
 # V2 pricing, October 2026
 
+> **Correction (2026-10-21):** the Gate is **60 ft** across, not 50 ft (James
+> Logistic). The ring is about **188.5 ft** around and each segment about
+> **11.8 ft**, not 157 ft and 9.8 ft. Lengths below that use the old figures
+> scale by 1.2. `plans/power.md` carries the corrected design.
+
 A priced bill of materials for the V2 upgrade, so the team knows how much to raise.
 Prices were checked on **2026-10-21** by read-only browsing; nothing was ordered,
 carted or quoted. Specs come from manufacturer datasheets or spec pages, linked

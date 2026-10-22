@@ -53,11 +53,20 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   CS6365-to-L14-30 adapter for towables, an **8/4 UL SOOW trunk**, an **open
   loop** fed at one joint and capped at the far end, and **a Class A GFCI in
   each segment's power box**.
-- **Joints: rain-proof is enough** (user, 2026-10-21). The joints are AC Works
-  SDL1430PR-010 cords cut in half under Twist and Seal Cord Vault covers; the
-  feeder is an uncut SDL1430PR-050. In the budget; Hubbell SW is now the
-  watertight alternative (its inlet stays at the feed box). Trial-fit one cord
-  first: jacket print, cover fit, length across a segment.
+- **Joints: rain-proof is enough** (user, 2026-10-21). Hubbell SW is now the
+  watertight alternative (its inlet stays at the feed box). The feeder is an
+  uncut AC Works SDL1430PR-050 (50 ft).
+- **The Gate is 60 ft across** (James Logistic, 2026-10-21; the old 50 ft was
+  a guess): the ring is about **188.5 ft** around, each segment about
+  **11.8 ft**. So the 10 ft cut cords (5 ft halves, two per segment) are too
+  short. The joints are now **loose AC Works ASL1430P plugs and ASL1430R
+  connectors** (cULus E237606, the same listing as the ends on AC Works' 8/4
+  cords; $21.38 + $26.99, catalogue prices) **on bulk 8/4 SOOW cut to
+  length** (240 ft), under Twist and Seal Cord Vault covers: about **$140 a
+  joint**, $2.5K for 16 + 2 spares. Unknown: whether the loose ends' cord grip
+  takes 24 mm 8/4 (not on the drawing). Fallback: AC Works 25 ft 8/4 cords
+  cut in half ($268 each, about $5K). Trial-fit one joint first: grip, cover
+  fit, jacket temperature print.
 - **No brightness cap in the software** (user, 2026-10-21). What that leaves
   open is under "Capacity" below: whether full white fits in 30 A is settled
   by measuring a spoke, not by the app.
@@ -94,7 +103,7 @@ what the site's budget now uses.
   certified to break full current. Leviton Wetguard seals better (IP69K) and
   costs about $1,500 less, but it is rated only to 60 °C. Eaton's parts take
   10 AWG at most.
-- **Trunk: 8/4 UL SOOW** ($6.09/ft, 24 mm, about 6 lb a segment). It carries
+- **Trunk: 8/4 UL SOOW** ($6.09/ft, 24 mm, about 7 lb per 11.8 ft segment). It carries
   32.8 A at 50 °C. 10/4 holds only 24.6 A at 50 °C, so it would need a 25 A
   breaker. Event wiring must be UL listed (NEC 525.20); unlisted cord is
   thinner but doesn't qualify. The trunk needs M32–M40 glands, not M20.
@@ -118,8 +127,9 @@ what the site's budget now uses.
 - **Closed loop: no.** NEC 310.10(G) allows paralleled conductors only at 1/0 AWG
   and up. A loop fed from both ends would also leave a live male plug exposed
   wherever it's broken. Feed at one joint, run one way, and cap the last
-  connector. Voltage drop on 8/4 is 1.9 % at 24 A balanced, and under 1 % at
-  the real load.
+  connector. Voltage drop on 8/4 was 1.9 % at 24 A balanced on the old 157 ft
+  ring; on the 188.5 ft ring it scales to about 2.2 % (Assumed: proportional
+  to length, 40 ft feeder), and stays around 1 % at the real load.
 - **Three-phase (not recommended):** Hubbell L21-30 with 8/5 SOOW is about
   $13.9–18.2K, plus a cam-lok distro, and it plugs into no rental directly.
 - **Cost:** about $9.3–13.7K all in for the feed, trunk, joints and protection.
@@ -229,8 +239,10 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
      about $5.7K for the ring; factory watertight cords don't help.
    - Ampacity: keep 8/4 and the 30 A feed. Any 10/4 means a 25 A feed (still
      4.8 kVA continuous, 2.4× the average).
-     **Decided** (user, 2026-10-21): rain-proof is enough; the AC Works cords
-     are in the budget. The earlier framing, kept for reference:
+     **Decided** (user, 2026-10-21): rain-proof is enough. The cut cords were
+     then replaced by loose AC Works ends on bulk 8/4, once the ring turned
+     out to be 60 ft (see Decisions). The 9.8 ft and 157 ft above are the old
+     geometry. The earlier framing, kept for reference:
      **The 16 truss joints** (each an HBL2711SW plug + HBL2713SW
      connector, about $355, $5.7K for the ring) don't have to match the
      generator; only the feed does. The user asked which connectors would

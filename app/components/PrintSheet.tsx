@@ -35,7 +35,7 @@ export default function PrintSheet() {
             Version 2: built for the weather, ready to grow
           </p>
           <p className="ps-lede">
-            A 50 ft ring of 64 LED spokes over a dance floor. V1 works, but its
+            A 60 ft ring of 64 LED spokes over a dance floor. V1 works, but its
             power and boxes aren't weatherproof, one switch carries the whole
             network, and its computer is at its limit. V2 fixes all three.
           </p>

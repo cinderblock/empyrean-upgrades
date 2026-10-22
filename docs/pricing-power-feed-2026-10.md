@@ -1,5 +1,10 @@
 # Power feed and trunk: pricing, October 2026
 
+> **Correction (2026-10-21):** the Gate is **60 ft** across, not 50 ft (James
+> Logistic). The ring is about **188.5 ft** around and each segment about
+> **11.8 ft**, not 157 ft and 9.8 ft. Lengths below that use the old figures
+> scale by 1.2. `plans/power.md` carries the corrected design.
+
 This file prices a **single feed for the whole ring**. The owner decided on
 2026-10-21: one waterproof twist-lock plug, 30–50 A, feeds one trunk around all 16
 segments. Three-phase is preferred; split-phase 120/240 V is enough. Each segment's

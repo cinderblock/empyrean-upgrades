@@ -143,6 +143,12 @@ of them.
 
 ## Findings / gotchas
 
+- **The Gate is 60 ft across, not 50 ft** (James Logistic, 2026-10-21). The
+  50 ft came from the Empyrean repo, where it was a guess. Corrected in
+  `site.ts` (`GATE.outerDiameterFt`), the print sheet, README, v1-hardware,
+  the power trunk and joints (segments are 11.8 ft, so the 10 ft cut cords
+  no longer fit) and the network cable (about 325 ft). The Empyrean repo
+  still says 50 ft.
 - **Pricing research, 2026-10-21** (`docs/pricing-2026-10.md`): full white may
   need 3–6 separately fed power chains (not one daisy chain); only the
   industrial PC is rated for a sealed box in the sun; TRUE1 TOP cable connectors

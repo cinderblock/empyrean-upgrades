@@ -1,5 +1,10 @@
 # Truss joints from cut generator cords, and local outlets: pricing, October 2026
 
+> **Correction (2026-10-21):** the Gate is **60 ft** across, not 50 ft (James
+> Logistic). The ring is about **188.5 ft** around and each segment about
+> **11.8 ft**, not 157 ft and 9.8 ft. Lengths below that use the old figures
+> scale by 1.2. `plans/power.md` carries the corrected design.
+
 The owner asked on 2026-10-21 whether the 16 truss joints could be made from
 **off-the-shelf L14-30 extension cords cut in half**, instead of field-wiring a
 Hubbell Watertight Safety-Shroud plug and connector at each joint ($355.72 a joint,

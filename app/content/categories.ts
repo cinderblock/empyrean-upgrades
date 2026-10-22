@@ -104,10 +104,17 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     ],
     options: [
       {
-        name: "AC Works 8/4 L14-30 cords, cut in half, under rain covers",
+        name: "AC Works L14-30 plug and connector on 8/4 SOOW, under rain covers",
         verdict: "leading",
-        price: "about $143 a joint, cord included",
-        why: "An off-the-shelf 10 ft cord on 8/4 SOOW with separately listed ends: each cut half is a listed plug on listed cord, it carries the full 30 A, and the cord is the segment's trunk. Rain-proof, not watertight.",
+        price: "about $140 a joint, cord included",
+        why: "Listed ends fitted to listed 8/4 cord cut to each segment's length. Carries the full 30 A. Rain-proof, not watertight, which is enough.",
+        url: "https://acworks.com/products/locking-adapter-asl1430p-nema-l14-30p",
+      },
+      {
+        name: "AC Works 8/4 L14-30 cords, cut in half",
+        verdict: "considered",
+        price: "about $280 a joint (25 ft cords)",
+        why: "The same ends, factory-fitted. The 10 ft cord is too short for an 11.8 ft segment, and the 25 ft one wastes half its cord. The fallback if the loose ends don't grip 8/4.",
         url: "https://acworks.com/products/sdl1430pr-8-4-soow-super-duty-nema-l14-30-30a-125-250v-generator-rubber-cord",
       },
       {

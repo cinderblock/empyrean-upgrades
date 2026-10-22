@@ -3,7 +3,7 @@
 Planning for **Version 2** of the Empyrean Gate's physical installation: power,
 networking, compute, weatherproofing, and room to expand.
 
-The Gate is a 50 ft ring of 16 truss segments carrying 64 LED spokes over a dance
+The Gate is a 60 ft ring of 16 truss segments carrying 64 LED spokes over a dance
 floor, driven over sACN by the [Empyrean](../Empyrean) software. V1 works, but its
 power and enclosures are not weatherproof, its network is one central switch, and
 its show computer is an integrated-graphics mini PC. This repo is where the V2

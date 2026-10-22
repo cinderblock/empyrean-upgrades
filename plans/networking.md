@@ -58,7 +58,7 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
   Amphenol RJField has no inline coupler (box-mount only), about $310 a joint.
 - **Cable:** UISP Cable Pro ($135 / 1000 ft) is shielded Cat5e, solid core,
   UV-rated, −40 to 80 °C: fine fixed along the truss, not for flexing at
-  joints. Stranded tactical Cat6A (about $537 for 270 ft) is the flexible option.
+  joints. Stranded tactical Cat6A (about $646 for 325 ft, on the 60 ft ring) is the flexible option.
 
 ## Open questions
 

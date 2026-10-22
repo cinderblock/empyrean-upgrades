@@ -25,6 +25,6 @@ export const GATE = {
   spokes: 64,
   pixelsPerSpoke: 378,
   pixels: 64 * 378,
-  outerDiameterFt: 50,
+  outerDiameterFt: 60,
   controllers: 16,
 } as const;
