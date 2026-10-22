@@ -901,7 +901,7 @@ export const ITEMS: LineItem[] = [
     unit: [1267, 1959],
     confidence: "estimate",
     datasheet: "https://www.globaltruss.com/ground-support",
-    note: "Prices partly from search listings. The ring grows about 1.0–1.3 m across unless V1 already has a block at each leg.",
+    note: "Prices partly from search listings, for Global Truss F34-class 12-inch parts; the Gate is Tomcat 12-inch light-duty, so the sleeves must match Tomcat's. The ring grows about 1.0–1.3 m across unless V1 already has a block at each leg.",
   },
   {
     id: "rig-sleeve-fittings",
@@ -1222,13 +1222,13 @@ export const ITEMS: LineItem[] = [
     id: "tr-sail-rack",
     category: "transport",
     tier: "transport",
-    name: "Sail rack: the sails hang with their LEDs left in",
+    name: "Sail rolls and rack: each sail stored with its LEDs left in",
     detail:
-      "Rails under the container roof with a hanging bar per sail, using the high cube's extra height above the carts. Leaving the LEDs in the sails makes setup faster.",
-    qty: 1,
-    unit: [2400, 5100],
+      "Each of the 16 sails (22.5 ft long, 11.3 ft wide at the ring) rolls onto a 24 ft tube across its width, so the LED strips stay straight, and the rolls ride on a rack along the 40 ft container's wall. Leaving the LEDs in makes setup faster.",
+    qty: 16,
+    unit: [140, 320],
     confidence: "estimate",
-    note: "Not priced from a design yet: about 160 ft of strut rail, a trolley and a hanging bar per sail, brackets. Depends on the sails' size and count.",
+    note: "Not priced from a design yet: a tube, a sleeve and a share of the wall rack per sail. Hanging each sail folded lengthwise from roof rails is the alternative.",
   },
   {
     id: "tr-spares",

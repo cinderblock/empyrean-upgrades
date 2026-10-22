@@ -14,8 +14,20 @@ See `docs/v1-hardware.md` → Structure and geometry.
   spokes between them (Reported / scaled from the V1 drawings).
 - Each segment carries a node box and a power box; the main power bundle and
   the network switch come up the leg by the stage.
-- **Unknown:** the truss make and profile (box size), the legs' height, the
-  ring's weight with everything on it, and how V1 is raised today.
+- **From the 2022 design drawings** (A-06, 2022-04-28; `docs/v1-hardware.md`):
+  the ring is a **Tomcat Global TC 1212-60D16B, 12" light-duty** truss circle;
+  the legs are Tomcat 12"×12" verticals, **20 ft (2 × 10 ft sections) on 36"
+  square footings, at 6 locations**; the ring sits at about 20'-11"; **12 guy
+  cables** run from truss-top to lag bolts in the playa. So the research's
+  12" assumption holds (the low end of its ranges), the V1 legs are probably
+  reusable as tower sections, and guys already exist.
+- **Legs: 6 or 8?** A-06 says 6 locations; the later layout drawings show 8
+  boxed-X symbols. The budget assumes 8: at 6, every per-leg line drops by a
+  quarter. To confirm.
+- Sleeve blocks and top sections must match **Tomcat** 12" light-duty (the
+  research priced Global Truss F34-class parts).
+- **Unknown:** the ring's weight with everything on it, whether the legs meet
+  the ring at a junction block, and how V1 is raised today.
 
 ## Requirements
 
@@ -71,9 +83,10 @@ prices are search snippets or estimates (rigging dealers sell by quote).
 
 ## Open questions
 
-1. What truss is it (make, profile, e.g. 12" or 20.5" box, connector type),
-   and how do the legs meet the ring today (a junction block at each leg?)?
-2. How tall are the legs, and how high does the ring sit?
+1. ~~What truss is it~~ Tomcat 12" light-duty (A-06). How do the legs meet
+   the ring today (a junction block at each leg?)?
+2. ~~How tall are the legs~~ 20 ft, ring at about 21 ft (A-06). **6 legs or
+   8?**
 3. How much does the ring weigh with everything on it? Does the hub hang
    from the spokes?
 4. How is V1 raised today (forklift, telehandler, hand chain hoists)?

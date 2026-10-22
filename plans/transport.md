@@ -87,15 +87,24 @@ extra height takes the sail rack above them.
 
 ## Open questions
 
+- (2026-10-22) **The sails** (user: "one sail per node box, so 16"; drawing
+  A-07): annular sectors 22'-5⅞" long, 11'-3¾" wide at the outer edge (the
+  chord of a 57'-11¾" circle over 22.5°, which checks), 2'-6 7/16" at the
+  inner; about 14.6 m² each. LED strips are adhered and stitched every ±12",
+  4 per sail. **Rolled across the width** onto a 24 ft tube, the strips stay
+  straight; a 24 ft roll fits the 40 ft container lengthwise (and the 26 ft
+  truck), not a 20 ft. The budget line is now 16 × $140–320.
+- (2026-10-22) **The truss is 12" Tomcat light-duty** (A-06), so one 40 ft
+  box holds it; the 20.5" overflow case doesn't apply.
+
 0. The container the crew may already have: 20 ft or 40 ft, high cube or
    standard, its condition (doors, floor, rust), and where it is.
-1. The sails: how many, their size, and how the LEDs attach (sizes the rack).
-2. One-time costs only on the site (as now), or the yearly hauling too?
-3. How far the V2 boxes stick out of the truss; leg section lengths and
+1. One-time costs only on the site (as now), or the yearly hauling too?
+2. How far the V2 boxes stick out of the truss; leg section lengths and
    whether the legs are owned.
-4. Which other events, and how far from Oakland (sets the yearly hauling).
-5. Do the hoists or the solar kit ride in the box?
-6. Permission to request quotes later (hauling, custom carts).
+3. Which other events, and how far from Oakland (sets the yearly hauling).
+4. Do the hoists or the solar kit ride in the box?
+5. Permission to request quotes later (hauling, custom carts).
 
 ## Dependencies
 

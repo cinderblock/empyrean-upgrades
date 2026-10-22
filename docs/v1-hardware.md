@@ -37,6 +37,30 @@ diagram, top-down view). They are not in the repo.
 | LED density: 30 or 60 LED/m                                                                                                                                              | Unknown                         | The software defaults to 60                                                                                        |
 | Pixel chipset, strip voltage, watts per pixel                                                                                                                            | Unknown                         |                                                                                                                    |
 
+## From the 2022 design drawings (A-06, A-07)
+
+Two Entheos sheets, "Empyrean Gate: Details", dated 2022-04-28, issue
+"FUNDING" (lead artists James "Logistic" Tramel, Anthony "Lines" Fieldman,
+Michael Kennedy and James Scott of Kennedy Fabrications, Andris Kasparovics),
+sent by the user 2026-10-22. They are design intent from before the build;
+where they differ from the later layout drawings, the build may differ too.
+Not in the repo.
+
+| Fact                                                                                                                                                                                                                                         | Confidence                                        | Source                    |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------- |
+| Truss circle: **Tomcat Global TC 1212-60D16B, 12" light-duty**, 60' dia., 12"×12" aluminium arcs, 16 sections at ±11'-8"                                                                                                                     | Reported 2026-10-22                               | A-06                      |
+| Outer edge of the truss 60'-0"; inner edge about 58'-0"; sail outer edge 57'-11¾"                                                                                                                                                            | Reported 2026-10-22                               | A-06, A-07                |
+| Inner ring: custom 13'-0" ring by Tomcat Global, 16 equally spaced vertical attachment points                                                                                                                                                | Reported 2026-10-22                               | A-06                      |
+| Legs: Tomcat custom vertical supports, **20' tall, 12"×12", 2 sections of 10' each, on 36" square footings, at 6 locations**. The later layout drawings show 8 boxed-X symbols: count to confirm                                             | Reported 2026-10-22                               | A-06 vs `EG AC Power.pdf` |
+| Ring height about 20'-11"                                                                                                                                                                                                                    | Reported 2026-10-22                               | A-06 section              |
+| **12 guy cables** (Kennedy Fabrications) with custom carabiners, from truss-top to the playa on lag bolts                                                                                                                                    | Reported 2026-10-22                               | A-06                      |
+| **64 tension cables** (Kennedy Fabrications) from truss-top to the inner ring, custom carabiners at each end; LED strips on the underside of each (A-06), or stitched into the sails (A-07, and as built per the user)                       | Reported 2026-10-22                               | A-06, A-07, user          |
+| A 5 ft Sugar Kettle fire pit at the centre, with attachments for suspension cables and tie-downs (lag bolt)                                                                                                                                  | Reported 2026-10-22                               | A-06                      |
+| **16 sails** ("donut-shaped" shade canopy, one per segment and per node box) by Capitol Awnings: textile/poly/vinyl, grommets every ±12", reinforced edges and corners, flame-retardant, UV-resistant; a 2" gap between segments for stretch | Reported 2026-10-22                               | A-06, A-07, user          |
+| Each sail: **22'-5⅞" long** (13'-0⅛" to 57'-11¾" across), **11'-3¾" wide at the outer edge**, 2'-6 7/16" at the inner; about 14.6 m²                                                                                                         | Reported 2026-10-22; chords checked by arithmetic | A-07                      |
+| LED strips: continuous, adhered to the sail and "stitch-reinforced" every ±12" (Kennedy Fabrications); 4 per sail                                                                                                                            | Reported 2026-10-22                               | A-07                      |
+| Stabilisation cables alternate from upper outer to lower inner and lower outer to upper inner truss chords                                                                                                                                   | Reported 2026-10-22                               | A-07                      |
+
 ## Pixel controllers ("nodes")
 
 | Fact                                                                                                        | Confidence                                    | Source                                |

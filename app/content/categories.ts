@@ -493,8 +493,8 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
     ],
     unknowns: [
-      "The truss: make, profile and how the legs meet the ring today.",
-      "The legs' height, and the ring's weight with everything on it.",
+      "How many legs: six in the 2022 design, eight in the later layout drawings. Every per-leg cost scales with it.",
+      "Whether the legs meet the ring at a junction block today, and the ring's weight with everything on it.",
       "Whether the V1 legs can be reused as tower sections.",
       "Three-phase power at setup: the hoists need it.",
     ],
@@ -573,7 +573,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         title: "Sails ride with their LEDs in",
-        body: "A rack under the container roof holds every sail hanging, so the LEDs stay in them between events instead of coming out and going back in at every build.",
+        body: "Each of the 16 sails rolls onto its own tube with its LEDs still stitched in, and the rolls ride on a rack along the container wall, instead of the LEDs coming out and going back in at every build.",
       },
       {
         title: "Wheels that work on the playa",
@@ -615,7 +615,6 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
     ],
     unknowns: [
-      "The sails' size and count, which size the rack.",
       "How far the V2 boxes stick out of the truss.",
       "Hauling quotes, Oakland to the playa and to other events.",
     ],
