@@ -12,6 +12,7 @@ export const CATEGORY_IDS = [
   "expansion",
   "rigging",
   "solar",
+  "transport",
 ] as const;
 
 export type CategoryId = (typeof CATEGORY_IDS)[number];
@@ -529,6 +530,65 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     ],
     maturity: "exploring",
     planFile: "plans/solar.md",
+  },
+  transport: {
+    id: "transport",
+    name: "Transport",
+    headline: "Roll it in, roll it out",
+    today:
+      "The Gate's parts travel and live in borrowed space, and are carried in and out by hand.",
+    v2: "The Gate gets its own 40 ft container, fitted with a ramp, tie-downs and shelves, and a cart for every kind of part on wheels big enough for playa dust. Segments ride with their boxes installed.",
+    points: [
+      {
+        title: "One box for the whole Gate",
+        body: "A 40 ft high cube with doors at both ends holds the Gate with a little room to spare; a 20 ft is too small.",
+      },
+      {
+        title: "Wheels that work on the playa",
+        body: "Off-the-shelf truss dollies roll on 4 inch casters that sink in dust. The arc and leg carts are one custom design on 12–16 inch pneumatic or flat-free wheels.",
+      },
+      {
+        title: "Loaded in order",
+        body: "Tie-down rails, load bars and shelves keep every cart and case in its place for the drive, in the order it comes out.",
+      },
+      {
+        title: "Yearly costs, kept apart",
+        body: "Storing the box and hauling it to the playa and back is about $1,900–$8,000 a year, depending on where it lives. That isn't in this goal.",
+      },
+    ],
+    options: [
+      {
+        name: "40 ft high cube, one-trip, doors at both ends",
+        verdict: "leading",
+        price: "$3,690 in Oakland, $6,564 delivered to Reno",
+        why: "Fits the Gate. Buying in the Bay Area is cheaper: Reno dealers sell Oakland stock.",
+        url: "https://www.westerncontainersales.com/shipping-containers-for-sale/california/oakland",
+      },
+      {
+        name: "A used cargo-worthy 40 ft box",
+        verdict: "considered",
+        price: "saves about $1,500",
+        why: "Cheaper, but older doors and floors, and more dust gets in.",
+      },
+      {
+        name: "A 20 ft box",
+        verdict: "ruled-out",
+        why: "About 14 m² of floor against the 21–24 m² the Gate needs.",
+      },
+      {
+        name: "A second 20 ft box",
+        verdict: "considered",
+        price: "$2,600–$5,300",
+        why: "Needed only if both the hoists and the solar kit are bought and ride along.",
+      },
+    ],
+    unknowns: [
+      "The truss profile: 20.5 inch truss overflows one 40 ft box.",
+      "How far the V2 boxes stick out of the truss, and how the hub breaks down.",
+      "Where the container lives between events, which sets the yearly cost.",
+    ],
+    maturity: "exploring",
+    planFile: "plans/transport.md",
   },
 };
 

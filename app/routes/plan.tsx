@@ -41,6 +41,7 @@ const DIAGRAM: Record<CategoryId, "segment" | "ring" | null> = {
   expansion: "segment",
   rigging: null,
   solar: null,
+  transport: null,
 };
 
 export default function Plan() {

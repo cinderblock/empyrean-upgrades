@@ -134,7 +134,7 @@ wants to raise, and donors can see where their money goes.
 17. [ ] **New category: Transport**, a dedicated shipping container and carts
         to roll everything in and out (user, 2026-10-21). Plan
         `plans/transport.md`; research `docs/pricing-container-carts-2026-10.md`.
-        ← current
+        Done 2026-10-22: a big project, $49,000.
 
 18. [ ] **New stretch goal: a VJ console** (user, 2026-10-22), on the ladder
         under Compute. A 5-step tier ramp validates on both surfaces (dark

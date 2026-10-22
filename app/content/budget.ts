@@ -43,6 +43,7 @@ export const TIER_IDS = [
   "spokes",
   "rigging",
   "solar",
+  "transport",
 ] as const;
 export type TierId = (typeof TIER_IDS)[number];
 
@@ -99,6 +100,13 @@ export const TIERS: Tier[] = [
     promise:
       "Panels and a battery that run the Gate through the night, with a small generator only as backup.",
     project: "solar",
+  },
+  {
+    id: "transport",
+    name: "Roll it in, roll it out",
+    promise:
+      "The Gate's own 40 ft container, and carts with playa wheels for every part, so load-in and strike are a roll, not a carry.",
+    project: "transport",
   },
 ];
 
@@ -1036,6 +1044,126 @@ export const ITEMS: LineItem[] = [
       "The rental on standby costs nothing extra; a bought inverter generator with remote start is the high end.",
     qty: 1,
     unit: [150, 5900],
+    confidence: "estimate",
+  },
+  // --- Transport (big project) ----------------------------------------------
+  // The recommended setup (docs/pricing-container-carts-2026-10.md): a 40 ft
+  // high cube and carts, Gate only, 12" truss. Yearly storage and hauling are
+  // operating costs, not here.
+  {
+    id: "tr-container",
+    category: "transport",
+    tier: "transport",
+    name: "40 ft high-cube container, one-trip, doors at both ends",
+    detail: "A 20 ft box is too small: the Gate needs about 21–24 m² of floor.",
+    qty: 1,
+    unit: [4000, 6600],
+    confidence: "estimate",
+    source: {
+      label: "Western Container Sales (Oakland)",
+      url: "https://www.westerncontainersales.com/shipping-containers-for-sale/california/oakland",
+    },
+    note: "$3,690 at the Oakland depot; $6,564 delivered to Reno. Reno dealers sell Oakland stock.",
+  },
+  {
+    id: "tr-mods",
+    category: "transport",
+    tier: "transport",
+    name: "Fitting it out: a ramp, E-track, load bars, shelving, dust-filtered vents, lights, a lockbox, a reflective roof",
+    qty: 1,
+    unit: [2430, 9300],
+    confidence: "estimate",
+  },
+  {
+    id: "tr-arc-carts",
+    category: "transport",
+    tier: "transport",
+    name: "Arc carts on 12–16 inch playa wheels, 8 arcs each",
+    detail:
+      "No truss dolly on the market has wheels for the playa: a custom frame.",
+    qty: 2,
+    unit: [1200, 3000],
+    confidence: "estimate",
+  },
+  {
+    id: "tr-leg-carts",
+    category: "transport",
+    tier: "transport",
+    name: "Leg carts",
+    qty: 2,
+    unit: [370, 3000],
+    confidence: "estimate",
+    note: "Low: a stock truss dolly kit; high: the same custom design as the arc carts.",
+  },
+  {
+    id: "tr-hub-cart",
+    category: "transport",
+    tier: "transport",
+    name: "Hub cart",
+    qty: 1,
+    unit: [600, 2500],
+    confidence: "estimate",
+    note: "How the hub breaks down is unknown.",
+  },
+  {
+    id: "tr-wagons",
+    category: "transport",
+    tier: "transport",
+    name: "Playa wagons, 16 inch pneumatic, 3,000 lb",
+    part: "Uline H-2547",
+    qty: 3,
+    unit: [599, 780],
+    confidence: "quoted",
+    source: {
+      label: "Uline",
+      url: "https://www.uline.com/Product/Detail/H-2547/Platform-Trucks/Wagon-Cart-24-x-48",
+    },
+  },
+  {
+    id: "tr-utility-carts",
+    category: "transport",
+    tier: "transport",
+    name: "Light utility carts, 13 inch pneumatic",
+    part: "Gorilla GOR1201B",
+    qty: 2,
+    unit: [200, 230],
+    confidence: "estimate",
+  },
+  {
+    id: "tr-rack-case",
+    category: "transport",
+    tier: "transport",
+    name: "Rack case on casters for the show computer and network gear",
+    qty: 1,
+    unit: [370, 2085],
+    confidence: "estimate",
+  },
+  {
+    id: "tr-trunks",
+    category: "transport",
+    tier: "transport",
+    name: "Trunks on casters: spares, cables, tools and hardware",
+    qty: 3,
+    unit: [517, 875],
+    confidence: "estimate",
+  },
+  {
+    id: "tr-spoke-trunks",
+    category: "transport",
+    tier: "transport",
+    name: "Spoke trunks with dividers, for 64 coiled spokes",
+    qty: 1,
+    unit: [1500, 3900],
+    confidence: "estimate",
+    note: "2–4 trunks, depending on how tightly the spokes coil.",
+  },
+  {
+    id: "tr-spares",
+    category: "transport",
+    tier: "transport",
+    name: "Spare wheels, tubes or flat-free tyres, a pump",
+    qty: 1,
+    unit: [150, 400],
     confidence: "estimate",
   },
 ];

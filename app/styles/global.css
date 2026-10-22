@@ -41,9 +41,10 @@
   --series-compute: #199e70;
   --series-weatherproofing: #c98500;
   --series-expansion: #d55181;
-  /* Slots 6–7 of the same validated palette (dark surface). */
+  /* Slots 6–8 of the same validated palette (dark surface). */
   --series-rigging: #008300;
   --series-solar: #9085e9;
+  --series-transport: #e66767;
   --series-contingency: #5c5a70;
   --texture-ink: rgba(0, 0, 0, 0.45);
 
@@ -661,6 +662,9 @@ p {
 }
 .series-solar {
   --series: var(--series-solar);
+}
+.series-transport {
+  --series: var(--series-transport);
 }
 .series-contingency {
   --series: var(--series-contingency);
@@ -1390,6 +1394,9 @@ p {
 .plan.cat-solar {
   --series: var(--series-solar);
 }
+.plan.cat-transport {
+  --series: var(--series-transport);
+}
 
 .then-now .label {
   margin-bottom: 0.35rem;
@@ -1708,6 +1715,7 @@ p {
     --series-expansion: #e87ba4;
     --series-rigging: #008300;
     --series-solar: #6250d6;
+    --series-transport: #e34948;
     --series-contingency: #c9c9cf;
     --texture-ink: rgba(0, 0, 0, 0.55);
     /* Tiers on white: darkest first. */
