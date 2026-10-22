@@ -137,9 +137,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         url: "https://leviton.com/products/28w74",
       },
       {
-        name: "50 A twist-lock (CS6365) as the feed",
+        name: "A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord",
         verdict: "considered",
-        why: "Every towable rental has it, but no portable does, and no watertight version is confirmed. The Gate carries a CS6365-to-L14-30 adapter for towables instead.",
+        price: "about $2,500–$6,100 more for the power category",
+        why: "9.6 kVA continuous against 5.76: enough for V1's estimated maximum with no margin, and half of what 128 spokes might draw at full white (two 50 A feeds would cover it). Plugs straight into towable rentals; portables connect through an adapter at 30 A. Heavier cord, and the joints need boots instead of the rain covers.",
       },
       {
         name: "Three-phase twist-lock (L21-30)",

@@ -225,9 +225,38 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
 
 - (2026-10-21) **Feed ampacity: 30 A or 50 A?** The V1 "Circuit Loads" are
   estimated max draw (user). The user is open to more ampacity for maximum
-  expansion, or to showing both options with prices. Research under way:
-  `docs/pricing-feed-options-2026-10.md` (L14-30 vs a 50 A CS-series feed on
-  6/4, both rain-proof, on the 60 ft geometry).
+  expansion, or to showing both options with prices. Researched
+  (`docs/pricing-feed-options-2026-10.md`, 2026-10-21; subtotals before the
+  15 % contingency):
+
+  |                           | 30 A (L14-30, 8/4) | 50 A (CS6364/65/69, 6/4)    |
+  | ------------------------- | ------------------ | --------------------------- |
+  | Power subtotal            | $9,950–15,801      | $12,420–21,886              |
+  | Continuous capacity       | 5.76 kVA           | 9.6 kVA (8.64 at 45 A)      |
+  | vs V1 estimated max 9.6   | 60 %               | 100 %, no margin            |
+  | vs 128 spokes (~19.2 kVA) | 30 %               | 50 %                        |
+  | vs real load 1.5–2 kW     | 2.9–3.8×           | 4.8–6.4×                    |
+  | Voltage drop full / 2 kW  | 2.2 % / 0.8 %      | 2.4 % / 0.5 %               |
+  | Plugs straight into       | Portables          | Towables, 50 A spider boxes |
+  - 6/4 SOOW carries only 45.1 A at 50 °C: a 50 A breaker is compliant only
+    at 40 °C or below, otherwise 45 A.
+  - The 50 A option's portable adapter needs no breaker ($40–124); the 30 A
+    option's towable adapter must have one ($467–557).
+  - A mated 50 A pair (about 205 × 65 mm) won't fit the Cord Vault: boots
+    instead, AC Works ($180 a joint with ends, unrated) or Leviton ($359,
+    IP55 mated).
+  - 4.4 kg of cord a segment against 3.2 kg.
+  - For 128 spokes at the estimated max: two 50 A feeds, one per half-ring,
+    from a towable's 2–3 CS6369 outlets (19.2 kVA). Three-phase doesn't beat
+    it.
+  - Unknowns: whether the estimated max is near real full white (measure a
+    spoke); the AC Works 50 A cord grip on 27.3 mm 6/4; whether the boots
+    seal; whether towable outlets are GFCI-protected.
+
+  The site keeps 30 A in the V2 goal and shows 50 A as an option with its
+  price. **Decision needed:** stay at 30 A, move the V2 goal to 50 A, or tie
+  50 A to the 128-spoke stretch goal?
+
 - (2026-10-21) **For James** (generators): what generator(s) does the Gate
   actually run on, and do their L14-30 outlets have built-in GFCI (which
   could trip on the ring's summed leakage)?
