@@ -35,6 +35,9 @@
         "simple": { "limit": 10, "period": 60 },
       },
     ],
+    "analytics_engine_datasets": [
+      { "binding": "VISITS", "dataset": "empyreangate_v2_visits_preview" },
+    ],
   },
   // Password tries per visitor. Nothing to provision: the namespace id is any
   // integer unique in the account's Workers (empyreangate.org uses 1001).
@@ -44,6 +47,11 @@
       "namespace_id": "2001",
       "simple": { "limit": 10, "period": 60 },
     },
+  ],
+  // Who opened what (worker/visits.ts); `bun run visits` reads it. The
+  // dataset is created by the first write: nothing to provision.
+  "analytics_engine_datasets": [
+    { "binding": "VISITS", "dataset": "empyreangate_v2_visits" },
   ],
   "observability": {
     "enabled": true,

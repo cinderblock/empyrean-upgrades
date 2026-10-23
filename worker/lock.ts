@@ -15,12 +15,16 @@
  *
  * A second, optional secret, `SITE_PASSWORD_PATTERN`, is a regular expression
  * (say `Guest\d\d`) that a whole password may match instead, so different
- * people can be given different numbers. Its cookie is keyed by the pattern:
- * changing the pattern logs out everyone who came in through it, and only
- * them. A pattern that doesn't compile matches nothing.
+ * people can be given different numbers. Such a cookie names its password
+ * (`<password>.<HMAC>`, keyed by the pattern), so visits can be told apart
+ * (worker/visits.ts) and one password can be revoked alone: list it in the
+ * secret `SITE_PASSWORD_REVOKED`. Changing the pattern logs out everyone who
+ * came in through it, and only them. A pattern that doesn't compile matches
+ * nothing.
  */
 
 import { INDEXABLE, SAFETY_HEADERS, UNLISTED_ROBOTS } from "./headers";
+import { type Dataset, VIEW_PATH, type Visit, isPage, record } from "./visits";
 
 /** The subset of the Workers runtime this file uses. */
 interface Fetcher {
@@ -39,9 +43,16 @@ export interface Env {
   SITE_PASSWORD?: string;
   /** A regex a whole password may match instead (a Worker secret). Optional. */
   SITE_PASSWORD_PATTERN?: string;
+  /** Pattern passwords no longer let in, by commas or whitespace (a secret). */
+  SITE_PASSWORD_REVOKED?: string;
   /** Password attempts per visitor. Absent locally: then no limit. */
   UNLOCK_LIMIT?: RateLimit;
+  /** Where visits are recorded. Absent: Workers Logs only. */
+  VISITS?: Dataset;
 }
+
+/** Who a main-password cookie belongs to, in the visit records. */
+export const MAIN = "main";
 
 export const COOKIE = "v2_access";
 /** Where the password form posts. Never a page of the site. */
@@ -63,7 +74,7 @@ function base64url(bytes: ArrayBuffer): string {
 const LABEL = "empyrean-v2-access";
 const PATTERN_LABEL = "empyrean-v2-access-pattern";
 
-/** The cookie value for a password (or, with PATTERN_LABEL, a pattern). */
+/** The cookie value for the main password, or any HMAC this file needs. */
 export async function accessToken(
   password: string,
   label = LABEL,
@@ -87,9 +98,13 @@ function same(a: string, b: string): boolean {
   return diff === 0;
 }
 
-/** The cookie for anyone who came in through the pattern. */
-export function patternToken(pattern: string): Promise<string> {
-  return accessToken(pattern, PATTERN_LABEL);
+/** The cookie for one pattern password: it names the password, signed. */
+export async function patternCookie(
+  who: string,
+  pattern: string,
+): Promise<string> {
+  const mac = await accessToken(pattern, `${PATTERN_LABEL}:${who}`);
+  return `${encodeURIComponent(who)}.${mac}`;
 }
 
 /** Whether all of `guess` matches the pattern. A broken pattern never does. */
@@ -103,24 +118,57 @@ function matchesPattern(guess: string, pattern: string | undefined): boolean {
   }
 }
 
-/**
- * The cookie a guess earns, or undefined for a wrong one. The password is
- * checked as tokens so the comparison is constant-length.
- */
-async function tokenFor(guess: string, env: Env): Promise<string | undefined> {
-  const want = await accessToken(env.SITE_PASSWORD ?? "");
-  if (same(await accessToken(guess), want)) return want;
-  if (matchesPattern(guess, env.SITE_PASSWORD_PATTERN)) {
-    return patternToken(env.SITE_PASSWORD_PATTERN!);
-  }
-  return undefined;
+function isRevoked(who: string, env: Env): boolean {
+  return (env.SITE_PASSWORD_REVOKED ?? "").split(/[\s,]+/).includes(who);
 }
 
-/** Whether a cookie is one this site currently hands out. */
-async function validCookie(have: string, env: Env): Promise<boolean> {
-  if (same(have, await accessToken(env.SITE_PASSWORD!))) return true;
+/** Who a guess lets in, and the cookie it earns (none for a wrong one). */
+interface Guess {
+  /** Empty for a wrong guess: that is never recorded. */
+  who: string;
+  token?: string;
+  revoked?: boolean;
+}
+
+/**
+ * Check a guess. The main password is compared as tokens, so the comparison
+ * is constant-length.
+ */
+async function checkGuess(guess: string, env: Env): Promise<Guess> {
+  if (env.SITE_PASSWORD) {
+    const want = await accessToken(env.SITE_PASSWORD);
+    if (same(await accessToken(guess), want)) return { who: MAIN, token: want };
+  }
   const pattern = env.SITE_PASSWORD_PATTERN;
-  return !!pattern && same(have, await patternToken(pattern));
+  if (pattern && matchesPattern(guess, pattern)) {
+    if (isRevoked(guess, env)) return { who: guess, revoked: true };
+    return { who: guess, token: await patternCookie(guess, pattern) };
+  }
+  return { who: "" };
+}
+
+/** Who a cookie belongs to, if it still lets them in. */
+async function cookieOwner(
+  have: string | undefined,
+  env: Env,
+): Promise<string | undefined> {
+  if (!have) return undefined;
+  const dot = have.lastIndexOf(".");
+  if (dot === -1) {
+    if (!env.SITE_PASSWORD) return undefined;
+    return same(have, await accessToken(env.SITE_PASSWORD)) ? MAIN : undefined;
+  }
+  const pattern = env.SITE_PASSWORD_PATTERN;
+  let who: string;
+  try {
+    who = decodeURIComponent(have.slice(0, dot));
+  } catch {
+    return undefined;
+  }
+  if (!pattern || !matchesPattern(who, pattern) || isRevoked(who, env)) {
+    return undefined;
+  }
+  return same(have, await patternCookie(who, pattern)) ? who : undefined;
 }
 
 function readCookie(request: Request, name: string): string | undefined {
@@ -273,11 +321,64 @@ async function unlock(request: Request, env: Env): Promise<Response> {
   if (request.method !== "POST") return redirect("/");
   const form = await request.formData();
   const next = safeNext(form.get("next")?.toString());
-  if (!(await mayTry(request, env))) return html(429, lockPage(next, TOO_MANY));
-  const guess = form.get("password")?.toString() ?? "";
-  const token = await tokenFor(guess, env);
-  if (!token) return html(401, lockPage(next, "That isn't it. Try again."));
-  return redirect(next, accessCookie(token));
+  const log = (visit: Omit<Visit, "path">) =>
+    record(request, env.VISITS, { ...visit, path: next });
+  if (!(await mayTry(request, env))) {
+    log({ event: "limited", who: "", status: 429, detail: "form" });
+    return html(429, lockPage(next, TOO_MANY));
+  }
+  const guess = await checkGuess(form.get("password")?.toString() ?? "", env);
+  if (!guess.token) {
+    const detail = guess.revoked ? "revoked" : "form";
+    log({ event: "refused", who: guess.who, status: 401, detail });
+    return html(401, lockPage(next, "That isn't it. Try again."));
+  }
+  log({ event: "unlock", who: guess.who, status: 303, detail: "form" });
+  return redirect(next, accessCookie(guess.token));
+}
+
+/** The browser reporting a client-side navigation: recorded as a view. */
+async function view(request: Request, env: Env): Promise<Response> {
+  const done = withHeaders(
+    new Response(null, {
+      status: 204,
+      headers: { "cache-control": "no-store" },
+    }),
+  );
+  if (request.method !== "POST") return done;
+  const path = (await request.text()).slice(0, 512);
+  const who = await cookieOwner(readCookie(request, COOKIE), env);
+  // While locked only someone let in counts, so the beacon can't be spammed.
+  if (path.startsWith("/") && (env.SITE_LOCK !== "on" || who)) {
+    record(request, env.VISITS, {
+      event: "view",
+      who: who ?? "",
+      path,
+      status: 200,
+      detail: "nav",
+    });
+  }
+  return done;
+}
+
+/** An asset, recorded if it is a page. */
+async function serve(
+  request: Request,
+  env: Env,
+  who: string | undefined,
+): Promise<Response> {
+  const response = await env.ASSETS.fetch(request);
+  const url = new URL(request.url);
+  if (isPage(request, url.pathname)) {
+    record(request, env.VISITS, {
+      event: "view",
+      who: who ?? "",
+      path: url.pathname + url.search,
+      status: response.status,
+      detail: "load",
+    });
+  }
+  return response;
 }
 
 /** Locked responses stay out of shared caches. */
@@ -303,8 +404,11 @@ export async function handle(request: Request, env: Env): Promise<Response> {
     );
   }
 
+  if (path === VIEW_PATH) return view(request, env);
+
   if (env.SITE_LOCK !== "on") {
-    return withHeaders(await env.ASSETS.fetch(request));
+    const who = await cookieOwner(readCookie(request, COOKIE), env);
+    return withHeaders(await serve(request, env, who));
   }
   if (!env.SITE_PASSWORD) {
     return html(
@@ -318,9 +422,8 @@ export async function handle(request: Request, env: Env): Promise<Response> {
   if (path === UNLOCK_PATH) return unlock(request, env);
 
   const have = readCookie(request, COOKIE);
-  if (have && (await validCookie(have, env))) {
-    return privately(await env.ASSETS.fetch(request), path);
-  }
+  const who = await cookieOwner(have, env);
+  if (who) return privately(await serve(request, env, who), path);
 
   // A link carrying the password: unlock, then drop it from the address.
   const key = url.searchParams.get("key");
@@ -329,16 +432,34 @@ export async function handle(request: Request, env: Env): Promise<Response> {
     return url.pathname + url.search + url.hash;
   };
   if (key !== null) {
+    const next = here();
+    const log = (visit: Omit<Visit, "path">) =>
+      record(request, env.VISITS, { ...visit, path: next });
     if (!(await mayTry(request, env))) {
-      return html(429, lockPage(here(), TOO_MANY));
+      log({ event: "limited", who: "", status: 429, detail: "link" });
+      return html(429, lockPage(next, TOO_MANY));
     }
-    const token = await tokenFor(key, env);
-    if (token) return redirect(here(), accessCookie(token));
+    const guess = await checkGuess(key, env);
+    if (guess.token) {
+      log({ event: "unlock", who: guess.who, status: 303, detail: "link" });
+      return redirect(next, accessCookie(guess.token));
+    }
+    const detail = guess.revoked ? "revoked" : "link";
+    log({ event: "refused", who: guess.who, status: 401, detail });
     return html(
       401,
-      lockPage(here(), "That link's password isn't right any more."),
+      lockPage(next, "That link's password isn't right any more."),
     );
   }
 
+  if (isPage(request, path)) {
+    record(request, env.VISITS, {
+      event: "locked",
+      who: "",
+      path: path + url.search,
+      status: 401,
+      detail: have ? "stale cookie" : "",
+    });
+  }
   return html(401, lockPage(path + url.search));
 }

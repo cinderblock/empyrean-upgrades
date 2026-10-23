@@ -1,15 +1,22 @@
-import { describe, expect, test } from "bun:test";
+import { beforeAll, describe, expect, spyOn, test } from "bun:test";
 import worker from "./index";
 import {
   COOKIE,
   UNLOCK_PATH,
   accessToken,
-  patternToken,
+  MAIN,
+  patternCookie,
   type Env,
 } from "./lock";
+import { BLOBS, type Dataset, VIEW_PATH } from "./visits";
 
 const PASSWORD = "ring of light";
 const PATTERN = String.raw`Guest\d\d`;
+
+// Every request logs a line; keep the test output readable.
+beforeAll(() => {
+  spyOn(console, "log").mockImplementation(() => {});
+});
 
 /** Assets that answer every path with its own name, so a test can tell. */
 const assets = {
@@ -150,14 +157,16 @@ describe("lock on", () => {
     expect(res.headers.get("set-cookie")).toBeNull();
   });
 
-  test("a password matching the pattern sets the pattern's cookie", async () => {
+  test("a pattern password gets a cookie of its own", async () => {
     for (const guess of ["Guest07", "Guest42"]) {
       const res = await worker.fetch(post(guess, "/budget/"), env());
       expect(res.status).toBe(303);
       expect(res.headers.get("location")).toBe("/budget/");
-      expect(cookieValue(res)).toBe(await patternToken(PATTERN));
-      expect(res.headers.get("set-cookie")).not.toContain(guess);
+      expect(cookieValue(res)).toBe(await patternCookie(guess, PATTERN));
     }
+    expect(await patternCookie("Guest07", PATTERN)).not.toBe(
+      await patternCookie("Guest42", PATTERN),
+    );
   });
 
   test("the pattern must match the whole password", async () => {
@@ -177,11 +186,11 @@ describe("lock on", () => {
   test("?key= takes a pattern password too", async () => {
     const res = await worker.fetch(get("/?key=Guest99"), env());
     expect(res.status).toBe(303);
-    expect(cookieValue(res)).toBe(await patternToken(PATTERN));
+    expect(cookieValue(res)).toBe(await patternCookie("Guest99", PATTERN));
   });
 
-  test("the pattern's cookie opens the site", async () => {
-    const token = await patternToken(PATTERN);
+  test("a pattern password's cookie opens the site", async () => {
+    const token = await patternCookie("Guest07", PATTERN);
     const res = await worker.fetch(
       get("/", { cookie: `${COOKIE}=${token}` }),
       env(),
@@ -189,9 +198,28 @@ describe("lock on", () => {
     expect(await res.text()).toBe("asset /");
   });
 
+  test("a cookie can't be changed to another password", async () => {
+    const real = await patternCookie("Guest07", PATTERN);
+    const forged = "Guest08" + real.slice(real.indexOf("."));
+    const res = await worker.fetch(
+      get("/", { cookie: `${COOKIE}=${forged}` }),
+      env(),
+    );
+    expect(res.status).toBe(401);
+  });
+
+  test("a password the pattern no longer matches is out", async () => {
+    const token = await patternCookie("Guest07", PATTERN);
+    const res = await worker.fetch(
+      get("/", { cookie: `${COOKIE}=${token}` }),
+      env({ SITE_PASSWORD_PATTERN: String.raw`Guest\d\d|Other` }),
+    );
+    expect(res.status).toBe(401);
+  });
+
   test("changing the pattern logs out only its own", async () => {
     const changed = env({ SITE_PASSWORD_PATTERN: String.raw`Friend\d\d` });
-    const old = await patternToken(PATTERN);
+    const old = await patternCookie("Guest07", PATTERN);
     const stale = await worker.fetch(
       get("/", { cookie: `${COOKIE}=${old}` }),
       changed,
@@ -203,6 +231,32 @@ describe("lock on", () => {
       changed,
     );
     expect(await kept.text()).toBe("asset /");
+  });
+
+  test("a revoked password is refused, and so is its cookie", async () => {
+    const revoked = env({ SITE_PASSWORD_REVOKED: "Guest03, Guest07\nGuest11" });
+    expect((await worker.fetch(post("Guest07"), revoked)).status).toBe(401);
+    expect((await worker.fetch(get("/?key=Guest07"), revoked)).status).toBe(
+      401,
+    );
+    const token = await patternCookie("Guest07", PATTERN);
+    const res = await worker.fetch(
+      get("/", { cookie: `${COOKIE}=${token}` }),
+      revoked,
+    );
+    expect(res.status).toBe(401);
+    // Everyone else is unaffected.
+    expect((await worker.fetch(post("Guest08"), revoked)).status).toBe(303);
+    expect((await worker.fetch(post(PASSWORD), revoked)).status).toBe(303);
+  });
+
+  test("the old shared pattern cookie no longer works", async () => {
+    const shared = await accessToken(PATTERN, "empyrean-v2-access-pattern");
+    const res = await worker.fetch(
+      get("/", { cookie: `${COOKIE}=${shared}` }),
+      env(),
+    );
+    expect(res.status).toBe(401);
   });
 
   test("no pattern set: only the password works", async () => {
@@ -227,5 +281,208 @@ describe("lock on", () => {
   test("escapes the page it was asked for", async () => {
     const res = await worker.fetch(get('/"><script>x</script>'), env());
     expect(await res.text()).not.toContain("<script>x");
+  });
+});
+
+/** A dataset that keeps what is written, as named fields. */
+function dataset() {
+  const points: Record<string, string | number>[] = [];
+  const visits: Dataset = {
+    writeDataPoint({ blobs = [], doubles = [], indexes = [] }) {
+      const row: Record<string, string | number> = { index: indexes[0]! };
+      BLOBS.forEach((k, i) => (row[k] = blobs[i]!));
+      row.status = doubles[0]!;
+      points.push(row);
+    },
+  };
+  return { points, visits };
+}
+
+/** A request as Cloudflare delivers it, with where it came from. */
+function fromPlace(request: Request): Request {
+  Object.defineProperty(request, "cf", {
+    value: { country: "US", region: "Nevada", city: "Reno", colo: "SJC" },
+  });
+  request.headers.set("user-agent", "TestBrowser/1");
+  return request;
+}
+
+function beacon(path: string, cookie?: string) {
+  return new Request(`https://v2.empyreangate.org${VIEW_PATH}`, {
+    method: "POST",
+    body: path,
+    headers: cookie ? { cookie: `${COOKIE}=${cookie}` } : {},
+  });
+}
+
+describe("visits", () => {
+  test("an unlock records who, where and how", async () => {
+    const { points, visits } = dataset();
+    await worker.fetch(
+      fromPlace(post("Guest07", "/budget/")),
+      env({ VISITS: visits }),
+    );
+    expect(points).toEqual([
+      {
+        index: "Guest07",
+        event: "unlock",
+        who: "Guest07",
+        path: "/budget",
+        detail: "form",
+        country: "US",
+        region: "Nevada",
+        city: "Reno",
+        colo: "SJC",
+        userAgent: "TestBrowser/1",
+        referrer: "",
+        status: 303,
+      },
+    ]);
+  });
+
+  test("a link unlock records the page without the key", async () => {
+    const { points, visits } = dataset();
+    await worker.fetch(
+      get(`/plans/power/?key=${encodeURIComponent(PASSWORD)}`),
+      env({ VISITS: visits }),
+    );
+    expect(points[0]).toMatchObject({
+      event: "unlock",
+      who: MAIN,
+      path: "/plans/power",
+      detail: "link",
+    });
+  });
+
+  test("a wrong guess is recorded, but never the guess", async () => {
+    const { points, visits } = dataset();
+    await worker.fetch(post("my bank password"), env({ VISITS: visits }));
+    await worker.fetch(get("/?key=another%20secret"), env({ VISITS: visits }));
+    expect(points.map((p) => [p.event, p.who, p.detail])).toEqual([
+      ["refused", "", "form"],
+      ["refused", "", "link"],
+    ]);
+    expect(JSON.stringify(points)).not.toContain("bank");
+    expect(JSON.stringify(points)).not.toContain("another");
+  });
+
+  test("a revoked password is recorded by name", async () => {
+    const { points, visits } = dataset();
+    await worker.fetch(
+      post("Guest07"),
+      env({ VISITS: visits, SITE_PASSWORD_REVOKED: "Guest07" }),
+    );
+    expect(points[0]).toMatchObject({
+      event: "refused",
+      who: "Guest07",
+      detail: "revoked",
+    });
+  });
+
+  test("page views name the visitor; assets aren't recorded", async () => {
+    const { points, visits } = dataset();
+    const cookie = `${COOKIE}=${await patternCookie("Guest42", PATTERN)}`;
+    for (const path of ["/budget/", "/assets/app.js", "/favicon.svg", "/"]) {
+      await worker.fetch(get(path, { cookie }), env({ VISITS: visits }));
+    }
+    expect(points.map((p) => [p.event, p.who, p.path, p.detail])).toEqual([
+      ["view", "Guest42", "/budget", "load"],
+      ["view", "Guest42", "/", "load"],
+    ]);
+  });
+
+  test("the lock page is recorded, and a stale cookie noted", async () => {
+    const { points, visits } = dataset();
+    await worker.fetch(get("/budget/"), env({ VISITS: visits }));
+    await worker.fetch(
+      get("/", { cookie: `${COOKIE}=old` }),
+      env({ VISITS: visits }),
+    );
+    expect(points.map((p) => [p.event, p.path, p.detail])).toEqual([
+      ["locked", "/budget", ""],
+      ["locked", "/", "stale cookie"],
+    ]);
+  });
+
+  test("too many tries are recorded", async () => {
+    const { points, visits } = dataset();
+    await worker.fetch(
+      post(PASSWORD),
+      env({
+        VISITS: visits,
+        UNLOCK_LIMIT: { limit: async () => ({ success: false }) },
+      }),
+    );
+    expect(points[0]).toMatchObject({ event: "limited", who: "" });
+  });
+
+  test("the beacon records a client-side navigation", async () => {
+    const { points, visits } = dataset();
+    const res = await worker.fetch(
+      beacon("/plans/power", await patternCookie("Guest42", PATTERN)),
+      env({ VISITS: visits }),
+    );
+    expect(res.status).toBe(204);
+    expect(points[0]).toMatchObject({
+      event: "view",
+      who: "Guest42",
+      path: "/plans/power",
+      detail: "nav",
+    });
+  });
+
+  test("a page is spelled one way, slash or not", async () => {
+    const { points, visits } = dataset();
+    const cookie = await patternCookie("Guest42", PATTERN);
+    const e = env({ VISITS: visits });
+    await worker.fetch(
+      get("/budget/?x=1", { cookie: `${COOKIE}=${cookie}` }),
+      e,
+    );
+    await worker.fetch(beacon("/budget?x=1", cookie), e);
+    await worker.fetch(beacon("/", cookie), e);
+    expect(points.map((p) => p.path)).toEqual([
+      "/budget?x=1",
+      "/budget?x=1",
+      "/",
+    ]);
+  });
+
+  test("while locked, the beacon ignores strangers", async () => {
+    const { points, visits } = dataset();
+    const res = await worker.fetch(beacon("/budget/"), env({ VISITS: visits }));
+    expect(res.status).toBe(204);
+    expect(points).toEqual([]);
+  });
+
+  test("with the lock off, views are still recorded", async () => {
+    const { points, visits } = dataset();
+    const open = env({ VISITS: visits, SITE_LOCK: "off" });
+    await worker.fetch(get("/budget/"), open);
+    await worker.fetch(beacon("/"), open);
+    const main = `${COOKIE}=${await accessToken(PASSWORD)}`;
+    await worker.fetch(get("/", { cookie: main }), open);
+    expect(points.map((p) => [p.who, p.path, p.detail])).toEqual([
+      ["", "/budget", "load"],
+      ["", "/", "nav"],
+      [MAIN, "/", "load"],
+    ]);
+  });
+
+  test("a dataset that throws doesn't break the site", async () => {
+    const broken: Dataset = {
+      writeDataPoint() {
+        throw new Error("down");
+      },
+    };
+    const error = spyOn(console, "error").mockImplementation(() => {});
+    const token = await accessToken(PASSWORD);
+    const res = await worker.fetch(
+      get("/", { cookie: `${COOKIE}=${token}` }),
+      env({ VISITS: broken }),
+    );
+    expect(await res.text()).toBe("asset /");
+    expect(error).toHaveBeenCalled();
+    error.mockRestore();
   });
 });

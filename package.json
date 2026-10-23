@@ -9,6 +9,7 @@
     "preview:worker": "bun run build && wrangler dev --port 8788",
     "test": "playwright test",
     "test:unit": "bun test app scripts worker",
+    "visits": "bun run scripts/visits.ts",
     "test:ui": "playwright test --ui",
     "fmt": "oxfmt --write .",
     "fmt:check": "oxfmt --check .",

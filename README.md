@@ -111,13 +111,18 @@ changing the password logs everyone out. Lock on with no password set answers
 A second way in, so different people can get different passwords: the optional
 secret `SITE_PASSWORD_PATTERN`, a regular expression the **whole** password must
 match (for example `Guest\d\d` lets in `Guest07` and `Guest42`, not `Guest7`).
-It is a secret, not a var, because the repo is public. People who came in through
-the pattern share one cookie, keyed by the pattern, so changing the pattern logs
-out just them. A pattern that doesn't compile lets nobody in through it.
+It is a secret, not a var, because the repo is public. Each such password gets
+its own signed cookie naming it, so visits can be told apart (below). Changing
+the pattern logs out just the people who came in through it. A pattern that
+doesn't compile lets nobody in through it.
+
+To shut out one pattern password and leave everyone else in, list it (commas or
+whitespace between several) in the secret `SITE_PASSWORD_REVOKED`. It is
+refused at the form, in links and as a cookie.
 
 ```sh
 bunx wrangler secret put SITE_PASSWORD_PATTERN
-bunx wrangler preview secret put SITE_PASSWORD_PATTERN
+bunx wrangler secret put SITE_PASSWORD_REVOKED
 ```
 
 **To open the site to everyone**, set `"SITE_LOCK": "off"` in both `vars`
@@ -131,6 +136,30 @@ echo SITE_PASSWORD=test > .dev.vars
 bun run preview:worker      # http://localhost:8788
 ```
 
+### Visits
+
+[`worker/visits.ts`](worker/visits.ts) records who opened what: every page
+view (the HTML request, plus a beacon to `/__view` for each client-side
+navigation), every unlock, refusal, rate limit and lock page. Each record has
+who (`main`, the pattern password, or empty), the page, how, the status, the
+rough place Cloudflare reports (country, region, city, data centre), the browser
+and the referrer. No IP addresses, and never a wrong password guess, since a
+mistyped guess can be someone's other password. Scripts, styles and fonts
+aren't recorded.
+
+Records go to Workers Analytics Engine (dataset `empyreangate_v2_visits`, kept
+about 3 months) and, as a JSON line, to Workers Logs (a few days, in the
+dashboard). To read them, with a Cloudflare API token that has Account
+Analytics: Read:
+
+```sh
+export CLOUDFLARE_API_TOKEN=...
+bun run visits                  # each person: views, pages, first and last seen
+bun run visits log              # every event, newest first
+bun run visits who Guest07      # one person ("main" for the main password)
+bun run visits log --days 7
+```
+
 ### Deployment
 
 Same as empyreangate.org: **Cloudflare Workers Builds** builds the repo with
@@ -139,8 +168,9 @@ Same as empyreangate.org: **Cloudflare Workers Builds** builds the repo with
 The worker and its custom domain, `v2.empyreangate.org`, are provisioned by
 [cinderblock/ops](https://github.com/cinderblock/ops)
 (`cloudflare/config/projects/empyreangate.yaml`); ops never touches the code.
-The `SITE_PASSWORD` and `SITE_PASSWORD_PATTERN` secrets are set on the worker by
-hand (above), since a person needs to know them.
+The `SITE_PASSWORD`, `SITE_PASSWORD_PATTERN` and `SITE_PASSWORD_REVOKED`
+secrets are set on the worker by hand (above), since a person needs to know
+them.
 
 Workers Builds settings (Workers & Pages → `empyreangate-v2` → Settings →
 Build), matching empyreangate.org's:

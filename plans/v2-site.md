@@ -92,9 +92,8 @@ wants to raise, and donors can see where their money goes.
   so that we can give different numbers to people"). Secret
   `SITE_PASSWORD_PATTERN`, a regex the whole password must match. The user gave
   the pattern in chat; like the password it stays out of the repo. Its cookie is
-  keyed by the pattern (changing it logs out only those users). One shared
-  cookie, so a single number can't be revoked on its own, and nothing records
-  which number was used.
+  keyed by the pattern (changing it logs out only those users). Superseded by
+  the per-password cookie below (step 20).
   Set on `empyreangate-v2` (production) 2026-10-22 9:58 PM PDT (04:58Z) and
   checked live: two-digit matches 303 with the cookie, near misses 401,
   `?key=` works. Not set for Previews: `wrangler preview secret put` needs an
@@ -187,6 +186,36 @@ wants to raise, and donors can see where their money goes.
 
 19. [x] **Light mode, following the system** (user, 2026-10-22). See Design.
         Tests: `colour scheme` in `tests/site.spec.ts`, with JavaScript off.
+20. [ ] **Visit logging: who opened what** (user, 2026-10-22: "2 + analytics
+        engine sounds good. log it all"). ← current
+    - **Per-password cookie.** A pattern password's cookie is
+      `<password>.<HMAC>`, the HMAC keyed by the pattern over the password, so
+      it names its holder and can't be changed to another number. Valid while
+      the signature checks, the password still matches the pattern and it isn't
+      revoked. The main password's cookie is unchanged (no one logged out).
+      Pattern cookies from before this change stop working once.
+    - **Revoking one password:** secret `SITE_PASSWORD_REVOKED`, a list
+      (commas or whitespace). Refused at the form and as a cookie.
+    - **Events**, each to Workers Analytics Engine (binding `VISITS`, dataset
+      `empyreangate_v2_visits`) and as a JSON line to Workers Logs: `view`
+      (a page: the HTML request, or a client-side navigation reported by a
+      beacon to `/__view`), `unlock`, `refused`, `limited`, `locked` (the lock
+      page shown). Fields: who (`main`, the pattern password, or empty), path,
+      country, city, region, colo, user agent, referrer, status. No IP
+      addresses, and wrong guesses are never recorded (they may be someone's
+      other password). Assets (JS, CSS, fonts) are not logged.
+    - **Reading it:** `bun run visits`, a script over the Analytics Engine SQL
+      API. Needs an API token with Account Analytics: Read.
+    - **Paths are recorded without a trailing slash.** The HTML is served at
+      `/budget/` but the router reports `/budget`, which would count one page
+      twice.
+    - [x] Code and unit tests (56 pass; Playwright 73 pass, 2 skipped)
+    - [x] Checked under `wrangler dev` (2026-10-22): unlocks (form, link),
+          revoked refusal, page loads and a real Chromium client-side navigation's
+          beacon all logged with the right `who`; the `VISITS` binding is listed.
+    - [ ] Push (user's yes), then check data arrives
+    - [ ] An API token (Account Analytics: Read) for `bun run visits`; the SQL
+          in `scripts/visits.ts` is untested until then
 
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 
@@ -286,5 +315,6 @@ of them.
 - Don't link to v2 from empyreangate.org.
 - Don't touch the ops checkout or Cloudflare without per-change approval.
 - Don't commit the password anywhere: the repo is public.
+- Don't log wrong password guesses or IP addresses.
 - Don't `wrangler deploy` by hand: Workers Builds deploys (ops' rule).
 - Don't create a branch named `v2` in the empyreangate.org repo.

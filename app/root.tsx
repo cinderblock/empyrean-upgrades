@@ -2,6 +2,7 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import "@fontsource-variable/cormorant/index.css";
 import "@fontsource-variable/inter/index.css";
 import "./styles/global.css";
+import { ReportViews } from "./components/ReportViews";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -39,5 +40,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <ReportViews />
+    </>
+  );
 }
