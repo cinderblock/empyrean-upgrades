@@ -95,6 +95,11 @@ wants to raise, and donors can see where their money goes.
   keyed by the pattern (changing it logs out only those users). One shared
   cookie, so a single number can't be revoked on its own, and nothing records
   which number was used.
+  Set on `empyreangate-v2` (production) 2026-10-22 9:58 PM PDT (04:58Z) and
+  checked live: two-digit matches 303 with the cookie, near misses 401,
+  `?key=` works. Not set for Previews: `wrangler preview secret put` needs an
+  existing Preview, and none has `SITE_PASSWORD` either. Wrangler needs
+  `CLOUDFLARE_ACCOUNT_ID=c5987fbfdbb396ef3121459c26125cc0` (several accounts).
 - **Light and dark follow the system** (user, 2026-10-22: "proper light mode,
   don't assume dark mode... where it doesn't flash at the start"). Every
   colour token in `app/styles/global.css` is `light-dark(light, dark)` under
