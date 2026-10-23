@@ -491,7 +491,7 @@ export const HUMAN = {
     said: "crane at burning man, 8 hand at other events. need to rent them every deploy…",
     meaning: "V1 is raised by a crane at Burning Man; rented gear elsewhere.",
     aiReading:
-      '"8 hand" was read as eight hand chain hoists. It may mean eight people. Unconfirmed.',
+      '"8 hand" was first read as eight hand chain hoists. H63 settles it: eight hand-cranked cable hoists or lifts.',
     thread: "upgrades",
   },
   H53: {
@@ -573,6 +573,36 @@ export const HUMAN = {
     kind: "answered",
     said: "if we get a fiber adapter, any length is possible",
     meaning: "The console link can be any length over fiber.",
+    thread: "upgrades",
+  },
+  H63: {
+    at: "2026-10-23 1:31 PM PDT",
+    who: C,
+    kind: "answered",
+    said: "right now we rent 8 hand cranked cable hoists/lifts.",
+    meaning:
+      "At events other than Burning Man, V1 is raised on eight rented hand-cranked cable hoists or lifts.",
+    thread: "upgrades",
+  },
+  H64: {
+    at: "2026-10-23 1:31 PM PDT",
+    who: C,
+    kind: "said",
+    said: "I want to run the power supplies from 240VAC... they get more efficient I think.",
+    meaning:
+      "The pixel and node supplies run line to line (240 V split-phase, 208 V on three-phase), not 120 V.",
+    aiReading:
+      "Checked: Mean Well's HLG-600H draws 7 A at 115 VAC and 3.3 A at 230 VAC (about 6 % less input for the same output) and takes 90–305 VAC. Line-to-line supplies need a two-pole ground-fault breaker per segment, not yet chosen.",
+    thread: "upgrades",
+  },
+  H65: {
+    at: "2026-10-23 1:31 PM PDT",
+    who: C,
+    kind: "said",
+    said: "3 phase triples the total power of 2 phase",
+    meaning: "Three-phase is preferred for the extra capacity.",
+    aiReading:
+      "At 30 A a leg it is 1.5×, not 3×: split-phase 240 × 30 = 7.2 kVA, three-phase 120/208 V √3 × 208 × 30 = 10.8 kVA (5.76 vs 8.64 kVA continuous). It is 3× single-phase 120 V.",
     thread: "upgrades",
   },
 } as const satisfies Record<string, Said>;

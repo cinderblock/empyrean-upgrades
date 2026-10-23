@@ -419,9 +419,9 @@ Cameron answered, 2026-10-22 1:03 AM PDT (this repo's chat):
 
 > crane at burning man, 8 hand at other events. need to rent them every deploy…
 
-⚠ AI's reading: "8 hand" was read as eight hand chain hoists. It may mean eight people. Unconfirmed.
+⚠ AI's reading: "8 hand" was first read as eight hand chain hoists. H63 settles it: eight hand-cranked cable hoists or lifts.
 
-On the site: Rigging: today; Hand chain hoists instead of electric.
+On the site: Rigging: today.
 
 ## H53: Solar is its own category and goal.
 
@@ -492,3 +492,27 @@ Cameron answered, 2026-10-22 10:41 PM PDT (this repo's chat):
 > if we get a fiber adapter, any length is possible
 
 On the site: VJ console, full: 21.5 inch panel, faders, knobs and pads, fiber.
+
+## H63: At events other than Burning Man, V1 is raised on eight rented hand-cranked cable hoists or lifts.
+
+Cameron answered, 2026-10-23 1:31 PM PDT (this repo's chat):
+
+> right now we rent 8 hand cranked cable hoists/lifts.
+
+On the site: Rigging: today; Hand chain hoists instead of electric.
+
+## H64: The pixel and node supplies run line to line (240 V split-phase, 208 V on three-phase), not 120 V.
+
+Cameron said, 2026-10-23 1:31 PM PDT (this repo's chat):
+
+> I want to run the power supplies from 240VAC... they get more efficient I think.
+
+⚠ AI's reading: Checked: Mean Well's HLG-600H draws 7 A at 115 VAC and 3.3 A at 230 VAC (about 6 % less input for the same output) and takes 90–305 VAC. Line-to-line supplies need a two-pole ground-fault breaker per segment, not yet chosen.
+
+## H65: Three-phase is preferred for the extra capacity.
+
+Cameron said, 2026-10-23 1:31 PM PDT (this repo's chat):
+
+> 3 phase triples the total power of 2 phase
+
+⚠ AI's reading: At 30 A a leg it is 1.5×, not 3×: split-phase 240 × 30 = 7.2 kVA, three-phase 120/208 V √3 × 208 × 30 = 10.8 kVA (5.76 vs 8.64 kVA continuous). It is 3× single-phase 120 V.

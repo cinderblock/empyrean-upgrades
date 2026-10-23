@@ -100,8 +100,8 @@ The user's asks:
   example networking's "not the 210 W brick": the user said "maybe with the
   210W adapter... or an aftermarket one". Power's "No remote reset" bullet
   also named the Ericson 1075-AR, an AI pick. Now split per clause.
-- "8 hand at other events" was read as "eight hand chain hoists". It could
-  mean eight people. Marked as an AI reading of H52.
+- "8 hand at other events" was read as "eight hand chain hoists". Answered by
+  H63: eight hand-cranked cable hoists or lifts.
 - Seven items where the AI went against what was said, all marked ≠: L21-30
   "ruled out" (user: "30A 3 phase should be enough"), joints from loose plug
   ends rather than cut extension cords (H22), the USB-C console dock (H37),
@@ -148,8 +148,12 @@ The user's asks:
 1. ~~OK to push?~~ Yes (2026-10-23).
 2. ~~Entheos guests see the marks and feedback?~~ Yes, as built (user,
    2026-10-23, answered on its own).
-3. H52: does "8 hand" mean eight hand chain hoists, or eight people?
-4. Three-phase: the user's L21-30, or the AI's L14-30 recommendation?
+3. ~~What "8 hand" means~~: eight rented hand-cranked cable hoists or lifts
+   (H63, 2026-10-23).
+4. Three-phase: the user's L21-30, or the AI's L14-30? The user wants 240 V
+   supplies (H64) and believes three-phase triples the power (H65); it is
+   1.5×. With supplies line to line, L21-30's remaining cost is needing a
+   three-phase towable at every event. Still the user's call.
 
 ## Things not to do
 

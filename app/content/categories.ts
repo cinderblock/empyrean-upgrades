@@ -206,10 +206,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         name: "Three-phase twist-lock (L21-30)",
         conflict: {
           h: ["H17", "H50", "H60"],
-          note: 'The user prefers three-phase ("30A 3 phase should be enough") and meant true L21-30. The AI rules it out (LED drivers load the neutral; no rental generator has the outlet). Not yet decided by the user.',
+          note: 'The user prefers three-phase ("30A 3 phase should be enough") and meant true L21-30. The AI still leads with L14-30 because no rental portable has an L21-30 outlet. Not yet decided by the user.',
         },
-        verdict: "ruled-out",
-        why: "LED drivers load the neutral, so the 8/5 cord carries only about 23 A at 50 °C: no more usable power than today, for $600–$4,700 more. No rental generator has the outlet.",
+        verdict: "considered",
+        why: "1.5 times the power of the L14-30 at the same 30 A: about 8.6 kVA continuous against 5.8. With the supplies wired leg to leg (208 V) the neutral carries little, so the 8/5 cord keeps its full 30 A. The catch: no rental portable has the outlet, so every event needs a three-phase towable and an adapter, and a fault on one leg darkens a third of the ring. About $600–$4,700 more.",
       },
       {
         name: "A 100 A feed",
@@ -256,7 +256,8 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       "The LED strips' voltage and watts per pixel. The estimates put full white above what the 30 A feed carries (the Gate averages far less); measuring one spoke at full white settles whether it fits.",
       "Whether a generator's own ground-fault outlet trips on the ring's leakage.",
       "Generator or grid at each event, and how many circuits at what current.",
-      "Whether V2 keeps today's pixel supplies or replaces them.",
+      "Whether V2 keeps today's pixel supplies or replaces them, and whether today's take 240 V (the plan runs them line to line).",
+      "A two-pole ground-fault breaker for each segment: line-to-line supplies need one, and the current pick (Ericson 1075-AR) is single-pole 120 V.",
     ],
     maturity: "designing",
     planFile: "plans/power.md",
@@ -595,14 +596,11 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   rigging: {
     id: "rigging",
     name: "Rigging",
-    todayBy: {
-      h: ["H52"],
-      what: "A crane at Burning Man, rented gear elsewhere, every deploy",
-    },
+    todayBy: { h: ["H52", "H63"] },
     v2By: { h: ["H34"], what: "A ring that raises itself up its legs" },
     headline: "A ring that raises itself",
     today:
-      "A crane lifts the 60 ft ring at Burning Man. At other events, eight hand chain hoists do it, rented for every deploy.",
+      "A crane lifts the 60 ft ring at Burning Man. At other events, eight hand-cranked cable hoists do it, rented for every deploy.",
     v2: "Each leg gets a sleeve that the ring rides up, and an electric hoist at the top. The whole ring climbs its own legs, level at all eight, and locks off at height so it never hangs on the chains for the week.",
     points: [
       {
@@ -651,8 +649,8 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         name: "Hand chain hoists instead of electric",
         by: {
-          h: ["H52"],
-          what: 'What the crew rents today, if "8 hand" means hand hoists',
+          h: ["H63"],
+          what: "The crew rents eight hand-cranked hoists today; owning hand chain hoists instead is the AI's option",
         },
         verdict: "considered",
         price: "saves about $29,000–$56,000",

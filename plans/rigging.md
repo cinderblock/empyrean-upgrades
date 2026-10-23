@@ -57,7 +57,8 @@ See `docs/v1-hardware.md` → Structure and geometry.
   person.
 
 - **How V1 is raised.** 🧑 H52: "crane at burning man, 8 hand at other events.
-  need to rent them every deploy". ⚠ 🤖 "8 hand" was read as eight hand chain
+  need to rent them every deploy". 🧑 H63: "right now we rent 8 hand cranked
+  cable hoists/lifts." So owning hoists replaces a recurring rental. ⚠ 🤖 "8 hand" was read as eight hand chain
   hoists; it may mean eight people. If hoists: owning them replaces a
   recurring rental, and the hand-hoist option is what the crew already does.
 - **8 legs.** 🧑 H46 (the 2022 drawing A-06 showed 6).
@@ -110,7 +111,7 @@ a walkway.
 2. ~~How tall are the legs~~ 20 ft, ring at about 21 ft (A-06). 8 legs (🧑 H46).
 3. How much does the ring weigh with everything on it? (Cameron: "not sure")
 4. ~~How is V1 raised today?~~ A crane at Burning Man; rented gear elsewhere
-   (🧑 H52; "8 hand" read by the AI as hand hoists, unconfirmed). What does the rental cost per deploy?
+   (🧑 H52, H63: eight hand-cranked cable hoists or lifts). What does the rental cost per deploy?
 5. Motorised (electric hoists and a controller) or manual (hand chain hoists)?
 6. Own or rent the lifting gear? Is 3-phase power available at setup?
 7. Which events, and who inspects?

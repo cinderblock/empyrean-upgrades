@@ -81,8 +81,23 @@ Each line says who decided it: 🧑 with a ledger id is what a person said
   case", and 🧑 H60 confirmed true three-phase (L21-30) was meant. 🤖 The AI's
   pricing (`docs/pricing-feed-options-2-2026-10.md`) still recommends L14-30
   (LED drivers load the neutral, so about 23 A usable on 8/5; no rental
-  generator has the outlet), and the site marks L21-30 "ruled out". **Not
-  decided by a person.** The site shows this as ≠.
+  generator has the outlet). With 240 V supplies (H64) the neutral argument
+  falls away, so the site now marks L21-30 "considered", not "ruled out";
+  what remains against it is that only three-phase towables can feed it.
+  **Not decided by a person.** The site shows this as ≠.
+- **Supplies run at 240 VAC, line to line.** 🧑 H64: "I want to run the power
+  supplies from 240VAC... they get more efficient I think." 🤖 Checked:
+  Mean Well's HLG-600H draws 7 A at 115 VAC and 3.3 A at 230 VAC, about 6 %
+  less input for the same output, and takes 90–305 VAC, so 240 V
+  (split-phase) and 208 V (three-phase) both work. Consequences, not yet
+  worked through: each segment needs a **two-pole** ground-fault breaker (the
+  Ericson 1075-AR is single-pole 120 V); the local outlets stay 120 V; and
+  supplies across two legs barely load the neutral, which removes the main
+  objection to L21-30 below.
+- ⚠ **"3 phase triples the total power of 2 phase"** (🧑 H65). 🤖 At the same
+  30 A a leg it is **1.5×**: L14-30 is 240 × 30 = 7.2 kVA (5.76 continuous),
+  L21-30 is √3 × 208 × 30 = 10.8 kVA (8.64 continuous). Three-phase is 3×
+  single-phase 120 V, not 3× split-phase.
 - **Joints: rain-proof is enough.** 🧑 H24: "rain proof is enough for us.
   we're not going underwater".
 - **Joints from cut extension cords.** 🧑 H22: "let's find off the shelf
@@ -258,15 +273,15 @@ after the user's "30A 3 phase should be enough. but let's price out 50A and
 30 A and 50 A are about $350 higher than in the first comparison. Subtotals
 before the 15 % contingency:
 
-| Option                                 | Power subtotal | Continuous                    | Plugs straight into                                  |
-| -------------------------------------- | -------------- | ----------------------------- | ---------------------------------------------------- |
-| **30 A split-phase, L14-30 (current)** | $10,298–16,101 | 5.76 kVA                      | Portables' L14-30R                                   |
-| 30 A three-phase, L21-30 on 8/5        | $10,906–20,804 | 8.65 on paper, really 5.1–6.4 | No rental generator                                  |
-| 50 A split-phase, CS6364/65 on 6/4     | $12,769–22,186 | 9.6 kVA                       | Towables' CS6369                                     |
-| 100 A split-phase, cam-lok, single #2  | $15,046–30,382 | 19.2 kVA                      | 36–45 kVA towables (cam-loks or lugs)                |
-| 100 A three-phase                      | $17,104–34,090 | 28.8 kVA                      | 45 kVA towables                                      |
-| 2 × 50 A half-rings                    | $13,935–23,931 | 19.2 kVA                      | Any towable's two CS6369                             |
-| 3 × 30 A thirds                        | $13,774–20,334 | 17.3 kVA                      | Generac MLG20IF4 (three L14-30R), or three portables |
+| Option                                 | Power subtotal | Continuous                                                         | Plugs straight into                                  |
+| -------------------------------------- | -------------- | ------------------------------------------------------------------ | ---------------------------------------------------- |
+| **30 A split-phase, L14-30 (current)** | $10,298–16,101 | 5.76 kVA                                                           | Portables' L14-30R                                   |
+| 30 A three-phase, L21-30 on 8/5        | $10,906–20,804 | 8.65; 5.1–6.4 if supplies were 120 V (H64 makes them line to line) | No rental generator                                  |
+| 50 A split-phase, CS6364/65 on 6/4     | $12,769–22,186 | 9.6 kVA                                                            | Towables' CS6369                                     |
+| 100 A split-phase, cam-lok, single #2  | $15,046–30,382 | 19.2 kVA                                                           | 36–45 kVA towables (cam-loks or lugs)                |
+| 100 A three-phase                      | $17,104–34,090 | 28.8 kVA                                                           | 45 kVA towables                                      |
+| 2 × 50 A half-rings                    | $13,935–23,931 | 19.2 kVA                                                           | Any towable's two CS6369                             |
+| 3 × 30 A thirds                        | $13,774–20,334 | 17.3 kVA                                                           | Generac MLG20IF4 (three L14-30R), or three portables |
 
 - **30 A three-phase isn't really 30 A:** LED drivers make the neutral a
   current-carrying conductor, so 8/5 cord carries only 23 A at 50 °C (a 20 A

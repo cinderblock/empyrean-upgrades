@@ -433,7 +433,7 @@ export const ITEMS: LineItem[] = [
     },
     datasheet:
       "https://www.homelectrical.com/sites/default/files/ERC-1075ARKIT-SPEC.pdf",
-    note: "One 5 mA GFCI for the whole ring would trip on the summed leakage of the supplies. 20 A per segment, matching its 20 A outlets. The 1075-AR is 20 A, −35 to 66 °C, NEMA 4/4X face, and powers itself back up after an outage. Low: a $40 breaker + the 1075-AR at $58.56 (sale; $70.27 regular). High: an Allen-Bradley 1492-MCGAT120 DIN GFCI breaker (about $276 + adapters) behind a sealed window.",
+    note: "Not yet right for 240 V supplies (H64): those need a two-pole ground-fault breaker; this is the single-pole 120 V pick. One 5 mA GFCI for the whole ring would trip on the summed leakage of the supplies. 20 A per segment, matching its 20 A outlets. The 1075-AR is 20 A, −35 to 66 °C, NEMA 4/4X face, and powers itself back up after an outage. Low: a $40 breaker + the 1075-AR at $58.56 (sale; $70.27 regular). High: an Allen-Bradley 1492-MCGAT120 DIN GFCI breaker (about $276 + adapters) behind a sealed window.",
   },
   {
     id: "power-reset-pole",
