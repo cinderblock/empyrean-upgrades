@@ -1,9 +1,14 @@
 # Transport: a dedicated container and carts
 
+> **Who wrote this.** Most of this plan is an AI draft. 🧑 with a ledger id
+> (H12) marks what a person said or approved (`docs/human-input.md`); 🤖 marks
+> the AI's own call; anything unmarked is the AI's too. The site marks the
+> same content block by block; `/review` walks through it.
+
 ## Goal
 
 A shipping container that belongs to the Gate, and carts that make it easy to
-roll everything in and out of it (user, 2026-10-21). Load-in and strike get
+roll everything in and out of it (🧑 H36). Load-in and strike get
 faster, and the Gate's parts stop living in borrowed space.
 
 ## Known today
@@ -27,31 +32,31 @@ See `docs/v1-hardware.md` → Structure and geometry.
 
 ## Decisions already made (don't re-ask)
 
-- **The crew already has a 40 ft container, in fair condition** (user, 2026-10-22).
-  The container line is now $0–1,500 to fix it up (door seals, floor, rust);
-  a new one-trip high cube ($3,690, Oakland) only if it won't do.
-- **It is not a high cube** (user, 2026-10-23): standard height, about 7'10"
-  (2.39 m) inside and a 2.28 m door opening, against 8'10" in a high cube. Same
-  floor, so the Gate still fits; about 0.3 m less headroom above the carts,
-  which leaves roughly 0.3–0.4 m: likely too little for the sail rolls over
-  the carts, so they go on a wall rack beside them. Lay it out before
-  building the rack.
-- A dedicated shipping container and transport carts are an upgrade category
-  (user, 2026-10-21).
+- **A dedicated shipping container and transport carts** are an upgrade
+  category. 🧑 H36.
+- **The crew already has a 40 ft container, in fair condition.** 🧑 H44 ("we
+  might already have a container…"), 🧑 H54 ("40'… fair…"). 🤖 The container
+  line is $0–1,500 to fix it up (door seals, floor, rust); a new one-trip
+  high cube ($3,690, Oakland) only if it won't do.
+- **It is not a high cube.** 🧑 H61. 🤖 Standard height, about 7'10" (2.39 m)
+  inside and a 2.28 m door opening, against 8'10" in a high cube. Same floor,
+  so the Gate still fits; about 0.3 m less headroom above the carts, likely
+  too little for the sail rolls over the carts, so they go on a wall rack
+  beside them. Lay it out before building the rack.
 - **The container lives in Oakland** between events; "we probably have a
-  storage solution" (user, 2026-10-22). So buy it there ($3,690 at Western
-  Container Sales' Oakland depot) and budget storage at about $0.
-- **"We might already have a container"** (user, 2026-10-22). The budget's
-  container line is now $0–4,800: $0 if the existing one serves. It only
-  serves if it's a 40 ft (a 20 ft is too small, see the sizing check); a
-  high cube also leaves room for the sail rack.
-- **The Gate goes to other events too** (user, 2026-10-22).
-- **At Burning Man it is with a camp, on the Esplanade** (user, 2026-10-22),
-  which is where containers are allowed.
-- **A rack to hang the sails**, so the LEDs can stay in them (user,
-  2026-10-22: today the LEDs come out of the sails at every event, after they
-  were damaged once when left in; the user thinks that was a bad call, and
-  leaving them in makes setup easier).
+  storage solution". 🧑 H38. 🤖 Storage budgeted at about $0.
+- **The Gate goes to other events too.** 🧑 H39.
+- **At Burning Man it is with a camp, on the Esplanade.** 🧑 H40. 🤖 Which is
+  where containers are allowed.
+- **The Gate fills a 26 ft box truck**; the truss "looks pretty standard".
+  🧑 H41.
+- **A rack to hang the sails**, so the LEDs can stay in them. 🧑 H43: today
+  the LEDs come out of the sails at every event, after they were damaged once
+  when left in ("i think this was a bad call"); leaving them in makes setup
+  easier. 🧑 H45: one sail per node box, 16. 🤖 Rolling each sail onto its own
+  tube is the AI's design of the rack.
+- 🤖 Carts on 12–16" pneumatic or flat-free wheels, and everything else on
+  the cart list, are the AI's.
 
 ## Options
 
@@ -96,7 +101,7 @@ extra height takes the sail rack above them.
 
 ## Open questions
 
-- (2026-10-22) **The sails** (user: "one sail per node box, so 16"; drawing
+- (2026-10-22) **The sails** (🧑 H45: "one sail per node box, so 16"; drawing
   A-07): annular sectors 22'-5⅞" long, 11'-3¾" wide at the outer edge (the
   chord of a 57'-11¾" circle over 22.5°, which checks), 2'-6 7/16" at the
   inner; about 14.6 m² each. LED strips are adhered and stitched every ±12",
@@ -107,7 +112,7 @@ extra height takes the sail rack above them.
   box holds it; the 20.5" overflow case doesn't apply.
 
 0. ~~The container the crew may already have~~: a 40 ft, standard height,
-   fair condition (user, 2026-10-22/23). Where it is now is still open.
+   fair condition (🧑 H54, H61). Where it is now is still open.
 1. One-time costs only on the site (as now), or the yearly hauling too?
 2. How far the V2 boxes stick out of the truss; leg section lengths and
    whether the legs are owned.

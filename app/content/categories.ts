@@ -2,7 +2,14 @@
  * The five upgrade categories, as the site tells them. The working notes
  * behind each (requirements, open questions, decisions) are in `plans/` at
  * the repo root; keep the two in step when a decision lands.
+ *
+ * Content a human drove carries a credit (`by`, `todayBy`, `v2By`) naming
+ * entries in human.ts; anything without one is an AI draft, and shows as one
+ * in review mode. Credit only what was said or approved, not what is merely
+ * consistent with it.
  */
+
+import type { Conflict, Credit } from "./human";
 
 export const CATEGORY_IDS = [
   "power",
@@ -29,6 +36,8 @@ export const MATURITY_LABEL: Record<Maturity, string> = {
 export interface Point {
   title: string;
   body: string;
+  /** Who drove it. Absent: an AI draft (app/content/human.ts). */
+  by?: Credit;
 }
 
 /** Where a candidate part stands. */
@@ -50,6 +59,10 @@ export interface Option {
   why: string;
   /** The maker's page for it. */
   url?: string;
+  /** Who drove it. Absent: an AI draft. */
+  by?: Credit;
+  /** Where the AI's verdict goes against what a human said. */
+  conflict?: Conflict;
 }
 
 export interface Category {
@@ -59,8 +72,10 @@ export interface Category {
   headline: string;
   /** What is wrong with V1, in a sentence or two. */
   today: string;
+  todayBy?: Credit;
   /** What V2 does about it, in a sentence or two. */
   v2: string;
+  v2By?: Credit;
   points: Point[];
   /** Parts we compared, leading choice first. */
   options: Option[];
@@ -75,6 +90,15 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   power: {
     id: "power",
     name: "Power",
+    todayBy: {
+      h: ["H10"],
+      doc: "EG AC Power.pdf (V1 layout)",
+      what: "V1 power isn't weatherproof",
+    },
+    v2By: {
+      h: ["H10", "H14", "H17", "H18", "H24"],
+      what: "One twist-lock feed for the whole ring, chosen by what rental generators have; rain-proof segments installed in the truss; mains never shares a box with the electronics",
+    },
     headline: "Sealed power, built into every truss segment",
     today:
       "Six circuits fan out from the stage over ordinary 3-way extension cords, 10 to 100 ft long. None of it is rated for rain or dust, and it is all run by hand at every build.",
@@ -82,32 +106,51 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "Rain-proof, locking joints",
+        by: { h: ["H17", "H24"], what: "Twist-locks; rain-proof is enough" },
         body: "Each joint is a twist-lock that a kicked cable can't pull apart, under a rain cover. Every box entry is sealed. Rain-proof is enough: the Gate never stands in water.",
       },
       {
         title: "Installed once, joined on site",
+        by: { h: ["H10"] },
         body: "Each segment arrives with its power run in place and daisy-chains to its neighbours. Setup becomes joining segments, not running cable.",
       },
       {
         title: "Plugs into any rental generator",
+        by: {
+          h: ["H18", "H20"],
+          what: "Follow rental generators; the L14-30 feed and towable adapter (approved)",
+        },
         body: "The feed is a 30 A twist-lock (L14-30): the locking outlet on nearly every portable generator. Towable rentals have a 50 A twist-lock instead, and the Gate carries an adapter for them.",
       },
       {
         title: "Room to spare",
+        by: {
+          h: ["H18"],
+          what: 'The 1.5–2 kW average. "Room for 128 spokes" is the AI\'s',
+        },
         body: "The Gate averages 1.5 to 2 kW. The 30 A feed carries about 5.8 kW continuously: three times that, with room for 128 spokes.",
       },
       {
         title: "Each segment protected on its own",
+        by: {
+          h: ["H20", "H48"],
+          what: "A ground-fault breaker per segment (approved); reset from below with a pole",
+        },
         body: "A ground-fault breaker in every power box. A fault darkens one segment, not the whole Gate, and sixteen small protectors don't trip on the supplies' normal leakage the way one big one would. Each resets from the ground with a pole: its button faces down.",
       },
       {
         title: "Power boxes apart from data boxes",
+        by: { h: ["H14"] },
         body: "Supplies and mains live in their own boxes. Only low-voltage DC crosses to the electronics, on its own cable.",
       },
     ],
     options: [
       {
         name: "AC Works L14-30 plug and connector on 8/4 SOOW, under rain covers",
+        conflict: {
+          h: ["H22"],
+          note: "The user asked for off-the-shelf extension cords cut in half. The AI made loose plug ends on bulk cord the leading choice after the ring grew to 60 ft (the 10 ft cords' halves are too short), and moved cut cords to the fallback.",
+        },
         verdict: "leading",
         price: "about $140 a joint, cord included",
         why: "Listed ends fitted to listed 8/4 cord cut to each segment's length. Carries the full 30 A. Rain-proof, not watertight, which is enough.",
@@ -115,6 +158,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         name: "AC Works 8/4 L14-30 cords, cut in half",
+        by: {
+          h: ["H22"],
+          what: "Off-the-shelf cords cut in half was the user's idea",
+        },
         verdict: "considered",
         price: "about $280 a joint (25 ft cords)",
         why: "The same ends, factory-fitted. The 10 ft cord is too short for an 11.8 ft segment, and the 25 ft one wastes half its cord. The fallback if the loose ends don't grip 8/4.",
@@ -141,6 +188,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         name: "A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord",
+        by: {
+          h: ["H32", "H50"],
+          what: "Price a bigger feed and compare. The verdict is the AI's",
+        },
         verdict: "considered",
         price: "about $2,500–$6,100 more for the power category",
         why: "9.6 kVA continuous against 5.76: enough for V1's estimated maximum with no margin, and half of what 128 spokes might draw at full white (two 50 A feeds would cover it). Plugs straight into towable rentals; portables connect through an adapter at 30 A. Heavier cord, and the joints need boots instead of the rain covers.",
@@ -153,17 +204,26 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         name: "Three-phase twist-lock (L21-30)",
+        conflict: {
+          h: ["H17", "H50", "H60"],
+          note: 'The user prefers three-phase ("30A 3 phase should be enough") and meant true L21-30. The AI rules it out (LED drivers load the neutral; no rental generator has the outlet). Not yet decided by the user.',
+        },
         verdict: "ruled-out",
         why: "LED drivers load the neutral, so the 8/5 cord carries only about 23 A at 50 °C: no more usable power than today, for $600–$4,700 more. No rental generator has the outlet.",
       },
       {
         name: "A 100 A feed",
+        by: { h: ["H50"], what: "Price 100 A. Ruling it out is the AI's call" },
         verdict: "ruled-out",
         price: "about $15,000–$34,000 for the power category",
         why: "Needs single heavy conductors: up to 14 kg a segment on a lifted ring, and 64–80 single-pole connections at every setup, with no rain boots for them. Two 50 A half-rings give 19.2 kVA for less.",
       },
       {
         name: "RV 50 A (14-50) and SmartPlug",
+        by: {
+          h: ["H17"],
+          what: "An RV connector only if twist-lock and waterproof",
+        },
         verdict: "ruled-out",
         why: "The RV 14-50 doesn't lock; SmartPlug is push-in, IP56.",
       },
@@ -175,12 +235,17 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         name: "8/4 SOOW, not 10/4",
+        by: { h: ["H20"] },
         verdict: "leading",
         why: "8/4 carries the full 30 A at 50 °C. 10/4 is lighter but holds only 24.6 A at 50 °C, which would mean a 25 A feed.",
         url: "https://cabletechsupport.southwire.com/tile/10/spec/70000/?country=US",
       },
       {
         name: "Mean Well SDR-240-48 for the switch's 54 V",
+        by: {
+          h: ["H07"],
+          what: "A 48 V class supply in each box. The part and 54 V are the AI's",
+        },
         verdict: "leading",
         price: "$95 each",
         why: "Adjusts to 54 V and holds full load to 60 °C. The cheaper NDR-240-48 ($48) starts derating at 50 °C, too early for a hot box.",
@@ -199,6 +264,15 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   networking: {
     id: "networking",
     name: "Networking",
+    todayBy: {
+      h: ["H01"],
+      doc: "EG Network Cabling.pdf (V1 layout)",
+      what: "One central switch",
+    },
+    v2By: {
+      h: ["H01", "H02", "H03", "H11"],
+      what: "A switch in every node box, chained around the ring with spanning tree; internet at any port; spare ports for expansion",
+    },
     headline: "A ring network that routes around a failure",
     today:
       "One switch by the stage, with its own cable to each of the 16 light controllers: 893 ft in all. That switch, or any one cable, can take part of the Gate dark.",
@@ -206,24 +280,38 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "A closed ring",
+        by: { h: ["H01"] },
         body: "Sixteen switches, each linked to its neighbours. Rapid Spanning Tree keeps one link idle and switches to it within seconds if another fails.",
       },
       {
         title: "Cables stay inside their segment",
+        by: { h: ["H11"] },
         body: "No more home runs to the middle. Each segment carries one short link to the next, through a sealed connector.",
       },
       {
         title: "Internet anywhere",
+        by: {
+          h: ["H02"],
+          what: "Internet at any segment. The dedicated network that carries it is the AI's",
+        },
         body: "Starlink, the event's uplink, or a local cabinet can plug in at whichever segment is nearest; a dedicated network carries it around the ring to the gateway.",
       },
       {
         title: "Four spare PoE+ ports per node",
+        by: {
+          h: ["H06", "H11"],
+          what: 'Spare PoE ports at every node. "Four" follows from the AI\'s switch choice',
+        },
         body: "Sixty-four powered network ports around the ring, ready for cameras, speakers or whatever comes next.",
       },
     ],
     options: [
       {
         name: "UniFi USW-Ultra",
+        by: {
+          h: ["H09"],
+          what: "The user's pick. Running it from the box's own supply, not the 210 W adapter, is the AI's",
+        },
         verdict: "leading",
         price: "$142 each",
         why: "Eight gigabit ports with PoE+, runs from a 50–57 V DC supply, and it is managed by the UniFi gateway the Gate already uses. Rated to 60 °C: the weakest part in the node box.",
@@ -231,6 +319,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         name: "UniFi Industrial DIN 8 PoE",
+        by: { h: ["H09"], what: "A stretch goal, about double the cost" },
         verdict: "stretch",
         price: "$362 each",
         why: "Rated to 70 °C, with 60 W per port and DIN mounting built in. About 2.5 times the Ultra, and not on sale until November 2026.",
@@ -260,6 +349,11 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   compute: {
     id: "compute",
     name: "Compute",
+    todayBy: { doc: "Empyrean repo, plans/empyrean-gate.md" },
+    v2By: {
+      h: ["H12", "H28"],
+      what: "A new computer with a better GPU; the industrial one is in V2",
+    },
     headline: "A show computer with a real graphics card",
     today:
       "An Intel NUC with integrated graphics renders all 24,192 pixels sixty times a second, plus the live preview, video layers and patterns. It is at its limit.",
@@ -267,10 +361,12 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "Headroom for the patterns",
+        by: { h: ["H12"] },
         body: "The Gate's software draws every frame on the GPU. A real graphics card means richer patterns, video, and the playground's community patches at full rate.",
       },
       {
         title: "Unattended",
+        by: { doc: "Empyrean repo, plans/empyrean-gate.md" },
         body: "Powers on after an outage and starts the show without anyone touching it, as today's machine does.",
       },
       {
@@ -279,6 +375,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         title: "A VJ console (a stretch goal)",
+        by: {
+          h: ["H37"],
+          what: "A VJ console with a touch screen and faders. One cable from the brain box is the AI's",
+        },
         body: "A sealed touch screen and motorized faders at the VJ booth, on one cable from the brain box, so the Gate can be played by hand.",
       },
       {
@@ -289,6 +389,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     options: [
       {
         name: "Neousys Nuvo-9160GC with an RTX 2000E Ada",
+        by: {
+          h: ["H28"],
+          what: "An industrial PC in V2. Which one is the AI's pick",
+        },
         verdict: "leading",
         price: "$6,065–$7,160",
         why: "Fanless and rated −25 to 60 °C, the only option rated for a sealed box in the sun. Runs from DC, so it can share a battery backup with the network.",
@@ -302,12 +406,20 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         name: "VJ console: a touch panel, an X-Touch Compact, one cable",
+        by: {
+          h: ["H37"],
+          what: "Touch screen and faders. The parts are the AI's",
+        },
         verdict: "stretch",
         price: "about $2,600–$3,600",
         why: "A 15.6 inch industrial touch panel and nine motorized faders, linked over one Cat6a run. The best start: build the show app's MIDI mapping against it.",
       },
       {
         name: "VJ console, full: 21.5 inch panel, faders, knobs and pads, fiber",
+        by: {
+          h: ["H37", "H62"],
+          what: "Knobs and buttons too; any length over fiber",
+        },
         verdict: "considered",
         price: "about $3,700–$6,000",
         why: "For a guest VJ who expects pads and knobs too, at any distance over fiber.",
@@ -320,6 +432,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         name: "A USB-C dock on a long USB-C cable",
+        conflict: {
+          h: ["H37"],
+          note: "The user's idea for the console. The AI rules it out: the show computer's USB-C carries no video, and long USB fiber doesn't carry USB 2 devices.",
+        },
         verdict: "ruled-out",
         why: "The show computer's USB-C port carries no video, and long USB 3 fiber cables don't carry the USB 2 devices touch screens and MIDI controllers are.",
       },
@@ -348,6 +464,14 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   weatherproofing: {
     id: "weatherproofing",
     name: "Weatherproofing",
+    todayBy: {
+      h: ["H07", "H09"],
+      what: "A 12 V supply in each node box; the boxes sit in a sealed outer box in the sun",
+    },
+    v2By: {
+      h: ["H13", "H14"],
+      what: "New node and brain boxes inside the truss, next to separate power boxes",
+    },
     headline: "Sealed boxes that live inside the truss",
     today:
       "The node boxes sit inside a sealed outer box in the sun, with their power supply inside. They weren't built for rain or fine alkaline dust.",
@@ -359,6 +483,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         title: "In the shade",
+        by: {
+          h: ["H51"],
+          what: "Something simple on the truss above the boxes. The 56% figure is from nVent's test",
+        },
         body: "A simple white sheet on the truss above each segment's boxes. Shading cuts a box's temperature rise by about half.",
       },
       {
@@ -403,6 +531,11 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   expansion: {
     id: "expansion",
     name: "Expansion",
+    v2By: {
+      h: ["H11", "H15"],
+      doc: "Empyrean repo, plans/gate-network.md (half the controller outputs kept for 128 spokes)",
+      what: "Spare powered ports for cameras and streaming audio",
+    },
     headline: "Room to grow: cameras, sound, more spokes",
     today:
       "V1 has no spare power or network capacity at the ring. Anything new means another cable to the middle.",
@@ -410,14 +543,17 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "Cameras",
+        by: { h: ["H15"] },
         body: "Views of the crowd and the rig, for monitoring or streaming, recorded on site by a gateway that can store video.",
       },
       {
         title: "Sound around the ring",
+        by: { h: ["H15"] },
         body: "Networked audio to speakers around the Gate, over the same ring.",
       },
       {
         title: "128 spokes",
+        by: { doc: "Empyrean repo, plans/gate-network.md" },
         body: "Twice the spokes. The controllers already have the outputs for it; the strips, mounting and power are what it takes.",
       },
     ],
@@ -459,6 +595,11 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   rigging: {
     id: "rigging",
     name: "Rigging",
+    todayBy: {
+      h: ["H52"],
+      what: "A crane at Burning Man, rented gear elsewhere, every deploy",
+    },
+    v2By: { h: ["H34"], what: "A ring that raises itself up its legs" },
     headline: "A ring that raises itself",
     today:
       "A crane lifts the 60 ft ring at Burning Man. At other events, eight hand chain hoists do it, rented for every deploy.",
@@ -466,6 +607,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "Climbs its own legs",
+        by: {
+          h: ["H34"],
+          what: "The ring climbs its legs. A stock sleeve block is the AI's variant of the pass-through",
+        },
         body: "A stock ground-support sleeve at each leg is the pass-through: the leg runs through it and the ring's arcs bolt to it. The ring is built at ground level and climbs.",
       },
       {
@@ -480,6 +625,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     options: [
       {
         name: "Stock sleeve blocks in the ring, V1 arcs kept",
+        conflict: {
+          h: ["H34"],
+          note: "The user named two options (pass-through arcs, or a shelf). The AI leads with a third: stock sleeve blocks added to the ring, which makes it wider.",
+        },
         verdict: "leading",
         price: "about $82,000–$171,000 with electric hoists",
         why: "Every part is stock and load-rated, the load sits centred on each leg, and the ring ties all eight legs into one frame. The ring grows about 1.0–1.3 m across.",
@@ -487,18 +636,24 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         name: "Custom arcs with a built-in pass-through, keeping exactly 60 ft",
+        by: { h: ["H34"], what: "The user's option 1" },
         verdict: "considered",
         price: "about $100,000–$231,000",
         why: "Half the arcs replaced with custom ones that carry the sleeve. Keeps the size, but custom truss is quote-only and needs its own certification.",
       },
       {
         name: "A shelf hanging off each vertical, ring unchanged",
+        by: { h: ["H34"], what: "The user's option 2" },
         verdict: "considered",
         price: "about $85,000–$184,000",
         why: "The arcs stay as they are and sit on eight shelves. The load hangs off-centre: rated 400 kg at 0.5 m, enough for 12-inch truss but marginal for 20.5-inch.",
       },
       {
         name: "Hand chain hoists instead of electric",
+        by: {
+          h: ["H52"],
+          what: 'What the crew rents today, if "8 hand" means hand hoists',
+        },
         verdict: "considered",
         price: "saves about $29,000–$56,000",
         why: "Fine for one lift up and one down per event, with eight people pulling in step. Slow, and the same safety gear applies.",
@@ -515,6 +670,10 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   solar: {
     id: "solar",
     name: "Solar",
+    v2By: {
+      h: ["H35", "H53"],
+      what: "A solar and battery system, its own goal, maybe enough for the speakers",
+    },
     headline: "Run the Gate on sunlight",
     today: "A rental generator runs all night, every night.",
     v2: "A 12 kW array and a 57 kWh battery run the Gate through the night on the day's sun. The inverter plugs into the same twist-lock the generator used, and starts a small generator itself only on a dust-storm day or a loud night.",
@@ -533,6 +692,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         title: "Speakers, maybe",
+        by: { h: ["H35"] },
         body: "Each kW of speakers adds about $6,000–$9,000 of panels and battery, or a few hours of the backup generator.",
       },
     ],
@@ -573,6 +733,14 @@ export const CATEGORIES: Record<CategoryId, Category> = {
   transport: {
     id: "transport",
     name: "Transport",
+    todayBy: {
+      h: ["H41", "H43"],
+      what: "The Gate fills a 26 ft box truck; the LEDs come out of the sails at every event",
+    },
+    v2By: {
+      h: ["H36", "H38", "H40", "H43", "H54"],
+      what: "The crew's 40 ft container, kept in Oakland, with the camp on the Esplanade; carts to roll things in and out; a rack so the sails keep their LEDs",
+    },
     headline: "Roll it in, roll it out",
     today:
       "The Gate fills a 26 ft box truck and is carried in and out by hand. The LEDs come out of the sails at every event, because they were damaged once when left in.",
@@ -580,10 +748,15 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "One box for the whole Gate",
+        by: { h: ["H54"] },
         body: "The crew's own 40 ft container holds the Gate with a little room to spare; a 20 ft is too small.",
       },
       {
         title: "Sails ride with their LEDs in",
+        by: {
+          h: ["H43", "H45"],
+          what: "A rack so the sails keep their LEDs; 16 sails. Rolling each on a tube is the AI's",
+        },
         body: "Each of the 16 sails rolls onto its own tube with its LEDs still stitched in, and the rolls ride on a rack along the container wall, instead of the LEDs coming out and going back in at every build.",
       },
       {
@@ -596,12 +769,20 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
       {
         title: "Yearly costs, kept apart",
+        by: {
+          h: ["H38"],
+          what: "Storage in Oakland, likely covered. The hauling figure is the AI's estimate",
+        },
         body: "Hauling the box from Oakland to the playa and back is an estimated $5,000–$10,000 a year, more for other events; storage is likely covered. That isn't in this goal.",
       },
     ],
     options: [
       {
         name: "The crew's own 40 ft container",
+        by: {
+          h: ["H44", "H54", "H61"],
+          what: "Already owned, 40 ft, fair, not a high cube",
+        },
         verdict: "leading",
         price: "$0–$1,500 to fix up",
         why: "Already owned, in fair condition. Standard height, so the sail rolls ride beside the carts rather than above them.",

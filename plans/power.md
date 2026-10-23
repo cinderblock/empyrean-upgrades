@@ -1,5 +1,10 @@
 # Power
 
+> **Who wrote this.** Most of this plan is an AI draft. 🧑 with a ledger id
+> (H12) marks what a person said or approved (`docs/human-input.md`); 🤖 marks
+> the AI's own call; anything unmarked is the AI's too. The site marks the
+> same content block by block; `/review` walks through it.
+
 ## Goal
 
 Replace V1's non-weatherproof 110 VAC cables and plugs with **watertight,
@@ -18,14 +23,14 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   bundle up the truss leg by the stage; circuits 1–5 each feed three segments
   through 3-way extension cords, circuit 6 the network switch and segment P.
   The drawing lists "Circuit Loads" of 15 A for 1–5 and 5 A for 6: 80 A at
-  120 V, 9.6 kVA. **They are estimated max draw** (user, 2026-10-21), not
+  120 V, 9.6 kVA. **They are estimated max draw** (🧑 H31), not
   measured: "the strips never really draw what everyone expects". That
   estimate is more than the L14-30 feed's 5.76 kVA continuous, and 128
   spokes would double it.
 
 ## Requirements
 
-- **Rain-proof** locking connectors at every segment joint (user, 2026-10-21:
+- **Rain-proof** locking connectors at every segment joint (🧑 H24:
   "rain proof is enough for us. we're not going underwater"); joints stay off
   the ground. Box entries sealed.
 - Permanently installed in the truss: a segment arrives with its power run in place.
@@ -36,10 +41,10 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
   supplies plus PoE expansion (`plans/expansion.md`).
 - Protection: overcurrent per branch, and ground-fault protection appropriate to a
   wet outdoor public installation.
-- **Local outlets** (user, 2026-10-21): each segment's power box also has "a
+- **Local outlets** (🧑 H23): each segment's power box also has "a
   handful" of 120 V outlets for things mounted in that segment, behind the
-  segment's ground-fault protection. **Four per box, 20 A** (user,
-  2026-10-21: "20A outlets at our in-truss spider boxes"), so each segment's
+  segment's ground-fault protection. **Four per box, 20 A** (🧑 H25
+  approved four; 🧑 H33: "20A outlets at our in-truss spider boxes"), so each segment's
   ground-fault breaker is 20 A too (1492-MCGAT120, or a 20 A breaker +
   GSIA2), with 12 AWG from it to the outlets. The user calls the power boxes
   "spider boxes".
@@ -51,53 +56,61 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
 
 ## Decisions already made (don't re-ask)
 
-- **No remote reset** (user, 2026-10-22): "point the breakers down and use a stick
-  to reset." Each segment's GFCI is an Ericson 1075-AR (20 A, UL 943 Class A,
-  NEMA 4/4X face, powers itself up after an outage) mounted through the power
-  box's floor with its reset button facing down; an insulated pole resets it
-  from the ground. The remote-reset research (`docs/pricing-remote-reset-2026-10.md`)
-  stays as background only.
-- **Feed** (user, 2026-10-22): "30A 3 phase should be enough. but let's price out 50A
-  and 100A just in case." 30 A three-phase and 100 A are being priced
-  (`docs/pricing-feed-options-2-2026-10.md`). The site still carries 30 A
-  split-phase (L14-30), the design rental portables plug into.
-  **Answered (2026-10-23):** "I think L21-30 is 3 phase with neutral", so true
-  three-phase was meant. Right: L21-30 is 120/208 V wye, X, Y, Z, neutral and
-  ground. The pricing rules it out for this ring (neutral loaded by LED
-  drivers, so about 23 A usable on 8/5; no rental generator has the outlet).
-  Whether to accept the L14-30 recommendation or go L21-30 anyway is asked.
-- Power and data never share a box (user, 2026-10-21).
-- **One feed for the whole ring** (user, 2026-10-21): a single **waterproof
-  twist-lock** plug, **30–50 A**, powers the whole ring in one loop.
-  **Three-phase preferred; split-phase (120/240 V, two hots) is enough.** An
-  "RV" connector is acceptable only if it is twist-lock and waterproof. This
-  supersedes "3–6 separately fed chains" from the first pricing research.
-- **The feed connector is whatever rental generators commonly have** (user,
-  2026-10-21): that is the most important criterion, ahead of phase count and
-  rating. The watertight version of that connector is the one to pick.
-- **Size for the real load, not full white**: V1 averages about 1,500–2,000 W
-  for the whole Gate (user, 2026-10-21). Full white is a theoretical ceiling.
-- **The design** (user confirmed, 2026-10-21): an **L14-30 feed** plus the
+Each line says who decided it: 🧑 with a ledger id is what a person said
+(`docs/human-input.md`); 🤖 is the AI's own call, not yet reviewed.
+
+- **One feed for the whole ring.** 🧑 H17: "a single twist lock plug that
+  powers the whole ring in a single loop. I'd love 3-phase, but 2-phase would
+  be enough… a 30-50A waterproof twist-lock", or an RV connector only if
+  twist-lock and waterproof. 🤖 This supersedes "3–6 separately fed chains"
+  from the first pricing research.
+- **The feed connector is whatever rental generators commonly have.** 🧑 H18:
+  "the most important thing is what's commonly available in rental
+  generators". 🤖 Ranking that ahead of phase count and rating is the AI's
+  reading.
+- **Size for the real load, not full white.** 🧑 H18: V1 averages about
+  1,500–2,000 W. 🧑 H31: the V1 drawing's circuit loads are "estimated max
+  draw". 🤖 "Full white is a theoretical ceiling" is the AI's framing.
+- **The design.** 🧑 H20 approved the AI's proposal: an **L14-30 feed** plus the
   CS6365-to-L14-30 adapter for towables, an **8/4 UL SOOW trunk**, an **open
   loop** fed at one joint and capped at the far end, and **a Class A GFCI in
-  each segment's power box**.
-- **Joints: rain-proof is enough** (user, 2026-10-21). Hubbell SW is now the
-  watertight alternative (its inlet stays at the feed box). The feeder is an
-  uncut AC Works SDL1430PR-050 (50 ft).
-- **The Gate is 60 ft across** (James Logistic, 2026-10-21; the old 50 ft was
-  a guess): the ring is about **188.5 ft** around, each segment about
-  **11.8 ft**. So the 10 ft cut cords (5 ft halves, two per segment) are too
-  short. The joints are now **loose AC Works ASL1430P plugs and ASL1430R
-  connectors** (cULus E237606, the same listing as the ends on AC Works' 8/4
-  cords; $21.38 + $26.99, catalogue prices) **on bulk 8/4 SOOW cut to
-  length** (240 ft), under Twist and Seal Cord Vault covers: about **$140 a
-  joint**, $2.5K for 16 + 2 spares. Unknown: whether the loose ends' cord grip
-  takes 24 mm 8/4 (not on the drawing). Fallback: AC Works 25 ft 8/4 cords
-  cut in half ($268 each, about $5K). Trial-fit one joint first: grip, cover
-  fit, jacket temperature print.
-- **No brightness cap in the software** (user, 2026-10-21). What that leaves
-  open is under "Capacity" below: whether full white fits in 30 A is settled
-  by measuring a spoke, not by the app.
+  each segment's power box**. 🤖 The open loop (rather than H17's "single
+  loop") and every part number are the AI's.
+- ⚠ **Open conflict: three-phase.** After approving L14-30 (H20), 🧑 H50 said
+  "30A 3 phase should be enough. but let's price out 50A and 100A just in
+  case", and 🧑 H60 confirmed true three-phase (L21-30) was meant. 🤖 The AI's
+  pricing (`docs/pricing-feed-options-2-2026-10.md`) still recommends L14-30
+  (LED drivers load the neutral, so about 23 A usable on 8/5; no rental
+  generator has the outlet), and the site marks L21-30 "ruled out". **Not
+  decided by a person.** The site shows this as ≠.
+- **Joints: rain-proof is enough.** 🧑 H24: "rain proof is enough for us.
+  we're not going underwater".
+- **Joints from cut extension cords.** 🧑 H22: "let's find off the shelf
+  'extension' cables we can cut in half and use". ⚠ 🤖 After the ring grew to
+  60 ft (H29) the AI switched the leading choice to **loose AC Works
+  ASL1430P plugs and ASL1430R connectors** (cULus E237606; $21.38 + $26.99)
+  **on bulk 8/4 SOOW cut to length** (240 ft), under Twist and Seal Cord Vault
+  covers: about **$140 a joint**, $2.5K for 16 + 2 spares. The 10 ft cords'
+  5 ft halves are too short for an 11.8 ft segment; the fallback is AC Works
+  25 ft 8/4 cords cut in half ($268 each, about $5K). Unknown: whether the
+  loose ends' cord grip takes 24 mm 8/4. Trial-fit one joint first. Not yet
+  checked with the user.
+- **The Gate is 60 ft across.** 🧑 H29 (James Logistic). 🤖 So about
+  **188.5 ft** around, each segment about **11.8 ft**.
+- **No remote reset.** 🧑 H48: "no remote reset. we can point the breakers
+  down and use a stick to reset." 🤖 The breaker is an Ericson 1075-AR (20 A,
+  UL 943 Class A, NEMA 4/4X face, powers itself up after an outage) mounted
+  through the power box's floor; an insulated pole resets it. The remote-reset
+  research (`docs/pricing-remote-reset-2026-10.md`) stays as background.
+- **Local outlets.** 🧑 H23: "a handful of local power plugs in each truss
+  segment"; 🧑 H25 approved four per box; 🧑 H33: "20A outlets at our in-truss
+  spider boxes". 🤖 The box, receptacles and 12 AWG are the AI's.
+- **No brightness cap in the software.** 🧑 H21. 🤖 What that leaves open is
+  under "Capacity" below: whether full white fits in 30 A is settled by
+  measuring a spoke.
+- **Power and data never share a box.** 🧑 H14.
+- 🤖 Hubbell SW is the watertight alternative (its inlet stays at the feed
+  box). The feeder is an uncut AC Works SDL1430PR-050 (50 ft).
 
 ## Options to evaluate
 
@@ -147,7 +160,7 @@ what the site's budget now uses.
 - **Capacity:** 30 A split-phase is 5.76 kVA continuous, about 3× the
   1.5–2 kW average. On the Assumed strip specs, full white doesn't fit
   (4.5–9.0 kW at 64 spokes); it would fit at about 60–74 % brightness (64
-  spokes) or 30–67 % (128). There is no software cap (user decision), so if
+  spokes) or 30–67 % (128). There is no software cap (🧑 H21), so if
   a pattern did hold full white long enough, the feed breaker or the
   generator's would trip and the whole ring would go dark. **Measure one
   spoke at full white before buying**: if it fits, nothing changes; if not,
@@ -277,7 +290,7 @@ before the 15 % contingency:
 ## Open questions
 
 - (2026-10-21) **Feed ampacity: 30 A or 50 A?** The V1 "Circuit Loads" are
-  estimated max draw (user). The user is open to more ampacity for maximum
+  estimated max draw (🧑 H31). The user is open to more ampacity for maximum
   expansion, or to showing both options with prices. Researched
   (`docs/pricing-feed-options-2026-10.md`, 2026-10-21; subtotals before the
   15 % contingency):
@@ -314,10 +327,10 @@ before the 15 % contingency:
   actually run on, and do their L14-30 outlets have built-in GFCI (which
   could trip on the ring's summed leakage)?
 
-0. ~~Confirm the leading design~~: confirmed (user, 2026-10-21), now under
+0. ~~Confirm the leading design~~: confirmed (🧑 H20), now under
    Decisions.
-1. (2026-10-21) **Joints: off-the-shelf extension cords, cut in half** (user,
-   2026-10-21, finding $355 a joint too expensive). One listed L14-30
+1. (2026-10-21) **Joints: off-the-shelf extension cords, cut in half** (🧑 H22,
+   finding $355 a joint too expensive). One listed L14-30
    generator cord per joint: its plug half ends one segment, its connector
    half starts the next, cord already attached. Researched 2026-10-21
    (`docs/pricing-joint-cords-2026-10.md`):
@@ -343,8 +356,8 @@ before the 15 % contingency:
      about $5.7K for the ring; factory watertight cords don't help.
    - Ampacity: keep 8/4 and the 30 A feed. Any 10/4 means a 25 A feed (still
      4.8 kVA continuous, 2.4× the average).
-     **Decided** (user, 2026-10-21): rain-proof is enough. The cut cords were
-     then replaced by loose AC Works ends on bulk 8/4, once the ring turned
+     **Decided** (🧑 H24): rain-proof is enough. ⚠ 🤖 The AI then replaced
+     the cut cords with loose AC Works ends on bulk 8/4, once the ring turned
      out to be 60 ft (see Decisions). The 9.8 ft and 157 ft above are the old
      geometry. The earlier framing, kept for reference:
      **The 16 truss joints** (each an HBL2711SW plug + HBL2713SW
@@ -361,10 +374,10 @@ before the 15 % contingency:
      rather than _listed_ devices, which an event inspector may not accept.
      Recommendation: price Wetguard with shade as the default saving, and
      research one circular family to see if it's listed.
-2. ~~Brightness cap in the software~~: no (user, 2026-10-21), now under
+2. ~~Brightness cap in the software~~: no (🧑 H21), now under
    Decisions.
-   2a. ~~(2026-10-21)~~ **Dropped (user, 2026-10-22): no remote reset; reset with a pole.** Kept for reference: **Remote, human-triggered reset of a segment's tripped
-   ground-fault breaker, with no home runs** (user asked). The user said yes
+   2a. ~~(2026-10-21)~~ **Dropped (🧑 H48): no remote reset; reset with a pole.** Kept for reference: **Remote, human-triggered reset of a segment's tripped
+   ground-fault breaker, with no home runs** (🧑 H19 asked). The user said yes
    to researching it (2026-10-21). **Findings**
    (`docs/pricing-remote-reset-2026-10.md`):
    - **No UL 943 Class A GFCI, DIN or inline, has a remote reset input,

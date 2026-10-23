@@ -1,5 +1,10 @@
 # Weatherproofing
 
+> **Who wrote this.** Most of this plan is an AI draft. 🧑 with a ledger id
+> (H12) marks what a person said or approved (`docs/human-input.md`); 🤖 marks
+> the AI's own call; anything unmarked is the AI's too. The site marks the
+> same content block by block; `/review` walks through it.
+
 ## Goal
 
 New **node boxes** (one per truss segment: PixLite + switch) and a **brain box**
@@ -29,12 +34,16 @@ power boxes**. Power and data never share a box.
 
 ## Decisions already made (don't re-ask)
 
-- **Sun shields: something simple attached to the truss above the boxes**
-  (user, 2026-10-22), one per segment over both its boxes (16 + the brain box), in the
-  budget at $50–150 each.
-- **No solar panels or service walkway on top of the ring** (user, 2026-10-22).
-- Power boxes are separate from node/brain boxes (user, 2026-10-21).
-- Boxes live inside the truss (user, 2026-10-21).
+- **New node and brain boxes, living inside the truss next to the power
+  boxes.** 🧑 H13.
+- **Power boxes are separate from node and brain boxes.** 🧑 H14.
+- **Sun shields: something simple attached to the truss above the boxes.**
+  🧑 H51 ("probably, yes. something simple attached to truss above box").
+  🤖 One per segment over both its boxes (16 + the brain box), white
+  aluminium, $50–150 each.
+- **No solar panels or service walkway on top of the ring.** 🧑 H49.
+- **Rain-proof is enough** for the power joints (🧑 H24). 🤖 The AI still
+  specifies IP66 boxes and IP68 glands for the electronics.
 
 ## Findings from the pricing research
 
@@ -65,8 +74,8 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
 2. Bulkhead connectors at the box wall (faster to service) or cable glands (cheaper,
    fewer failure points)?
 3. Shading: does the truss itself shade the boxes, or do they need a sun shield?
-   **Idea (user, 2026-10-22): solar panels, or a service walkway, on top of
-   the ring**, which would also shade the boxes in the truss ("moot if we add
+   **Dropped (🧑 H49): solar panels, or a service walkway, on top of
+   the ring**. It was the user's idea first, which would also shade the boxes in the truss ("moot if we add
    solar on top... not sure though. could be nice to add a platform on top for
    walking for service... doubles as shade"). Rough numbers (reasoning, not
    researched):

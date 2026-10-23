@@ -11,6 +11,7 @@
  */
 
 import type { CategoryId } from "./categories";
+import type { Conflict, Credit } from "./human";
 
 /** How sure we are of a price. Shown beside it everywhere. */
 export type Confidence = "quoted" | "estimate" | "assumed";
@@ -59,6 +60,8 @@ export interface Tier {
    * total.
    */
   project?: CategoryId;
+  /** Who drove it. Absent: an AI draft (app/content/human.ts). */
+  by?: Credit;
 }
 
 /**
@@ -68,23 +71,30 @@ export interface Tier {
 export const TIERS: Tier[] = [
   {
     id: "core",
+    by: {
+      h: ["H10", "H11", "H12", "H13", "H14", "H28"],
+      what: "The five V2 upgrades, and the industrial PC in V2",
+    },
     name: "V2",
     promise:
       "Weatherproof power and boxes, the ring network, and a fanless show computer with a real GPU, rated for the heat.",
   },
   {
     id: "hardened",
+    by: { h: ["H09"], what: "Industrial switches as a stretch goal" },
     name: "Built for the heat",
     promise:
       "Industrial switches rated to 70 °C, for a sealed box in the desert sun.",
   },
   {
     id: "senses",
+    by: { h: ["H15"], what: "Cameras and streaming audio" },
     name: "Eyes and ears",
     promise: "Cameras on the rig and networked sound at the ring.",
   },
   {
     id: "console",
+    by: { h: ["H37"] },
     name: "VJ console",
     promise:
       "A touch screen and real faders at the VJ booth, wired to the show computer: play the Gate by hand.",
@@ -96,6 +106,7 @@ export const TIERS: Tier[] = [
   },
   {
     id: "rigging",
+    by: { h: ["H34"] },
     name: "A ring that raises itself",
     promise:
       "The ring climbs its own legs on eight hoists, level and locked off at height: no forklift, no crane.",
@@ -103,6 +114,7 @@ export const TIERS: Tier[] = [
   },
   {
     id: "solar",
+    by: { h: ["H35", "H53"] },
     name: "Run on sunlight",
     promise:
       "Panels and a battery that run the Gate through the night, with a small generator only as backup.",
@@ -110,6 +122,7 @@ export const TIERS: Tier[] = [
   },
   {
     id: "transport",
+    by: { h: ["H36"] },
     name: "Roll it in, roll it out",
     promise:
       "The Gate's own 40 ft container, and carts with playa wheels for every part, so load-in and strike are a roll, not a carry.",
@@ -160,6 +173,10 @@ export interface LineItem {
    * Extras are listed, but never counted in a tier's total.
    */
   onlyIf?: string;
+  /** Who drove it. Absent: an AI draft. */
+  by?: Credit;
+  /** Where the AI's choice goes against what a human said. */
+  conflict?: Conflict;
 }
 
 /**
@@ -191,6 +208,14 @@ export const ITEMS: LineItem[] = [
   // --- Power ---------------------------------------------------------------
   {
     id: "power-joint-plug",
+    conflict: {
+      h: ["H22"],
+      note: "The user asked for off-the-shelf extension cords cut in half; these are loose ends on bulk cord (the AI's change after the ring grew to 60 ft).",
+    },
+    by: {
+      h: ["H17", "H20"],
+      what: "An L14-30 twist-lock at each joint (approved). The loose AC Works ends are the AI's",
+    },
     category: "power",
     tier: "core",
     name: "30 A twist-lock plug (L14-30), one per joint",
@@ -208,6 +233,14 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "power-joint-connector",
+    conflict: {
+      h: ["H22"],
+      note: "The user asked for off-the-shelf extension cords cut in half; these are loose ends on bulk cord (the AI's change after the ring grew to 60 ft).",
+    },
+    by: {
+      h: ["H17", "H20"],
+      what: "An L14-30 twist-lock at each joint (approved). The loose AC Works ends are the AI's",
+    },
     category: "power",
     tier: "core",
     name: "30 A twist-lock connector (L14-30), one per joint",
@@ -224,6 +257,11 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "power-trunk",
+    conflict: {
+      h: ["H50", "H60"],
+      note: "The user prefers 30 A three-phase (L21-30); this is split-phase 8/4, the AI's recommendation, not yet decided.",
+    },
+    by: { h: ["H20"], what: "8/4 trunk (approved)" },
     category: "power",
     tier: "core",
     name: "Power trunk around the ring: 8/4 outdoor cord (ft)",
@@ -244,6 +282,7 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "power-joint-covers",
+    by: { h: ["H24"], what: "Rain-proof is enough" },
     category: "power",
     tier: "core",
     name: "Rain cover over each mated joint",
@@ -276,6 +315,7 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "power-end-cap",
+    by: { h: ["H20"], what: "An open loop, capped at the far end (approved)" },
     category: "power",
     tier: "core",
     name: "Cap for the open connector at the far end of the ring",
@@ -322,6 +362,10 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "power-box",
+    by: {
+      h: ["H13", "H14"],
+      what: "A power box in each segment, apart from the data",
+    },
     category: "power",
     tier: "core",
     name: "Power box, 12 × 10 × 6 in, hinged polycarbonate",
@@ -369,6 +413,10 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "power-gfci",
+    by: {
+      h: ["H20"],
+      what: "A ground-fault breaker per segment (approved). The Ericson part is the AI's",
+    },
     category: "power",
     tier: "core",
     name: "20 A breaker and ground-fault protector in each power box, reset from the ground",
@@ -389,6 +437,7 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "power-reset-pole",
+    by: { h: ["H48"] },
     category: "power",
     tier: "core",
     name: "Insulated reset pole, for the ground-fault protectors overhead",
@@ -400,6 +449,7 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "power-54v",
+    by: { h: ["H07"], what: "A 48 V class supply in each box" },
     category: "power",
     tier: "core",
     name: "54 V supply for the switch and its PoE ports",
@@ -457,6 +507,10 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "power-outlets",
+    by: {
+      h: ["H23", "H25", "H33"],
+      what: "Four 20 A local outlets per power box",
+    },
     category: "power",
     tier: "core",
     name: "Local outlets on each power box: four 20 A, 120 V, behind the segment's 20 A ground-fault breaker",
@@ -476,6 +530,7 @@ export const ITEMS: LineItem[] = [
   // --- Networking ----------------------------------------------------------
   {
     id: "power-towable-adapter",
+    by: { h: ["H20"], what: "The towable adapter (approved)" },
     category: "power",
     tier: "core",
     name: "Adapter for towable rental generators (50 A twist-lock to L14-30)",
@@ -492,6 +547,7 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "net-switch",
+    by: { h: ["H03", "H09"], what: "A switch per node box; the USW-Ultra" },
     category: "networking",
     tier: "core",
     name: "Ring switch, one per node box",
@@ -590,6 +646,7 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "net-industrial",
+    by: { h: ["H09"], what: "The Industrial DIN as a stretch goal" },
     category: "networking",
     tier: "hardened",
     name: "Industrial switches instead of the Ultra (the difference)",
@@ -606,6 +663,7 @@ export const ITEMS: LineItem[] = [
   // --- Compute -------------------------------------------------------------
   {
     id: "compute-industrial",
+    by: { h: ["H28"], what: "An industrial PC in V2. Which one is the AI's" },
     category: "compute",
     tier: "core",
     name: "Fanless industrial show computer",
@@ -625,6 +683,7 @@ export const ITEMS: LineItem[] = [
   // --- Weatherproofing -----------------------------------------------------
   {
     id: "wp-node-box",
+    by: { h: ["H13"] },
     category: "weatherproofing",
     tier: "core",
     name: "Node box, 14 × 12 × 6 in, hinged polycarbonate",
@@ -707,6 +766,7 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "wp-brain-box",
+    by: { h: ["H13"] },
     category: "weatherproofing",
     tier: "core",
     name: "Brain box for the show computer and gateway",
@@ -734,6 +794,10 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "wp-shields",
+    by: {
+      h: ["H51"],
+      what: "Something simple on the truss above the boxes. Count and price are the AI's",
+    },
     category: "weatherproofing",
     tier: "core",
     name: "Sun shields: a simple white sheet on the truss above each segment's boxes",
@@ -751,6 +815,7 @@ export const ITEMS: LineItem[] = [
   // --- Expansion -----------------------------------------------------------
   {
     id: "exp-cameras",
+    by: { h: ["H15"] },
     category: "expansion",
     tier: "senses",
     name: "Outdoor 4K PoE cameras",
@@ -777,6 +842,7 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "exp-audio",
+    by: { h: ["H15"] },
     category: "expansion",
     tier: "senses",
     name: "Networked audio endpoint",
@@ -1134,6 +1200,7 @@ export const ITEMS: LineItem[] = [
   // operating costs, not here.
   {
     id: "tr-container",
+    by: { h: ["H44", "H54", "H61"], what: "The crew's own 40 ft container" },
     category: "transport",
     tier: "transport",
     name: "Container: fix up the crew's own 40 ft, kept in Oakland",
@@ -1232,6 +1299,7 @@ export const ITEMS: LineItem[] = [
   },
   {
     id: "tr-sail-rack",
+    by: { h: ["H43", "H45"], what: "A rack for the 16 sails" },
     category: "transport",
     tier: "transport",
     name: "Sail rolls and rack: each sail stored with its LEDs left in",

@@ -1,5 +1,10 @@
 # Networking
 
+> **Who wrote this.** Most of this plan is an AI draft. 🧑 with a ledger id
+> (H12) marks what a person said or approved (`docs/human-input.md`); 🤖 marks
+> the AI's own call; anything unmarked is the AI's too. The site marks the
+> same content block by block; `/review` walks through it.
+
 ## Goal
 
 A managed switch in every node box, daisy-chained around the ring, so that cable
@@ -23,17 +28,26 @@ links and gotchas; this file summarises it and tracks what V2 still needs.
 
 ## Decisions already made (don't re-ask)
 
-- **Ring of switches, one per node box, ring closed** so RSTP routes around a dead
-  box (a 16-switch ring is inside RSTP's default 20-hop limit).
-- **Unicast sACN** to each controller. With 10/100 PixLites, multicast without
-  IGMP snooping overruns small switches' per-port buffers on every frame. Empyrean
-  supports unicast by fixed IP or by MAC (resolved automatically).
-- **WAN can plug in at any node.** A VLAN-only "WAN transport" network (e.g. VLAN 4000) is tagged on the ring links; one labelled port on every switch is native
-  VLAN 4000. The UCG's WAN port plugs into any of those; its LAN port into any
+- **Ring of switches, one per node box, ring closed.** 🧑 H01 ("daisy chain
+  switches around the run, and let [R]STP drop a link"), 🧑 H03 ("Boxes get
+  switches"), 🧑 H11. 🤖 A 16-switch ring is inside RSTP's default 20-hop limit.
+- **Unicast sACN**, by fixed IP and by MAC. 🧑 H08 ("Both should be
+  supported"), after the user asked whether fixed IPs allow unicast. 🤖 The
+  reason (10/100 PixLites, multicast without IGMP snooping overruns small
+  switches' buffers) is the AI's analysis.
+- **WAN can plug in at any node.** 🧑 H02 ("it would be nice if we could plug
+  the WAN connection into an arbitrary port around the ring"). 🤖 The
+  mechanism is the AI's: a VLAN-only "WAN transport" network (e.g. VLAN 4000)
+  tagged on the ring links, one labelled port on every switch native VLAN
+  4000; the UCG's WAN port plugs into any of those, its LAN port into any
   ordinary port.
-- **Leading switch: UniFi USW-Ultra** ($129), powered from the box's own supply,
-  not the 210 W brick. The Industrial DIN 8 PoE is a stretch goal (about twice the
-  cost). (User, 2026-10-20.)
+- **PoE comes from each node box's switch.** 🧑 H06. 🧑 H07: the boxes have a
+  12 V supply and will get a 48 V one.
+- **Leading switch: UniFi USW-Ultra**, the user's pick, "maybe with the 210W
+  adapter… or an aftermarket one" (🧑 H09). 🤖 Powering it from the box's own
+  supply rather than the 210 W adapter is the AI's call. **The Industrial
+  DIN 8 PoE is a stretch goal** (🧑 H09: "it like doubles the cost"). 🤖 The
+  AI priced it at about 2.5×, not 2×.
 
 ## The USW-Ultra in a node box
 

@@ -1,9 +1,14 @@
 # Rigging: a self-climbing ring
 
+> **Who wrote this.** Most of this plan is an AI draft. 🧑 with a ledger id
+> (H12) marks what a person said or approved (`docs/human-input.md`); 🤖 marks
+> the AI's own call; anything unmarked is the AI's too. The site marks the
+> same content block by block; `/review` walks through it.
+
 ## Goal
 
 The ring raises itself up its legs, so setup no longer depends on lifting a
-60 ft ring by other means. A stretch goal (user, 2026-10-21).
+60 ft ring by other means. A stretch goal (🧑 H34).
 
 ## Known today
 
@@ -22,7 +27,7 @@ See `docs/v1-hardware.md` → Structure and geometry.
   cables** run from truss-top to lag bolts in the playa. So the research's
   12" assumption holds (the low end of its ranges), the V1 legs are probably
   reusable as tower sections, and guys already exist.
-- **8 legs** (user, 2026-10-22), as the later layout drawings show; A-06's
+- **8 legs** (🧑 H46), as the later layout drawings show; A-06's
   6 was the 2022 design. The budget's per-leg lines already assume 8.
 - Sleeve blocks and top sections must match **Tomcat** 12" light-duty (the
   research priced Global Truss F34-class parts).
@@ -39,17 +44,24 @@ See `docs/v1-hardware.md` → Structure and geometry.
 
 ## Decisions already made (don't re-ask)
 
-- **How V1 is raised** (user, 2026-10-22): a **crane at Burning Man**; at other
-  events, **eight hand chain hoists, rented for every deploy**. So owning
-  hoists (hand or electric) replaces a recurring rental, and the hand-hoist
-  option is what the crew already does.
-- **Nothing goes on top of the ring** (no panels, no walkway; user, 2026-10-22).
-- Two options to compare (user, 2026-10-21):
+- **A self-climbing ring, a stretch goal, with two options to compare.**
+  🧑 H34:
   1. **Pass-through arcs:** replace half of the arced segments (the 8 that meet
      the legs) with arcs that have a pass-through for the vertical, so the
      ring rides up the legs.
   2. **Shelf on the verticals:** a "shelf" that hangs off each vertical; the
      ring sits on the shelves and the arcs stay as they are.
+
+  ⚠ 🤖 The AI's leading option is a third: stock sleeve blocks added to the
+  ring, V1 arcs kept, which makes the ring 1–1.3 m wider. Not chosen by a
+  person.
+
+- **How V1 is raised.** 🧑 H52: "crane at burning man, 8 hand at other events.
+  need to rent them every deploy". ⚠ 🤖 "8 hand" was read as eight hand chain
+  hoists; it may mean eight people. If hoists: owning them replaces a
+  recurring rental, and the hand-hoist option is what the crew already does.
+- **8 legs.** 🧑 H46 (the 2022 drawing A-06 showed 6).
+- **Nothing goes on top of the ring** (no panels, no walkway). 🧑 H49.
 
 ## Options
 
@@ -88,20 +100,17 @@ prices are search snippets or estimates (rigging dealers sell by quote).
 
 ## Weight on the ring
 
-If panels or a service walkway go on top of the ring (`plans/solar.md`), the
-hoists lift them too: about 650 kg of panels for 12 kW, plus racking. Size
-the hoists and check the truss with that in.
+Nothing goes on top of the ring (🧑 H49), so the hoists don't lift panels or
+a walkway.
 
 ## Open questions
 
 1. ~~What truss is it~~ Tomcat 12" light-duty (A-06). How do the legs meet
    the ring today (a junction block at each leg?)?
-2. ~~How tall are the legs~~ 20 ft, ring at about 21 ft (A-06). 8 legs (user,
-   2026-10-22).
-3. How much does the ring weigh with everything on it? (user, 2026-10-22:
-   "not sure")
-4. ~~How is V1 raised today?~~ A crane at Burning Man; eight rented hand
-   hoists elsewhere (user, 2026-10-22). What does the rental cost per deploy?
+2. ~~How tall are the legs~~ 20 ft, ring at about 21 ft (A-06). 8 legs (🧑 H46).
+3. How much does the ring weigh with everything on it? (Cameron: "not sure")
+4. ~~How is V1 raised today?~~ A crane at Burning Man; rented gear elsewhere
+   (🧑 H52; "8 hand" read by the AI as hand hoists, unconfirmed). What does the rental cost per deploy?
 5. Motorised (electric hoists and a controller) or manual (hand chain hoists)?
 6. Own or rent the lifting gear? Is 3-phase power available at setup?
 7. Which events, and who inspects?

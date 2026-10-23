@@ -1,9 +1,14 @@
 # Solar: running the Gate on sunlight
 
+> **Who wrote this.** Most of this plan is an AI draft. 🧑 with a ledger id
+> (H12) marks what a person said or approved (`docs/human-input.md`); 🤖 marks
+> the AI's own call; anything unmarked is the AI's too. The site marks the
+> same content block by block; `/review` walks through it.
+
 ## Goal
 
 A full solar power system for the Gate, possibly big enough to run the
-speakers too, so the Gate needs less or no generator. A stretch goal (user,
+speakers too, so the Gate needs less or no generator. A stretch goal (🧑 H35;
 2026-10-21).
 
 ## Known today
@@ -12,7 +17,7 @@ See `docs/v1-hardware.md` → Power distribution and Site and operation.
 
 - The Gate averages about **1.5–2 kW while lit** (Reported, user). The lights
   run at night; the electronics stay powered all day.
-- The V1 pixels' estimated max is about 9.6 kVA, never really reached (user).
+- The V1 pixels' estimated max is about 9.6 kVA, never really reached (🧑 H31).
 - V2 takes one 120/240 V split-phase feed into an L14-30 twist-lock; a 50 A
   feed is being compared (`plans/power.md`).
 - **Unknown:** the speakers' draw and hours, and how many days the system must
@@ -29,10 +34,14 @@ See `docs/v1-hardware.md` → Power distribution and Site and operation.
 
 ## Decisions already made (don't re-ask)
 
-- **Solar and battery are their own dedicated stretch category** (user, 2026-10-22):
-  as the site has it, a big project with its own page and goal.
-- **No panels on top of the ring** (user, 2026-10-22): a separate array.
-- Solar is a stretch goal; the speakers are a "possibly" (user, 2026-10-21).
+- **A full solar power system, a stretch goal, "possibly with enough power to
+  run the speakers".** 🧑 H35.
+- **Solar and battery are their own dedicated stretch category.** 🧑 H53. As
+  the site has it: a big project with its own page and goal.
+- **No panels on top of the ring.** 🧑 H49 ("no walkway/solar up top"): a
+  separate array.
+- 🤖 Everything about size (12 kW, 57 kWh), the hybrid with a backup
+  generator, and the inverter is the AI's, from its research.
 
 ## Options
 
@@ -42,10 +51,11 @@ other camps do it).
 
 ## Panels on top of the ring?
 
-**Idea (user, 2026-10-22): solar panels, or a service walkway, on top of
-the ring**, which would also shade the boxes in the truss ("moot if we add
-solar on top... not sure though. could be nice to add a platform on top for
-walking for service... doubles as shade"). Rough numbers (reasoning, not
+**Dropped by the user** (🧑 H49, 2026-10-22 1:03 AM PDT: "no walkway/solar up
+top"). Kept as background. It was the user's own idea nine minutes earlier,
+which would also shade the boxes in the truss ("moot if we add solar on
+top... not sure though. could be nice to add a platform on top for walking
+for service... doubles as shade"). 🤖 Rough numbers (reasoning, not
 researched):
 
 - The ring top is 16 arcs of about 3.57 m on a 0.3 m (12") truss. Panels

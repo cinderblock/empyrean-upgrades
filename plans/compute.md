@@ -1,5 +1,10 @@
 # Compute
 
+> **Who wrote this.** Most of this plan is an AI draft. 🧑 with a ledger id
+> (H12) marks what a person said or approved (`docs/human-input.md`); 🤖 marks
+> the AI's own call; anything unmarked is the AI's too. The site marks the
+> same content block by block; `/review` walks through it.
+
 ## Goal
 
 A new show computer with a **better GPU** than V1's integrated Iris Xe, living in
@@ -25,9 +30,15 @@ the weatherproof brain box.
 
 ## Decisions already made (don't re-ask)
 
-- **The fanless industrial PC is the V2 show computer** (user, 2026-10-21):
-  the Neousys Nuvo-9160GC with an RTX 2000E Ada, $6,065–$7,160, in the V2
-  goal. The consumer build is a considered option only.
+- **A new computer with a better GPU.** 🧑 H12.
+- **The industrial show computer is in the V2 goal**, not a stretch goal.
+  🧑 H28 ("v2"). 🤖 Which one is the AI's pick: the Neousys Nuvo-9160GC with
+  an RTX 2000E Ada, $6,065–$7,160. The consumer build is a considered option
+  only.
+- **A VJ console as a stretch goal.** 🧑 H37: touch screen, buttons, sliders,
+  knobs, "maybe even flying ones", on a USB-C dock over a long (fibre?) link.
+  ⚠ 🤖 The AI ruled out the USB-C dock (no video on the show computer's
+  USB-C) and read "flying" as motorised faders.
 
 ## Options to evaluate
 
@@ -85,10 +96,10 @@ knobs, maybe motorized ("flying") faders. It goes on the stretch-goal ladder
 - Recommendation: buy the X-Touch Compact ($309) first and build the MIDI
   mapping in the show app against it; then measure the cable route and buy
   the link for that distance.
-- **Cable distance is not a constraint** (user, 2026-10-23): "if we get a fiber
-  adapter, any length is possible." So the fibre extender, sized for the
+- **Cable distance is not a constraint.** 🧑 H62: "if we get a fiber
+  adapter, any length is possible." 🤖 So the fibre extender, sized for the
   longest likely run (100 m class).
-- Open (user): whether the booth screen is the only
+- Open, for the user: whether the booth screen is the only
   screen; motorized faders a must?; who plays it; screen size; shade by day;
   the booth's power; how the cable runs; is a network console acceptable; a
   budget ceiling.
@@ -97,7 +108,7 @@ knobs, maybe motorized ("flying") faders. It goes on the stretch-goal ladder
   drive motorized faders back. That is work in the Empyrean repo, not a cost
   here.
 
-### The computer in the air (user, 2026-10-22)
+### The computer in the air (🧑 H55)
 
 "Would be nice to put the computer in the air... but 20' is limit of normal
 USB-C4... there are extender boxes that send the data over fiber that should
