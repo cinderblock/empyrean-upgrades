@@ -52,19 +52,45 @@ export default function Tip({
     };
   }, [open]);
 
-  // Keep the panel on screen: nudge it sideways if it would overflow.
+  // The panel sits in the top layer (a popover), so no card or table that
+  // clips its overflow can cut it off. That also takes it out of the flow:
+  // place it by hand, under the trigger's right edge, kept on screen, and
+  // above the trigger when there's no room below. Again on scroll and resize.
   useLayoutEffect(() => {
     const el = panel.current;
-    if (!open || !el) return;
-    el.style.setProperty("--tip-shift", "0px");
-    const rect = el.getBoundingClientRect();
-    const margin = 8;
-    let shift = 0;
-    if (rect.left < margin) shift = margin - rect.left;
-    else if (rect.right > window.innerWidth - margin) {
-      shift = window.innerWidth - margin - rect.right;
-    }
-    el.style.setProperty("--tip-shift", `${shift}px`);
+    const trigger = root.current;
+    if (!open || !el || !trigger) return;
+    if (!el.matches(":popover-open")) el.showPopover();
+    const place = () => {
+      const t = trigger.getBoundingClientRect();
+      const p = el.getBoundingClientRect();
+      const margin = 8;
+      const gap = 7;
+      const vw = document.documentElement.clientWidth;
+      const vh = window.innerHeight;
+      const left = Math.min(
+        Math.max(margin, t.right - p.width),
+        vw - margin - p.width,
+      );
+      const below = t.bottom + gap;
+      const above = t.top - gap - p.height;
+      const top =
+        below + p.height <= vh - margin
+          ? below
+          : above >= margin
+            ? above
+            : Math.max(margin, vh - margin - p.height);
+      el.style.left = `${Math.max(margin, left)}px`;
+      el.style.top = `${top}px`;
+    };
+    place();
+    window.addEventListener("scroll", place, { capture: true, passive: true });
+    window.addEventListener("resize", place);
+    return () => {
+      window.removeEventListener("scroll", place, { capture: true });
+      window.removeEventListener("resize", place);
+      if (el.matches(":popover-open")) el.hidePopover();
+    };
   }, [open]);
 
   return (
@@ -107,7 +133,7 @@ export default function Tip({
         id={id}
         className="tip-panel"
         role="note"
-        hidden={!open}
+        popover="manual"
       >
         {children}
       </span>

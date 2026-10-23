@@ -142,6 +142,35 @@ test.describe("budget", () => {
     await page.keyboard.press("Escape");
     await expect(panel).toBeHidden();
   });
+
+  test("an open tip is never clipped by the card it sits in", async ({
+    page,
+  }) => {
+    await page.goto("/budget/");
+    const tips = page.locator(".tip");
+    const count = await tips.count();
+    expect(count).toBeGreaterThan(0);
+    for (const i of [0, count - 1]) {
+      const tip = tips.nth(i);
+      await tip.locator(".tip-trigger").click();
+      const panel = tip.locator(".tip-panel");
+      await expect(panel).toBeVisible();
+      // On top at its corners and centre: nothing cuts it off or covers it.
+      const onTop = await panel.evaluate((el) => {
+        const r = el.getBoundingClientRect();
+        const at = (x: number, y: number) =>
+          el.contains(document.elementFromPoint(x, y));
+        return (
+          el.matches(":popover-open") &&
+          at(r.left + 4, r.top + 4) &&
+          at(r.right - 4, r.bottom - 4) &&
+          at((r.left + r.right) / 2, (r.top + r.bottom) / 2)
+        );
+      });
+      expect(onTop).toBe(true);
+      await page.keyboard.press("Escape");
+    }
+  });
 });
 
 test.describe("colour scheme", () => {

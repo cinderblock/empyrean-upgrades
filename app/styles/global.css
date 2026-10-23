@@ -1713,12 +1713,13 @@ p {
   border: 1.5px solid var(--gold);
 }
 
+/* A popover in the top layer, placed by Tip.tsx: nothing can clip it. */
 .tip-panel {
-  position: absolute;
-  z-index: 40;
-  top: calc(100% + 0.45rem);
-  right: 0;
-  translate: var(--tip-shift, 0) 0;
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  max-height: calc(100vh - 1rem);
+  overflow: auto;
   width: max-content;
   max-width: min(20rem, calc(100vw - 2rem));
   padding: 0.75rem 0.9rem;
