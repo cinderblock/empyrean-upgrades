@@ -213,7 +213,11 @@ wants to raise, and donors can see where their money goes.
     - [x] Checked under `wrangler dev` (2026-10-22): unlocks (form, link),
           revoked refusal, page loads and a real Chromium client-side navigation's
           beacon all logged with the right `who`; the `VISITS` binding is listed.
-    - [ ] Push (user's yes), then check data arrives
+    - [x] Pushed `034aea2` (user's yes); live within a minute. Checked
+          2026-10-22 with `wrangler tail`: a link unlock and a page view, both as
+          `Entheos01`, logged with no exceptions and no "visit not recorded".
+          Pattern cookies are now `<password>.<mac>`. Whether rows reached
+          Analytics Engine needs the API token below.
     - [ ] An API token (Account Analytics: Read) for `bun run visits`; the SQL
           in `scripts/visits.ts` is untested until then
 
