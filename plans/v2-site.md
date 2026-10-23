@@ -88,6 +88,13 @@ wants to raise, and donors can see where their money goes.
   `?key=<password>` in a link does the same, so a donor can get a one-click link.
   Lock on with no secret set fails closed (503). Turning it off: set
   `SITE_LOCK` to `"off"` and push.
+- **A second password, by pattern** (user, 2026-10-22: "a second password...
+  so that we can give different numbers to people"). Secret
+  `SITE_PASSWORD_PATTERN`, a regex the whole password must match. The user gave
+  the pattern in chat; like the password it stays out of the repo. Its cookie is
+  keyed by the pattern (changing it logs out only those users). One shared
+  cookie, so a single number can't be revoked on its own, and nothing records
+  which number was used.
 - **Light and dark follow the system** (user, 2026-10-22: "proper light mode,
   don't assume dark mode... where it doesn't flash at the start"). Every
   colour token in `app/styles/global.css` is `light-dark(light, dark)` under

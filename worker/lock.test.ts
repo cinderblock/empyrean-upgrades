@@ -1,8 +1,15 @@
 import { describe, expect, test } from "bun:test";
 import worker from "./index";
-import { COOKIE, UNLOCK_PATH, accessToken, type Env } from "./lock";
+import {
+  COOKIE,
+  UNLOCK_PATH,
+  accessToken,
+  patternToken,
+  type Env,
+} from "./lock";
 
 const PASSWORD = "ring of light";
+const PATTERN = String.raw`Guest\d\d`;
 
 /** Assets that answer every path with its own name, so a test can tell. */
 const assets = {
@@ -18,6 +25,7 @@ function env(over: Partial<Env> = {}): Env {
     ASSETS: assets,
     SITE_LOCK: "on",
     SITE_PASSWORD: PASSWORD,
+    SITE_PASSWORD_PATTERN: PATTERN,
     ...over,
   };
 }
@@ -140,6 +148,73 @@ describe("lock on", () => {
     const res = await worker.fetch(post(PASSWORD), limited);
     expect(res.status).toBe(429);
     expect(res.headers.get("set-cookie")).toBeNull();
+  });
+
+  test("a password matching the pattern sets the pattern's cookie", async () => {
+    for (const guess of ["Guest07", "Guest42"]) {
+      const res = await worker.fetch(post(guess, "/budget/"), env());
+      expect(res.status).toBe(303);
+      expect(res.headers.get("location")).toBe("/budget/");
+      expect(cookieValue(res)).toBe(await patternToken(PATTERN));
+      expect(res.headers.get("set-cookie")).not.toContain(guess);
+    }
+  });
+
+  test("the pattern must match the whole password", async () => {
+    for (const guess of [
+      "Guest7",
+      "Guest123",
+      "xGuest07",
+      "Guest07 ",
+      "guest07",
+    ]) {
+      const res = await worker.fetch(post(guess), env());
+      expect(res.status).toBe(401);
+      expect(res.headers.get("set-cookie")).toBeNull();
+    }
+  });
+
+  test("?key= takes a pattern password too", async () => {
+    const res = await worker.fetch(get("/?key=Guest99"), env());
+    expect(res.status).toBe(303);
+    expect(cookieValue(res)).toBe(await patternToken(PATTERN));
+  });
+
+  test("the pattern's cookie opens the site", async () => {
+    const token = await patternToken(PATTERN);
+    const res = await worker.fetch(
+      get("/", { cookie: `${COOKIE}=${token}` }),
+      env(),
+    );
+    expect(await res.text()).toBe("asset /");
+  });
+
+  test("changing the pattern logs out only its own", async () => {
+    const changed = env({ SITE_PASSWORD_PATTERN: String.raw`Friend\d\d` });
+    const old = await patternToken(PATTERN);
+    const stale = await worker.fetch(
+      get("/", { cookie: `${COOKIE}=${old}` }),
+      changed,
+    );
+    expect(stale.status).toBe(401);
+    const main = await accessToken(PASSWORD);
+    const kept = await worker.fetch(
+      get("/", { cookie: `${COOKIE}=${main}` }),
+      changed,
+    );
+    expect(await kept.text()).toBe("asset /");
+  });
+
+  test("no pattern set: only the password works", async () => {
+    const plain = env({ SITE_PASSWORD_PATTERN: undefined });
+    expect((await worker.fetch(post("Guest07"), plain)).status).toBe(401);
+    expect((await worker.fetch(post(PASSWORD), plain)).status).toBe(303);
+  });
+
+  test("a pattern that doesn't compile matches nothing", async () => {
+    const broken = env({ SITE_PASSWORD_PATTERN: "Guest(" });
+    expect((await worker.fetch(post("Guest("), broken)).status).toBe(401);
+    expect((await worker.fetch(post(PASSWORD), broken)).status).toBe(303);
   });
 
   test("the icon and robots.txt stay open", async () => {

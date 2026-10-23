@@ -12,6 +12,12 @@
  * cookie is an HMAC of a fixed label keyed by the password, so changing the
  * password logs everyone out and the cookie never contains the password.
  * Lock on with no password set fails closed: 503, nothing served.
+ *
+ * A second, optional secret, `SITE_PASSWORD_PATTERN`, is a regular expression
+ * (say `Guest\d\d`) that a whole password may match instead, so different
+ * people can be given different numbers. Its cookie is keyed by the pattern:
+ * changing the pattern logs out everyone who came in through it, and only
+ * them. A pattern that doesn't compile matches nothing.
  */
 
 import { INDEXABLE, SAFETY_HEADERS, UNLISTED_ROBOTS } from "./headers";
@@ -31,6 +37,8 @@ export interface Env {
   SITE_LOCK?: string;
   /** The password (a Worker secret). */
   SITE_PASSWORD?: string;
+  /** A regex a whole password may match instead (a Worker secret). Optional. */
+  SITE_PASSWORD_PATTERN?: string;
   /** Password attempts per visitor. Absent locally: then no limit. */
   UNLOCK_LIMIT?: RateLimit;
 }
@@ -51,8 +59,15 @@ function base64url(bytes: ArrayBuffer): string {
   return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
-/** The cookie value for a password. */
-export async function accessToken(password: string): Promise<string> {
+/** What the cookie signs, one label per way in. */
+const LABEL = "empyrean-v2-access";
+const PATTERN_LABEL = "empyrean-v2-access-pattern";
+
+/** The cookie value for a password (or, with PATTERN_LABEL, a pattern). */
+export async function accessToken(
+  password: string,
+  label = LABEL,
+): Promise<string> {
   const key = await crypto.subtle.importKey(
     "raw",
     encoder.encode(password),
@@ -60,11 +75,7 @@ export async function accessToken(password: string): Promise<string> {
     false,
     ["sign"],
   );
-  const mac = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    encoder.encode("empyrean-v2-access"),
-  );
+  const mac = await crypto.subtle.sign("HMAC", key, encoder.encode(label));
   return base64url(mac);
 }
 
@@ -76,12 +87,40 @@ function same(a: string, b: string): boolean {
   return diff === 0;
 }
 
-/** A guess, checked as tokens so the comparison is constant-length. */
-async function rightPassword(guess: string, env: Env): Promise<boolean> {
-  return same(
-    await accessToken(guess),
-    await accessToken(env.SITE_PASSWORD ?? ""),
-  );
+/** The cookie for anyone who came in through the pattern. */
+export function patternToken(pattern: string): Promise<string> {
+  return accessToken(pattern, PATTERN_LABEL);
+}
+
+/** Whether all of `guess` matches the pattern. A broken pattern never does. */
+function matchesPattern(guess: string, pattern: string | undefined): boolean {
+  if (!pattern || !guess) return false;
+  try {
+    return new RegExp(`^(?:${pattern})$`).test(guess);
+  } catch {
+    console.error("SITE_PASSWORD_PATTERN is not a valid regular expression");
+    return false;
+  }
+}
+
+/**
+ * The cookie a guess earns, or undefined for a wrong one. The password is
+ * checked as tokens so the comparison is constant-length.
+ */
+async function tokenFor(guess: string, env: Env): Promise<string | undefined> {
+  const want = await accessToken(env.SITE_PASSWORD ?? "");
+  if (same(await accessToken(guess), want)) return want;
+  if (matchesPattern(guess, env.SITE_PASSWORD_PATTERN)) {
+    return patternToken(env.SITE_PASSWORD_PATTERN!);
+  }
+  return undefined;
+}
+
+/** Whether a cookie is one this site currently hands out. */
+async function validCookie(have: string, env: Env): Promise<boolean> {
+  if (same(have, await accessToken(env.SITE_PASSWORD!))) return true;
+  const pattern = env.SITE_PASSWORD_PATTERN;
+  return !!pattern && same(have, await patternToken(pattern));
 }
 
 function readCookie(request: Request, name: string): string | undefined {
@@ -236,10 +275,9 @@ async function unlock(request: Request, env: Env): Promise<Response> {
   const next = safeNext(form.get("next")?.toString());
   if (!(await mayTry(request, env))) return html(429, lockPage(next, TOO_MANY));
   const guess = form.get("password")?.toString() ?? "";
-  if (!(await rightPassword(guess, env))) {
-    return html(401, lockPage(next, "That isn't it. Try again."));
-  }
-  return redirect(next, accessCookie(await accessToken(guess)));
+  const token = await tokenFor(guess, env);
+  if (!token) return html(401, lockPage(next, "That isn't it. Try again."));
+  return redirect(next, accessCookie(token));
 }
 
 /** Locked responses stay out of shared caches. */
@@ -279,9 +317,8 @@ export async function handle(request: Request, env: Env): Promise<Response> {
   }
   if (path === UNLOCK_PATH) return unlock(request, env);
 
-  const want = await accessToken(env.SITE_PASSWORD);
   const have = readCookie(request, COOKIE);
-  if (have && same(have, want)) {
+  if (have && (await validCookie(have, env))) {
     return privately(await env.ASSETS.fetch(request), path);
   }
 
@@ -295,9 +332,8 @@ export async function handle(request: Request, env: Env): Promise<Response> {
     if (!(await mayTry(request, env))) {
       return html(429, lockPage(here(), TOO_MANY));
     }
-    if (await rightPassword(key, env)) {
-      return redirect(here(), accessCookie(want));
-    }
+    const token = await tokenFor(key, env);
+    if (token) return redirect(here(), accessCookie(token));
     return html(
       401,
       lockPage(here(), "That link's password isn't right any more."),

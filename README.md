@@ -108,6 +108,18 @@ drops the key from the address. The cookie is an HMAC keyed by the password, so
 changing the password logs everyone out. Lock on with no password set answers
 503 rather than serving the site. Password tries are rate-limited per visitor.
 
+A second way in, so different people can get different passwords: the optional
+secret `SITE_PASSWORD_PATTERN`, a regular expression the **whole** password must
+match (for example `Guest\d\d` lets in `Guest07` and `Guest42`, not `Guest7`).
+It is a secret, not a var, because the repo is public. People who came in through
+the pattern share one cookie, keyed by the pattern, so changing the pattern logs
+out just them. A pattern that doesn't compile lets nobody in through it.
+
+```sh
+bunx wrangler secret put SITE_PASSWORD_PATTERN
+bunx wrangler preview secret put SITE_PASSWORD_PATTERN
+```
+
 **To open the site to everyone**, set `"SITE_LOCK": "off"` in both `vars`
 blocks of `wrangler.jsonc` and push. To make it findable as well, set
 `INDEXABLE` in [`worker/headers.ts`](worker/headers.ts) to `true`.
@@ -127,8 +139,8 @@ Same as empyreangate.org: **Cloudflare Workers Builds** builds the repo with
 The worker and its custom domain, `v2.empyreangate.org`, are provisioned by
 [cinderblock/ops](https://github.com/cinderblock/ops)
 (`cloudflare/config/projects/empyreangate.yaml`); ops never touches the code.
-The `SITE_PASSWORD` secret is set on the worker by hand (above), since a person
-needs to know it.
+The `SITE_PASSWORD` and `SITE_PASSWORD_PATTERN` secrets are set on the worker by
+hand (above), since a person needs to know them.
 
 Workers Builds settings (Workers & Pages → `empyreangate-v2` → Settings →
 Build), matching empyreangate.org's:

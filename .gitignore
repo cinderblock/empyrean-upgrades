@@ -35,7 +35,7 @@ playwright/.cache/
 # Misc
 *.tsbuildinfo
 
-# Local Worker secrets for `wrangler dev` (SITE_PASSWORD)
+# Local Worker secrets for `wrangler dev` (SITE_PASSWORD, SITE_PASSWORD_PATTERN)
 .dev.vars
 .wrangler/
 
