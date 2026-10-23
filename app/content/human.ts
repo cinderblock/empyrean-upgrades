@@ -605,6 +605,33 @@ export const HUMAN = {
       "At 30 A a leg it is 1.5×, not 3×: split-phase 240 × 30 = 7.2 kVA, three-phase 120/208 V √3 × 208 × 30 = 10.8 kVA (5.76 vs 8.64 kVA continuous). It is 3× single-phase 120 V.",
     thread: "upgrades",
   },
+  H66: {
+    at: "2026-10-22 9:41 PM PDT",
+    who: C,
+    kind: "said",
+    said: "can you add a second password? … so that we can give different numbers to people",
+    meaning:
+      "A second password, given as a pattern with a number in it, so each person can get their own number.",
+    thread: "upgrades",
+  },
+  H67: {
+    at: "2026-10-22 10:30 PM PDT",
+    who: C,
+    kind: "approved",
+    said: "2 + analytics engine sounds good. log it all.",
+    meaning:
+      "Each numbered password gets its own cookie and can be cancelled alone, and every visit is recorded (Workers Analytics Engine and Workers Logs).",
+    thread: "upgrades",
+  },
+  H68: {
+    at: "2026-10-23 3:42 PM PDT",
+    who: C,
+    kind: "said",
+    said: "the point is that it's relatively open but we can secretly give visitor unique tracking links.",
+    meaning:
+      "The numbered passwords are tracking links, not security: the site is meant to be fairly open. Two digits is enough; that someone could try every number doesn't matter.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

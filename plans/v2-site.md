@@ -94,8 +94,12 @@ wants to raise, and donors can see where their money goes.
   `?key=<password>` in a link does the same, so a donor can get a one-click link.
   Lock on with no secret set fails closed (503). Turning it off: set
   `SITE_LOCK` to `"off"` and push.
-- **A second password, by pattern** (user, 2026-10-22: "a second password...
-  so that we can give different numbers to people"). Secret
+- **A second password, by pattern** (🧑 H66: "a second password...
+  so that we can give different numbers to people"). **They are tracking
+  links, not security** (🧑 H68: "relatively open but we can secretly give
+  visitor unique tracking links"): the number says who came in. Two digits is
+  enough; that one person could try all 100 in about 10 minutes doesn't
+  matter. Don't reopen this. Secret
   `SITE_PASSWORD_PATTERN`, a regex the whole password must match. The user gave
   the pattern in chat; like the password it stays out of the repo. Its cookie is
   keyed by the pattern (changing it logs out only those users). Superseded by
@@ -193,7 +197,7 @@ wants to raise, and donors can see where their money goes.
 
 19. [x] **Light mode, following the system** (user, 2026-10-22). See Design.
         Tests: `colour scheme` in `tests/site.spec.ts`, with JavaScript off.
-20. [ ] **Visit logging: who opened what** (user, 2026-10-22: "2 + analytics
+20. [ ] **Visit logging: who opened what** (🧑 H67, 2026-10-22: "2 + analytics
         engine sounds good. log it all"). ← current
     - **Per-password cookie.** A pattern password's cookie is
       `<password>.<HMAC>`, the HMAC keyed by the pattern over the password, so
