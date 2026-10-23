@@ -62,7 +62,7 @@ The user's asks:
   separate resource to provision in the dashboard, consistent reads. Cost:
   Cloudflare doesn't generate version (preview) URLs for a Worker with a
   Durable Object; Workers Builds previews are off for this worker anyway.
-  Deploying creates the DO namespace: **needs the user's yes before push.**
+  The first deploy (`b093320`) created it.
 - 🤖 Who wrote feedback comes from the access cookie (`main`, or the pattern
   password), plus an optional name. With the lock off and no cookie,
   feedback is refused.
@@ -86,9 +86,13 @@ The user's asks:
 9. ✅ Tests, README, CLAUDE.md rule.
 10. ✅ No review UI: `/review` and the in-browser feedback list removed;
     reads are token-only; delete added.
-11. ⏳ **Push** (deploys, creates the Durable Object): waiting on the user.
+11. ✅ Pushed (user's yes, 2026-10-23) and checked live.
 
 ## Findings / gotchas
+
+- Git Bash's mingw curl 8.8.0 fails `-o <file>` with "(43) A libcurl
+  function was given a bad argument" and prints status `000`: check the
+  live API with `bun -e` and `fetch` instead.
 
 - The plans' old "(user, date)" tags often covered AI elaboration too. For
   example networking's "not the 210 W brick": the user said "maybe with the
@@ -130,15 +134,18 @@ The user's asks:
       `bun run feedback --local` and `sync` (test data removed afterwards)
 - [x] Review UI removed; `download` and `delete` added and tried locally
 - [x] Tests passing locally (typecheck, unit, Playwright on 3 engines)
-- [ ] Pushed and checked live (needs the user's yes)
+- [x] Pushed `b093320` (user's yes); Workers Builds succeeded 2026-10-23
+      1:10 PM PDT (20:10Z), CI green. Checked live: no cookie → 403 on
+      `/__feedback/me`; a `main` cookie can post but gets 403 listing and
+      deleting; the token lists and deletes (a test comment posted and
+      deleted, store left empty); `/review/` is 404; the power page carries
+      45 marks and the pre-paint script.
 
 ## Open questions for the user
 
-1. OK to push? It deploys the Durable Object (a new Cloudflare resource
-   created by the deploy itself). Recommend yes.
-2. Should Entheos-password guests see the marks and feedback button, or
-   only `main`? Built: everyone let in. Recommend keeping it, since their
-   comments are the point.
+1. ~~OK to push?~~ Yes (2026-10-23).
+2. ~~Entheos guests see the marks and feedback?~~ Yes, as built (the same
+   "yes", 2026-10-23).
 3. H52: does "8 hand" mean eight hand chain hoists, or eight people?
 4. Three-phase: the user's L21-30, or the AI's L14-30 recommendation?
 
