@@ -41,6 +41,8 @@ The user's asks:
   So there is no `/review` page and no list of past feedback in the
   browser, and only the bearer token (the main password) can read the API;
   a `main` cookie can't.
+- 🧑 **Everyone let in sees the marks and the Feedback button**, Entheos
+  pattern-password guests included (user, 2026-10-23: "yes").
 - 🤖 **Default is on**: review marks and feedback show for everyone let in,
   `?review=off` turns them off (sticky in the browser), `?review=on` back on.
   Print never shows them. One constant, `REVIEW_DEFAULT` in
@@ -144,8 +146,8 @@ The user's asks:
 ## Open questions for the user
 
 1. ~~OK to push?~~ Yes (2026-10-23).
-2. ~~Entheos guests see the marks and feedback?~~ Yes, as built (the same
-   "yes", 2026-10-23).
+2. ~~Entheos guests see the marks and feedback?~~ Yes, as built (user,
+   2026-10-23, answered on its own).
 3. H52: does "8 hand" mean eight hand chain hoists, or eight people?
 4. Three-phase: the user's L21-30, or the AI's L14-30 recommendation?
 
