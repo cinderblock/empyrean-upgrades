@@ -114,7 +114,8 @@ wants to raise, and donors can see where their money goes.
   the dataviz palette's light steps (as print used), the house teal/pink/gold
   deepened to ≥5:1 on the page. The demo stays dark in both (additive LEDs on a
   transparent canvas): `.night` is a full-width band that fades in and out of
-  the light page. Gotcha: Vite's minifier (Lightning CSS) polyfills
+  the light page. The user's "preview area" is that demo, not the hero
+  (confirmed 2026-10-23). Gotcha: Vite's minifier (Lightning CSS) polyfills
   `light-dark()` by resolving it where a token is declared, so the tokens are
   declared on `:root, .night`, not inherited, or the band stays light.
 
