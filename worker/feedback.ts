@@ -8,9 +8,9 @@
  * differ only in the `Store` they pass.
  *
  * Who left it comes from the access cookie, never from the request: `main`
- * or a pattern password. `main` sees everyone's feedback; anyone else sees
- * their own. Nobody known, nothing stored. `bun run feedback` reads it all
- * with the main password as a bearer token, and marks it done.
+ * or a pattern password. Nobody known, nothing stored. The browser only
+ * writes: nobody reads feedback on the site. Agents read, resolve and delete
+ * it with `bun run feedback`, the main password as a bearer token.
  */
 
 export const FEEDBACK_PATH = "/__feedback";
@@ -68,13 +68,15 @@ export interface Store {
     id: string,
     patch: { status?: State; reply?: string },
   ): Promise<Feedback | undefined>;
+  /** False when there was no such item. */
+  remove(id: string): Promise<boolean>;
 }
 
 /** Who is asking, as the caller worked it out. */
 export interface Caller {
   /** From the cookie; empty for nobody known. */
   who: string;
-  /** May read everything and resolve: `main`, or the bearer token. */
+  /** May read, resolve and delete: the bearer token only. */
   admin: boolean;
 }
 
@@ -193,14 +195,14 @@ export async function handleFeedback(
   }
 
   if (rest === "me" && request.method === "GET") {
-    return json(200, { who: caller.who, all: caller.admin });
+    return json(200, { who: caller.who });
   }
 
   if (rest === "" && request.method === "GET") {
+    if (!caller.admin) return json(403, { error: "Read with the token." });
     const page = url.searchParams.get("page");
     const all = await store.list();
-    const mine = caller.admin ? all : all.filter((f) => f.who === caller.who);
-    return json(200, page ? mine.filter((f) => f.page === page) : mine);
+    return json(200, page ? all.filter((f) => f.page === page) : all);
   }
 
   if (rest === "" && request.method === "POST") {
@@ -217,7 +219,14 @@ export async function handleFeedback(
     return json(201, feedback);
   }
 
-  // Resolving: `bun run feedback resolve`, with the bearer token.
+  // Resolving and deleting: `bun run feedback`, with the bearer token.
+  if (rest && request.method === "DELETE") {
+    if (!caller.admin) return json(403, { error: "Not yours to delete." });
+    return (await store.remove(decodeURIComponent(rest)))
+      ? new Response(null, { status: 204 })
+      : json(404, { error: "No such item." });
+  }
+
   if (rest && request.method === "POST") {
     if (!caller.admin) return json(403, { error: "Not yours to resolve." });
     let raw: Record<string, unknown>;
@@ -260,6 +269,13 @@ export function arrayStore(
       if (patch.reply !== undefined) f.reply = patch.reply;
       await save(all);
       return f;
+    },
+    async remove(id) {
+      const all = await load();
+      const kept = all.filter((x) => x.id !== id);
+      if (kept.length === all.length) return false;
+      await save(kept);
+      return true;
     },
   };
 }

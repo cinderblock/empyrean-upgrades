@@ -5,8 +5,8 @@
 Every statement from the planning conversations (2026-10-19 to 2026-10-23)
 that shaped these plans. **Anything in the plans or on the site not traced
 to an entry here is an AI draft**: a guess or design choice nobody has
-checked yet. The site marks each block either way; `/review` walks through
-the AI drafts.
+checked yet. The site marks each block either way and takes reviews on
+it; agents read them with `bun run feedback`.
 
 In `plans/`, 🧑 H12 marks a person's statement (this ledger's id) and 🤖
 marks the AI's own call. Times are US Pacific.
@@ -67,7 +67,7 @@ Cameron answered, 2026-10-19 8:55 PM PDT (Empyrean repo chat):
 
 ⚠ AI's reading: The AI set it to 54 V and picked the Mean Well SDR-240-48 for it.
 
-On the site: Weatherproofing: today; Mean Well SDR-240-48 for the switch's 54 V; 54 V supply for the switch and its PoE ports.
+On the site: Mean Well SDR-240-48 for the switch's 54 V; Weatherproofing: today; 54 V supply for the switch and its PoE ports.
 
 ## H08: Unicast sACN by fixed IP and by MAC-keyed auto-discovery, both. (The user had asked whether fixed IPs allow unicast.)
 
@@ -83,7 +83,7 @@ Cameron said, 2026-10-20 12:48 AM PDT (Empyrean repo chat):
 
 ⚠ AI's reading: Powering it from the box's own supply rather than the 210 W adapter was the AI's call; the user left both open.
 
-On the site: Weatherproofing: today; UniFi USW-Ultra; UniFi Industrial DIN 8 PoE; Stretch goal 1: Built for the heat; Ring switch, one per node box; Industrial switches instead of the Ultra (the difference).
+On the site: UniFi USW-Ultra; UniFi Industrial DIN 8 PoE; Weatherproofing: today; Stretch goal 1: Built for the heat; Ring switch, one per node box; Industrial switches instead of the Ultra (the difference).
 
 ## H10: The power category's goal.
 
@@ -91,7 +91,7 @@ Cameron said, 2026-10-21 1:48 PM PDT (Empyrean repo chat):
 
 > power - replace existing non-weatherproof 110VAC power cables/plugs with watertight daisy chained segments permanently installed in each of the 16 truss segments
 
-On the site: Power: today; Power: in V2; V2; Installed once, joined on site.
+On the site: Power: today; Power: in V2; Installed once, joined on site; V2.
 
 ## H11: The networking category's goal.
 
@@ -99,7 +99,7 @@ Cameron said, 2026-10-21 1:48 PM PDT (Empyrean repo chat):
 
 > networking - switch in each node for daisy chaining and enabling expansion ports
 
-On the site: Networking: in V2; Expansion: in V2; V2; Cables stay inside their segment; Four spare PoE+ ports per node.
+On the site: Networking: in V2; Cables stay inside their segment; Four spare PoE+ ports per node; Expansion: in V2; V2.
 
 ## H12: The compute category's goal.
 
@@ -107,7 +107,7 @@ Cameron said, 2026-10-21 1:48 PM PDT (Empyrean repo chat):
 
 > compute - new computer with better gpu
 
-On the site: Compute: in V2; V2; Headroom for the patterns.
+On the site: Compute: in V2; Headroom for the patterns; V2.
 
 ## H13: The weatherproofing category's goal; boxes live inside the truss.
 
@@ -123,7 +123,7 @@ Cameron said, 2026-10-21 1:48 PM PDT (Empyrean repo chat):
 
 > (no sharing power with data)
 
-On the site: Power: in V2; Weatherproofing: in V2; V2; Power box, 12 × 10 × 6 in, hinged polycarbonate; Power boxes apart from data boxes.
+On the site: Power: in V2; Power boxes apart from data boxes; Weatherproofing: in V2; V2; Power box, 12 × 10 × 6 in, hinged polycarbonate.
 
 ## H15: The expansion category's goal.
 
@@ -131,7 +131,7 @@ Cameron said, 2026-10-21 1:48 PM PDT (Empyrean repo chat):
 
 > expansion - future poe upgrades. cameras. streaming audio to speakers.
 
-On the site: Expansion: in V2; Stretch goal 2: Eyes and ears; Networked audio endpoint; Outdoor 4K PoE cameras; Cameras; Sound around the ring.
+On the site: Expansion: in V2; Cameras; Sound around the ring; Stretch goal 2: Eyes and ears; Outdoor 4K PoE cameras; Networked audio endpoint.
 
 ## H16: What the site is for and what it has.
 
@@ -147,7 +147,7 @@ Cameron said, 2026-10-21 4:56 PM PDT (this repo's chat):
 
 ⚠ AI's reading: The AI made "a single loop" an open ring capped at the far end (code reasons), which the user then approved (H20).
 
-On the site: Three-phase twist-lock (L21-30) (≠ the AI differs); 30 A twist-lock connector (L14-30), one per joint; 30 A twist-lock plug (L14-30), one per joint; Power: in V2; Rain-proof, locking joints; RV 50 A (14-50) and SmartPlug.
+On the site: Power: in V2; Rain-proof, locking joints; Three-phase twist-lock (L21-30) (≠ the AI differs); RV 50 A (14-50) and SmartPlug; 30 A twist-lock plug (L14-30), one per joint; 30 A twist-lock connector (L14-30), one per joint.
 
 ## H18: V1 averages 1.5–2 kW. The feed connector follows what rental generators have.
 
@@ -171,7 +171,7 @@ Cameron approved the AI's proposal, 2026-10-21 9:38 PM PDT (this repo's chat):
 
 > Yes
 
-On the site: Power trunk around the ring: 8/4 outdoor cord (ft); 30 A twist-lock connector (L14-30), one per joint; 30 A twist-lock plug (L14-30), one per joint; 8/4 SOOW, not 10/4; 20 A breaker and ground-fault protector in each power box, reset from the ground; Adapter for towable rental generators (50 A twist-lock to L14-30); Cap for the open connector at the far end of the ring; Plugs into any rental generator; Each segment protected on its own.
+On the site: Plugs into any rental generator; Each segment protected on its own; 8/4 SOOW, not 10/4; 30 A twist-lock plug (L14-30), one per joint; 30 A twist-lock connector (L14-30), one per joint; Power trunk around the ring: 8/4 outdoor cord (ft); Cap for the open connector at the far end of the ring; 20 A breaker and ground-fault protector in each power box, reset from the ground; Adapter for towable rental generators (50 A twist-lock to L14-30).
 
 ## H21: No brightness cap in the Empyrean app.
 
@@ -187,7 +187,7 @@ Cameron said, 2026-10-21 9:50 PM PDT (this repo's chat):
 
 ⚠ AI's reading: After the ring grew to 60 ft the AI switched the leading choice to loose plug ends on bulk cord: the 10 ft cords' halves were too short. Cut cords are now only the fallback.
 
-On the site: AC Works L14-30 plug and connector on 8/4 SOOW, under rain covers (≠ the AI differs); 30 A twist-lock connector (L14-30), one per joint (≠ the AI differs); 30 A twist-lock plug (L14-30), one per joint (≠ the AI differs); AC Works 8/4 L14-30 cords, cut in half.
+On the site: AC Works L14-30 plug and connector on 8/4 SOOW, under rain covers (≠ the AI differs); AC Works 8/4 L14-30 cords, cut in half; 30 A twist-lock plug (L14-30), one per joint (≠ the AI differs); 30 A twist-lock connector (L14-30), one per joint (≠ the AI differs).
 
 ## H23: Local outlets in every segment's power box.
 
@@ -203,7 +203,7 @@ Cameron said, 2026-10-21 10:48 PM PDT (this repo's chat):
 
 > rain proof is enough for us. we're not going underwater
 
-On the site: Power: in V2; Rain cover over each mated joint; Rain-proof, locking joints.
+On the site: Power: in V2; Rain-proof, locking joints; Rain cover over each mated joint.
 
 ## H25: Four local outlets per power box.
 
@@ -277,7 +277,7 @@ Cameron said, 2026-10-21 11:30 PM PDT (this repo's chat):
 
 ⚠ AI's reading: The AI's leading option (stock sleeve blocks added to the ring, V1 arcs kept) is a third variant, not either of the two the user named.
 
-On the site: Stock sleeve blocks in the ring, V1 arcs kept (≠ the AI differs); Rigging: in V2; Big project: A ring that raises itself; Climbs its own legs; Custom arcs with a built-in pass-through, keeping exactly 60 ft; A shelf hanging off each vertical, ring unchanged.
+On the site: Rigging: in V2; Climbs its own legs; Stock sleeve blocks in the ring, V1 arcs kept (≠ the AI differs); Custom arcs with a built-in pass-through, keeping exactly 60 ft; A shelf hanging off each vertical, ring unchanged; Big project: A ring that raises itself.
 
 ## H35: Solar is a stretch goal; speakers maybe.
 
@@ -285,7 +285,7 @@ Cameron said, 2026-10-21 11:30 PM PDT (this repo's chat):
 
 > another stretch goal is a full solar power system, possibly with enough power to run the speakers
 
-On the site: Solar: in V2; Big project: Run on sunlight; Speakers, maybe.
+On the site: Solar: in V2; Speakers, maybe; Big project: Run on sunlight.
 
 ## H36: The transport category.
 
@@ -303,7 +303,7 @@ Cameron said, 2026-10-21 11:59 PM PDT (this repo's chat):
 
 ⚠ AI's reading: The AI ruled out the USB-C dock the user described (no video on the show computer's USB-C) and uses one Cat6a run instead. "Flying" was read as motorised faders.
 
-On the site: A USB-C dock on a long USB-C cable (≠ the AI differs); VJ console: a touch panel, an X-Touch Compact, one cable; Stretch goal 3: VJ console; A VJ console (a stretch goal); VJ console, full: 21.5 inch panel, faders, knobs and pads, fiber.
+On the site: A VJ console (a stretch goal); VJ console: a touch panel, an X-Touch Compact, one cable; VJ console, full: 21.5 inch panel, faders, knobs and pads, fiber; A USB-C dock on a long USB-C cable (≠ the AI differs); Stretch goal 3: VJ console.
 
 ## H38: The container lives in Oakland between events; storage is likely free.
 
@@ -349,7 +349,7 @@ Cameron answered, 2026-10-22 12:34 AM PDT (this repo's chat):
 
 ⚠ AI's reading: Rolling each sail onto its own tube on a wall rack is the AI's design of that rack.
 
-On the site: Transport: today; Transport: in V2; Sail rolls and rack: each sail stored with its LEDs left in; Sails ride with their LEDs in.
+On the site: Transport: today; Transport: in V2; Sails ride with their LEDs in; Sail rolls and rack: each sail stored with its LEDs left in.
 
 ## H44: The crew may already own a container.
 
@@ -365,7 +365,7 @@ Cameron answered, 2026-10-22 12:46 AM PDT (this repo's chat):
 
 > one sail per node box. so 16… you should be able to compute the cord length from the outer diameter.
 
-On the site: Sail rolls and rack: each sail stored with its LEDs left in; Sails ride with their LEDs in.
+On the site: Sails ride with their LEDs in; Sail rolls and rack: each sail stored with its LEDs left in.
 
 ## H46: The Gate has 8 legs (the 2022 drawing showed 6).
 
@@ -387,7 +387,7 @@ Cameron said, 2026-10-22 1:03 AM PDT (this repo's chat):
 
 ⚠ AI's reading: The breaker (Ericson 1075-AR) and mounting it through the box floor are the AI's.
 
-On the site: Insulated reset pole, for the ground-fault protectors overhead; Each segment protected on its own.
+On the site: Each segment protected on its own; Insulated reset pole, for the ground-fault protectors overhead.
 
 ## H49: Nothing goes on top of the ring.
 
@@ -401,7 +401,7 @@ Cameron answered, 2026-10-22 1:03 AM PDT (this repo's chat):
 
 > 30A 3 phase should be enough. but let's price out 50A and 100A just in case…
 
-On the site: Three-phase twist-lock (L21-30) (≠ the AI differs); Power trunk around the ring: 8/4 outdoor cord (ft) (≠ the AI differs); A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord; A 100 A feed.
+On the site: A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord; Three-phase twist-lock (L21-30) (≠ the AI differs); A 100 A feed; Power trunk around the ring: 8/4 outdoor cord (ft) (≠ the AI differs).
 
 ## H51: Sun shields: something simple on the truss above the boxes.
 
@@ -411,7 +411,7 @@ Cameron answered, 2026-10-22 1:03 AM PDT (this repo's chat):
 
 ⚠ AI's reading: One per segment over both boxes, white aluminium sheet, $50–150 each: the AI's.
 
-On the site: Sun shields: a simple white sheet on the truss above each segment's boxes; In the shade.
+On the site: In the shade; Sun shields: a simple white sheet on the truss above each segment's boxes.
 
 ## H52: V1 is raised by a crane at Burning Man; rented gear elsewhere.
 
@@ -437,7 +437,7 @@ Cameron answered, 2026-10-22 1:03 AM PDT (this repo's chat):
 
 > 40'… fair…
 
-On the site: Transport: in V2; The crew's own 40 ft container; Container: fix up the crew's own 40 ft, kept in Oakland; One box for the whole Gate.
+On the site: Transport: in V2; One box for the whole Gate; The crew's own 40 ft container; Container: fix up the crew's own 40 ft, kept in Oakland.
 
 ## H55: Maybe the show computer goes up in the rig; the console then needs a long link.
 

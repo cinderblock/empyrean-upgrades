@@ -1,5 +1,4 @@
 import { useState, type ReactNode } from "react";
-import { Link } from "react-router";
 import { HUMAN, type HumanId, type Said as Entry } from "../content/human";
 import {
   REVIEW_BY_ID,
@@ -59,7 +58,7 @@ export function Said({ ids }: { ids: readonly HumanId[] }) {
   );
 }
 
-/** The detail behind a mark, shared by the badge and the /review card. */
+/** The detail behind a mark: who said what, any conflict, any review. */
 export function Provenance({ rid }: { rid: string }) {
   const { statusOf, reviews } = useReview();
   const item = REVIEW_BY_ID.get(rid);
@@ -180,11 +179,6 @@ export function Mark({ rid }: { rid: string }) {
     >
       <Provenance rid={rid} />
       <ReviewActions rid={rid} />
-      <span className="tip-line">
-        <Link to={`/review/?item=${encodeURIComponent(rid)}`}>
-          Open in the walk-through
-        </Link>
-      </span>
     </Tip>
   );
 }
@@ -192,8 +186,7 @@ export function Mark({ rid }: { rid: string }) {
 type Tag = "div" | "li" | "p" | "tr" | "section";
 
 /**
- * A block a reviewer can check: it carries its id for the walk-through and
- * the feedback picker, and its status for the review-mode highlight.
+ * A block a reviewer can check: it carries its id for the feedback picker, and its status for the review-mode highlight.
  */
 export function Reviewable({
   rid,

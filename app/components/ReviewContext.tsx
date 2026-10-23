@@ -39,8 +39,11 @@ interface ReviewState {
   on: boolean;
   setOn(on: boolean): void;
   /** Who the API says we are, or null when feedback isn't open to us here. */
-  me: { who: string; all: boolean } | null;
-  /** Everything we may see, newest last. */
+  me: { who: string } | null;
+  /**
+   * What this visitor has sent since the page loaded. The site never reads
+   * feedback back: agents do, with `bun run feedback`.
+   */
   feedback: Feedback[];
   /** Committed reviews with any newer live ones on top. */
   reviews: Record<string, Review>;
@@ -112,11 +115,6 @@ export function ReviewProvider({ children }: { children: ReactNode }) {
     setOnState(next);
   }, []);
 
-  const refresh = useCallback(async () => {
-    const res = await fetch(API, { credentials: "same-origin" });
-    if (res.ok) setFeedback((await res.json()) as Feedback[]);
-  }, []);
-
   useEffect(() => {
     if (!on) return;
     let live = true;
@@ -125,7 +123,6 @@ export function ReviewProvider({ children }: { children: ReactNode }) {
         const res = await fetch(`${API}/me`, { credentials: "same-origin" });
         if (!res.ok || !live) return;
         setMe(await res.json());
-        await refresh();
       } catch {
         // No API here (a static preview): the marks still work.
       }
@@ -133,7 +130,7 @@ export function ReviewProvider({ children }: { children: ReactNode }) {
     return () => {
       live = false;
     };
-  }, [on, refresh]);
+  }, [on]);
 
   const reviews = useMemo(() => {
     const live = liveReviews(feedback);

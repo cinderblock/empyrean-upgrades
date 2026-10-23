@@ -1,10 +1,13 @@
 /**
- * Read and act on feedback left on the site (worker/feedback.ts).
+ * Read and act on feedback left on the site (worker/feedback.ts). The site
+ * only collects it; reading, resolving and deleting happen here, by agents.
  *
  *   bun run feedback                  open feedback, by page
  *   bun run feedback --all            done and won't-fix too
  *   bun run feedback --json           as JSON, for a script or an agent
+ *   bun run feedback download [file]  everything, as JSON (.feedback/live.json)
  *   bun run feedback resolve <id> [reply] [--wontfix]
+ *   bun run feedback delete <id> [<id>...]
  *   bun run feedback sync             reviews -> app/content/reviews.json
  *
  * Add `--local` to use what `bun run dev` stored (.feedback/dev.jsonl)
@@ -17,7 +20,8 @@
  * reviews.json change: that is what makes a review show on the built site.
  */
 
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname } from "node:path";
 import { REVIEW_BY_ID, pacific, type Review } from "../app/content/review";
 import type { Feedback, State } from "../worker/feedback";
 import { LOCAL_FILE, fileStore } from "./feedback-file";
@@ -45,6 +49,8 @@ interface Source {
     status: State,
     reply?: string,
   ): Promise<Feedback | undefined>;
+  /** False when there was no such item. */
+  remove(id: string): Promise<boolean>;
 }
 
 function remote(): Source {
@@ -55,22 +61,24 @@ function remote(): Source {
     );
     process.exit(1);
   }
-  const call = async (path: string, body?: unknown) => {
+  const call = async (path: string, body?: unknown, method?: string) => {
     const res = await fetch(`${SITE}/__feedback${path}`, {
-      method: body === undefined ? "GET" : "POST",
+      method: method ?? (body === undefined ? "GET" : "POST"),
       headers: {
         authorization: `Bearer ${password}`,
         ...(body === undefined ? {} : { "content-type": "application/json" }),
       },
       body: body === undefined ? undefined : JSON.stringify(body),
     });
+    if (res.status === 404 && method === "DELETE") return false;
     if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
-    return res.json();
+    return res.status === 204 ? true : res.json();
   };
   return {
     list: () => call(""),
     update: (id, status, reply) =>
       call(`/${encodeURIComponent(id)}`, { status, reply }),
+    remove: (id) => call(`/${encodeURIComponent(id)}`, undefined, "DELETE"),
   };
 }
 
@@ -79,6 +87,7 @@ function fromFile(): Source {
   return {
     list: () => store.list(),
     update: (id, status, reply) => store.update(id, { status, reply }),
+    remove: (id) => store.remove(id),
   };
 }
 
@@ -189,10 +198,47 @@ async function sync() {
   );
 }
 
-const commands: Record<string, () => Promise<void>> = { list, resolve, sync };
+async function download() {
+  const file = rest[0] ?? ".feedback/live.json";
+  const items = await source.list();
+  await mkdir(dirname(file), { recursive: true });
+  await writeFile(
+    file,
+    `${JSON.stringify(items, null, 2)}
+`,
+    "utf8",
+  );
+  console.log(`Wrote ${items.length} items to ${file}.`);
+}
+
+async function remove() {
+  if (rest.length === 0) {
+    console.error("Usage: bun run feedback delete <id> [<id>...]");
+    process.exit(1);
+  }
+  let missing = 0;
+  for (const id of rest) {
+    if (await source.remove(id)) console.log(`Deleted ${id}.`);
+    else {
+      console.error(`No feedback ${id}.`);
+      missing++;
+    }
+  }
+  if (missing) process.exit(1);
+}
+
+const commands: Record<string, () => Promise<void>> = {
+  list,
+  download,
+  resolve,
+  delete: remove,
+  sync,
+};
 const run = commands[command];
 if (!run) {
-  console.error(`Unknown command ${command}. Try list, resolve or sync.`);
+  console.error(
+    `Unknown command ${command}. Try list, download, resolve, delete or sync.`,
+  );
   process.exit(1);
 }
 await run();

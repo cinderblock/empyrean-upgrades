@@ -2,8 +2,9 @@
  * Everything on the site a human should check, in one list: each category's
  * today and V2 statements, its points, options and unknowns, every tier and
  * every line item. The site marks each by who drove it (human.ts) and whether
- * anyone has reviewed it; `/review` walks through them, conflicts and the
- * biggest AI decisions first.
+ * anyone has reviewed it. Reviews are left on the site (a mark's buttons, the
+ * feedback form) and read by agents with `bun run feedback`; there is no
+ * review page.
  *
  * A review is kept against a hash of the text it saw (reviews.json, written by
  * `bun run feedback sync`), so editing an item after it was reviewed shows it
@@ -14,7 +15,6 @@ import {
   EXTRAS,
   ITEMS,
   TIERS,
-  itemRange,
   moneyRange,
   moneyUnit,
   tierLabel,
@@ -42,16 +42,6 @@ export type ItemKind =
   | "tier"
   | "line";
 
-export const KIND_LABEL: Record<ItemKind, string> = {
-  today: "Today",
-  v2: "In V2",
-  point: "How",
-  option: "Part choice",
-  unknown: "Still to find out",
-  tier: "Goal",
-  line: "Line item",
-};
-
 export interface ReviewItem {
   /** Stable while the item's title is: `power.option.ac-works-l14-30-plug`. */
   id: string;
@@ -65,8 +55,6 @@ export interface ReviewItem {
   credit?: Credit;
   conflict?: Conflict;
   origin: Origin;
-  /** Walk-through order: lower first. */
-  rank: number;
   hash: string;
 }
 
@@ -161,14 +149,10 @@ export function slug(text: string): string {
     .join("-");
 }
 
-function make(
-  item: Omit<ReviewItem, "origin" | "hash" | "rank"> & { rank: number },
-): ReviewItem {
+function make(item: Omit<ReviewItem, "origin" | "hash">): ReviewItem {
   return {
     ...item,
     origin: originOf(item.credit),
-    // Conflicts first, whatever their kind.
-    rank: item.conflict ? -1 : item.rank,
     hash: hashText(item.text),
   };
 }
@@ -201,7 +185,6 @@ function build(): ReviewItem[] {
         title: `${c.name}: today`,
         text: c.today,
         credit: c.todayBy,
-        rank: 1,
       }),
       make({
         ...base,
@@ -211,7 +194,6 @@ function build(): ReviewItem[] {
         title: `${c.name}: in V2`,
         text: `${c.headline}. ${c.v2}`,
         credit: c.v2By,
-        rank: 1,
       }),
     );
     for (const p of c.points) {
@@ -225,7 +207,6 @@ function build(): ReviewItem[] {
           title: p.title,
           text: `${p.title}. ${p.body}`,
           credit: p.by,
-          rank: 4,
         }),
       );
     }
@@ -241,8 +222,6 @@ function build(): ReviewItem[] {
           text: `${VERDICT_LABEL[o.verdict]}: ${o.name}. ${o.price ? `${o.price}. ` : ""}${o.why}`,
           credit: o.by,
           conflict: o.conflict,
-          // The leading choices are the decisions; the rest is background.
-          rank: o.verdict === "leading" || o.verdict === "stretch" ? 2 : 5,
         }),
       );
     }
@@ -256,7 +235,6 @@ function build(): ReviewItem[] {
           href: href(`r-${id}`),
           title: u.length > 80 ? `${u.slice(0, 77)}…` : u,
           text: u,
-          rank: 6,
         }),
       );
     }
@@ -272,15 +250,10 @@ function build(): ReviewItem[] {
         title: tierLabel(t),
         text: `${t.name}. ${t.promise}`,
         credit: t.by,
-        rank: 2,
       }),
     );
   }
-  // Line items, the most expensive first within their rank.
-  const lines = [...ITEMS, ...EXTRAS].sort(
-    (a, b) => itemRange(b)[1] - itemRange(a)[1],
-  );
-  lines.forEach((i, n) => {
+  for (const i of [...ITEMS, ...EXTRAS]) {
     out.push(
       make({
         id: `line.${i.id}`,
@@ -291,12 +264,10 @@ function build(): ReviewItem[] {
         text: lineText(i),
         credit: i.by,
         conflict: i.conflict,
-        // The top dozen by price rank with the decisions.
-        rank: n < 12 ? 2.5 : 3,
       }),
     );
-  });
-  return out.sort((a, b) => a.rank - b.rank);
+  }
+  return out;
 }
 
 export const REVIEW_ITEMS: ReviewItem[] = build();

@@ -74,6 +74,14 @@ export class FeedbackStore {
       );
       return Response.json(f);
     }
+    if (op === "/remove") {
+      const had = this.sql
+        .exec("SELECT id FROM feedback WHERE id = ?", body.id)
+        .toArray();
+      if (!had.length) return new Response(null, { status: 404 });
+      this.sql.exec("DELETE FROM feedback WHERE id = ?", body.id);
+      return new Response(null, { status: 204 });
+    }
     return new Response(null, { status: 404 });
   }
 }
@@ -98,6 +106,9 @@ export function durableStore(ns: DurableObjectNamespace): Store {
     async update(id, patch) {
       const res = await call("/update", { id, ...patch });
       return res.ok ? ((await res.json()) as Feedback) : undefined;
+    },
+    async remove(id) {
+      return (await call("/remove", { id })).ok;
     },
   };
 }

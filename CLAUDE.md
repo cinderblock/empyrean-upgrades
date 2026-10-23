@@ -14,9 +14,10 @@ not code (yet). Read `README.md`, then the plan for the category you are working
   said or approved, not what is merely consistent with it; when your call
   goes against what the user said, record a `conflict` and a ⚠ in the plan.
   See `plans/review-system.md`.
-- **Feedback from the site** is read with `bun run feedback` (`--local` for
-  the dev server). Act on it, then resolve it; `bun run feedback sync` turns
-  review verdicts into `app/content/reviews.json`.
+- **Feedback from the site** is yours to handle: the site has no review UI.
+  Read it with `bun run feedback` (`--json`, `download`; `--local` for the dev
+  server), act on it, then `resolve` or `delete` it. `bun run feedback sync`
+  turns review verdicts into `app/content/reviews.json`; commit that.
 
 - **Separate facts from guesses.** In `docs/v1-hardware.md` every fact carries a
   confidence (Confirmed / Reported / Assumed / Unknown) and a source. Keep that up:

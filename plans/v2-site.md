@@ -44,7 +44,8 @@ wants to raise, and donors can see where their money goes.
   mark/highlight AI guesses vs human reviewed/driven plans", a walk-through to
   get things reviewed, and feedback on "sections, selections, text, images,
   everything", maybe switched off by a URL flag). Built as
-  `plans/review-system.md` describes; `?review=off` turns it off.
+  `plans/review-system.md` describes; `?review=off` turns it off. **No review
+  UI** (user, 2026-10-23): agents download, resolve and delete reviews.
 - **The draft banner is off** (user, 2026-10-22).
 - **Ring size fixed in the Empyrean repo too** (user, 2026-10-22: "use the
   real drawing's dimensions"): TomSawyerLabs/empyrean-gate PR #6, open, not

@@ -2,7 +2,7 @@
  * Everything a human has said that shaped these plans, from the chat
  * transcripts (2026-10-19 to 2026-10-23), one entry per thing said. The rest
  * of the plans is AI-drafted: content that isn't credited to one of these
- * ids is an AI guess or design choice until someone reviews it (`/review`).
+ * ids is an AI guess or design choice until someone reviews it.
  *
  * Quotes are short and trimmed (… for a cut), never a password or anything
  * private: the repo is public. Times are US Pacific. `docs/human-input.md` is

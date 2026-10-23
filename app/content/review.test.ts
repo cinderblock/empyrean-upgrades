@@ -17,12 +17,6 @@ describe("the review list", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  test("conflicts come first", () => {
-    const first = REVIEW_ITEMS.findIndex((i) => !i.conflict);
-    expect(REVIEW_ITEMS.slice(first).some((i) => i.conflict)).toBe(false);
-    expect(first).toBeGreaterThan(0);
-  });
-
   test("every committed review names an item that exists", () => {
     for (const rid of Object.keys(COMMITTED)) {
       expect(REVIEW_BY_ID.has(rid)).toBe(true);

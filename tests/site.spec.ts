@@ -2,12 +2,7 @@ import { expect, test } from "@playwright/test";
 import { ITEMS, money, tierTotals } from "../app/content/budget";
 import { CATEGORY_LIST } from "../app/content/categories";
 
-const PAGES = [
-  "/",
-  "/budget/",
-  "/review/",
-  ...CATEGORY_LIST.map((c) => `/plans/${c.id}/`),
-];
+const PAGES = ["/", "/budget/", ...CATEGORY_LIST.map((c) => `/plans/${c.id}/`)];
 
 test.describe("every page", () => {
   for (const path of PAGES) {
@@ -251,8 +246,6 @@ test.describe("feedback", () => {
     await form.locator("textarea").fill(body);
     await form.getByRole("button", { name: "Send" }).click();
     await expect(page.locator(".fb-notice")).toContainText("Sent");
-    await page.locator(".fb-button").click();
-    await expect(page.locator(".fb-list")).toContainText(body);
   });
 
   test("select text and comment on it", async ({ page }) => {
@@ -264,15 +257,12 @@ test.describe("feedback", () => {
   });
 });
 
-test("the walk-through records a verdict and moves on", async ({ page }) => {
-  await page.goto("/review/");
-  const walk = page.locator(".walk");
-  await expect(walk.getByRole("button", { name: /Looks right/ })).toBeVisible();
-  const title = (await walk.locator("h3").textContent())!;
-  await walk.getByRole("button", { name: /Looks right/ }).click();
-  await expect(walk.locator("h3")).not.toHaveText(title);
-  const row = page.locator(".review-list tr", {
-    has: page.getByRole("link", { name: title, exact: true }),
-  });
-  await expect(row.locator(".rmark-chip")).toContainText("Reviewed");
+test("a mark's Looks right records a review, shown at once", async ({
+  page,
+}) => {
+  await page.goto("/plans/compute/");
+  const item = page.locator('[data-rid="compute.v2"]');
+  await item.locator(".rmark .tip-trigger").click();
+  await item.getByRole("button", { name: "Looks right" }).click();
+  await expect(item).toHaveAttribute("data-status", "reviewed");
 });

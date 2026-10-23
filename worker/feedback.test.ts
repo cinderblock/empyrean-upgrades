@@ -82,42 +82,51 @@ describe("feedback", () => {
     expect(f.target?.quote?.exact).toBe("twist-lock");
   });
 
-  test("main sees everyone's; a guest sees their own", async () => {
+  test("nobody reads it in the browser, not even main", async () => {
     const store = memoryStore();
     await call(
       store,
       req("", { cookie: await guest("Guest07"), body: comment() }),
     );
+    for (const cookie of [await main(), await guest("Guest07")]) {
+      expect((await call(store, req("", { cookie }))).status).toBe(403);
+    }
+  });
+
+  test("the token reads everything, or one page", async () => {
+    const store = memoryStore();
     await call(
       store,
-      req("", { cookie: await guest("Guest42"), body: comment() }),
+      req("", { cookie: await guest("Guest07"), body: comment() }),
     );
     await call(store, req("", { cookie: await main(), body: comment("/") }));
-
-    const all = await (
-      await call(store, req("", { cookie: await main() }))
-    ).json();
-    expect(all).toHaveLength(3);
-    const mine = await (
-      await call(store, req("", { cookie: await guest("Guest07") }))
-    ).json();
-    expect(mine.map((f: { who: string }) => f.who)).toEqual(["Guest07"]);
+    const all = await (await call(store, req("", { auth: PASSWORD }))).json();
+    expect(all.map((f: { who: string }) => f.who)).toEqual(["Guest07", "main"]);
     const page = await (
-      await call(store, req("?page=%2F", { cookie: await main() }))
+      await call(store, req("?page=%2F", { auth: PASSWORD }))
     ).json();
     expect(page).toHaveLength(1);
   });
 
-  test("says who you are, and whether you see everything", async () => {
+  test("says who you are", async () => {
     const store = memoryStore();
     const me = await (
       await call(store, req("/me", { cookie: await guest("Guest07") }))
     ).json();
-    expect(me).toEqual({ who: "Guest07", all: false });
-    const boss = await (
-      await call(store, req("/me", { cookie: await main() }))
-    ).json();
-    expect(boss).toEqual({ who: "main", all: true });
+    expect(me).toEqual({ who: "Guest07" });
+  });
+
+  test("the token deletes; a cookie can't", async () => {
+    const store = memoryStore();
+    await call(store, req("", { cookie: await main(), body: comment() }));
+    const [f] = await store.list();
+    const del = (init: { cookie?: string; auth?: string }) =>
+      call(store, req(`/${f.id}`, { ...init, method: "DELETE" }));
+    expect((await del({ cookie: await main() })).status).toBe(403);
+    expect(await store.list()).toHaveLength(1);
+    expect((await del({ auth: PASSWORD })).status).toBe(204);
+    expect(await store.list()).toEqual([]);
+    expect((await del({ auth: PASSWORD })).status).toBe(404);
   });
 
   test("refuses a cross-site post", async () => {

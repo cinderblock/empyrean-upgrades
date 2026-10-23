@@ -366,9 +366,10 @@ async function view(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * Feedback (worker/feedback.ts): open to anyone let in, by their cookie,
- * whether or not the lock is on. `bun run feedback` reads it all with the main
- * password as a bearer token; a wrong token counts as a password try.
+ * Feedback (worker/feedback.ts): anyone let in may leave it, by their cookie,
+ * whether or not the lock is on. Only the bearer token (the main password,
+ * from `bun run feedback`) reads, resolves or deletes it; a wrong token counts
+ * as a password try.
  */
 async function feedback(
   request: Request,
@@ -385,7 +386,7 @@ async function feedback(
   const bearer = request.headers
     .get("authorization")
     ?.match(/^Bearer\s+(.+)$/)?.[1];
-  let admin = who === MAIN;
+  let admin = false;
   if (bearer) {
     if (!(await mayTry(request, env))) {
       return withHeaders(Response.json({ error: TOO_MANY }, { status: 429 }));

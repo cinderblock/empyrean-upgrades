@@ -8,7 +8,6 @@ export default {
   prerender: [
     "/",
     "/budget",
-    "/review",
     ...CATEGORY_IDS.map((id) => `/plans/${id}`),
     "/404",
   ],

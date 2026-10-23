@@ -41,10 +41,6 @@ export default function Shell({ children }: { children: ReactNode }) {
             Overview
           </NavLink>
           <NavLink to="/budget">Budget</NavLink>
-          {/* Review mode only (data-review on the root, see root.tsx). */}
-          <NavLink to="/review" className="review-only">
-            Review
-          </NavLink>
           <details className="nav-plans">
             <summary>Plans</summary>
             <ul>

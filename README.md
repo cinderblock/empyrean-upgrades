@@ -36,8 +36,8 @@ plans and the budget to the people we're asking to fund them.
   that shaped the plans**, with ids (H01…). Anything not traced to it is an AI
   draft. Generated from `app/content/human.ts` by `bun run ledger`.
 - [plans/v2-site.md](plans/v2-site.md): the working plan for the site itself.
-- [plans/review-system.md](plans/review-system.md): who wrote what, and the
-  review and feedback system.
+- [plans/review-system.md](plans/review-system.md): who wrote what, and how
+  reviews and feedback are collected.
 
 ## The site
 
@@ -74,9 +74,6 @@ bun run dev
   are of the price (tap the label for the source).
 - `/plans/<category>`: today vs V2, how, a diagram, the parts, and what we still
   need to find out.
-- `/review`: who wrote what, a walk-through of everything still needing a
-  person's check (conflicts with what was said first, then the biggest AI
-  decisions), and the ledger of what people said.
 
 **Printing.** Ctrl+P on the overview prints a one-page handout (Letter) instead
 of the page: the ask, the donut, the tiers, a table of the upgrades, and a QR
@@ -109,7 +106,7 @@ every tier and line item) carries a mark: **Human** (a ledger entry backs it),
 a doc**, **AI draft**, or, once checked, **Reviewed** / **Flagged** / **Not
 sure** / **Changed** (edited since its review). **≠** marks where the AI's call
 goes against what a person said. Tap a mark for the quotes and the review
-buttons.
+buttons (Looks right, Not sure, Wrong…, Comment…).
 
 - **Credits** live with the content: `by`, `todayBy`, `v2By` and `conflict`
   in `app/content/categories.ts` and `budget.ts`, naming ids in
@@ -117,8 +114,11 @@ buttons.
   reviewable items is `app/content/review.ts`.
 - **Feedback**: the button at the bottom right. Point at anything (a section,
   an item, a spot on a diagram), select text and comment on it, or comment on
-  the page. Who left it comes from the access cookie (`main` sees everyone's;
-  a pattern password sees its own), plus an optional name.
+  the page. Who left it comes from the access cookie (`main` or the pattern
+  password), plus an optional name.
+- **No review UI.** The site only collects reviews and feedback; nobody reads
+  them in the browser, not even with the main password. Agents download,
+  resolve and delete them with `bun run feedback` and the bearer token.
 - **On and off**: on by default (`REVIEW_DEFAULT` in `review.ts`).
   `?review=off` on any page hides the marks and the button and the browser
   remembers it; `?review=on` brings them back. They never print.
@@ -126,19 +126,21 @@ buttons.
   `worker/feedback-store.ts`), created by the deploy. `bun run dev` keeps
   feedback in `.feedback/dev.jsonl`; the preview server, in memory.
 
-Reading it and closing the loop:
+Reading it and closing the loop (agents):
 
 ```sh
-SITE_PASSWORD=... bun run feedback          # open feedback, by page
-bun run feedback --local                    # what bun run dev stored
+SITE_PASSWORD=... bun run feedback          # open feedback, by page (--json for JSON)
+bun run feedback download                   # everything, to .feedback/live.json
 bun run feedback resolve <id> "Fixed in 1a2b3c4"
+bun run feedback delete <id> [<id>...]
 bun run feedback sync                       # review verdicts -> app/content/reviews.json
+bun run feedback --local                    # any of these, on what bun run dev stored
 ```
 
 `sync` writes the newest verdict per item into `app/content/reviews.json`,
 with a hash of the text reviewed, and marks those records done ("wrong"
 stays open until fixed). Commit it: that is what shows a review on the built
-site. Live reviews show at once for whoever made them.
+site. A review shows at once for whoever made it, until they reload.
 
 ### The lock
 
@@ -240,7 +242,8 @@ Bun is older. Every push to master publishes.
 Seeded 2026-10-21. The plans have designs and prices, but **most of it is AI
 drafted** from a few days of conversation: of 203 reviewable items on the
 site, 19 are fully a person's and 57 more follow a person's direction with AI
-details (2026-10-23). `/review` is the way through the rest. Networking is
+details (2026-10-23). The marks on the site, and the reviews left on them,
+are the way through the rest. Networking is
 furthest along, because it was worked through in the Empyrean repo first
 (`plans/gate-network.md` there).
 

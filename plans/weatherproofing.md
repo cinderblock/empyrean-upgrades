@@ -3,7 +3,7 @@
 > **Who wrote this.** Most of this plan is an AI draft. 🧑 with a ledger id
 > (H12) marks what a person said or approved (`docs/human-input.md`); 🤖 marks
 > the AI's own call; anything unmarked is the AI's too. The site marks the
-> same content block by block; `/review` walks through it.
+> same content block by block, and takes reviews and feedback on it.
 
 ## Goal
 

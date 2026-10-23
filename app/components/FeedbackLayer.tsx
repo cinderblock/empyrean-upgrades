@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router";
-import { REVIEW_BY_ID, pacific } from "../content/review";
+import { useLocation } from "react-router";
+import { REVIEW_BY_ID } from "../content/review";
 import type { Kind, Target } from "../../worker/feedback";
 import { useReview } from "./ReviewContext";
 
@@ -135,7 +135,7 @@ function describe(target: Target | undefined): string {
 }
 
 export default function FeedbackLayer() {
-  const { on, setOn, me, feedback, send } = useReview();
+  const { on, setOn, me, send } = useReview();
   const { pathname } = useLocation();
   const [panel, setPanel] = useState(false);
   const [picking, setPicking] = useState(false);
@@ -264,12 +264,6 @@ export default function FeedbackLayer() {
   }, [pathname]);
 
   if (!on) return null;
-
-  const here = feedback.filter(
-    (f) =>
-      f.page === pathname && (f.kind !== "review" || f.verdict === "wrong"),
-  );
-  const open = here.filter((f) => f.status === "open").length;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -431,38 +425,6 @@ export default function FeedbackLayer() {
               The review marks still show.
             </p>
           )}
-          <p>
-            <Link to="/review/">Walk through what needs review</Link>
-          </p>
-          {here.length > 0 && (
-            <>
-              <h2 className="label">On this page ({here.length})</h2>
-              <ul className="fb-list">
-                {[...here].reverse().map((f) => (
-                  <li key={f.id} data-state={f.status}>
-                    <button
-                      type="button"
-                      className="fb-link"
-                      onClick={() => show(f.target)}
-                    >
-                      {describe(f.target)}
-                    </button>
-                    <span className="fb-meta">
-                      {f.kind === "review"
-                        ? "Flagged wrong"
-                        : KIND_LABEL[f.kind as keyof typeof KIND_LABEL]}{" "}
-                      · {f.name ?? f.who} · {pacific(f.at)}
-                      {f.status !== "open" && ` · ${f.status}`}
-                    </span>
-                    <span className="fb-body">{f.body}</span>
-                    {f.reply && (
-                      <span className="fb-reply">Reply: {f.reply}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
           <p className="fine">
             <button
               type="button"
@@ -488,7 +450,7 @@ export default function FeedbackLayer() {
           setPanel((p) => !p);
         }}
       >
-        Feedback{open > 0 && <span className="fb-count">{open}</span>}
+        Feedback
       </button>
     </div>
   );
