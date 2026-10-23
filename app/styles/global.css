@@ -1741,6 +1741,567 @@ p {
   margin-top: 0.45rem;
 }
 
+/* --- Review marks and feedback ------------------------------------------
+ * Who drove each block (app/content/human.ts) and whether anyone has checked
+ * it (app/content/review.ts). Only in review mode: REVIEW_SCRIPT in root.tsx
+ * sets data-review on the root before first paint, so nothing flashes for
+ * someone who turned it off. Never printed. The status is always a word in
+ * the badge; colour and the rule's line style (solid for a person, dashed for
+ * the AI, dotted for a document) only repeat it. */
+
+:root,
+.night {
+  --st-human: light-dark(#1d7a3a, #5fd38a);
+  --st-mixed: light-dark(#3f7d20, #a6d86a);
+  --st-reviewed: light-dark(#1c5cab, #6da7ec);
+  --st-ai: light-dark(#a35d00, #ffb347);
+  --st-doc: light-dark(#5b5a70, #a9a6bd);
+  --st-flagged: light-dark(#b42318, #ff8a80);
+  --st-unsure: light-dark(#6b3fa0, #c4a5f5);
+  --st-changed: light-dark(#b54708, #fdb022);
+  --st-conflict: light-dark(#b42318, #ff8a80);
+}
+
+.rmark-human {
+  --st: var(--st-human);
+}
+.rmark-mixed {
+  --st: var(--st-mixed);
+}
+.rmark-reviewed {
+  --st: var(--st-reviewed);
+}
+.rmark-ai {
+  --st: var(--st-ai);
+}
+.rmark-doc {
+  --st: var(--st-doc);
+}
+.rmark-flagged {
+  --st: var(--st-flagged);
+}
+.rmark-unsure {
+  --st: var(--st-unsure);
+}
+.rmark-changed {
+  --st: var(--st-changed);
+}
+.rmark-conflict {
+  --st: var(--st-conflict);
+}
+
+html:not([data-review="on"]) .rmark,
+html:not([data-review="on"]) .fb-root,
+html:not([data-review="on"]) .review-only {
+  display: none !important;
+}
+
+.rmark {
+  vertical-align: 0.1em;
+  margin-left: 0.25rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.rmark .tip-trigger {
+  font-size: 0.68rem;
+  line-height: 1.5;
+  padding: 0 0.4rem;
+  border: 1px solid var(--st);
+  border-radius: 999px;
+  color: var(--st);
+  background: color-mix(in srgb, var(--st) 9%, transparent);
+}
+
+.rmark-ai .tip-trigger,
+.rmark-changed .tip-trigger {
+  border-style: dashed;
+}
+
+.rmark-doc .tip-trigger {
+  border-style: dotted;
+}
+
+.rmark-conflict .tip-trigger {
+  border-width: 1.5px;
+  border-color: var(--st-conflict);
+  color: var(--st-conflict);
+  font-weight: 650;
+}
+
+.rmark .tip-panel {
+  max-width: min(26rem, calc(100vw - 2rem));
+  text-align: left;
+  font-size: 0.82rem;
+}
+
+/* The block itself: a rule down its leading edge. */
+html[data-review="on"] [data-status] {
+  --st: var(--st-ai);
+  border-left: 3px solid var(--st);
+  padding-left: 0.6rem;
+}
+html[data-review="on"] [data-status="ai"],
+html[data-review="on"] [data-status="changed"] {
+  border-left-style: dashed;
+}
+html[data-review="on"] [data-status="doc"] {
+  --st: var(--st-doc);
+  border-left-style: dotted;
+}
+html[data-review="on"] [data-status="human"] {
+  --st: var(--st-human);
+}
+html[data-review="on"] [data-status="mixed"] {
+  --st: var(--st-mixed);
+}
+html[data-review="on"] [data-status="reviewed"] {
+  --st: var(--st-reviewed);
+}
+html[data-review="on"] [data-status="flagged"] {
+  --st: var(--st-flagged);
+}
+html[data-review="on"] [data-status="unsure"] {
+  --st: var(--st-unsure);
+}
+html[data-review="on"] [data-status="changed"] {
+  --st: var(--st-changed);
+}
+html[data-review="on"] [data-conflict] {
+  --st: var(--st-conflict);
+  border-left-style: solid;
+  background: color-mix(in srgb, var(--st-conflict) 5%, transparent);
+}
+/* Table rows can't take a border; their first cell does. */
+html[data-review="on"] tr[data-status] {
+  border-left: 0;
+  padding-left: 0;
+}
+html[data-review="on"] tr[data-status] > :first-child {
+  border-left: 3px solid var(--st);
+  padding-left: 0.6rem;
+}
+html[data-review="on"] tr[data-status="ai"] > :first-child,
+html[data-review="on"] tr[data-status="changed"] > :first-child {
+  border-left-style: dashed;
+}
+html[data-review="on"] tr[data-status="doc"] > :first-child {
+  border-left-style: dotted;
+}
+/* The list on /review shows status in its chip; no rules there. */
+html[data-review="on"] .review-list tr[data-status] > :first-child {
+  border-left: 0;
+}
+
+.said {
+  display: block;
+}
+.said-item {
+  display: block;
+  margin-top: 0.4rem;
+}
+.said-who {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--ink-faint);
+}
+.said-id {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+.said q {
+  color: var(--ink);
+  font-style: italic;
+}
+.said-reading {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: var(--st-ai);
+}
+.prov-conflict strong {
+  color: var(--st-conflict);
+}
+
+.review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+}
+.review-actions button,
+.rmark-chip,
+.fb-link {
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.review-actions button {
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+  color: var(--ink);
+}
+.review-actions button:hover {
+  background: var(--hover);
+}
+.review-error {
+  color: var(--st-flagged);
+  font-size: 0.8rem;
+}
+
+/* /review */
+.status-key {
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+}
+.status-key b {
+  color: var(--ink);
+}
+.rmark-swatch {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-right: 0.45rem;
+  border-radius: 3px;
+  border: 2px solid var(--st);
+  background: color-mix(in srgb, var(--st) 25%, transparent);
+  vertical-align: -0.1em;
+}
+.rmark-swatch.rmark-ai,
+.rmark-swatch.rmark-changed {
+  border-style: dashed;
+}
+.rmark-swatch.rmark-doc {
+  border-style: dotted;
+}
+.review-filter {
+  display: inline-block;
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.9rem;
+}
+.review-filter select {
+  font: inherit;
+  padding: 0.15rem 0.3rem;
+  color: var(--ink);
+  background: var(--bg-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+}
+.review-bar {
+  display: flex;
+  min-height: 1.6rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  font-size: 0.72rem;
+}
+.review-bar span {
+  display: flex;
+  align-items: center;
+  padding: 0 0.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--st) 28%, var(--bg-raised));
+  border-right: 1px solid var(--bg);
+}
+.walk {
+  --st: var(--st-ai);
+  padding: 1.1rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--st);
+  background: var(--bg-raised);
+  max-width: 46rem;
+}
+.walk[data-status="human"] {
+  --st: var(--st-human);
+}
+.walk[data-status="mixed"] {
+  --st: var(--st-mixed);
+}
+.walk[data-status="flagged"] {
+  --st: var(--st-flagged);
+}
+.walk[data-status="doc"] {
+  --st: var(--st-doc);
+}
+.walk[data-status="reviewed"] {
+  --st: var(--st-reviewed);
+}
+.walk h3 {
+  margin: 0.35rem 0 0.4rem;
+}
+.walk-where {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+}
+.walk-text {
+  color: var(--ink);
+}
+.walk-prov {
+  margin-top: 0.4rem;
+  font-size: 0.86rem;
+  color: var(--ink-muted);
+}
+.walk-note {
+  display: block;
+  width: 100%;
+  margin-top: 0.8rem;
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+}
+.walk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+.walk-actions kbd {
+  font-size: 0.7em;
+  opacity: 0.7;
+  margin-left: 0.3rem;
+}
+.button-warn {
+  background: var(--st-flagged);
+  color: light-dark(#fff, #1a0605);
+}
+.rmark-chip {
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--st);
+  color: var(--st);
+  background: color-mix(in srgb, var(--st) 9%, transparent);
+  white-space: nowrap;
+}
+.rmark-chip.rmark-ai {
+  border-style: dashed;
+}
+.ledger {
+  display: grid;
+  gap: 0.9rem;
+  padding-left: 0;
+  list-style: none;
+  max-width: 50rem;
+}
+.ledger li {
+  padding-left: 0.8rem;
+  border-left: 3px solid var(--st-human);
+}
+.ledger li:target {
+  background: var(--hover);
+}
+.ledger-meaning {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--ink);
+}
+
+/* The feedback layer: above the page, below nothing. */
+.fb-root {
+  font-family: var(--font-sans);
+}
+.fb-button {
+  position: fixed;
+  z-index: 60;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.55rem 0.95rem;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px var(--shadow);
+  cursor: pointer;
+}
+.fb-count {
+  display: inline-block;
+  min-width: 1.3rem;
+  margin-left: 0.4rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background: var(--accent-ink);
+  color: var(--accent);
+  font-size: 0.75rem;
+}
+.fb-panel,
+.fb-form {
+  position: fixed;
+  z-index: 61;
+  right: 1rem;
+  bottom: 4.2rem;
+  width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 6rem);
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--tip-bg);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 16px 40px var(--shadow);
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+}
+.fb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.fb-on {
+  display: grid;
+  gap: 0.15rem;
+}
+.fb-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+.fb-kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border: 0;
+  font-size: 0.85rem;
+}
+.fb-kinds label {
+  display: inline-flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+.fb-form textarea,
+.fb-name {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+}
+.fb-list {
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+.fb-list li {
+  display: grid;
+  gap: 0.1rem;
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--accent);
+}
+.fb-list li[data-state="done"],
+.fb-list li[data-state="wontfix"] {
+  opacity: 0.6;
+  border-left-color: var(--line-strong);
+}
+.fb-meta {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+}
+.fb-body {
+  color: var(--ink);
+  white-space: pre-wrap;
+}
+.fb-reply {
+  font-size: 0.82rem;
+  color: var(--st-reviewed);
+}
+.fb-chip {
+  position: fixed;
+  z-index: 62;
+  translate: -50% 0;
+  padding: 0.3rem 0.7rem;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px var(--shadow);
+  cursor: pointer;
+}
+.fb-box {
+  position: fixed;
+  z-index: 59;
+  pointer-events: none;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  transition: all 80ms ease-out;
+}
+.fb-hint,
+.fb-notice {
+  position: fixed;
+  z-index: 62;
+  left: 50%;
+  translate: -50% 0;
+  bottom: 1rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.85rem;
+  box-shadow: 0 6px 18px var(--shadow);
+}
+.fb-notice {
+  bottom: 4.2rem;
+}
+html.fb-picking,
+html.fb-picking * {
+  cursor: crosshair !important;
+}
+.fb-flash {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media print {
+  .rmark,
+  .fb-root,
+  .review-only {
+    display: none !important;
+  }
+  [data-status],
+  tr[data-status] > :first-child {
+    border-left: 0 !important;
+    background: none !important;
+  }
+}
+
 /* --- Print --------------------------------------------------------------- */
 
 /* On screen the handout is hidden; in print it is the only thing shown. */

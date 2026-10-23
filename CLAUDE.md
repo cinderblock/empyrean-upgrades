@@ -5,6 +5,19 @@ not code (yet). Read `README.md`, then the plan for the category you are working
 
 ## Ground rules
 
+- **Mark who drove it.** Most of this repo is AI-drafted; never let that blur.
+  When the user states a fact or makes a decision, add it to the ledger
+  (`app/content/human.ts`, next H-id, their words trimmed, nothing private:
+  the repo is public), run `bun run ledger`, and credit it where it lands: `by`
+  / `todayBy` / `v2By` in the site content, 🧑 H-id in `plans/`. Your own
+  choices are uncredited on the site and 🤖 in the plans. Credit only what was
+  said or approved, not what is merely consistent with it; when your call
+  goes against what the user said, record a `conflict` and a ⚠ in the plan.
+  See `plans/review-system.md`.
+- **Feedback from the site** is read with `bun run feedback` (`--local` for
+  the dev server). Act on it, then resolve it; `bun run feedback sync` turns
+  review verdicts into `app/content/reviews.json`.
+
 - **Separate facts from guesses.** In `docs/v1-hardware.md` every fact carries a
   confidence (Confirmed / Reported / Assumed / Unknown) and a source. Keep that up:
   a plan built on an unmarked guess is how wrong parts get bought.

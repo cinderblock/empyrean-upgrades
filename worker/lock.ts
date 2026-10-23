@@ -23,6 +23,8 @@
  * nothing.
  */
 
+import { FEEDBACK_PATH, handleFeedback, type Store } from "./feedback";
+import { type DurableObjectNamespace, durableStore } from "./feedback-store";
 import { INDEXABLE, SAFETY_HEADERS, UNLISTED_ROBOTS } from "./headers";
 import { type Dataset, VIEW_PATH, type Visit, isPage, record } from "./visits";
 
@@ -49,6 +51,8 @@ export interface Env {
   UNLOCK_LIMIT?: RateLimit;
   /** Where visits are recorded. Absent: Workers Logs only. */
   VISITS?: Dataset;
+  /** Where feedback is kept (worker/feedback-store.ts). Absent: refused. */
+  FEEDBACK?: DurableObjectNamespace;
 }
 
 /** Who a main-password cookie belongs to, in the visit records. */
@@ -361,6 +365,41 @@ async function view(request: Request, env: Env): Promise<Response> {
   return done;
 }
 
+/**
+ * Feedback (worker/feedback.ts): open to anyone let in, by their cookie,
+ * whether or not the lock is on. `bun run feedback` reads it all with the main
+ * password as a bearer token; a wrong token counts as a password try.
+ */
+async function feedback(
+  request: Request,
+  env: Env,
+  store?: Store,
+): Promise<Response> {
+  const kept = store ?? (env.FEEDBACK && durableStore(env.FEEDBACK));
+  if (!kept) {
+    return withHeaders(
+      Response.json({ error: "Feedback isn't set up here." }, { status: 503 }),
+    );
+  }
+  const who = (await cookieOwner(readCookie(request, COOKIE), env)) ?? "";
+  const bearer = request.headers
+    .get("authorization")
+    ?.match(/^Bearer\s+(.+)$/)?.[1];
+  let admin = who === MAIN;
+  if (bearer) {
+    if (!(await mayTry(request, env))) {
+      return withHeaders(Response.json({ error: TOO_MANY }, { status: 429 }));
+    }
+    admin = !!env.SITE_PASSWORD && same(bearer, env.SITE_PASSWORD);
+    if (!admin) {
+      return withHeaders(
+        Response.json({ error: "Wrong token." }, { status: 401 }),
+      );
+    }
+  }
+  return withHeaders(await handleFeedback(request, { who, admin }, kept));
+}
+
 /** An asset, recorded if it is a page. */
 async function serve(
   request: Request,
@@ -391,7 +430,12 @@ function privately(response: Response, path: string): Response {
 }
 
 /** Every request the Worker sees. */
-export async function handle(request: Request, env: Env): Promise<Response> {
+export async function handle(
+  request: Request,
+  env: Env,
+  /** For tests: a feedback store in place of the Durable Object. */
+  store?: Store,
+): Promise<Response> {
   const url = new URL(request.url);
   const path = url.pathname;
 
@@ -405,6 +449,9 @@ export async function handle(request: Request, env: Env): Promise<Response> {
   }
 
   if (path === VIEW_PATH) return view(request, env);
+  if (path === FEEDBACK_PATH || path.startsWith(`${FEEDBACK_PATH}/`)) {
+    return feedback(request, env, store);
+  }
 
   if (env.SITE_LOCK !== "on") {
     const who = await cookieOwner(readCookie(request, COOKIE), env);

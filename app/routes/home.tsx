@@ -1,6 +1,7 @@
 import { Link, type MetaFunction } from "react-router";
 import Donut from "../components/Donut";
 import GateDemo from "../components/GateDemo";
+import { Mark, Reviewable } from "../components/Mark";
 import PrintSheet from "../components/PrintSheet";
 import RingDiagram from "../components/RingDiagram";
 import Shell from "../components/Shell";
@@ -163,9 +164,14 @@ export default function Home() {
                     <Link to={`/plans/${c.id}`}>{c.name}</Link>
                   </h3>
                   <p className="card-headline">{c.headline}</p>
-                  <p className="card-today">
-                    <span className="label">Today</span> {c.today}
-                  </p>
+                  <Reviewable
+                    as="p"
+                    rid={`${c.id}.today`}
+                    className="card-today"
+                  >
+                    <span className="label">Today</span> {c.today}{" "}
+                    <Mark rid={`${c.id}.today`} />
+                  </Reviewable>
                   <p className="card-meta">
                     {parts[1] > 0 && (
                       <span>

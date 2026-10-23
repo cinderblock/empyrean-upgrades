@@ -7,6 +7,7 @@ import {
   type LineItem,
 } from "../content/budget";
 import Confidence from "./Confidence";
+import { Mark, Reviewable } from "./Mark";
 
 /**
  * Line items as a table: what, how many, each, total, and how sure. Extras
@@ -43,9 +44,14 @@ export default function LineItems({
         </thead>
         <tbody>
           {items.map((item) => (
-            <tr key={item.id} id={`item-${item.id}`}>
+            <Reviewable
+              as="tr"
+              key={item.id}
+              id={`item-${item.id}`}
+              rid={`line.${item.id}`}
+            >
               <th scope="row">
-                {item.name}
+                {item.name} <Mark rid={`line.${item.id}`} />
                 {item.part && <span className="item-part">{item.part}</span>}
                 {item.onlyIf && (
                   <span className="item-sub item-if">
@@ -63,7 +69,7 @@ export default function LineItems({
               <td>
                 <Confidence item={item} />
               </td>
-            </tr>
+            </Reviewable>
           ))}
         </tbody>
         {!extras && (

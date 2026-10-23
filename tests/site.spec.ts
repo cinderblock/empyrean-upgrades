@@ -2,7 +2,12 @@ import { expect, test } from "@playwright/test";
 import { ITEMS, money, tierTotals } from "../app/content/budget";
 import { CATEGORY_LIST } from "../app/content/categories";
 
-const PAGES = ["/", "/budget/", ...CATEGORY_LIST.map((c) => `/plans/${c.id}/`)];
+const PAGES = [
+  "/",
+  "/budget/",
+  "/review/",
+  ...CATEGORY_LIST.map((c) => `/plans/${c.id}/`),
+];
 
 test.describe("every page", () => {
   for (const path of PAGES) {
@@ -198,4 +203,76 @@ test.describe("print", () => {
     await page.goto("/");
     await expect(page.locator(".print-sheet")).toBeHidden();
   });
+});
+
+test.describe("review marks", () => {
+  test("show by default, with who drove each block", async ({ page }) => {
+    await page.goto("/plans/power/");
+    await expect(page.locator("html")).toHaveAttribute("data-review", "on");
+    const v2 = page.locator('[data-rid="power.v2"]');
+    await expect(v2).toHaveAttribute("data-status", "mixed");
+    await v2.locator(".rmark .tip-trigger").click();
+    await expect(v2.locator(".rmark .tip-panel")).toContainText("H17");
+    await expect(page.locator("[data-conflict] .rmark").first()).toContainText(
+      "≠",
+    );
+  });
+
+  test("?review=off hides them, and the browser remembers", async ({
+    page,
+  }) => {
+    await page.goto("/plans/power/?review=off");
+    await expect(page.locator(".rmark").first()).toBeHidden();
+    await expect(page.locator(".fb-button")).toBeHidden();
+    await page.goto("/budget/");
+    await expect(page.locator("html")).toHaveAttribute("data-review", "off");
+    await expect(page.locator(".rmark").first()).toBeHidden();
+    await page.goto("/budget/?review=on");
+    await expect(page.locator(".rmark").first()).toBeVisible();
+  });
+
+  test("never print", async ({ page }) => {
+    await page.goto("/plans/power/");
+    await page.emulateMedia({ media: "print" });
+    await expect(page.locator(".rmark").first()).toBeHidden();
+    await expect(page.locator(".fb-button")).toBeHidden();
+  });
+});
+
+test.describe("feedback", () => {
+  test("point at a diagram and leave a comment", async ({ page }) => {
+    await page.goto("/plans/power/");
+    await page.locator(".fb-button").click();
+    await page.getByRole("button", { name: "Point at something" }).click();
+    await page.locator("figure h4").first().click();
+    const form = page.locator(".fb-form");
+    await expect(form).toContainText("Power box");
+    const body = `A test comment ${Date.now()}`;
+    await form.locator("textarea").fill(body);
+    await form.getByRole("button", { name: "Send" }).click();
+    await expect(page.locator(".fb-notice")).toContainText("Sent");
+    await page.locator(".fb-button").click();
+    await expect(page.locator(".fb-list")).toContainText(body);
+  });
+
+  test("select text and comment on it", async ({ page }) => {
+    await page.goto("/plans/power/");
+    const p = page.locator('[data-rid="power.v2"] p');
+    await p.selectText();
+    await page.locator(".fb-chip").click();
+    await expect(page.locator(".fb-form .fb-on")).toContainText("“");
+  });
+});
+
+test("the walk-through records a verdict and moves on", async ({ page }) => {
+  await page.goto("/review/");
+  const walk = page.locator(".walk");
+  await expect(walk.getByRole("button", { name: /Looks right/ })).toBeVisible();
+  const title = (await walk.locator("h3").textContent())!;
+  await walk.getByRole("button", { name: /Looks right/ }).click();
+  await expect(walk.locator("h3")).not.toHaveText(title);
+  const row = page.locator(".review-list tr", {
+    has: page.getByRole("link", { name: title, exact: true }),
+  });
+  await expect(row.locator(".rmark-chip")).toContainText("Reviewed");
 });

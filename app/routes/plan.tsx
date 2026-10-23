@@ -1,5 +1,6 @@
 import { Link, useParams, type MetaFunction } from "react-router";
 import LineItems from "../components/LineItems";
+import { Mark, Reviewable } from "../components/Mark";
 import RingDiagram from "../components/RingDiagram";
 import SegmentDiagram from "../components/SegmentDiagram";
 import Shell from "../components/Shell";
@@ -19,6 +20,7 @@ import {
   VERDICT_LABEL,
   type CategoryId,
 } from "../content/categories";
+import { slug } from "../content/review";
 import { pageMeta } from "../meta";
 import NotFound from "./404";
 
@@ -70,26 +72,35 @@ export default function Plan() {
           </p>
           <h1>{c.headline}</h1>
           <div className="then-now">
-            <div>
-              <h2 className="label">Today</h2>
+            <Reviewable rid={`${id}.today`}>
+              <h2 className="label">
+                Today <Mark rid={`${id}.today`} />
+              </h2>
               <p>{c.today}</p>
-            </div>
-            <div>
-              <h2 className="label">In V2</h2>
+            </Reviewable>
+            <Reviewable rid={`${id}.v2`}>
+              <h2 className="label">
+                In V2 <Mark rid={`${id}.v2`} />
+              </h2>
               <p>{c.v2}</p>
-            </div>
+            </Reviewable>
           </div>
         </section>
 
         <section className="section section-tight" aria-labelledby="how">
           <h2 id="how">How</h2>
           <ul className="points">
-            {c.points.map((p) => (
-              <li key={p.title}>
-                <h3>{p.title}</h3>
-                <p>{p.body}</p>
-              </li>
-            ))}
+            {c.points.map((p) => {
+              const rid = `${id}.point.${slug(p.title)}`;
+              return (
+                <Reviewable as="li" key={p.title} rid={rid}>
+                  <h3>
+                    {p.title} <Mark rid={rid} />
+                  </h3>
+                  <p>{p.body}</p>
+                </Reviewable>
+              );
+            })}
           </ul>
         </section>
 
@@ -134,24 +145,33 @@ export default function Plan() {
               from the makers' datasheets.
             </p>
             <ul className="options">
-              {c.options.map((o) => (
-                <li key={o.name} className={`option option-${o.verdict}`}>
-                  <span className={`verdict verdict-${o.verdict}`}>
-                    {VERDICT_LABEL[o.verdict]}
-                  </span>
-                  <h3>
-                    {o.url ? (
-                      <a href={o.url} target="_blank" rel="noreferrer">
-                        {o.name}
-                      </a>
-                    ) : (
-                      o.name
-                    )}
-                  </h3>
-                  {o.price && <p className="option-price">{o.price}</p>}
-                  <p>{o.why}</p>
-                </li>
-              ))}
+              {c.options.map((o) => {
+                const rid = `${id}.option.${slug(o.name)}`;
+                return (
+                  <Reviewable
+                    as="li"
+                    key={o.name}
+                    rid={rid}
+                    className={`option option-${o.verdict}`}
+                  >
+                    <span className={`verdict verdict-${o.verdict}`}>
+                      {VERDICT_LABEL[o.verdict]}
+                    </span>
+                    <Mark rid={rid} />
+                    <h3>
+                      {o.url ? (
+                        <a href={o.url} target="_blank" rel="noreferrer">
+                          {o.name}
+                        </a>
+                      ) : (
+                        o.name
+                      )}
+                    </h3>
+                    {o.price && <p className="option-price">{o.price}</p>}
+                    <p>{o.why}</p>
+                  </Reviewable>
+                );
+              })}
             </ul>
           </section>
         )}
@@ -163,9 +183,14 @@ export default function Plan() {
             these are answered.
           </p>
           <ul className="unknowns">
-            {c.unknowns.map((u) => (
-              <li key={u}>{u}</li>
-            ))}
+            {c.unknowns.map((u) => {
+              const rid = `${id}.unknown.${slug(u)}`;
+              return (
+                <Reviewable as="li" key={u} rid={rid}>
+                  {u} <Mark rid={rid} />
+                </Reviewable>
+              );
+            })}
           </ul>
         </section>
 

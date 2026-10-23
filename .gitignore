@@ -39,5 +39,8 @@ playwright/.cache/
 .dev.vars
 .wrangler/
 
+# Feedback left on the dev server (`bun run feedback --local`)
+.feedback/
+
 # Scratch output
 /tmp/

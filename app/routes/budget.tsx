@@ -1,5 +1,6 @@
 import { Link, type MetaFunction } from "react-router";
 import LineItems from "../components/LineItems";
+import { Mark, Reviewable } from "../components/Mark";
 import Shell from "../components/Shell";
 import {
   CONFIDENCE,
@@ -111,7 +112,9 @@ export default function Budget() {
             {tierLabel(t.tier)}{" "}
             <span className="h-amount">{money(t.goal)}</span>
           </h2>
-          <p className="section-lede">{t.tier.promise}</p>
+          <Reviewable as="p" rid={`tier.${t.tier.id}`} className="section-lede">
+            {t.tier.promise} <Mark rid={`tier.${t.tier.id}`} />
+          </Reviewable>
           {CATEGORY_IDS.map((c) => {
             const items = itemsIn({ tier: t.tier.id, category: c });
             if (items.length === 0) return null;

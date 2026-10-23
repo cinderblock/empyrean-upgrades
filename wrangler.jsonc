@@ -53,6 +53,15 @@
   "analytics_engine_datasets": [
     { "binding": "VISITS", "dataset": "empyreangate_v2_visits" },
   ],
+  // Feedback left on the site (worker/feedback.ts, worker/feedback-store.ts);
+  // `bun run feedback` reads it. One SQLite-backed Durable Object, created by
+  // the first deploy with this migration: nothing to provision by hand.
+  // Cloudflare makes no version (preview) URLs for a Worker with a Durable
+  // Object; Workers Builds previews are off for this worker anyway.
+  "durable_objects": {
+    "bindings": [{ "name": "FEEDBACK", "class_name": "FeedbackStore" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["FeedbackStore"] }],
   "observability": {
     "enabled": true,
   },

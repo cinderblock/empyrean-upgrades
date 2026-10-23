@@ -32,7 +32,12 @@ plans and the budget to the people we're asking to fund them.
   (site conditions, the power/data separation rule, serviceability).
 - [docs/pricing-2026-10.md](docs/pricing-2026-10.md): the price research behind
   the budget, with links.
+- [docs/human-input.md](docs/human-input.md): **everything a person has said
+  that shaped the plans**, with ids (H01…). Anything not traced to it is an AI
+  draft. Generated from `app/content/human.ts` by `bun run ledger`.
 - [plans/v2-site.md](plans/v2-site.md): the working plan for the site itself.
+- [plans/review-system.md](plans/review-system.md): who wrote what, and the
+  review and feedback system.
 
 ## The site
 
@@ -69,6 +74,9 @@ bun run dev
   are of the price (tap the label for the source).
 - `/plans/<category>`: today vs V2, how, a diagram, the parts, and what we still
   need to find out.
+- `/review`: who wrote what, a walk-through of everything still needing a
+  person's check (conflicts with what was said first, then the biggest AI
+  decisions), and the ledger of what people said.
 
 **Printing.** Ctrl+P on the overview prints a one-page handout (Letter) instead
 of the page: the ask, the donut, the tiers, a table of the upgrades, and a QR
@@ -91,6 +99,46 @@ stay the working notes behind them.
 The demo is the live render from empyreangate.org, copied (`app/gate/`,
 `app/components/GateDemo.tsx`, from its commit `f6f02be`). The full pattern
 playground stays there, and the demo links to it.
+
+### Review marks and feedback
+
+Most of the plans are AI drafts, and the site says so. Every reviewable block
+(each category's today and V2 statements, points, part choices and unknowns,
+every tier and line item) carries a mark: **Human** (a ledger entry backs it),
+**Human + AI** (a person set the direction, the AI chose the details), **From
+a doc**, **AI draft**, or, once checked, **Reviewed** / **Flagged** / **Not
+sure** / **Changed** (edited since its review). **≠** marks where the AI's call
+goes against what a person said. Tap a mark for the quotes and the review
+buttons.
+
+- **Credits** live with the content: `by`, `todayBy`, `v2By` and `conflict`
+  in `app/content/categories.ts` and `budget.ts`, naming ids in
+  `app/content/human.ts`. No credit means an AI draft. The list of
+  reviewable items is `app/content/review.ts`.
+- **Feedback**: the button at the bottom right. Point at anything (a section,
+  an item, a spot on a diagram), select text and comment on it, or comment on
+  the page. Who left it comes from the access cookie (`main` sees everyone's;
+  a pattern password sees its own), plus an optional name.
+- **On and off**: on by default (`REVIEW_DEFAULT` in `review.ts`).
+  `?review=off` on any page hides the marks and the button and the browser
+  remembers it; `?review=on` brings them back. They never print.
+- **Storage**: a SQLite Durable Object in the Worker (`FEEDBACK`,
+  `worker/feedback-store.ts`), created by the deploy. `bun run dev` keeps
+  feedback in `.feedback/dev.jsonl`; the preview server, in memory.
+
+Reading it and closing the loop:
+
+```sh
+SITE_PASSWORD=... bun run feedback          # open feedback, by page
+bun run feedback --local                    # what bun run dev stored
+bun run feedback resolve <id> "Fixed in 1a2b3c4"
+bun run feedback sync                       # review verdicts -> app/content/reviews.json
+```
+
+`sync` writes the newest verdict per item into `app/content/reviews.json`,
+with a hash of the text reviewed, and marks those records done ("wrong"
+stays open until fixed). Commit it: that is what shows a review on the built
+site. Live reviews show at once for whoever made them.
 
 ### The lock
 
@@ -189,9 +237,12 @@ Bun is older. Every push to master publishes.
 
 ## Status
 
-Seeded 2026-10-21. Every plan is a skeleton: known facts and open questions, no
-designs yet. Networking is furthest along, because it was worked through in the
-Empyrean repo first (`plans/gate-network.md` there).
+Seeded 2026-10-21. The plans have designs and prices, but **most of it is AI
+drafted** from a few days of conversation: of 203 reviewable items on the
+site, 19 are fully a person's and 57 more follow a person's direction with AI
+details (2026-10-23). `/review` is the way through the rest. Networking is
+furthest along, because it was worked through in the Empyrean repo first
+(`plans/gate-network.md` there).
 
 ## Related repos
 
