@@ -580,7 +580,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "One box for the whole Gate",
-        body: "A 40 ft high cube with doors at both ends holds the Gate with a little room to spare; a 20 ft is too small.",
+        body: "The crew's own 40 ft container holds the Gate with a little room to spare; a 20 ft is too small.",
       },
       {
         title: "Sails ride with their LEDs in",
@@ -601,10 +601,16 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     ],
     options: [
       {
-        name: "40 ft high cube, one-trip, doors at both ends",
+        name: "The crew's own 40 ft container",
         verdict: "leading",
+        price: "$0–$1,500 to fix up",
+        why: "Already owned, in fair condition. Standard height, so the sail rolls ride beside the carts rather than above them.",
+      },
+      {
+        name: "40 ft high cube, one-trip, doors at both ends",
+        verdict: "considered",
         price: "$3,690 in Oakland",
-        why: "Fits the Gate with its carts, where it lives. Containers go in camps at Burning Man, and the Gate's camp is on the Esplanade.",
+        why: "Only if the crew's own won't do. A foot more headroom, where the Gate lives. Containers go in camps at Burning Man, and the Gate's camp is on the Esplanade.",
         url: "https://www.westerncontainersales.com/shipping-containers-for-sale/california/oakland",
       },
       {

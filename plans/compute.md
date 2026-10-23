@@ -85,7 +85,10 @@ knobs, maybe motorized ("flying") faders. It goes on the stretch-goal ladder
 - Recommendation: buy the X-Touch Compact ($309) first and build the MIDI
   mapping in the show app against it; then measure the cable route and buy
   the link for that distance.
-- Open (user): the cable-route distance; whether the booth screen is the only
+- **Cable distance is not a constraint** (user, 2026-10-23): "if we get a fiber
+  adapter, any length is possible." So the fibre extender, sized for the
+  longest likely run (100 m class).
+- Open (user): whether the booth screen is the only
   screen; motorized faders a must?; who plays it; screen size; shade by day;
   the booth's power; how the cable runs; is a network console acceptable; a
   budget ceiling.

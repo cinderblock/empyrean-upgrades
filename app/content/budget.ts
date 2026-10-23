@@ -1146,7 +1146,7 @@ export const ITEMS: LineItem[] = [
       label: "Western Container Sales (Oakland)",
       url: "https://www.westerncontainersales.com/shipping-containers-for-sale/california/oakland",
     },
-    note: "The crew has a 40 ft container in fair condition (user). Low: as it is; high: door seals, floor and rust repair (estimated). A new one-trip high cube is $3,690 in Oakland if it won't do.",
+    note: "The crew has a 40 ft container, standard height, in fair condition (user). Low: as it is; high: door seals, floor and rust repair (estimated). A new one-trip high cube is $3,690 in Oakland if it won't do.",
   },
   {
     id: "tr-mods",

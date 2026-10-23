@@ -60,9 +60,12 @@ See `docs/v1-hardware.md` → Power distribution and Node boxes.
 - **Feed** (user, 2026-10-22): "30A 3 phase should be enough. but let's price out 50A
   and 100A just in case." 30 A three-phase and 100 A are being priced
   (`docs/pricing-feed-options-2-2026-10.md`). The site still carries 30 A
-  split-phase (L14-30), the design rental portables plug into; whether "3
-  phase" meant the L14-30 (3 poles + ground) or true three-phase (L21-30, on no
-  rental generator) is asked.
+  split-phase (L14-30), the design rental portables plug into.
+  **Answered (2026-10-23):** "I think L21-30 is 3 phase with neutral", so true
+  three-phase was meant. Right: L21-30 is 120/208 V wye, X, Y, Z, neutral and
+  ground. The pricing rules it out for this ring (neutral loaded by LED
+  drivers, so about 23 A usable on 8/5; no rental generator has the outlet).
+  Whether to accept the L14-30 recommendation or go L21-30 anyway is asked.
 - Power and data never share a box (user, 2026-10-21).
 - **One feed for the whole ring** (user, 2026-10-21): a single **waterproof
   twist-lock** plug, **30–50 A**, powers the whole ring in one loop.

@@ -311,8 +311,12 @@ of them.
 1. **For James** (the user asks him; list given 2026-10-22): the generators
    (which ones, GFCI on their outlets), the Give link, and whether to publish
    an email for larger gifts. Listed in the thread and in `plans/power.md`.
-2. The feed: does "30 A 3 phase" mean the L14-30 (split-phase) or true
-   three-phase? (`plans/power.md`)
+2. The feed: the user meant true three-phase, L21-30 (2026-10-23). The research
+   rules it out; keep the L14-30 on the site, or switch? (`plans/power.md`)
+3. Half-ring wiring (two chains running opposite ways from the feed joint,
+   about $60–170 now): put it in V2? Explained 2026-10-23.
+4. Empyrean PR #6 (ring size from the drawings): merge it, then set the new
+   geometry in the show machine's Settings → Geometry.
 
 ## Things not to do
 
