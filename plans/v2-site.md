@@ -230,7 +230,10 @@ wants to raise, and donors can see where their money goes.
           Pattern cookies are now `<password>.<mac>`. Whether rows reached
           Analytics Engine needs the API token below.
     - [ ] An API token (Account Analytics: Read) for `bun run visits`; the SQL
-          in `scripts/visits.ts` is untested until then
+          in `scripts/visits.ts` is untested until then. The user puts it in
+          `.env.local` as `VISITS_API_TOKEN` (2026-10-24): the chat's secret
+          prompt never hands the value to a shell, and `CLOUDFLARE_API_TOKEN`
+          would make wrangler use the read-only token.
 
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 

@@ -8,7 +8,9 @@
  *
  * Add `--days N` to any of them (default 30; the dataset keeps about 90).
  *
- * Needs CLOUDFLARE_API_TOKEN, a token with Account → Account Analytics → Read.
+ * Needs VISITS_API_TOKEN, a token with Account → Account Analytics → Read.
+ * Keep it in .env.local (gitignored; Bun loads it). Not CLOUDFLARE_API_TOKEN:
+ * wrangler would pick that up and try to deploy with a read-only token.
  * CLOUDFLARE_ACCOUNT_ID defaults to the account the worker lives in.
  */
 
@@ -32,9 +34,11 @@ function usage(message?: string): never {
 }
 
 async function query(days: number): Promise<Row[]> {
-  const token = process.env.CLOUDFLARE_API_TOKEN;
+  const token = process.env.VISITS_API_TOKEN;
   if (!token) {
-    usage("Set CLOUDFLARE_API_TOKEN (Account Analytics: Read) first.");
+    usage(
+      "Put VISITS_API_TOKEN (Account Analytics: Read) in .env.local first.",
+    );
   }
   const columns = BLOBS.map((k, i) => `blob${i + 1} AS ${k}`).join(", ");
   const sql = `SELECT timestamp, ${columns}, double1 AS status,

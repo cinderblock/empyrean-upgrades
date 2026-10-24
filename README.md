@@ -199,11 +199,11 @@ aren't recorded.
 
 Records go to Workers Analytics Engine (dataset `empyreangate_v2_visits`, kept
 about 3 months) and, as a JSON line, to Workers Logs (a few days, in the
-dashboard). To read them, with a Cloudflare API token that has Account
-Analytics: Read:
+dashboard). To read them, put a Cloudflare API token that has only Account
+Analytics: Read in `.env.local` (gitignored; Bun loads it) as
+`VISITS_API_TOKEN=...`. Not `CLOUDFLARE_API_TOKEN`: wrangler would use it.
 
 ```sh
-export CLOUDFLARE_API_TOKEN=...
 bun run visits                  # each person: views, pages, first and last seen
 bun run visits log              # every event, newest first
 bun run visits who Guest07      # one person ("main" for the main password)
