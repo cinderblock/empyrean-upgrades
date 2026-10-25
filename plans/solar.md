@@ -71,6 +71,10 @@ researched):
 
 ## Open questions
 
+- (2026-10-24) **The Gate's feed is now three-phase L21-30** (🧑 H69). 🤖 The
+  inverter line is priced split-phase (120/240 V, EG4 18kPV-12LV); it needs a
+  120/208 V three-phase output instead. Not yet repriced.
+
 1. The speakers: what system, how many watts on average, and for how many
    hours a night?
 2. Must solar carry everything, or is a small generator as backup fine?

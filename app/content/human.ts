@@ -632,6 +632,34 @@ export const HUMAN = {
       "The numbered passwords are tracking links, not security: the site is meant to be fairly open. Two digits is enough; that someone could try every number doesn't matter.",
     thread: "upgrades",
   },
+  H69: {
+    at: "2026-10-24 10:44 PM PDT",
+    who: C,
+    kind: "said",
+    said: "I'm leaning 3-phase. L21.",
+    meaning:
+      "The feed is three-phase L21-30, not the L14-30 the AI recommended.",
+    aiReading:
+      "A lean, not a final call. The site now leads with L21-30 on 8/5 cord: 25 A at 50 °C (30 A at 45 °C or below), so about 7.2 kVA continuous in playa heat against the L14-30's 5.76.",
+    thread: "upgrades",
+  },
+  H70: {
+    at: "2026-10-24 10:44 PM PDT",
+    who: C,
+    kind: "said",
+    said: "we never want to light half of it. Or you mean for power dist? I guess we should include the option to split the power in half...",
+    meaning:
+      "The power can be split into two halves of the ring, each able to take its own feed later. The light is never split.",
+    thread: "upgrades",
+  },
+  H71: {
+    at: "2026-10-24 10:44 PM PDT",
+    who: C,
+    kind: "approved",
+    said: "yes, merge #6.",
+    meaning: "Merge Empyrean PR #6 (the ring size from the 2022 drawings).",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

@@ -96,13 +96,13 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       what: "V1 power isn't weatherproof",
     },
     v2By: {
-      h: ["H10", "H14", "H17", "H18", "H24"],
-      what: "One twist-lock feed for the whole ring, chosen by what rental generators have; rain-proof segments installed in the truss; mains never shares a box with the electronics",
+      h: ["H10", "H14", "H17", "H24", "H69", "H70"],
+      what: "One three-phase twist-lock feed for the whole ring, able to split in half; rain-proof segments installed in the truss; mains never shares a box with the electronics",
     },
     headline: "Sealed power, built into every truss segment",
     today:
       "Six circuits fan out from the stage over ordinary 3-way extension cords, 10 to 100 ft long. None of it is rated for rain or dust, and it is all run by hand at every build.",
-    v2: "One twist-lock plug, the kind every portable rental generator has, powers the whole ring. The power runs segment to segment inside the truss through locking, rain-proof joints, so joining the truss joins the power. A sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
+    v2: "One three-phase twist-lock plug powers the whole ring. The power runs segment to segment inside the truss through locking, rain-proof joints, so joining the truss joins the power. A sealed power box in each segment holds the supplies: mains never shares a box with the electronics.",
     points: [
       {
         title: "Rain-proof, locking joints",
@@ -115,12 +115,9 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         body: "Each segment arrives with its power run in place and daisy-chains to its neighbours. Setup becomes joining segments, not running cable.",
       },
       {
-        title: "Plugs into any rental generator",
-        by: {
-          h: ["H18", "H20"],
-          what: "Follow rental generators; the L14-30 feed and towable adapter (approved)",
-        },
-        body: "The feed is a 30 A twist-lock (L14-30): the locking outlet on nearly every portable generator. Towable rentals have a 50 A twist-lock instead, and the Gate carries an adapter for them.",
+        title: "Three-phase, from a towable generator",
+        by: { h: ["H17", "H69"], what: "Three-phase. The adapter is the AI's" },
+        body: "The feed is a three-phase 30 A twist-lock (L21-30). Rental generators don't carry that outlet, so the Gate brings an adapter box for a towable's cam-lok connectors. Small portable generators are single-phase and can't feed it.",
       },
       {
         title: "Room to spare",
@@ -128,7 +125,12 @@ export const CATEGORIES: Record<CategoryId, Category> = {
           h: ["H18"],
           what: 'The 1.5–2 kW average. "Room for 128 spokes" is the AI\'s',
         },
-        body: "The Gate averages 1.5 to 2 kW. The 30 A feed carries about 5.8 kW continuously: three times that, with room for 128 spokes.",
+        body: "The Gate averages 1.5 to 2 kW. The three-phase feed carries about 7.2 kW continuously in playa heat: four times that, with room for 128 spokes.",
+      },
+      {
+        title: "Splits in half for more",
+        by: { h: ["H70"] },
+        body: "The power runs as two halves of the ring from the feed. One feed powers both today; a second feed later doubles the power with no rewiring. The light is never split.",
       },
       {
         title: "Each segment protected on its own",
@@ -146,26 +148,49 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     ],
     options: [
       {
-        name: "AC Works L14-30 plug and connector on 8/4 SOOW, under rain covers",
+        name: "Three-phase twist-lock (L21-30) on 8/5 SOOW, under rain covers",
+        by: {
+          h: ["H17", "H60", "H65", "H69"],
+          what: "Three-phase L21-30. The parts and the 25 A rating are the AI's",
+        },
         conflict: {
           h: ["H22"],
-          note: "The user asked for off-the-shelf extension cords cut in half. The AI made loose plug ends on bulk cord the leading choice after the ring grew to 60 ft (the 10 ft cords' halves are too short), and moved cut cords to the fallback.",
+          note: "The user asked for off-the-shelf extension cords cut in half. The AI made loose plug ends on bulk cord the leading choice after the ring grew to 60 ft (the 10 ft cords' halves are too short).",
         },
         verdict: "leading",
+        price: "about $600–$4,700 more than the L14-30",
+        why: "Listed Hubbell or AC Works ends on listed 8/5 cord. The 8/5 carries 25 A at 50 °C (30 A at 45 °C or below): about 7.2 kVA continuous in the heat, against the L14-30's 5.8. The supplies run leg to leg, so the neutral carries little. Only a three-phase towable can feed it, through an adapter box.",
+        url: "https://www.hubbell.com/hubbell/en/p/157046",
+      },
+      {
+        name: "Two halves from the feed joint",
+        by: { h: ["H70"] },
+        verdict: "leading",
+        price: "about $60–$170 now, about $800–$1,400 later",
+        why: "The feed box has two outputs, and the halves run opposite ways round the ring. One feed powers both today, each half carrying half the current; a second feed later doubles the power with no rewiring. Segments in one half are wired the other way round, so they can't swap halves.",
+      },
+      {
+        name: "AC Works L14-30 plug and connector on 8/4 SOOW, under rain covers",
+        by: {
+          h: ["H20"],
+          what: "Approved first, before the lean to three-phase (H69)",
+        },
+        verdict: "considered",
         price: "about $140 a joint, cord included",
-        why: "Listed ends fitted to listed 8/4 cord cut to each segment's length. Carries the full 30 A. Rain-proof, not watertight, which is enough.",
+        why: "Split-phase, 5.8 kVA continuous. Plugs straight into nearly every portable rental generator, which three-phase can't.",
         url: "https://acworks.com/products/locking-adapter-asl1430p-nema-l14-30p",
       },
       {
-        name: "AC Works 8/4 L14-30 cords, cut in half",
+        name: "Off-the-shelf twist-lock cords, cut in half",
         by: {
           h: ["H22"],
           what: "Off-the-shelf cords cut in half was the user's idea",
         },
         verdict: "considered",
-        price: "about $280 a joint (25 ft cords)",
-        why: "The same ends, factory-fitted. The 10 ft cord is too short for an 11.8 ft segment, and the 25 ft one wastes half its cord. The fallback if the loose ends don't grip 8/4.",
-        url: "https://acworks.com/products/sdl1430pr-8-4-soow-super-duty-nema-l14-30-30a-125-250v-generator-rubber-cord",
+        price:
+          "about $280 a joint as L14-30 (25 ft cords); not yet priced as L21-30",
+        why: "The same ends, factory-fitted. A 10 ft cord is too short for an 11.8 ft segment, and a 25 ft one wastes half its cord; 8/5 L21-30 cords are built to length. The fallback if the loose ends don't grip the cord.",
+        url: "https://lockingpowercords.com/product/l21-30-extension-cords-30a-120-208v-8-5-soow",
       },
       {
         name: "Cheap molded generator cords (10/4 STW and similar)",
@@ -173,17 +198,17 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         why: "60 °C cord, good for only about 17 A at 50 °C, and a cut molded end is no longer a listed plug.",
       },
       {
-        name: "Hubbell Watertight Safety-Shroud L14-30",
+        name: "Hubbell Watertight Safety-Shroud twist-locks",
         verdict: "considered",
         price: "about $410 a joint with trunk cord",
-        why: "Watertight (IP66) and rated to 75 °C, but about $4,800 more for the ring than the cut cords, and watertight isn't needed. Its inlet stays at the feed box.",
+        why: "Watertight (IP66) and rated to 75 °C, but about $4,800 more for the ring (priced as L14-30), and watertight isn't needed. Its inlet is the high option at the feed box.",
         url: "https://www.hubbell.com/hubbell/en/p/170109",
       },
       {
-        name: "Leviton Wetguard L14-30",
+        name: "Leviton Wetguard twist-locks",
         verdict: "considered",
         price: "about $320 a joint with trunk cord",
-        why: "The cheaper watertight route, rated only to 60 °C. Watertight isn't needed.",
+        why: "The cheaper watertight route (priced as L14-30), rated only to 60 °C. Watertight isn't needed.",
         url: "https://leviton.com/products/28w74",
       },
       {
@@ -194,22 +219,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         },
         verdict: "considered",
         price: "about $2,500–$6,100 more for the power category",
-        why: "9.6 kVA continuous against 5.76: enough for V1's estimated maximum with no margin, and half of what 128 spokes might draw at full white (two 50 A feeds would cover it). Plugs straight into towable rentals; portables connect through an adapter at 30 A. Heavier cord, and the joints need boots instead of the rain covers.",
-      },
-      {
-        name: "Two half-rings from the same joint",
-        verdict: "considered",
-        price: "about $60–$170 now, about $1,100 later",
-        why: "Wire the ring as two halves running opposite ways from the feed joint. Today one L14-30 feeds both; a second L14-30 later gives about 11.5 kVA. The cheapest headroom.",
-      },
-      {
-        name: "Three-phase twist-lock (L21-30)",
-        conflict: {
-          h: ["H17", "H50", "H60"],
-          note: 'The user prefers three-phase ("30A 3 phase should be enough") and meant true L21-30. The AI still leads with L14-30 because no rental portable has an L21-30 outlet. Not yet decided by the user.',
-        },
-        verdict: "considered",
-        why: "1.5 times the power of the L14-30 at the same 30 A: about 8.6 kVA continuous against 5.8. With the supplies wired leg to leg (208 V) the neutral carries little, so the 8/5 cord keeps its full 30 A. The catch: no rental portable has the outlet, so every event needs a three-phase towable and an adapter, and a fault on one leg darkens a third of the ring. About $600–$4,700 more.",
+        why: "9.6 kVA continuous, against 7.2 for the three-phase feed in the heat: enough for V1's estimated maximum with no margin, and half of what 128 spokes might draw at full white (two 50 A feeds would cover it). Plugs straight into towable rentals; portables connect through an adapter at 30 A. Heavier cord, and the joints need boots instead of the rain covers.",
       },
       {
         name: "A 100 A feed",
@@ -230,14 +240,13 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         name: "Neutrik powerCON TRUE1",
         verdict: "ruled-out",
-        why: "Watertight and locking, but single-phase 20 A: it can't carry a 30 A split-phase trunk.",
+        why: "Watertight and locking, but single-phase 20 A: it can't carry a three-phase trunk.",
         url: "https://www.neutrik.com/en/product/nac3f-true1-l",
       },
       {
-        name: "8/4 SOOW, not 10/4",
-        by: { h: ["H20"] },
+        name: "8/5 SOOW, the heaviest cord an L21-30 takes",
         verdict: "leading",
-        why: "8/4 carries the full 30 A at 50 °C. 10/4 is lighter but holds only 24.6 A at 50 °C, which would mean a 25 A feed.",
+        why: "8/5 carries 25 A at 50 °C and 30 A at 45 °C or below, so the feed breaker is 25 A. 6/5 would carry the full 30 A in the heat, but no L21-30 plug takes it.",
         url: "https://cabletechsupport.southwire.com/tile/10/spec/70000/?country=US",
       },
       {
@@ -253,7 +262,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       },
     ],
     unknowns: [
-      "The LED strips' voltage and watts per pixel. The estimates put full white above what the 30 A feed carries (the Gate averages far less); measuring one spoke at full white settles whether it fits.",
+      "The LED strips' voltage and watts per pixel. The estimates put full white above what the feed carries (the Gate averages far less); measuring one spoke at full white settles whether it fits.",
       "Whether a generator's own ground-fault outlet trips on the ring's leakage.",
       "Generator or grid at each event, and how many circuits at what current.",
       "Whether V2 keeps today's pixel supplies or replaces them, and whether today's take 240 V (the plan runs them line to line).",
@@ -678,7 +687,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     points: [
       {
         title: "Same plug as the generator",
-        body: "The inverter makes 120/240 V split-phase into the Gate's L14-30, so nothing else on the Gate changes.",
+        body: "The inverter feeds the Gate's own plug, so nothing else on the Gate changes.",
       },
       {
         title: "Sized for the playa",

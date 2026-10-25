@@ -147,7 +147,7 @@ Cameron said, 2026-10-21 4:56 PM PDT (this repo's chat):
 
 ⚠ AI's reading: The AI made "a single loop" an open ring capped at the far end (code reasons), which the user then approved (H20).
 
-On the site: Power: in V2; Rain-proof, locking joints; Three-phase twist-lock (L21-30) (≠ the AI differs); RV 50 A (14-50) and SmartPlug; 30 A twist-lock plug (L14-30), one per joint; 30 A twist-lock connector (L14-30), one per joint.
+On the site: Power: in V2; Rain-proof, locking joints; Three-phase, from a towable generator; Three-phase twist-lock (L21-30) on 8/5 SOOW, under rain covers; RV 50 A (14-50) and SmartPlug; Three-phase 30 A twist-lock plug (L21-30), one per joint; Three-phase 30 A twist-lock connector (L21-30), one per joint.
 
 ## H18: V1 averages 1.5–2 kW. The feed connector follows what rental generators have.
 
@@ -155,7 +155,7 @@ Cameron said, 2026-10-21 5:10 PM PDT (this repo's chat):
 
 > the current draws an average of only 1500W-2000W for the whole thing. the most important thing is what's commonly available in rental generators
 
-On the site: Power: in V2; Plugs into any rental generator; Room to spare.
+On the site: Room to spare.
 
 ## H19: Asked for a remote, human-triggered breaker reset.
 
@@ -171,7 +171,7 @@ Cameron approved the AI's proposal, 2026-10-21 9:38 PM PDT (this repo's chat):
 
 > Yes
 
-On the site: Plugs into any rental generator; Each segment protected on its own; 8/4 SOOW, not 10/4; 30 A twist-lock plug (L14-30), one per joint; 30 A twist-lock connector (L14-30), one per joint; Power trunk around the ring: 8/4 outdoor cord (ft); Cap for the open connector at the far end of the ring; 20 A breaker and ground-fault protector in each power box, reset from the ground; Adapter for towable rental generators (50 A twist-lock to L14-30).
+On the site: Each segment protected on its own; AC Works L14-30 plug and connector on 8/4 SOOW, under rain covers; Cap for the open connector at the far end of the ring; 20 A breaker and ground-fault protector in each power box, reset from the ground.
 
 ## H21: No brightness cap in the Empyrean app.
 
@@ -187,7 +187,7 @@ Cameron said, 2026-10-21 9:50 PM PDT (this repo's chat):
 
 ⚠ AI's reading: After the ring grew to 60 ft the AI switched the leading choice to loose plug ends on bulk cord: the 10 ft cords' halves were too short. Cut cords are now only the fallback.
 
-On the site: AC Works L14-30 plug and connector on 8/4 SOOW, under rain covers (≠ the AI differs); AC Works 8/4 L14-30 cords, cut in half; 30 A twist-lock plug (L14-30), one per joint (≠ the AI differs); 30 A twist-lock connector (L14-30), one per joint (≠ the AI differs).
+On the site: Three-phase twist-lock (L21-30) on 8/5 SOOW, under rain covers (≠ the AI differs); Off-the-shelf twist-lock cords, cut in half; Three-phase 30 A twist-lock plug (L21-30), one per joint (≠ the AI differs); Three-phase 30 A twist-lock connector (L21-30), one per joint (≠ the AI differs).
 
 ## H23: Local outlets in every segment's power box.
 
@@ -401,7 +401,7 @@ Cameron answered, 2026-10-22 1:03 AM PDT (this repo's chat):
 
 > 30A 3 phase should be enough. but let's price out 50A and 100A just in case…
 
-On the site: A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord; Three-phase twist-lock (L21-30) (≠ the AI differs); A 100 A feed; Power trunk around the ring: 8/4 outdoor cord (ft) (≠ the AI differs).
+On the site: A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord; A 100 A feed.
 
 ## H51: Sun shields: something simple on the truss above the boxes.
 
@@ -475,7 +475,7 @@ Cameron said, 2026-10-22 10:41 PM PDT (this repo's chat):
 
 > I think L21-30 is 3 phase with neutral.
 
-On the site: Three-phase twist-lock (L21-30) (≠ the AI differs); Power trunk around the ring: 8/4 outdoor cord (ft) (≠ the AI differs).
+On the site: Three-phase twist-lock (L21-30) on 8/5 SOOW, under rain covers; Three-phase 30 A twist-lock plug (L21-30), one per joint; Three-phase 30 A twist-lock connector (L21-30), one per joint; Power trunk around the ring: 8/5 outdoor cord (ft).
 
 ## H61: The crew's container is not a high cube.
 
@@ -517,6 +517,8 @@ Cameron said, 2026-10-23 1:31 PM PDT (this repo's chat):
 
 ⚠ AI's reading: At 30 A a leg it is 1.5×, not 3×: split-phase 240 × 30 = 7.2 kVA, three-phase 120/208 V √3 × 208 × 30 = 10.8 kVA (5.76 vs 8.64 kVA continuous). It is 3× single-phase 120 V.
 
+On the site: Three-phase twist-lock (L21-30) on 8/5 SOOW, under rain covers.
+
 ## H66: A second password, given as a pattern with a number in it, so each person can get their own number.
 
 Cameron said, 2026-10-22 9:41 PM PDT (this repo's chat):
@@ -534,3 +536,27 @@ Cameron approved the AI's proposal, 2026-10-22 10:30 PM PDT (this repo's chat):
 Cameron said, 2026-10-23 3:42 PM PDT (this repo's chat):
 
 > the point is that it's relatively open but we can secretly give visitor unique tracking links.
+
+## H69: The feed is three-phase L21-30, not the L14-30 the AI recommended.
+
+Cameron said, 2026-10-24 10:44 PM PDT (this repo's chat):
+
+> I'm leaning 3-phase. L21.
+
+⚠ AI's reading: A lean, not a final call. The site now leads with L21-30 on 8/5 cord: 25 A at 50 °C (30 A at 45 °C or below), so about 7.2 kVA continuous in playa heat against the L14-30's 5.76.
+
+On the site: Power: in V2; Three-phase, from a towable generator; Three-phase twist-lock (L21-30) on 8/5 SOOW, under rain covers; Three-phase 30 A twist-lock plug (L21-30), one per joint; Three-phase 30 A twist-lock connector (L21-30), one per joint; Power trunk around the ring: 8/5 outdoor cord (ft); Adapter for three-phase towable generators (cam-lok to L21-30).
+
+## H70: The power can be split into two halves of the ring, each able to take its own feed later. The light is never split.
+
+Cameron said, 2026-10-24 10:44 PM PDT (this repo's chat):
+
+> we never want to light half of it. Or you mean for power dist? I guess we should include the option to split the power in half...
+
+On the site: Power: in V2; Splits in half for more; Two halves from the feed joint; Second output from the feed box, so the ring runs as two halves.
+
+## H71: Merge Empyrean PR #6 (the ring size from the 2022 drawings).
+
+Cameron approved the AI's proposal, 2026-10-24 10:44 PM PDT (this repo's chat):
+
+> yes, merge #6.

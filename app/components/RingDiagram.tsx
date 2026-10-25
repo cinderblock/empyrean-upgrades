@@ -390,8 +390,8 @@ export default function RingDiagram({
                   <>
                     <dt>Power feed</dt>
                     <dd>
-                      The generator plugs in here: one 30 A twist-lock (L14-30)
-                      for the whole ring
+                      The generator plugs in here: one three-phase twist-lock
+                      (L21-30) for the whole ring
                     </dd>
                   </>
                 )}

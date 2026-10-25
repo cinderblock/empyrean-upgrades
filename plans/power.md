@@ -76,7 +76,26 @@ Each line says who decided it: 🧑 with a ledger id is what a person said
   loop** fed at one joint and capped at the far end, and **a Class A GFCI in
   each segment's power box**. 🤖 The open loop (rather than H17's "single
   loop") and every part number are the AI's.
-- ⚠ **Open conflict: three-phase.** After approving L14-30 (H20), 🧑 H50 said
+- **Feed: three-phase L21-30** (🧑 H69, 2026-10-24: "I'm leaning 3-phase.
+  L21."). A lean, not final, but the site now leads with it. 🤖 The design:
+  L21-30 joints (Hubbell HBL2811 / AC Works ASL2130R) on **8/5 UL SOOW**, a
+  **25 A** three-pole main (Eaton FAZ-C25/3-NA; 8/5 carries 28.7 A at 50 °C
+  with the neutral not counted, 30 A only at 45 °C or below), and a cam-lok →
+  L21-30 adapter box for three-phase towables ($580 field-built to $3,900 for
+  the listed Motion Labs box) in place of the CS6365 adapter. About **7.2 kVA
+  continuous in the heat** (8.6 below 45 °C), against the L14-30's 5.76.
+  Supplies wired leg to leg (H64) rotate across the three leg pairs.
+  Portables can't feed it. The power category comes to about $600–4,700
+  more than the L14-30 design (`docs/pricing-feed-options-2-2026-10.md` §2).
+- **Room to split the power in half** (🧑 H70: "we never want to light half
+  of it. Or you mean for power dist? I guess we should include the option to
+  split the power in half"). 🤖 The feed box gets a second output; the two
+  halves run opposite ways from the feed joint and are capped where they
+  meet. One feed powers both; a second feeder, inlet and breaker later
+  (about $800–1,400) double it. In the budget as `power-half-split`
+  ($60–170).
+- ~~⚠ **Open conflict: three-phase.**~~ Settled by H69 (above); kept for the
+  history. After approving L14-30 (H20), 🧑 H50 said
   "30A 3 phase should be enough. but let's price out 50A and 100A just in
   case", and 🧑 H60 confirmed true three-phase (L21-30) was meant. 🤖 The AI's
   pricing (`docs/pricing-feed-options-2-2026-10.md`) still recommends L14-30
@@ -139,7 +158,7 @@ Each line says who decided it: 🧑 with a ledger id is what a person said
   twist). Being researched: `docs/pricing-power-feed-2026-10.md`.
 - Cable: outdoor- and UV-rated flexible cord, gauge set by the per-run current.
 
-## The feed research: L14-30 (leading)
+## The feed research: L14-30 (the first pick; the lean is now L21-30, H69)
 
 Source: `docs/pricing-power-feed-2026-10.md` (research, 2026-10-21). This is
 what the site's budget now uses.
@@ -303,6 +322,13 @@ before the 15 % contingency:
   L14-30 joints either. Trial-fit one; find another cover if not.
 
 ## Open questions
+
+- (2026-10-24) **Follow-ons of the three-phase feed** (H69), not yet worked
+  through: the two-pole (208 V) ground-fault breaker per segment; how the
+  sixteen segments rotate across the three leg pairs (6/5/5) and which
+  segment takes the outlets' 120 V; whether the crew's generators (James) can
+  run three-phase 208Y/120; the solar inverter, priced split-phase, needs a
+  three-phase output.
 
 - (2026-10-21) **Feed ampacity: 30 A or 50 A?** The V1 "Circuit Loads" are
   estimated max draw (🧑 H31). The user is open to more ampacity for maximum
