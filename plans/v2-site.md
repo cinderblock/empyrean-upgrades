@@ -331,7 +331,9 @@ of them.
    in the budget.
 4. ~~Empyrean PR #6~~: merged (H71, `42b58e0`, 2026-10-24). Still to do on
    the show machine: its saved 25 / 8 ft moves on its own once the migration
-   ships (H72, 2026-10-25; Empyrean PR #7, then a release).
+   ships (H72, 2026-10-25): PR #7 merged, released in v0.17.0
+   (2026-10-25 1:47 AM PDT (08:47Z)). The show machine moves to 28.99 / 8.38
+   on its next self-update and launch; look at a few radial patches on the rig.
 
 ## Things not to do
 
