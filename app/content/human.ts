@@ -660,6 +660,17 @@ export const HUMAN = {
     meaning: "Merge Empyrean PR #6 (the ring size from the 2022 drawings).",
     thread: "upgrades",
   },
+  H72: {
+    at: "2026-10-25 1:00 AM PDT",
+    who: C,
+    kind: "said",
+    said: "why? can't we force fix it?",
+    meaning:
+      "The show machine's saved geometry should move to the new ring size on its own, not wait for someone to change it in Settings.",
+    aiReading:
+      "Only a config still on the old default (exactly 25 / 8 ft) moves; radii set by hand stay.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

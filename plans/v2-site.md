@@ -330,8 +330,8 @@ of them.
 3. ~~Half-ring wiring~~: yes, as an option to split the power in half (H70);
    in the budget.
 4. ~~Empyrean PR #6~~: merged (H71, `42b58e0`, 2026-10-24). Still to do on
-   the show machine: set the new geometry in Settings → Geometry (it keeps
-   its saved 25 / 8 ft).
+   the show machine: its saved 25 / 8 ft moves on its own once the migration
+   ships (H72, 2026-10-25; Empyrean PR #7, then a release).
 
 ## Things not to do
 

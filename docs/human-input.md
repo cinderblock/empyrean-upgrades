@@ -560,3 +560,11 @@ On the site: Power: in V2; Splits in half for more; Two halves from the feed joi
 Cameron approved the AI's proposal, 2026-10-24 10:44 PM PDT (this repo's chat):
 
 > yes, merge #6.
+
+## H72: The show machine's saved geometry should move to the new ring size on its own, not wait for someone to change it in Settings.
+
+Cameron said, 2026-10-25 1:00 AM PDT (this repo's chat):
+
+> why? can't we force fix it?
+
+⚠ AI's reading: Only a config still on the old default (exactly 25 / 8 ft) moves; radii set by hand stay.
