@@ -671,6 +671,15 @@ export const HUMAN = {
       "Only a config still on the old default (exactly 25 / 8 ft) moves; radii set by hand stay.",
     thread: "upgrades",
   },
+  H73: {
+    at: "2026-10-25 1:29 AM PDT",
+    who: C,
+    kind: "said",
+    said: "can you tone down the serifs. I'm not a fan of serifs. some tasteful in the large title can be ok... but this is too much",
+    meaning:
+      "The site is set in a sans. A serif is allowed only in the large page title.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

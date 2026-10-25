@@ -173,7 +173,7 @@ h2 {
 }
 
 /* The page title is the one place the display serif appears; everything
- * else is set in the sans. */
+ * else is set in the sans (H73). */
 h1 {
   font-family: var(--font-display);
   font-weight: 500;

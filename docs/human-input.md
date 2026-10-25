@@ -568,3 +568,9 @@ Cameron said, 2026-10-25 1:00 AM PDT (this repo's chat):
 > why? can't we force fix it?
 
 ⚠ AI's reading: Only a config still on the old default (exactly 25 / 8 ft) moves; radii set by hand stay.
+
+## H73: The site is set in a sans. A serif is allowed only in the large page title.
+
+Cameron said, 2026-10-25 1:29 AM PDT (this repo's chat):
+
+> can you tone down the serifs. I'm not a fan of serifs. some tasteful in the large title can be ok... but this is too much
