@@ -55,13 +55,16 @@ export default function Tip({
   // The panel sits in the top layer (a popover), so no card or table that
   // clips its overflow can cut it off. That also takes it out of the flow:
   // place it by hand, under the trigger's right edge, kept on screen, and
-  // above the trigger when there's no room below. Again on scroll and resize.
+  // above the trigger when there's no room below. Too tall for either side, it
+  // takes the roomier one and scrolls, so it never covers its own trigger.
+  // Again on scroll and resize.
   useLayoutEffect(() => {
     const el = panel.current;
     const trigger = root.current;
     if (!open || !el || !trigger) return;
     if (!el.matches(":popover-open")) el.showPopover();
     const place = () => {
+      el.style.maxHeight = "";
       const t = trigger.getBoundingClientRect();
       const p = el.getBoundingClientRect();
       const margin = 8;
@@ -73,13 +76,18 @@ export default function Tip({
         vw - margin - p.width,
       );
       const below = t.bottom + gap;
-      const above = t.top - gap - p.height;
-      const top =
-        below + p.height <= vh - margin
-          ? below
-          : above >= margin
-            ? above
-            : Math.max(margin, vh - margin - p.height);
+      const roomBelow = vh - margin - below;
+      const roomAbove = t.top - gap - margin;
+      let top: number;
+      if (p.height <= roomBelow) top = below;
+      else if (p.height <= roomAbove) top = t.top - gap - p.height;
+      else if (roomBelow >= roomAbove) {
+        el.style.maxHeight = `${roomBelow}px`;
+        top = below;
+      } else {
+        el.style.maxHeight = `${roomAbove}px`;
+        top = margin;
+      }
       el.style.left = `${Math.max(margin, left)}px`;
       el.style.top = `${top}px`;
     };
