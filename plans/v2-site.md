@@ -242,7 +242,13 @@ wants to raise, and donors can see where their money goes.
           a right one sets its cookie, every one leaves the address, and
           `record` strips `key` from path and referrer as a backstop. The one
           row already stored can't be deleted (Analytics Engine has no delete);
-          it ages out in about 3 months. To check live after the push.
+          it ages out in about 3 months. Pushed as `5dab3b7` and built
+          (deployment 6:58 PM PDT Oct 25, 01:58Z), but not checked live: by then
+          empyreangate.org and v2.empyreangate.org both served a "Cloudflare
+          Registrar" parking page (cached HIT), not the Workers. The domain is
+          registered to 2027-10-11. The Worker's last recorded event is 2:26 PM PDT
+          (21:26Z); ops `1ea1ef5` (4:23 PM PDT) made sync deletes reach the API for
+          the first time. Reported to the user; ops is theirs to touch.
 
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 
