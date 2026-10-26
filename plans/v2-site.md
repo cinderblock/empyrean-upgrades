@@ -229,11 +229,20 @@ wants to raise, and donors can see where their money goes.
           `Entheos01`, logged with no exceptions and no "visit not recorded".
           Pattern cookies are now `<password>.<mac>`. Whether rows reached
           Analytics Engine needs the API token below.
-    - [ ] An API token (Account Analytics: Read) for `bun run visits`; the SQL
-          in `scripts/visits.ts` is untested until then. The user puts it in
-          `.env.local` as `VISITS_API_TOKEN` (2026-10-24): the chat's secret
-          prompt never hands the value to a shell, and `CLOUDFLARE_API_TOKEN`
-          would make wrangler use the read-only token.
+    - [x] An API token (Account Analytics: Read) in `.env.local` as
+          `VISITS_API_TOKEN` (2026-10-25; the chat's secret prompt never hands
+          the value to a shell, and `CLOUDFLARE_API_TOKEN` would make wrangler
+          use the read-only token). `bun run visits`, `log` and `who` all
+          work on the live data.
+    - [ ] **Fix: a `?key=` was recorded** (found 2026-10-25 in the first real
+          `log`). Someone already in who opened a `?key=` link was served the
+          page as-is: the key stayed in the address, went into the recorded
+          path (and the next page's referrer) and wasn't applied. Now
+          `fromLink` handles every `?key=`, cookie or not and lock on or off:
+          a right one sets its cookie, every one leaves the address, and
+          `record` strips `key` from path and referrer as a backstop. The one
+          row already stored can't be deleted (Analytics Engine has no delete);
+          it ages out in about 3 months. To check live after the push.
 
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 

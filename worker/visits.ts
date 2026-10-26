@@ -73,6 +73,21 @@ function clip(s: string | null | undefined, max = 256): string {
   return (s ?? "").slice(0, max);
 }
 
+/** A `?key=` is a password, or a guess at one: never recorded. */
+function withoutKey(address: string): string {
+  if (!address) return address;
+  let url: URL;
+  try {
+    url = new URL(address, "https://local.invalid");
+  } catch {
+    return "";
+  }
+  if (!url.searchParams.has("key")) return address;
+  url.searchParams.delete("key");
+  const rest = url.pathname + url.search + url.hash;
+  return address.startsWith("/") ? rest : url.origin + rest;
+}
+
 /**
  * One spelling per page: the HTML is served at `/budget/` but the router
  * reports `/budget`, so the trailing slash goes.
@@ -94,14 +109,14 @@ export function record(
   const fields: Record<(typeof BLOBS)[number], string> = {
     event: visit.event,
     who: clip(visit.who, 96),
-    path: clip(tidy(visit.path), 512),
+    path: clip(tidy(withoutKey(visit.path)), 512),
     detail: clip(visit.detail),
     country: clip(cf.country),
     region: clip(cf.region),
     city: clip(cf.city),
     colo: clip(cf.colo),
     userAgent: clip(request.headers.get("user-agent")),
-    referrer: clip(request.headers.get("referer"), 512),
+    referrer: clip(withoutKey(request.headers.get("referer") ?? ""), 512),
   };
   try {
     console.log(JSON.stringify({ visit: fields, status: visit.status }));

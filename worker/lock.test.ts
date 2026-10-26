@@ -366,6 +366,60 @@ describe("visits", () => {
     expect(JSON.stringify(points)).not.toContain("another");
   });
 
+  test("a link names whoever opens it, even someone already in", async () => {
+    const { points, visits } = dataset();
+    const res = await worker.fetch(
+      get("/budget/?key=Guest42&x=1", {
+        cookie: `${COOKIE}=${await accessToken(PASSWORD)}`,
+        referer: "https://v2.empyreangate.org/?key=Guest07",
+      }),
+      env({ VISITS: visits }),
+    );
+    expect(res.status).toBe(303);
+    expect(res.headers.get("location")).toBe("/budget/?x=1");
+    expect(cookieValue(res)).toBe(
+      `Guest42.${(await patternCookie("Guest42", PATTERN)).split(".")[1]}`,
+    );
+    expect(points[0]).toMatchObject({
+      event: "unlock",
+      who: "Guest42",
+      path: "/budget?x=1",
+      referrer: "https://v2.empyreangate.org/",
+    });
+  });
+
+  test("a wrong link only drops out of the address for someone in", async () => {
+    const { points, visits } = dataset();
+    const res = await worker.fetch(
+      get("/budget/?key=nope", {
+        cookie: `${COOKIE}=${await accessToken(PASSWORD)}`,
+      }),
+      env({ VISITS: visits }),
+    );
+    expect(res.status).toBe(303);
+    expect(res.headers.get("location")).toBe("/budget/");
+    expect(cookieValue(res)).toBeUndefined();
+    expect(points.map((p) => [p.event, p.who])).toEqual([["refused", ""]]);
+    expect(JSON.stringify(points)).not.toContain("nope");
+  });
+
+  test("with the lock off, a link still names the visitor", async () => {
+    const { points, visits } = dataset();
+    const res = await worker.fetch(
+      get("/?key=Guest07"),
+      env({ VISITS: visits, SITE_LOCK: "off" }),
+    );
+    expect(res.status).toBe(303);
+    expect(res.headers.get("location")).toBe("/");
+    expect(cookieValue(res)).toBe(await patternCookie("Guest07", PATTERN));
+    expect(points[0]).toMatchObject({ event: "unlock", who: "Guest07" });
+    const wrong = await worker.fetch(
+      get("/?key=nope"),
+      env({ SITE_LOCK: "off" }),
+    );
+    expect(wrong.status).toBe(303);
+  });
+
   test("a revoked password is recorded by name", async () => {
     const { points, visits } = dataset();
     await worker.fetch(

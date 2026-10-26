@@ -154,7 +154,9 @@ bunx wrangler preview secret put SITE_PASSWORD   # Previews
 ```
 
 A link can carry it: `https://v2.empyreangate.org/?key=<password>` unlocks and
-drops the key from the address. The cookie is an HMAC keyed by the password, so
+drops the key from the address. A link names whoever opens it, even someone
+already in, and still works with the lock off, so numbered links track visitors
+either way. The key is never recorded. The cookie is an HMAC keyed by the password, so
 changing the password logs everyone out. Lock on with no password set answers
 503 rather than serving the site. Password tries are rate-limited per visitor.
 

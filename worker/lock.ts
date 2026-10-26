@@ -430,6 +430,43 @@ function privately(response: Response, path: string): Response {
   });
 }
 
+/**
+ * A link carrying a password (`?key=`): a right one sets its cookie, so a
+ * link names whoever opens it, even someone already in. Either way the key
+ * leaves the address, so it isn't bookmarked or recorded. A wrong one only
+ * stops someone who has no other way in (no cookie, lock on).
+ */
+async function fromLink(
+  request: Request,
+  env: Env,
+  url: URL,
+  who: string | undefined,
+): Promise<Response | undefined> {
+  const key = url.searchParams.get("key");
+  if (key === null) return undefined;
+  url.searchParams.delete("key");
+  const next = url.pathname + url.search + url.hash;
+  const log = (visit: Omit<Visit, "path">) =>
+    record(request, env.VISITS, { ...visit, path: next });
+  const inAnyway = Boolean(who) || env.SITE_LOCK !== "on";
+  if (!(await mayTry(request, env))) {
+    log({ event: "limited", who: who ?? "", status: 429, detail: "link" });
+    return inAnyway ? redirect(next) : html(429, lockPage(next, TOO_MANY));
+  }
+  const guess = await checkGuess(key, env);
+  if (guess.token) {
+    log({ event: "unlock", who: guess.who, status: 303, detail: "link" });
+    return redirect(next, accessCookie(guess.token));
+  }
+  const detail = guess.revoked ? "revoked" : "link";
+  log({ event: "refused", who: guess.who, status: 401, detail });
+  if (inAnyway) return redirect(next);
+  return html(
+    401,
+    lockPage(next, "That link's password isn't right any more."),
+  );
+}
+
 /** Every request the Worker sees. */
 export async function handle(
   request: Request,
@@ -456,7 +493,8 @@ export async function handle(
 
   if (env.SITE_LOCK !== "on") {
     const who = await cookieOwner(readCookie(request, COOKIE), env);
-    return withHeaders(await serve(request, env, who));
+    const link = await fromLink(request, env, url, who);
+    return link ?? withHeaders(await serve(request, env, who));
   }
   if (!env.SITE_PASSWORD) {
     return html(
@@ -471,34 +509,9 @@ export async function handle(
 
   const have = readCookie(request, COOKIE);
   const who = await cookieOwner(have, env);
+  const link = await fromLink(request, env, url, who);
+  if (link) return link;
   if (who) return privately(await serve(request, env, who), path);
-
-  // A link carrying the password: unlock, then drop it from the address.
-  const key = url.searchParams.get("key");
-  const here = () => {
-    url.searchParams.delete("key");
-    return url.pathname + url.search + url.hash;
-  };
-  if (key !== null) {
-    const next = here();
-    const log = (visit: Omit<Visit, "path">) =>
-      record(request, env.VISITS, { ...visit, path: next });
-    if (!(await mayTry(request, env))) {
-      log({ event: "limited", who: "", status: 429, detail: "link" });
-      return html(429, lockPage(next, TOO_MANY));
-    }
-    const guess = await checkGuess(key, env);
-    if (guess.token) {
-      log({ event: "unlock", who: guess.who, status: 303, detail: "link" });
-      return redirect(next, accessCookie(guess.token));
-    }
-    const detail = guess.revoked ? "revoked" : "link";
-    log({ event: "refused", who: guess.who, status: 401, detail });
-    return html(
-      401,
-      lockPage(next, "That link's password isn't right any more."),
-    );
-  }
 
   if (isPage(request, path)) {
     record(request, env.VISITS, {
