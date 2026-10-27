@@ -680,6 +680,24 @@ export const HUMAN = {
       "The site is set in a sans. A serif is allowed only in the large page title.",
     thread: "upgrades",
   },
+  H74: {
+    at: "2026-10-26 11:48 AM PDT",
+    who: "James Logistic",
+    kind: "said",
+    said: 'Replace text with … "The Gate is a 60 ft ring supporting shade sails laced with 64 spokes of high-density LEDs over a community gathering space. …"',
+    meaning:
+      "The site's opening line: the ring holds up shade sails, its 64 spokes are high-density LEDs, and what is under it is a community gathering space, not a dance floor.",
+    thread: "upgrades",
+  },
+  H75: {
+    at: "2026-10-26 11:46 PM PDT",
+    who: C,
+    kind: "approved",
+    said: "approve his changes",
+    meaning:
+      "James's wording for the opening line (H74) goes on the site as written.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

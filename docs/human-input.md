@@ -574,3 +574,15 @@ Cameron said, 2026-10-25 1:00 AM PDT (this repo's chat):
 Cameron said, 2026-10-25 1:29 AM PDT (this repo's chat):
 
 > can you tone down the serifs. I'm not a fan of serifs. some tasteful in the large title can be ok... but this is too much
+
+## H74: The site's opening line: the ring holds up shade sails, its 64 spokes are high-density LEDs, and what is under it is a community gathering space, not a dance floor.
+
+James Logistic said, 2026-10-26 11:48 AM PDT (this repo's chat):
+
+> Replace text with … "The Gate is a 60 ft ring supporting shade sails laced with 64 spokes of high-density LEDs over a community gathering space. …"
+
+## H75: James's wording for the opening line (H74) goes on the site as written.
+
+Cameron approved the AI's proposal, 2026-10-26 11:46 PM PDT (this repo's chat):
+
+> approve his changes

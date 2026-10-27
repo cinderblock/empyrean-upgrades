@@ -46,8 +46,9 @@ export default function Home() {
           <p className="kicker">The Empyrean Gate, version 2</p>
           <h1>Built for the weather, and ready to grow.</h1>
           <p className="lede">
-            The Gate is a {GATE.outerDiameterFt} ft ring of {GATE.spokes} LED
-            spokes over a dance floor. V1 works, but its power and boxes aren't
+            The Gate is a {GATE.outerDiameterFt} ft ring supporting shade sails
+            laced with {GATE.spokes} spokes of high-density LEDs over a
+            community gathering space. V1 works, but its power and boxes aren't
             weatherproof, one switch carries the whole network, and its show
             computer is at its limit. V2 fixes all three, and leaves room for
             what comes next.
