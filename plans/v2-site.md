@@ -197,8 +197,8 @@ wants to raise, and donors can see where their money goes.
 
 19. [x] **Light mode, following the system** (user, 2026-10-22). See Design.
         Tests: `colour scheme` in `tests/site.spec.ts`, with JavaScript off.
-20. [ ] **Visit logging: who opened what** (🧑 H67, 2026-10-22: "2 + analytics
-        engine sounds good. log it all"). ← current
+20. [x] **Visit logging: who opened what** (🧑 H67, 2026-10-22: "2 + analytics
+        engine sounds good. log it all").
     - **Per-password cookie.** A pattern password's cookie is
       `<password>.<HMAC>`, the HMAC keyed by the pattern over the password, so
       it names its holder and can't be changed to another number. Valid while
@@ -234,7 +234,7 @@ wants to raise, and donors can see where their money goes.
           the value to a shell, and `CLOUDFLARE_API_TOKEN` would make wrangler
           use the read-only token). `bun run visits`, `log` and `who` all
           work on the live data.
-    - [ ] **Fix: a `?key=` was recorded** (found 2026-10-25 in the first real
+    - [x] **Fix: a `?key=` was recorded** (found 2026-10-25 in the first real
           `log`). Someone already in who opened a `?key=` link was served the
           page as-is: the key stayed in the address, went into the recorded
           path (and the next page's referrer) and wasn't applied. Now
@@ -242,7 +242,11 @@ wants to raise, and donors can see where their money goes.
           a right one sets its cookie, every one leaves the address, and
           `record` strips `key` from path and referrer as a backstop. The one
           row already stored can't be deleted (Analytics Engine has no delete);
-          it ages out in about 3 months. Pushed as `5dab3b7`; not yet checked live.
+          it ages out in about 3 months. Pushed as `5dab3b7`, checked live
+          2026-10-26 11:31 PM PDT (06:31Z): signed in, a link switches to its
+          name (303, new cookie, key gone); a wrong key with a cookie just
+          leaves the address; without one, 401; the record reads `/budget?x=1`
+          and no `key=` is stored.
 
 ## The ops change (applied 2026-10-21, ops `7b23091`)
 
