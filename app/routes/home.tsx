@@ -216,8 +216,8 @@ export default function Home() {
           <div>
             <h2 id="demo">See it move</h2>
             <p className="section-lede">
-              The Gate's own patterns, running in your browser. Switch to 128
-              spokes to see the last stretch goal. Tap the ring to send a ripple
+              The Gate's own patterns, running in your browser. Switch to 128 or
+              256 spokes to see the stretch goals. Tap the ring to send a ripple
               through it.
             </p>
             <p>

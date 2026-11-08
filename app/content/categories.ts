@@ -566,6 +566,11 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         by: { doc: "Empyrean repo, plans/gate-network.md" },
         body: "Twice the spokes. The controllers already have the outputs for it; the strips, mounting and power are what it takes.",
       },
+      {
+        title: "256 spokes",
+        by: { h: ["H76"], what: "256 spokes, if enough is raised" },
+        body: "Four times today's spokes, if we raise enough: a second light controller in every node box, and the ring's two power halves fed apart.",
+      },
     ],
     options: [
       {

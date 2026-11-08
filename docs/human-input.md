@@ -586,3 +586,13 @@ James Logistic said, 2026-10-26 11:48 AM PDT (this repo's chat):
 Cameron approved the AI's proposal, 2026-10-26 11:46 PM PDT (this repo's chat):
 
 > approve his changes
+
+## H76: The demo gets a third choice, 256 spokes, shown as what the Gate becomes if enough is raised.
+
+Cameron said, 2026-11-07 11:45 PM PST (this repo's chat):
+
+> Can you add a third option to add 256 spokes in the preview, if we raise enough money for it
+
+⚠ AI's reading: Making it a priced stretch goal after 128 spokes (strips, leads, supplies, a second light controller per node box, a second feed) is the AI's.
+
+On the site: 256 spokes; Stretch goal 5: 256 spokes; LED strip for 128 more spokes, 5 m reels.

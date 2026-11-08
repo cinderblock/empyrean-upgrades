@@ -43,6 +43,7 @@ export const TIER_IDS = [
   "senses",
   "console",
   "spokes",
+  "spokes256",
   "rigging",
   "solar",
   "transport",
@@ -103,6 +104,16 @@ export const TIERS: Tier[] = [
     id: "spokes",
     name: "128 spokes",
     promise: "Double the spokes: twice the light, on the same ring.",
+  },
+  {
+    id: "spokes256",
+    by: {
+      h: ["H76"],
+      what: "256 spokes, if enough is raised. The parts are the AI's",
+    },
+    name: "256 spokes",
+    promise:
+      "Double again: four times today's spokes, sixteen to a sail, on the same ring.",
   },
   {
     id: "rigging",
@@ -917,6 +928,88 @@ export const ITEMS: LineItem[] = [
     },
     datasheet: "https://www.meanwell.com/Upload/PDF/HLG-320H/HLG-320H-SPEC.PDF",
     note: "Sized for 8 to 18 W per metre at full white, the range for this kind of strip. The 30 A feed carries 128 spokes at their average draw; whether it carries full white waits on measuring a spoke.",
+  },
+  // --- 256 spokes (stretch goal, Expansion) ---------------------------------
+  // 128 more on top of the 128-spoke goal: the same strip, leads and supplies,
+  // twice over, plus what 128 spokes doesn't need (docs/v1-hardware.md: the
+  // PixLites' reserved half is used up at 128).
+  {
+    id: "exp256-strips",
+    by: { h: ["H76"], what: "256 spokes" },
+    category: "expansion",
+    tier: "spokes256",
+    name: "LED strip for 128 more spokes, 5 m reels",
+    part: "BTF-Lighting WS2815, 60/m, IP67",
+    qty: 172,
+    qtyNote: "128 spokes × 6.3 m = 806 m; offcuts pooled",
+    unit: [43.99, 58.65],
+    confidence: "assumed",
+    source: {
+      label: "BTF-Lighting",
+      url: "https://www.btf-lighting.com/products/ws2815-rgb-addressable-led-strip-dc12v",
+    },
+    note: "Same assumption as the 128-spoke goal: today's strip is 12 V WS2815 at 60 LEDs per metre. Sixteen strips to a sail sit about 5 cm apart at the hub end; whether the sails can carry them isn't checked.",
+  },
+  {
+    id: "exp256-leads",
+    category: "expansion",
+    tier: "spokes256",
+    name: "Waterproof pigtails and power-injection leads",
+    qty: 2,
+    qtyNote: "for 128 spokes, priced as two sets of 64",
+    unit: [594, 914],
+    confidence: "estimate",
+    source: {
+      label: "BTF-Lighting",
+      url: "https://www.btf-lighting.com/products/5-pairs-led-connector-waterproof-ip68-2pin-3pin-4pin-5pin-20cm-male-to-female-22awg-24awg-black-white-cable-for-led-light-strip",
+    },
+  },
+  {
+    id: "exp256-supplies",
+    category: "expansion",
+    tier: "spokes256",
+    name: "12 V supplies for the new spokes, two sets per segment",
+    part: "Mean Well HLG-320H-12, up to HLG-600H-12 + HLG-320H-12",
+    qty: 32,
+    unit: [96.86, 302.06],
+    confidence: "assumed",
+    source: {
+      label: "TRC Electronics",
+      url: "https://www.trcelectronics.com/products/mean-well-hlg-320h-12",
+    },
+    datasheet: "https://www.meanwell.com/Upload/PDF/HLG-320H/HLG-320H-SPEC.PDF",
+    note: "Sized like the 128-spoke goal's, for 8 to 18 W per metre at full white. More supplies per power box: whether they fit isn't checked.",
+  },
+  {
+    id: "exp256-controllers",
+    category: "expansion",
+    tier: "spokes256",
+    name: "A second light controller in each node box",
+    part: "Advatek PixLite E4-S Mk3",
+    detail:
+      "128 spokes uses every output of today's controllers; 256 needs as many again.",
+    qty: 17,
+    qtyNote: "16 + 1 spare",
+    unit: [449, 673.5],
+    confidence: "estimate",
+    source: {
+      label: "Digital Ambiance",
+      url: "https://digitalambiance.com/product/pixlite-e4-s-mk3/",
+    },
+    note: "Reseller prices, $449–$499 at Digital Ambiance and $673.50 at Gladiator Lighting; no Advatek list price found. A bigger single controller (E16-S Mk3) instead is not priced. Twice the sACN (about 210 Mbps) still fits the gigabit ring.",
+  },
+  {
+    id: "exp256-second-feed",
+    category: "expansion",
+    tier: "spokes256",
+    name: "Second power feed: the ring's two halves fed apart",
+    part: "A second L21-30 feeder, inlet and 25 A breaker",
+    detail:
+      "Four times the spokes is about 6–8 kW at the Gate's usual draw, past what one feed carries (7.2 kW in the heat). V2 already wires the ring as two halves for this.",
+    qty: 1,
+    unit: [800, 1400],
+    confidence: "estimate",
+    note: "From the feed lines in V2 (docs/pricing-feed-options-2-2026-10.md). Full white at 256 spokes would be far more; measuring one spoke settles how far.",
   },
   // --- VJ console (stretch goal, Compute) -----------------------------------
   // Option A, "Simple", at a ~30 m link (docs/pricing-vj-console-2026-10.md).

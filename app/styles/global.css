@@ -69,10 +69,11 @@
   /* Tiers are ordered, so one hue, strongest against the surface first
    * (validated --ordinal): darkest first on light, brightest first on dark. */
   --tier-0: light-dark(#104281, #9ec5f4);
-  --tier-1: light-dark(#1c5cab, #6da7ec);
-  --tier-2: light-dark(#2a78d6, #3987e5);
-  --tier-3: light-dark(#5598e7, #256abf);
-  --tier-4: light-dark(#86b6ef, #184f95);
+  --tier-1: light-dark(#1a57a2, #77adee);
+  --tier-2: light-dark(#246dc5, #4f94e8);
+  --tier-3: light-dark(#3c85dd, #317bd6);
+  --tier-4: light-dark(#5f9ee9, #2264b6);
+  --tier-5: light-dark(#86b6ef, #184f95);
 }
 
 :root {
@@ -542,6 +543,9 @@ p {
 .tier-4 {
   --tier: var(--tier-4);
 }
+.tier-5 {
+  --tier: var(--tier-5);
+}
 
 .ladder-bar {
   display: flex;
@@ -596,7 +600,11 @@ p {
 .ladder-tiers {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  /* At most three across, so six tiers make two even rows, not 5 + 1. */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(max(12rem, calc((100% - 2rem) / 3)), 1fr)
+  );
   gap: 1rem;
 }
 

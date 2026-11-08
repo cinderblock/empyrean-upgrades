@@ -52,6 +52,24 @@ Source: `docs/pricing-2026-10.md` (research, 2026-10-21).
   GFCIs and circuits, not priced.
 - Every device above fits a 30 W PoE+ port.
 
+## 256 spokes (stretch goal, 2026-11-07)
+
+🧑 H76: "add a third option to add 256 spokes in the preview, if we raise enough
+money for it." The demo has a third switch, and 🤖 the budget a sixth ladder tier
+(`spokes256`, about $40,000 with contingency, running total about $111,000):
+
+- 806 m of strip (172 reels), two sets of leads, 32 more supply sets: the
+  128-spoke goal's lines twice over, on the same assumptions (12 V WS2815 60/m).
+- A second PixLite E4-S Mk3 per node box (17 at $449–673.50, reseller prices):
+  128 spokes already uses every output.
+- A second L21-30 feed ($800–1,400): four times the spokes is 6–8 kW at the
+  usual draw, past one feed's 7.2 kW in the heat. V2 wires the ring as two
+  halves for this.
+- Not checked: whether a sail can carry 16 strips (about 5 cm apart at the hub
+  end), room in the node and power boxes, full-white power.
+- The tier colour ramp went from five to six steps (validated `--ordinal`,
+  light and dark).
+
 ## Open questions
 
 1. Which expansion is most likely first: cameras, audio, or 128 spokes?

@@ -698,6 +698,17 @@ export const HUMAN = {
       "James's wording for the opening line (H74) goes on the site as written.",
     thread: "upgrades",
   },
+  H76: {
+    at: "2026-11-07 11:45 PM PST",
+    who: C,
+    kind: "said",
+    said: "Can you add a third option to add 256 spokes in the preview, if we raise enough money for it",
+    meaning:
+      "The demo gets a third choice, 256 spokes, shown as what the Gate becomes if enough is raised.",
+    aiReading:
+      "Making it a priced stretch goal after 128 spokes (strips, leads, supplies, a second light controller per node box, a second feed) is the AI's.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

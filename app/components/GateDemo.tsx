@@ -2,8 +2,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import { GateEngine } from "../gate/engine";
 import { INNER_OVER_OUTER, PIXELS, SPOKES, fromScreen } from "../gate/geometry";
 
-/** Today's spoke count, and the stretch goal's. */
-export const SPOKE_OPTIONS = [SPOKES, SPOKES * 2] as const;
+/** Today's spoke count, and the two stretch goals'. */
+export const SPOKE_OPTIONS = [SPOKES, SPOKES * 2, SPOKES * 4] as const;
 export type SpokeCount = (typeof SPOKE_OPTIONS)[number];
 import { SCENES, type Scene } from "../gate/presets";
 import { FRAGMENT_SHADER, VERTEX_SHADER } from "../gate/shaders";
@@ -11,7 +11,7 @@ import { FRAGMENT_SHADER, VERTEX_SHADER } from "../gate/shaders";
 /**
  * The mini demo: the live render from empyreangate.org (copied from
  * app/components/GateRender.tsx at f6f02be, with app/gate/), plus a switch
- * between today's 64 spokes and the 128 of the stretch goal. The full pattern
+ * between today's 64 spokes and the 128 and 256 of the stretch goals. The full pattern
  * playground stays on empyreangate.org; this links to it.
  *
  * The live render of the array: a WebGL2 point cloud, one dot per drawn LED,

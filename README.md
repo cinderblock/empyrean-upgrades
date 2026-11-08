@@ -69,7 +69,7 @@ bun run dev
 - `/`: the overview. The ask, the goal and stretch goals as one bar, where V2's
   money goes (a donut with its table), a card per upgrade, an interactive
   diagram of the ring, and a mini demo of the gate's patterns with a switch
-  between today's 64 spokes and the stretch goal's 128.
+  between today's 64 spokes and the stretch goals' 128 and 256.
 - `/budget`: every line item, with quantity, unit price, total and how sure we
   are of the price (tap the label for the source).
 - `/plans/<category>`: today vs V2, how, a diagram, the parts, and what we still

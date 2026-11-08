@@ -71,7 +71,7 @@ test.describe("overview", () => {
     await expect(detail).toContainText("Segment P");
   });
 
-  test("the ring at rest draws every spoke, at 64 and 128", async ({
+  test("the ring at rest draws every spoke, at 64, 128 and 256", async ({
     page,
   }) => {
     await page.goto("/");
@@ -107,15 +107,22 @@ test.describe("overview", () => {
     await page.getByRole("button", { name: /Stretch goal: 128/ }).click();
     await expect(page.locator(".gate-still line")).toHaveCount(128);
     expect(await blankSpokes()).toEqual({ spokes: 128, blank: [] });
+    await page.getByRole("button", { name: /Stretch goal: 256/ }).click();
+    await expect(page.locator(".gate-still line")).toHaveCount(256);
+    expect(await blankSpokes()).toEqual({ spokes: 256, blank: [] });
   });
 
-  test("the demo switches to 128 spokes and links to the playground", async ({
+  test("the demo switches to 128 and 256 spokes and links to the playground", async ({
     page,
   }) => {
     await page.goto("/");
-    const stretch = page.getByRole("button", { name: /Stretch goal: 128/ });
-    await stretch.click();
-    await expect(stretch).toHaveAttribute("aria-pressed", "true");
+    for (const n of [128, 256]) {
+      const stretch = page.getByRole("button", {
+        name: new RegExp(`Stretch goal: ${n}`),
+      });
+      await stretch.click();
+      await expect(stretch).toHaveAttribute("aria-pressed", "true");
+    }
     await expect(
       page.getByRole("link", { name: /Open the playground/ }),
     ).toHaveAttribute("href", "https://empyreangate.org/playground");
