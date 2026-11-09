@@ -105,8 +105,23 @@ prices are search snippets or estimates (rigging dealers sell by quote).
 ## Weight on the ring
 
 ⚠ If the battery option goes ahead, the hoists lift panels too (🧑 H81):
-about 700 kg of panels plus racking and 170–340 kg of batteries. Not yet
-added to the load figures here. No walkway.
+about 700 kg of panels plus racking and 170–340 kg of batteries. No walkway.
+
+**Checked 2026-11-08** (`docs/load-wind-panels-2026-11.md`; not
+engineering):
+
+- **Tomcat 12" light-duty plated (Confirmed, catalogue):** 2,120 lb UDL on
+  20 ft, 1,290 lb on 30 ft; a 10 ft section weighs 61 lb. Nothing for
+  circles, uplift, sideways load or the safety factor. 🤖 About 1,750–1,800
+  lb on the 23.6 ft between legs if straight; the panels and batteries add
+  about 330–440 lb a span (20–25 %).
+- **Wind (Reasoning):** near-flat panels on top lift 41–51 kN at 75 mph,
+  about twice the rig's weight. The ring needs hold-downs and the clamps
+  engineering; stowing in a storm isn't practical. 🤖 Recommendation:
+  panels on the ground (`plans/power.md`).
+- Burning Man over 20 ft: "the engineering calculation package" (drawings,
+  anchors, uplift and bearing, rigging forces, wind and gravity loads);
+  larger pieces have had third-party review.
 
 ## Open questions
 

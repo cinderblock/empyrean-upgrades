@@ -135,12 +135,25 @@ ft up) by the stage leg. Two working routes, both in the research:
   $1,480–1,950).
   ⚠ **The catch:** it needs a USB-C port that carries video (DP Alt
   Mode), and the Nuvo-9160GC's doesn't; its GPU has Mini DisplayPort
-  only. Ways round it, none checked: an adapter that merges DisplayPort
-  and USB into a USB-C source; or a show computer whose USB-C or
-  Thunderbolt carries video (the console's screen can come from the
-  integrated graphics). Also not checked: its temperature rating for the
-  brain box, and MIDI and touch in practice. 35 m starts 21 ft up, so the
-  booth must be within about 28 m of the stage leg.
+  only.
+  **It plugs into the show computer itself** (🧑 H85: "the USB-C extender
+  is fed from the main show computer so we have direct control on the
+  touch screen"). 🤖 So the show computer needs a video-carrying USB-C or
+  Thunderbolt port (the console's screen can run from the integrated
+  graphics). Searched 2026-11-08:
+  - No adapter was found that merges DisplayPort and USB into a USB-C
+    source; Delock's (61059) takes DP to USB-C for video and power only,
+    no USB data.
+  - Neousys's RTX 2000E fanless machines (Nuvo-9160GC, GT-92GC,
+    SEMIL-1300GC) list no video USB-C.
+  - **OnLogic Karbon 520** (fanless, rugged) lists **2 × Thunderbolt 4**
+    and 2 × DP; whether it takes an Ada GPU and its temperature range are
+    not checked. A candidate to replace the Nuvo if this route wins.
+  - The Kramer pair in the budget is also fed from the show computer (DP
+    and USB separately), so it gives the same direct control with the
+    current computer. Also not checked: its temperature rating for the
+    brain box, and MIDI and touch in practice. 35 m starts 21 ft up, so the
+    booth must be within about 28 m of the stage leg.
 
 Not USB4/Thunderbolt optical cables: the Nuvo-9160GC's USB-C port carries no
 video, and those cables don't carry USB 2.0 devices.

@@ -785,6 +785,26 @@ export const HUMAN = {
       "The extender's price and specs, from its listing, as the user pasted them.",
     thread: "upgrades",
   },
+  H84: {
+    at: "2026-11-08 11:30 PM PST",
+    who: C,
+    kind: "approved",
+    said: "yes",
+    meaning:
+      "Pursue the battery-per-box option: check the truss load and the wind, and reprice it.",
+    thread: "upgrades",
+  },
+  H85: {
+    at: "2026-11-08 11:30 PM PST",
+    who: C,
+    kind: "said",
+    said: "the USB-C extender is fed from the main show computer so we have direct control on the touch screen",
+    meaning:
+      "The console's extender plugs into the show computer itself, so the touch screen drives the show directly.",
+    aiReading:
+      "That the show computer therefore needs a USB-C port carrying video, and the candidates for that, are the AI's.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

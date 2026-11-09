@@ -293,6 +293,91 @@ instead of the Victron, two panels and a 150/60 a box, the ESP32 board and
 shunt, a second battery in the high case, a DC-DC for the switch, and
 racking on top. Not repriced yet.
 
+### Pursued: load, wind and price (🧑 H84, 2026-11-08)
+
+🧑 H84: "yes" to pursuing it. Research notes:
+`docs/load-wind-panels-2026-11.md` and `docs/pricing-battery-per-box-2026-11.md`
+(not engineering; every figure tagged there).
+
+**Gravity is fine; wind is the problem.**
+
+- **Load table (Confirmed, Tomcat catalogue via a dealer):** 12" light-duty
+  plated truss carries 2,120 lb UDL on a 20 ft span, 1,290 lb on 30 ft.
+  🤖 Interpolated to the 23.6 ft between legs, about 1,750–1,800 lb,
+  treated as straight. The added load (4 panels, racking, 4–8 batteries) is
+  about 330–440 lb a span, **20–25 %** of that. But Tomcat publishes
+  nothing for the circle (it bows 2.3 ft off the chord, so gravity twists
+  it too), nothing for uplift or sideways load, and nothing on its safety
+  factor: only Tomcat or an engineer can rate the ring. The spokes', hub's
+  and boxes' weights are still unknown.
+- **Wind (Reasoning, ASCE-style, force coefficient 1.2–1.5 on 62 m² of
+  panel):** Burning Man's weather page warns of wind "exceeding 75 mph in an
+  instant" (Confirmed); a 52 mph gust was logged at the BRC airport in 2025
+  (Reported). Uplift on 32 near-flat panels is **20–25 kN at 52 mph, 41–51 kN
+  at 75 mph, 59–74 kN at 90 mph**: about the rig's whole weight at 52 mph
+  (roughly 18–20 kN plus the unknowns) and about **twice it at 75 mph**.
+  Unheld, the ring would lift; about 2.8 kN (620 lbf) net up per leg at
+  75 mph. Each panel's uplift is about 6× its weight. Burning Man's ground
+  anchors are rated 3,000 lb in tension, "NOT rated for shear".
+- **Stowing doesn't work:** 32 panels of 21 kg can't come down from 21 ft in
+  the minutes before a playa storm, so the design has to survive with them up.
+- 🤖 **What it would take:** an engineer's package (Burning Man asks for one
+  over 20 ft: drawings, anchors, uplift, rigging and wind loads); Tomcat's
+  rating for uplift and torsion; engineered clamps at every panel; hold-downs
+  at each leg; a logging anemometer and a wind plan.
+- ⚠ **Conflict with 🧑 H81** (panels on top, shading the boxes). 🤖 The AI's
+  recommendation: **panels on the ground**, ballasted at a low tilt near the
+  legs (the ballast also anchors), DC run up the legs; keep the planned sun
+  shields ($50–150 a segment) for the boxes' shade. Or, if on top: fewer
+  panels (one a segment halves the uplift) and the engineering first. For
+  the user.
+
+**Heat, the second problem.** In a 50 °C box three parts sit at or past
+their limits: the SmartShunt (rated to 50 °C), the MPPT (full output only
+to 40 °C; derates to 60 °C) and the batteries' charging (0–50 °C). The NPB
+charger is fan-cooled with no IP rating, and gives full output only to
+about 50 °C. 🤖 So the power box needs filtered airflow and shade, or the
+MPPT and charger mount outside the sealed part, shaded. Not yet designed.
+
+**Parts, checked against datasheets where linked in the notes:**
+
+- **Charger: Mean Well NPB-750-12**, $175–250 (DigiKey $197.60; $174.70 at
+  25). Its CAN commands **set** output voltage and current and the charge
+  curve (`VOUT_SET`, `IOUT_SET`, `CURVE_*`), so software sets the rate.
+  10.5–21 V settable, 90–264 VAC in. Limit it to about 20 A for one 100 Ah
+  battery (Mean Well suggests 150–500 Ah). No sealed, fanless, wired-
+  controllable 12 V charger was found from Mean Well or Victron.
+- **Batteries:** LiTime **Smart ComFlex** 12 V 100 Ah, $307, with **RS485
+  and CAN** for its BMS (a wired state of charge, which could replace the
+  SmartShunt); plain ones $208–290 have only Bluetooth.
+- **MPPT: SmartSolar 150/60**, $351–370 (860 W at 12 V, VE.Direct).
+- **Panels:** 410 W class, $0.29–0.47/W, about $120–195 each, pallets of
+  31–35, freight extra.
+- **Racking:** $200–400 a segment (Estimate; not designed for the wind
+  above).
+- **Monitoring:** Olimex **ESP32-POE-ISO-IND** (−40 to 85 °C; the plain one
+  stops at 70), about $30–40; a CAN transceiver $4–5; VE.Direct cable
+  $5–30. SmartShunt 500 A $100–131 (not needed with ComFlex batteries).
+- **54 V for the switch:** no good 12 → 54 V converter found (the Murata
+  SPC-54 takes only 11–13.2 V in, below the 14.4 V charging bus). 🤖 Since
+  the USW-Ultra needs 50–57 V, either keep its 54 V supply on AC (the
+  network then isn't on the battery), or a PoE switch that takes 12 V
+  directly (PLANET ISW-504PT and similar; not priced). Open.
+- **DC protection and cable:** Class T fuse and holder, disconnect, 2/0
+  cable, $170–330 a box.
+- **Shipping:** each battery is 1,280 Wh, fully regulated UN3480 Class 9:
+  ground only, the maker's UN 38.3 summary, labels, a trained shipper. The
+  usual path is freight to a warehouse, then the team's own truck (34
+  batteries, about 375 kg).
+
+**Repriced (17 boxes, 34 batteries, 34 panels; before contingency, freight,
+tax and enclosures): about $30,700–44,900.** Chargers $3.0–4.2K, batteries
+$7.8–10.4K, MPPTs $6.0–6.3K, panels $4.1–6.6K, racking $3.4–6.8K,
+monitoring $0.6–0.9K, shunts $1.7–2.2K, 54 V converters $1.2–1.8K, DC
+protection $2.9–5.6K. Less the 12 V pixel supplies it replaces. Ground-
+mounted panels would swap the racking for ballasted ground frames and
+longer DC runs (not priced).
+
 ### With 2× or 4× the pixels (🧑 H80)
 
 🧑 H80 (2026-11-08): "what if we double or 4x the number of pixels". 🤖 The
@@ -506,10 +591,13 @@ before the 15 % contingency:
 
 ## Open questions
 
-- (2026-11-08) **Batteries in the power boxes?** (🧑 H78; section above.)
-  For the user: whether to pursue it. If so: measure one box's real draw
-  for a night, and check the strip's maximum voltage and the box
-  temperature in the sun.
+- (2026-11-08) **Batteries in the power boxes: pursued** (🧑 H84). Still
+  to do: measure one box's real draw for a night, check the strip's
+  maximum voltage and the box temperature in the sun.
+- (2026-11-08) **Panels on top or on the ground?** ⚠ 🧑 H81 wants them on
+  top as shade; at 75 mph their uplift is about twice the rig's weight.
+  🤖 Recommendation: on the ground, ballasted, with the sun shields for
+  shade.
 - (2026-11-08) **L21-30 or James's CS6365?** (🧑 H69, H77.) 🤖
   Recommendation: if the batteries go in, take James's CS6365; it is on the
   rentals, and the chargers cap the load well under it.
@@ -688,4 +776,10 @@ before the 15 % contingency:
 - [ ] Feed topology and protection
 - [x] Battery-per-box option sized (2026-11-08, H78): 20 A charger, one
       100 Ah a box at 64 spokes, ~400 W panel + 30 A MPPT
-- [ ] User: pursue batteries? L21-30 or CS6365 (H77)?
+- [x] User: pursue batteries? Yes (H84, 2026-11-08)
+- [x] Load table, wind check, repricing (2026-11-08): gravity fine, wind
+      uplift ~2× the rig at 75 mph, $30.7–44.9K
+- [ ] User: panels on top (H81) or on the ground (AI recommendation)?
+- [ ] User: L21-30 or CS6365 (H77)?
+- [ ] Power-box thermal design for charger, MPPT and batteries
+- [ ] 54 V for the switch on battery: a 12 V-input PoE switch?

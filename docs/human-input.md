@@ -664,3 +664,21 @@ Cameron answered, 2026-11-08 11:20 PM PST (this repo's chat):
 > OREI USB3-EXB130CR-K: $599.99 (regularly $669.00); 4K to 130 ft (40 m), 5K to 115 ft (35 m); DisplayPort Alt Mode 1.4a; USB 3.2 Gen 1 at up to 2.5 Gbps; TX has a full-function USB-C input; RX a USB-C output plus three USB 3.2 ports; bi-directional 24 V power over the cable; audio de-embedding and RS-232.
 
 On the site: OREI USB-C/DisplayPort and USB 3.2 extender, 115 ft on one Cat6a.
+
+## H84: Pursue the battery-per-box option: check the truss load and the wind, and reprice it.
+
+Cameron approved the AI's proposal, 2026-11-08 11:30 PM PST (this repo's chat):
+
+> yes
+
+On the site: A 12 V battery in every power box, charged from the feed.
+
+## H85: The console's extender plugs into the show computer itself, so the touch screen drives the show directly.
+
+Cameron said, 2026-11-08 11:30 PM PST (this repo's chat):
+
+> the USB-C extender is fed from the main show computer so we have direct control on the touch screen
+
+⚠ AI's reading: That the show computer therefore needs a USB-C port carrying video, and the candidates for that, are the AI's.
+
+On the site: OREI USB-C/DisplayPort and USB 3.2 extender, 115 ft on one Cat6a.
