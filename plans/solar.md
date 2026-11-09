@@ -69,6 +69,14 @@ researched):
   and a truss rated for people and point loads; light-duty truss may not be.
 - If it happens, the sun shields (and maybe the solar racking line) go away.
 
+## A battery in every power box (🧑 H78)
+
+A different route, in `plans/power.md` → "Battery in each power box": a
+12 V 100 Ah LiFePO4 battery per box running the strips, an AC charger, and
+one ~400 W panel with a 30 A MPPT per box. 🤖 It needs no inverter and no
+central battery, but 16 small arrays instead of one, and the electronics
+(300–600 W) stay on AC.
+
 ## Open questions
 
 - (2026-10-24) **The Gate's feed is now three-phase L21-30** (🧑 H69). 🤖 The

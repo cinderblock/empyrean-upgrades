@@ -212,14 +212,25 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         url: "https://leviton.com/products/28w74",
       },
       {
+        name: "A 12 V battery in every power box, charged from the feed",
+        by: {
+          h: ["H78"],
+          what: "A 100 Ah LiFePO4 battery per box running the strips, an AC charger, a small solar controller. The sizes are the AI's",
+        },
+        verdict: "considered",
+        price:
+          "about $9,000–$10,500 for 17 boxes; about $6,000–$9,000 more with a panel each",
+        why: "The strips run straight from a battery; a 17–25 A charger in each box refills it, and replaces the 12 V supplies. One battery carries a night at 64 spokes, the charger caps the whole Gate's draw near 5 kW whatever the show does, and a generator outage no longer darkens it. Against it: about 11 kg a box on the ring, and cells that stop charging above 50 °C.",
+      },
+      {
         name: "A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord",
         by: {
-          h: ["H32", "H50"],
-          what: "Price a bigger feed and compare. The verdict is the AI's",
+          h: ["H32", "H50", "H77"],
+          what: "Price a bigger feed and compare; James wants the California Standard. The verdict is the AI's",
         },
         verdict: "considered",
         price: "about $2,500–$6,100 more for the power category",
-        why: "9.6 kVA continuous, against 7.2 for the three-phase feed in the heat: enough for V1's estimated maximum with no margin, and half of what 128 spokes might draw at full white (two 50 A feeds would cover it). Plugs straight into towable rentals; portables connect through an adapter at 30 A. Heavier cord, and the joints need boots instead of the rain covers.",
+        why: "The California Standard connector, which James prefers. It is split-phase (two hots and a neutral), not three-phase. 9.6 kVA continuous, against 7.2 for the three-phase feed in the heat: enough for V1's estimated maximum with no margin, and half of what 128 spokes might draw at full white (two 50 A feeds would cover it). Plugs straight into towable rentals; portables connect through an adapter at 30 A. Heavier cord, and the joints need boots instead of the rain covers.",
       },
       {
         name: "A 100 A feed",
@@ -267,6 +278,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       "Generator or grid at each event, and how many circuits at what current.",
       "Whether V2 keeps today's pixel supplies or replaces them, and whether today's take 240 V (the plan runs them line to line).",
       "A two-pole ground-fault breaker for each segment: line-to-line supplies need one, and the current pick (Ericson 1075-AR) is single-pole 120 V.",
+      "Which feed connector: three-phase L21-30 (the current lean) or James's 50 A California Standard. With a battery in every box, either carries the Gate.",
     ],
     maturity: "designing",
     planFile: "plans/power.md",
@@ -423,6 +435,16 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         verdict: "stretch",
         price: "about $2,600–$3,600",
         why: "A 15.6 inch industrial touch panel and nine motorized faders, linked over one Cat6a run. The best start: build the show app's MIDI mapping against it.",
+      },
+      {
+        name: "OREI USB-C/DisplayPort and USB 3.2 extender, 115 ft on one Cat6a",
+        by: {
+          h: ["H79"],
+          what: "The show computer up high, a full console on the ground, one Cat6a",
+        },
+        verdict: "considered",
+        why: "Video, USB 3.2, RS-232 and audio on one Cat6a to 35 m, so the console on the ground can take a hub of touch screen, controllers and keyboard. Fed from the graphics card's DisplayPort. Not yet checked: that it carries USB 2 devices (touch, MIDI), its temperature rating for the brain-box end, and its price.",
+        url: "https://www.orei.com/products/usb-c-dp-usb3-2-extender-rs232-audio-extract-115ft-cat6a-usb3-exb130cr-k",
       },
       {
         name: "VJ console, full: 21.5 inch panel, faders, knobs and pads, fiber",

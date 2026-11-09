@@ -709,6 +709,39 @@ export const HUMAN = {
       "Making it a priced stretch goal after 128 spokes (strips, leads, supplies, a second light controller per node box, a second feed) is the AI's.",
     thread: "upgrades",
   },
+  H77: {
+    at: "2026-11-08 10:45 PM PST",
+    who: C,
+    kind: "said",
+    said: "while there are 3-phase camlocks, he's pushing for the california generator standard, which is i think 2 phase.",
+    meaning:
+      "James (who runs the generators) wants the Gate's feed on the California Standard generator connector rather than three-phase cam-loks.",
+    aiReading:
+      "That this means the 50 A CS6364/CS6365 pair, which is split-phase 125/250 V (two hots, neutral, ground), is the AI's reading of the connector's datasheets.",
+    thread: "upgrades",
+  },
+  H78: {
+    at: "2026-11-08 10:45 PM PST",
+    who: C,
+    kind: "said",
+    said: "I'm thinking more about the possibility of running it off of batteries. what if we put 100Ah 12V LiFePo4 cells ($300ea on amazon) in each node box to directly run strings. then have a “charger” input from AC. also probably include a small MPPT, ideally with the right capacity to charge the pack to full on a sunny day. Is a 20A charger enough? 60A? 120A?",
+    meaning:
+      "Consider a 12 V 100 Ah LiFePO4 battery per box running the strips directly, charged from AC, with a small solar charge controller sized to refill it on a sunny day.",
+    aiReading:
+      "Putting the battery in the power box rather than the node box (H14 keeps power apart from data), and every size (a 17–25 A charger, one ~400 W panel and a 30 A MPPT per box), are the AI's.",
+    thread: "upgrades",
+  },
+  H79: {
+    at: "2026-11-08 10:45 PM PST",
+    who: C,
+    kind: "said",
+    said: "add this somewhere to the plan. let's us put the show computer up high and have a full featured console on the ground that plugs into a single CAT6A. https://www.orei.com/products/usb-c-dp-usb3-2-extender-rs232-audio-extract-115ft-cat6a-usb3-exb130cr-k",
+    meaning:
+      "OREI's USB-C/DisplayPort + USB 3.2 extender (115 ft on one Cat6a) goes in the plan as the link from the show computer up in the truss to a console on the ground.",
+    aiReading:
+      "Listing it as an option for the console link, beside the Kramer pair in the budget, is the AI's.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

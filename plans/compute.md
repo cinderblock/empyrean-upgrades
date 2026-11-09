@@ -121,6 +121,21 @@ ft up) by the stage leg. Two working routes, both in the research:
 - **DisplayPort fibre cable + an Icron USB 2.0-over-fibre extender**:
   $1,300–2,000 at 50–100 m.
 
+- **One Cat6a, copper** (🧑 H79, 2026-11-08: "let's us put the show
+  computer up high and have a full featured console on the ground that
+  plugs into a single CAT6A"): **OREI USB-C/DP + USB 3.2 extender, 115 ft**
+  (`USB3-EXB130CR-K`,
+  [orei.com](https://www.orei.com/products/usb-c-dp-usb3-2-extender-rs232-audio-extract-115ft-cat6a-usb3-exb130cr-k)).
+  From its name: USB-C or DisplayPort video in, USB 3.2, RS-232 and audio
+  extract, on one Cat6a to 35 m. 🤖 Fed from the GPU's DisplayPort (the
+  computer's USB-C carries no video), it would replace the budget's Kramer
+  pair (`vj-link`, $1,480–1,950) on runs up to 35 m. **Not checked** (the
+  store blocks automated reads, and no listing was found): the price; that
+  USB 2.0 devices (touch, MIDI) work through it; the temperature rating of
+  the end in the brain box; how each end is powered; the DisplayPort
+  version. 35 m is from the brain box, 21 ft up, so the booth must be
+  within about 28 m of the stage leg along the ground.
+
 Not USB4/Thunderbolt optical cables: the Nuvo-9160GC's USB-C port carries no
 video, and those cables don't carry USB 2.0 devices.
 

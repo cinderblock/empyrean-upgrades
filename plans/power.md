@@ -146,6 +146,94 @@ Each line says who decided it: 🧑 with a ledger id is what a person said
 - 🤖 Hubbell SW is the watertight alternative (its inlet stays at the feed
   box). The feeder is an uncut AC Works SDL1430PR-050 (50 ft).
 
+- ⚠ **James wants the California Standard connector** (🧑 H77, 2026-11-08:
+  "while there are 3-phase camlocks, he's pushing for the california
+  generator standard, which is i think 2 phase"). 🤖 California Standard is
+  the 50 A **CS6364/CS6365** pair (receptacle CS6369): 125/250 V, 3-pole
+  4-wire, so **split-phase** (two hots 180° apart, a neutral, a ground), the
+  same service as an L14-30 at 50 A. Not two-phase and not three-phase; the
+  three-phase California Standard parts are CS8364/CS8365. It is the outlet
+  on most towable rentals, and the plan already prices it (the 50 A row
+  below: 9.6 kVA continuous). **Open, for the user:** L21-30 (H69) or
+  James's CS6365. With a battery in every box (below) the feed only has to
+  carry the chargers, and either works.
+
+## Battery in each power box (🧑 H78, considered)
+
+🧑 H78 (2026-11-08): "what if we put 100Ah 12V LiFePo4 cells ($300ea on
+amazon) in each node box to directly run strings. then have a 'charger' input
+from AC. also probably include a small MPPT, ideally with the right capacity
+to charge the pack to full on a sunny day... Is a 20A charger enough? 60A?
+120A?" 🤖 Everything below is the AI's arithmetic from figures already in
+this repo; nothing is measured.
+
+**Where it goes.** 🤖 In the **power box**, not the node box: a battery is
+power, and H14 keeps power apart from data. The strips' 12 V comes from the
+battery instead of a Mean Well supply.
+
+**The load per box (64 spokes).** The Gate averages 1.5–2.0 kW while lit
+(🧑 H18), of which 0.3–0.6 kW is electronics (Assumed,
+`docs/pricing-solar-2026-10.md` §1a), which stay on AC. That leaves about
+0.9–1.7 kW AC for the pixels, 0.85–1.6 kW DC: **about 55–100 W a box**
+(16 boxes, four spokes each). The night is 10–11 h, so **0.55–1.1 kWh a box
+a night**.
+
+**The battery.** A 12.8 V 100 Ah LiFePO4 holds 1.28 kWh, about 1.15 kWh
+used to 90 %. **One carries a full night at 64 spokes**, with little to
+spare in the high case. 128 spokes needs two a box (or the charger running
+at night); 256 needs four. Full white at 64 spokes is 200–450 W a box
+(17–38 A), inside a 100 A BMS; at 256 spokes it is up to 150 A, past one
+battery's BMS. Typical spec (LiTime 12 V 100 Ah, maker and retailer pages):
+charge **0–50 °C**, discharge −20 to 60 °C, 100 A BMS, recommended charge
+20 A (0.2 C), **about 10–11 kg**.
+
+**The charger: 20 A is the right size; 60 A and 120 A are too big.**
+
+- _Recharge by day, battery only at night:_ refilling 1.2 kWh takes about
+  4–5 h at 20 A (about 280 W), 8–9 h at 10 A.
+- _Charger always on, battery as a buffer:_ the night's average is only
+  4–8 A at 13 V, so a 20 A charger carries the show from AC and the battery
+  takes the peaks. The battery is nearly full at dawn.
+- _What the feed sees:_ 16 × 20 A × 14.4 V ÷ 0.9 ≈ **5 kW at most**,
+  whatever the show does: inside the L14-30's 5.76 kVA, the L21-30's 7.2
+  and the CS6365's 9.6. 60 A chargers would draw about 15 kW (twice any
+  30 A feed) and charge at 0.6 C, past the cells' recommended rate; 120 A
+  would be 31 kW and past the 100 A BMS.
+- Candidate (🤖, not chosen): **Victron Blue Smart IP67 12/25** (sealed;
+  $178–196; the 120 V model BPC122547106 takes 100–135 VAC, the 230 V model
+  180–265 VAC, so 208 or 240 V line to line, if sold here), or the **12/17**
+  to keep the total under 4.5 kW. To check: setting its charge voltage to
+  14.0–14.2 V, since the strips sit on the battery while it charges and
+  WS2815's maximum voltage isn't checked.
+
+**The solar controller: one ~400 W panel and a 30 A MPPT per box.** A box
+needs about 1.2 kWh a day into the battery. At a 20° tilt the playa gives
+about 5.7 kWh per kW of panel on a mean day and 4.1 on the worst day in the
+TMY (`docs/pricing-solar-2026-10.md` §2b); flat is about 10 % less. So
+0.3 kW refills it on the worst day; **a 400–460 W panel** gives margin for
+dust. At 12 V that is up to 35 A: a **Victron SmartSolar MPPT 100/30**
+(440 W at 12 V) fits; a 100/20 (290 W) only with a 300 W panel. Prices not
+checked. **Where the panels go is open**: not on the ring (🧑 H49), so 16
+panels on the ground or the container, each wired up 21 ft to its box.
+
+**What it buys.** A generator outage or a tripped feed no longer darkens the
+Gate (a night on battery); the feed and generator can be smaller, and the
+feed-connector choice matters less; the 12 V pixel supplies go away; a
+panel per box could carry the lights with no generator on sunny days.
+
+**Against it.** About 170 kg of batteries in the truss at 21 ft (rigging
+load); cells stop charging above 50 °C, and a power box in the sun gets
+there, on the very afternoons solar would charge (shade them; heat also
+ages them); a DC fuse (Class T or MRBF) and disconnect at every battery;
+shipping and storing 17 lithium batteries; and a cheap cell's BMS is the
+only protection.
+
+**Rough cost** (🤖): battery $300, charger $180–200, fuse, disconnect and
+cable $50–100: about $530–600 a box, **$9,000–10,200 for 17** (16 + a
+spare), before contingency and less the pixel supplies it replaces. A panel
+and MPPT add about $350–530 a box, **$6,000–9,000**. Not in the budget
+until chosen.
+
 ## Options to evaluate
 
 - Locking IP-rated AC connector families suited to daisy-chaining (for example
@@ -323,6 +411,14 @@ before the 15 % contingency:
 
 ## Open questions
 
+- (2026-11-08) **Batteries in the power boxes?** (🧑 H78; section above.)
+  For the user: whether to pursue it. If so: measure one box's real draw
+  for a night, and check the strip's maximum voltage and the box
+  temperature in the sun.
+- (2026-11-08) **L21-30 or James's CS6365?** (🧑 H69, H77.) 🤖
+  Recommendation: if the batteries go in, take James's CS6365; it is on the
+  rentals, and the chargers cap the load well under it.
+
 - (2026-10-24) **Follow-ons of the three-phase feed** (H69), not yet worked
   through: the two-pole (208 V) ground-fault breaker per segment; how the
   sixteen segments rotate across the three leg pairs (6/5/5) and which
@@ -495,3 +591,6 @@ before the 15 % contingency:
 - [x] Price connector families: powerCON TRUE1-L + TOP panel leads
 - [ ] Confirm with Neutrik: 12/3 cord on the -L; -L mates with TOP panel parts
 - [ ] Feed topology and protection
+- [x] Battery-per-box option sized (2026-11-08, H78): 20 A charger, one
+      100 Ah a box at 64 spokes, ~400 W panel + 30 A MPPT
+- [ ] User: pursue batteries? L21-30 or CS6365 (H77)?
