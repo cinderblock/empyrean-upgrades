@@ -321,16 +321,28 @@ racking on top. Not repriced yet.
   anchors are rated 3,000 lb in tension, "NOT rated for shear".
 - **Stowing doesn't work:** 32 panels of 21 kg can't come down from 21 ft in
   the minutes before a playa storm, so the design has to survive with them up.
+  🧑 H88 agreed ("yes").
+- **V1 is already held down** (🧑 H87, 2026-11-09: "whole ring has hold down
+  straps... and we have nails in the base plates"). 🤖 That changes the
+  picture at the legs: about 2.8 kN (620 lbf) net up per leg at 75 mph on
+  average, more on the windward side, against Burning Man's 3,000 lb
+  anchors, if each strap reaches one. The nails would take the sliding,
+  which those anchors aren't rated for. What the straps and nails are rated
+  for is Unknown.
 - 🤖 **What it would take:** an engineer's package (Burning Man asks for one
   over 20 ft: drawings, anchors, uplift, rigging and wind loads); Tomcat's
   rating for uplift and torsion; engineered clamps at every panel; hold-downs
   at each leg; a logging anemometer and a wind plan.
-- ⚠ **Conflict with 🧑 H81** (panels on top, shading the boxes). 🤖 The AI's
-  recommendation: **panels on the ground**, ballasted at a low tilt near the
-  legs (the ballast also anchors), DC run up the legs; keep the planned sun
-  shields ($50–150 a segment) for the boxes' shade. Or, if on top: fewer
-  panels (one a segment halves the uplift) and the engineering first. For
-  the user.
+- **Decided: panels on top** (🧑 H86, 2026-11-09: "top"). 🤖 The AI had
+  recommended the ground; with H87's hold-downs, the legs are probably not
+  the weak point. What's left for the engineer: the panel clamps (each
+  pulls up about 1.3–1.6 kN at 75 mph, about 6× its weight), racking to
+  truss, the truss bending upward, and the ring-to-leg joints (with the
+  self-raising ring, the hoists' locks too).
+- **V1's engineering package** (🧑 H89: "this means we must have one
+  already... i'll ask for it"). 🤖 Assumed: V1 is over 20 ft, so it filed
+  one. The panels would be an amendment to it. Ask for the straps',
+  anchors' and nails' ratings in it.
 
 **Heat, the second problem.** In a 50 °C box three parts sit at or past
 their limits: the SmartShunt (rated to 50 °C), the MPPT (full output only
@@ -594,10 +606,9 @@ before the 15 % contingency:
 - (2026-11-08) **Batteries in the power boxes: pursued** (🧑 H84). Still
   to do: measure one box's real draw for a night, check the strip's
   maximum voltage and the box temperature in the sun.
-- (2026-11-08) **Panels on top or on the ground?** ⚠ 🧑 H81 wants them on
-  top as shade; at 75 mph their uplift is about twice the rig's weight.
-  🤖 Recommendation: on the ground, ballasted, with the sun shields for
-  shade.
+- ~~(2026-11-08) **Panels on top or on the ground?**~~ On top (🧑 H86).
+- (2026-11-09) **V1's engineering package:** 🧑 H89, Cameron is asking for
+  it. Needed: the hold-down straps', anchors' and nails' ratings.
 - (2026-11-08) **L21-30 or James's CS6365?** (🧑 H69, H77.) 🤖
   Recommendation: if the batteries go in, take James's CS6365; it is on the
   rentals, and the chargers cap the load well under it.
@@ -779,7 +790,8 @@ before the 15 % contingency:
 - [x] User: pursue batteries? Yes (H84, 2026-11-08)
 - [x] Load table, wind check, repricing (2026-11-08): gravity fine, wind
       uplift ~2× the rig at 75 mph, $30.7–44.9K
-- [ ] User: panels on top (H81) or on the ground (AI recommendation)?
+- [x] User: panels on top (H86, 2026-11-09)
+- [ ] V1's engineering package (Cameron asking, H89); then add the panels
 - [ ] User: L21-30 or CS6365 (H77)?
 - [ ] Power-box thermal design for charger, MPPT and batteries
 - [ ] 54 V for the switch on battery: a 12 V-input PoE switch?

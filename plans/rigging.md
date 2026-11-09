@@ -116,9 +116,12 @@ engineering):
   lb on the 23.6 ft between legs if straight; the panels and batteries add
   about 330–440 lb a span (20–25 %).
 - **Wind (Reasoning):** near-flat panels on top lift 41–51 kN at 75 mph,
-  about twice the rig's weight. The ring needs hold-downs and the clamps
-  engineering; stowing in a storm isn't practical. 🤖 Recommendation:
-  panels on the ground (`plans/power.md`).
+  about twice the rig's weight. Stowing in a storm isn't practical (🧑 H88).
+  Panels on top decided (🧑 H86). V1 already has strap hold-downs and nailed
+  base plates (🧑 H87): about 620 lbf net up per leg at 75 mph, if each
+  strap reaches a rated anchor. Still to engineer: the panel clamps, the
+  ring-to-leg joints, and the hoists' locks against uplift.
+- V1's engineering package: Cameron is asking for it (🧑 H89).
 - Burning Man over 20 ft: "the engineering calculation package" (drawings,
   anchors, uplift and bearing, rigging forces, wind and gravity loads);
   larger pieces have had third-party review.

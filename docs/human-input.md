@@ -645,7 +645,7 @@ Cameron said, 2026-11-08 11:20 PM PST (this repo's chat):
 
 ⚠ AI's reading: Two ~430 W panels laid along each segment's top, and the weight and wind that brings, are the AI's.
 
-On the site: A 12 V battery in every power box, charged from the feed (≠ the AI differs); A 12 V battery in every power box, charged from the feed (≠ the AI differs).
+On the site: A 12 V battery in every power box, charged from the feed.
 
 ## H82: AC is for hung speakers; the lights run on DC from the batteries. The chargers' rate should be set by software, and every MPPT should report its data over a reliable link.
 
@@ -680,5 +680,43 @@ Cameron said, 2026-11-08 11:30 PM PST (this repo's chat):
 > the USB-C extender is fed from the main show computer so we have direct control on the touch screen
 
 ⚠ AI's reading: That the show computer therefore needs a USB-C port carrying video, and the candidates for that, are the AI's.
+
+On the site: OREI USB-C/DisplayPort and USB 3.2 extender, 115 ft on one Cat6a.
+
+## H86: The battery option's panels go on top of the ring, not on the ground, with the engineering that needs.
+
+Cameron answered, 2026-11-09 11:20 AM PST (this repo's chat):
+
+> top
+
+On the site: A 12 V battery in every power box, charged from the feed.
+
+## H87: V1 already holds the ring down with straps, and the leg base plates are nailed to the ground.
+
+Cameron said, 2026-11-09 11:20 AM PST (this repo's chat):
+
+> wow. I'm surprised. but whole ring has hold down straps... and we have nails in the base plates...
+
+⚠ AI's reading: That the straps run from the legs to ground anchors, and that the nails resist sliding rather than lift, are the AI's reading.
+
+On the site: A 12 V battery in every power box, charged from the feed.
+
+## H88: Agreed: 32 panels can't be taken down before a playa storm, so the design must survive with them up.
+
+Cameron approved the AI's proposal, 2026-11-09 11:20 AM PST (this repo's chat):
+
+> yes
+
+## H89: V1 is over 20 ft, so it probably already has an engineering package for Burning Man; Cameron will ask for it.
+
+Cameron said, 2026-11-09 11:20 AM PST (this repo's chat):
+
+> this means we must have one already... i'll ask for it
+
+## H90: The current show PC's Thunderbolt port carries DisplayPort and USB over one USB-C cable, and the OREI pair extends that. Separate DP and USB (the Kramer route) only if the V2 graphics card forces it.
+
+Cameron said, 2026-11-09 11:20 AM PST (this repo's chat):
+
+> Current PC has "thunderbolt" connections, which send power, displayport, and USB2 data over a single USB-C connection. The OEI transceiver pair extends that USB-C... if our video card choice forces us to use something that has displayport and USB separate input/output plugs, we can consider that...
 
 On the site: OREI USB-C/DisplayPort and USB 3.2 extender, 115 ft on one Cat6a.

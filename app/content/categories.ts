@@ -214,16 +214,12 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         name: "A 12 V battery in every power box, charged from the feed",
         by: {
-          h: ["H78", "H81", "H82", "H84"],
-          what: "A 100 Ah LiFePO4 battery per box running the lights on DC, a charger set by software, an MPPT reporting its data, panels on top shading the boxes. The sizes and parts are the AI's",
-        },
-        conflict: {
-          h: ["H81"],
-          note: "The user wants the panels on top of the ring, shading the boxes. The AI recommends them on the ground: at 75 mph their uplift is about twice the rig's weight.",
+          h: ["H78", "H81", "H82", "H84", "H86", "H87"],
+          what: "A 100 Ah LiFePO4 battery per box running the lights on DC, a charger set by software, an MPPT reporting its data, panels on top shading the boxes, held by the ring's existing strap hold-downs. The sizes and parts are the AI's",
         },
         verdict: "considered",
         price: "about $31,000–$45,000 for 17 boxes, panels included",
-        why: "The lights and the boxes' electronics run on DC from a battery; AC stays for hung speakers. A charger in each box, its rate set by software over CAN, refills it and replaces the 12 V supplies; two panels on each segment's top feed an MPPT and shade the boxes; a small Ethernet board in each node box reports it all. One battery carries a night at 64 spokes (two at 128, four at 256), the charger caps the whole Gate's draw near 5 kW whatever the show does, and a generator outage no longer darkens it. Against it: in a 75 mph gust the panels on top would lift about twice the rig's weight, so they need engineering (or go on the ground); the boxes run hot for the charger and cells.",
+        why: "The lights and the boxes' electronics run on DC from a battery; AC stays for hung speakers. A charger in each box, its rate set by software over CAN, refills it and replaces the 12 V supplies; two panels on each segment's top feed an MPPT and shade the boxes; a small Ethernet board in each node box reports it all. One battery carries a night at 64 spokes (two at 128, four at 256), the charger caps the whole Gate's draw near 5 kW whatever the show does, and a generator outage no longer darkens it. Against it: in a 75 mph gust the panels on top would lift about twice the rig's weight. The ring's existing strap hold-downs probably carry that at the legs (about 620 lbf net per leg against 3,000 lb anchors), but the panel clamps and the ring-to-leg joints need engineering, added to V1's package; the boxes run hot for the charger and cells.",
       },
       {
         name: "A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord",
@@ -282,7 +278,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       "Whether V2 keeps today's pixel supplies or replaces them, and whether today's take 240 V (the plan runs them line to line).",
       "A two-pole ground-fault breaker for each segment: line-to-line supplies need one, and the current pick (Ericson 1075-AR) is single-pole 120 V.",
       "Which feed connector: three-phase L21-30 (the current lean) or James's 50 A California Standard. With a battery in every box, either carries the Gate.",
-      "Whether panels on top of the ring can be held down in a playa storm; Tomcat publishes no rating for uplift or for the circle.",
+      "Whether the panel clamps, the ring-to-leg joints and V1's strap hold-downs carry the panels' uplift in a playa storm; Tomcat publishes no rating for uplift or for the circle, and V1's engineering package is being requested.",
     ],
     maturity: "designing",
     planFile: "plans/power.md",
@@ -443,12 +439,12 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         name: "OREI USB-C/DisplayPort and USB 3.2 extender, 115 ft on one Cat6a",
         by: {
-          h: ["H79", "H83", "H85"],
-          what: "The show computer up high, a full console on the ground, one Cat6a; the specs and price",
+          h: ["H79", "H83", "H85", "H90"],
+          what: "The show computer up high, a full console on the ground, one Cat6a, extending the computer's Thunderbolt port; separate DP and USB only if the graphics choice forces it. The specs and price",
         },
-        verdict: "considered",
+        verdict: "leading",
         price: "$600",
-        why: "Plugs into the show computer, so the touch screen drives the show directly. Video, USB 3.2, RS-232 and audio on one Cat6a to 35 m, for about $900–1,350 less than the Kramer pair. The catch: its input is USB-C with video, and the chosen computer's USB-C carries none; no adapter was found, so it needs a computer with Thunderbolt (OnLogic's Karbon 520 is one to check).",
+        why: "Plugs into the show computer's Thunderbolt port, so the touch screen drives the show directly; the current show PC's Thunderbolt already carries DisplayPort and USB on one USB-C. Video, USB 3.2, RS-232 and audio on one Cat6a to 35 m, for about $900–1,350 less than the Kramer pair. The catch: the V2 computer needs Thunderbolt too, and the Nuvo-9160GC's USB-C carries no video; the console's screen can run from the CPU's graphics while the graphics card renders the show. OnLogic's Karbon 520 has Thunderbolt, not yet checked; otherwise the Kramer pair.",
         url: "https://www.orei.com/products/usb-c-dp-usb3-2-extender-rs232-audio-extract-115ft-cat6a-usb3-exb130cr-k",
       },
       {
@@ -471,7 +467,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         name: "A USB-C dock on a long USB-C cable",
         conflict: {
           h: ["H37"],
-          note: "The user's idea for the console. The AI rules it out: the show computer's USB-C carries no video, and long USB fiber doesn't carry USB 2 devices.",
+          note: "The user's idea for the console. The AI ruled out this form (long USB fiber doesn't carry USB 2 devices, and the Nuvo-9160GC's USB-C carries no video); the OREI extender now does the same job over Cat6a from a Thunderbolt port (H90).",
         },
         verdict: "ruled-out",
         why: "The show computer's USB-C port carries no video, and long USB 3 fiber cables don't carry the USB 2 devices touch screens and MIDI controllers are.",

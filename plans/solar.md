@@ -40,8 +40,10 @@ See `docs/v1-hardware.md` → Power distribution and Site and operation.
   the site has it: a big project with its own page and goal.
 - ~~**No panels on top of the ring.** 🧑 H49~~. Replaced by 🧑 H81
   (2026-11-08): the battery option's panels "would go on top of the ring and
-  be a shade for the boxes too". See `plans/power.md` → "Battery in each
-  power box".
+  be a shade for the boxes too". Confirmed over the AI's ground-mount
+  recommendation (🧑 H86, 2026-11-09: "top"), relying on V1's strap
+  hold-downs (🧑 H87) and an amended engineering package (🧑 H89). See
+  `plans/power.md` → "Battery in each power box".
 - 🤖 Everything about size (12 kW, 57 kWh), the hybrid with a backup
   generator, and the inverter is the AI's, from its research.
 

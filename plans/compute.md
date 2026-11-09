@@ -38,7 +38,15 @@ the weatherproof brain box.
 - **A VJ console as a stretch goal.** 🧑 H37: touch screen, buttons, sliders,
   knobs, "maybe even flying ones", on a USB-C dock over a long (fibre?) link.
   ⚠ 🤖 The AI ruled out the USB-C dock (no video on the show computer's
-  USB-C) and read "flying" as motorised faders.
+  USB-C) and read "flying" as motorised faders. Since H90 the idea is back
+  in another form: the OREI pair extends a Thunderbolt port over Cat6a.
+- **The console link extends the show computer's Thunderbolt port** with the
+  OREI pair. 🧑 H79, H85, H90 (2026-11-09: "Current PC has "thunderbolt"
+  connections, which send power, displayport, and USB2 data over a single
+  USB-C connection. The OEI transceiver pair extends that USB-C... if our
+  video card choice forces us to use something that has displayport and USB
+  separate input/output plugs, we can consider that"). So the V2 computer
+  should keep a Thunderbolt port; the Kramer pair is the fallback.
 
 ## Options to evaluate
 
@@ -149,6 +157,16 @@ ft up) by the stage leg. Two working routes, both in the research:
   - **OnLogic Karbon 520** (fanless, rugged) lists **2 × Thunderbolt 4**
     and 2 × DP; whether it takes an Ada GPU and its temperature range are
     not checked. A candidate to replace the Nuvo if this route wins.
+  - **The current show PC** (the NUC) has Thunderbolt carrying DP and USB
+    on one USB-C (🧑 H90, Reported 2026-11-09), so the OREI pair works
+    with it today.
+  - 🤖 The graphics card doesn't have to feed the console: on most PCs the
+    Thunderbolt port carries the CPU's own graphics, which is plenty for
+    the console's screen while the card renders the show. What decides it
+    is whether the V2 computer has a Thunderbolt port with video, and the
+    Nuvo-9160GC doesn't. ⚠ So the leading computer and the leading link
+    don't fit together yet: check the Karbon 520 (or another rugged
+    computer with Thunderbolt) before buying either.
   - The Kramer pair in the budget is also fed from the show computer (DP
     and USB separately), so it gives the same direct control with the
     current computer. Also not checked: its temperature rating for the
@@ -173,5 +191,7 @@ video, and those cables don't carry USB 2.0 devices.
 ## Progress
 
 - [ ] Baseline benchmark on the current show machine
+- [ ] Find a rugged V2 computer with the GPU and a video Thunderbolt port
+      (check OnLogic Karbon 520 first), or fall back to the Kramer pair (H90)
 - [ ] Define "better": target loads
 - [x] Shortlist machines (three tiers priced; `docs/pricing-2026-10.md`)

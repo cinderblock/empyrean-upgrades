@@ -805,6 +805,53 @@ export const HUMAN = {
       "That the show computer therefore needs a USB-C port carrying video, and the candidates for that, are the AI's.",
     thread: "upgrades",
   },
+  H86: {
+    at: "2026-11-09 11:20 AM PST",
+    who: C,
+    kind: "answered",
+    said: "top",
+    meaning:
+      "The battery option's panels go on top of the ring, not on the ground, with the engineering that needs.",
+    thread: "upgrades",
+  },
+  H87: {
+    at: "2026-11-09 11:20 AM PST",
+    who: C,
+    kind: "said",
+    said: "wow. I'm surprised. but whole ring has hold down straps... and we have nails in the base plates...",
+    meaning:
+      "V1 already holds the ring down with straps, and the leg base plates are nailed to the ground.",
+    aiReading:
+      "That the straps run from the legs to ground anchors, and that the nails resist sliding rather than lift, are the AI's reading.",
+    thread: "upgrades",
+  },
+  H88: {
+    at: "2026-11-09 11:20 AM PST",
+    who: C,
+    kind: "approved",
+    said: "yes",
+    meaning:
+      "Agreed: 32 panels can't be taken down before a playa storm, so the design must survive with them up.",
+    thread: "upgrades",
+  },
+  H89: {
+    at: "2026-11-09 11:20 AM PST",
+    who: C,
+    kind: "said",
+    said: "this means we must have one already... i'll ask for it",
+    meaning:
+      "V1 is over 20 ft, so it probably already has an engineering package for Burning Man; Cameron will ask for it.",
+    thread: "upgrades",
+  },
+  H90: {
+    at: "2026-11-09 11:20 AM PST",
+    who: C,
+    kind: "said",
+    said: 'Current PC has "thunderbolt" connections, which send power, displayport, and USB2 data over a single USB-C connection. The OEI transceiver pair extends that USB-C... if our video card choice forces us to use something that has displayport and USB separate input/output plugs, we can consider that...',
+    meaning:
+      "The current show PC's Thunderbolt port carries DisplayPort and USB over one USB-C cable, and the OREI pair extends that. Separate DP and USB (the Kramer route) only if the V2 graphics card forces it.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;
