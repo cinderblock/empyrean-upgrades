@@ -234,6 +234,42 @@ spare), before contingency and less the pixel supplies it replaces. A panel
 and MPPT add about $350–530 a box, **$6,000–9,000**. Not in the budget
 until chosen.
 
+### With 2× or 4× the pixels (🧑 H80)
+
+🧑 H80 (2026-11-08): "what if we double or 4x the number of pixels". 🤖 The
+same arithmetic, scaled; per box unless marked. It holds whether the pixels
+come from more spokes (128, 256) or denser strip, as long as each pixel
+averages what today's do.
+
+- **Night's energy:** 0.55–1.1 kWh (1×), 1.1–2.2 (2×), 2.2–4.4 (4×).
+- **Batteries to carry the night alone:** 1, 2, 4 (1.15 kWh usable each).
+- **Full-white current at 12 V:** 17–38 A, 34–76 A, 68–150 A. At 4× that
+  is 2/0 battery cable and a 200 A Class T fuse per box; parallel batteries
+  share it (each BMS is 100 A).
+- **Charger, two ways:**
+  - _Battery carries the night, recharge in ~6 h by day:_ 20 A, 30–40 A,
+    60–80 A. The ring at 4× would draw up to 16 × 80 A ≈ 20 kW: past any
+    one feed in the plan.
+  - _Charger on all night, battery as buffer:_ it only has to match the
+    average, 4–8 A, 8–15 A, 17–30 A. So 20 A, 25 A, 30–40 A (two 12/25s at
+    4×). Fewer batteries needed for energy, though 4× still needs two for
+    current.
+  - 🤖 **Recommendation: cap each box's charger at about 28 A**
+    (16 × 28 A × 14.4 V ÷ 0.9 ≈ 7.2 kW, the L21-30's continuous rating in
+    the heat) and let the batteries ride out the rest. At 4× that is only
+    just above the high-case average, so 4× wants four batteries or the
+    second feed already in the 256-spoke goal.
+- **Solar to refill on the worst day** (4.1 kWh/kW, plus dust margin):
+  ~0.4 kW, ~0.8 kW, ~1.6 kW of panel; MPPT 100/30, 100/50 (700 W at 12 V),
+  150/100 class. At 4× that is 64 panels, about 26 kW for the ring: more
+  than the 12 kW central system, and a central array beats 16 small ones
+  well before this.
+- **Weight on the ring:** about 170 kg, 340 kg, 680 kg of batteries at
+  21 ft. 4× needs the truss's load table and the hoists rechecked.
+- **Rough cost, batteries + chargers + fusing, 16 boxes + a spare:**
+  $9–10K, about $15K, about $28K (two 12/25 chargers a box at 4×; cable
+  and fuses grow with the current). Solar on top: $6–9K, $12–18K, $25–35K.
+
 ## Options to evaluate
 
 - Locking IP-rated AC connector families suited to daisy-chaining (for example

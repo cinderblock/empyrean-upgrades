@@ -742,6 +742,17 @@ export const HUMAN = {
       "Listing it as an option for the console link, beside the Kramer pair in the budget, is the AI's.",
     thread: "upgrades",
   },
+  H80: {
+    at: "2026-11-08 10:58 PM PST",
+    who: C,
+    kind: "said",
+    said: "what if we double or 4x the number of pixels",
+    meaning:
+      "Asked how the battery-per-box option (H78) scales with twice or four times the pixels.",
+    aiReading:
+      "The scaled sizes, and capping each charger near 28 A, are the AI's.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

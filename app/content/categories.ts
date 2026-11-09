@@ -220,7 +220,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
         verdict: "considered",
         price:
           "about $9,000–$10,500 for 17 boxes; about $6,000–$9,000 more with a panel each",
-        why: "The strips run straight from a battery; a 17–25 A charger in each box refills it, and replaces the 12 V supplies. One battery carries a night at 64 spokes, the charger caps the whole Gate's draw near 5 kW whatever the show does, and a generator outage no longer darkens it. Against it: about 11 kg a box on the ring, and cells that stop charging above 50 °C.",
+        why: "The strips run straight from a battery; a 17–25 A charger in each box refills it, and replaces the 12 V supplies. One battery carries a night at 64 spokes (two at 128, four at 256), the charger caps the whole Gate's draw near 5 kW whatever the show does, and a generator outage no longer darkens it. Against it: about 11 kg a box on the ring, and cells that stop charging above 50 °C.",
       },
       {
         name: "A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord",

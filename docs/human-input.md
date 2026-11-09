@@ -626,3 +626,11 @@ Cameron said, 2026-11-08 10:45 PM PST (this repo's chat):
 ⚠ AI's reading: Listing it as an option for the console link, beside the Kramer pair in the budget, is the AI's.
 
 On the site: OREI USB-C/DisplayPort and USB 3.2 extender, 115 ft on one Cat6a.
+
+## H80: Asked how the battery-per-box option (H78) scales with twice or four times the pixels.
+
+Cameron said, 2026-11-08 10:58 PM PST (this repo's chat):
+
+> what if we double or 4x the number of pixels
+
+⚠ AI's reading: The scaled sizes, and capping each charger near 28 A, are the AI's.
