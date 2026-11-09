@@ -463,6 +463,7 @@ export const HUMAN = {
     kind: "said",
     said: "no walkway/solar up top.",
     meaning: "Nothing goes on top of the ring.",
+    supersededBy: "H81",
     thread: "upgrades",
   },
   H50: {
@@ -751,6 +752,37 @@ export const HUMAN = {
       "Asked how the battery-per-box option (H78) scales with twice or four times the pixels.",
     aiReading:
       "The scaled sizes, and capping each charger near 28 A, are the AI's.",
+    thread: "upgrades",
+  },
+  H81: {
+    at: "2026-11-08 11:20 PM PST",
+    who: C,
+    kind: "said",
+    said: "they would go on top of the ring and be a shade for the boxes too",
+    meaning:
+      "The battery option's solar panels go on top of the ring, where they also shade the boxes. Replaces H49 for panels; nothing says the walkway is back.",
+    aiReading:
+      "Two ~430 W panels laid along each segment's top, and the weight and wind that brings, are the AI's.",
+    thread: "upgrades",
+  },
+  H82: {
+    at: "2026-11-08 11:20 PM PST",
+    who: C,
+    kind: "said",
+    said: "I think we'll use the AC power for speakers we hang, and ideally just DC for everything lights. Would be nice to be able to control the AC->DC charge rate in software. and have reliable connections to all the MPPTs for data tracking... Do we need a mini something to get that data on the network in each node box?",
+    meaning:
+      "AC is for hung speakers; the lights run on DC from the batteries. The chargers' rate should be set by software, and every MPPT should report its data over a reliable link.",
+    aiReading:
+      "Reading 'everything lights' as the strips plus the boxes' electronics (controllers, switch, computer), and the design (an ESP32 Ethernet board per box, wired VE.Direct and CAN, a CAN-controlled Mean Well charger) are the AI's.",
+    thread: "upgrades",
+  },
+  H83: {
+    at: "2026-11-08 11:20 PM PST",
+    who: C,
+    kind: "answered",
+    said: "OREI USB3-EXB130CR-K: $599.99 (regularly $669.00); 4K to 130 ft (40 m), 5K to 115 ft (35 m); DisplayPort Alt Mode 1.4a; USB 3.2 Gen 1 at up to 2.5 Gbps; TX has a full-function USB-C input; RX a USB-C output plus three USB 3.2 ports; bi-directional 24 V power over the cable; audio de-embedding and RS-232.",
+    meaning:
+      "The extender's price and specs, from its listing, as the user pasted them.",
     thread: "upgrades",
   },
 } as const satisfies Record<string, Said>;

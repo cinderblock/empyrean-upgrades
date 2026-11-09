@@ -38,8 +38,10 @@ See `docs/v1-hardware.md` → Power distribution and Site and operation.
   run the speakers".** 🧑 H35.
 - **Solar and battery are their own dedicated stretch category.** 🧑 H53. As
   the site has it: a big project with its own page and goal.
-- **No panels on top of the ring.** 🧑 H49 ("no walkway/solar up top"): a
-  separate array.
+- ~~**No panels on top of the ring.** 🧑 H49~~. Replaced by 🧑 H81
+  (2026-11-08): the battery option's panels "would go on top of the ring and
+  be a shade for the boxes too". See `plans/power.md` → "Battery in each
+  power box".
 - 🤖 Everything about size (12 kW, 57 kWh), the hybrid with a backup
   generator, and the inverter is the AI's, from its research.
 
@@ -51,8 +53,10 @@ other camps do it).
 
 ## Panels on top of the ring?
 
-**Dropped by the user** (🧑 H49, 2026-10-22 1:03 AM PDT: "no walkway/solar up
-top"). Kept as background. It was the user's own idea nine minutes earlier,
+**Back, for the battery option** (🧑 H81, 2026-11-08): two panels per
+segment on top, shading the boxes (`plans/power.md`). It was dropped first
+(🧑 H49, 2026-10-22 1:03 AM PDT: "no walkway/solar up top"). Kept as
+background. It was the user's own idea nine minutes earlier,
 which would also shade the boxes in the truss ("moot if we add solar on
 top... not sure though. could be nice to add a platform on top for walking
 for service... doubles as shade"). 🤖 Rough numbers (reasoning, not
@@ -73,7 +77,7 @@ researched):
 
 A different route, in `plans/power.md` → "Battery in each power box": a
 12 V 100 Ah LiFePO4 battery per box running the strips, an AC charger, and
-one ~400 W panel with a 30 A MPPT per box. 🤖 It needs no inverter and no
+two ~430 W panels on top of each segment (🧑 H81) with a 150/60 MPPT per box. 🤖 It needs no inverter and no
 central battery, but 16 small arrays instead of one, and the electronics
 (300–600 W) stay on AC.
 

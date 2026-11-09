@@ -126,15 +126,21 @@ ft up) by the stage leg. Two working routes, both in the research:
   plugs into a single CAT6A"): **OREI USB-C/DP + USB 3.2 extender, 115 ft**
   (`USB3-EXB130CR-K`,
   [orei.com](https://www.orei.com/products/usb-c-dp-usb3-2-extender-rs232-audio-extract-115ft-cat6a-usb3-exb130cr-k)).
-  From its name: USB-C or DisplayPort video in, USB 3.2, RS-232 and audio
-  extract, on one Cat6a to 35 m. 🤖 Fed from the GPU's DisplayPort (the
-  computer's USB-C carries no video), it would replace the budget's Kramer
-  pair (`vj-link`, $1,480–1,950) on runs up to 35 m. **Not checked** (the
-  store blocks automated reads, and no listing was found): the price; that
-  USB 2.0 devices (touch, MIDI) work through it; the temperature rating of
-  the end in the brain box; how each end is powered; the DisplayPort
-  version. 35 m is from the brain box, 21 ft up, so the booth must be
-  within about 28 m of the stage leg along the ground.
+  🧑 H83, from its listing: **$599.99** (regularly $669); 4K to 40 m, 5K
+  to 35 m; DisplayPort Alt Mode 1.4a; USB 3.2 Gen 1 at up to 2.5 Gbps; the
+  **transmitter's input is USB-C only**; the receiver has USB-C out plus
+  three USB 3.2 ports (keyboards and mice listed, so USB 2 devices likely
+  work); 24 V power over the cable from either end; audio and RS-232.
+  🤖 About $900–1,350 less than the Kramer pair in the budget (`vj-link`,
+  $1,480–1,950).
+  ⚠ **The catch:** it needs a USB-C port that carries video (DP Alt
+  Mode), and the Nuvo-9160GC's doesn't; its GPU has Mini DisplayPort
+  only. Ways round it, none checked: an adapter that merges DisplayPort
+  and USB into a USB-C source; or a show computer whose USB-C or
+  Thunderbolt carries video (the console's screen can come from the
+  integrated graphics). Also not checked: its temperature rating for the
+  brain box, and MIDI and touch in practice. 35 m starts 21 ft up, so the
+  booth must be within about 28 m of the stage leg.
 
 Not USB4/Thunderbolt optical cables: the Nuvo-9160GC's USB-C port carries no
 video, and those cables don't carry USB 2.0 devices.

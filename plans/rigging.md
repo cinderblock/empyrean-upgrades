@@ -62,7 +62,10 @@ See `docs/v1-hardware.md` → Structure and geometry.
   hoists; it may mean eight people. If hoists: owning them replaces a
   recurring rental, and the hand-hoist option is what the crew already does.
 - **8 legs.** 🧑 H46 (the 2022 drawing A-06 showed 6).
-- **Nothing goes on top of the ring** (no panels, no walkway). 🧑 H49.
+- ~~**Nothing goes on top of the ring** (no panels, no walkway). 🧑 H49.~~
+  ⚠ Replaced for panels by 🧑 H81 (2026-11-08): the battery option puts two
+  panels on each segment's top, about 700 kg plus racking, plus about
+  170–340 kg of batteries in the truss (`plans/power.md`). No walkway.
 
 ## Options
 
@@ -101,8 +104,9 @@ prices are search snippets or estimates (rigging dealers sell by quote).
 
 ## Weight on the ring
 
-Nothing goes on top of the ring (🧑 H49), so the hoists don't lift panels or
-a walkway.
+⚠ If the battery option goes ahead, the hoists lift panels too (🧑 H81):
+about 700 kg of panels plus racking and 170–340 kg of batteries. Not yet
+added to the load figures here. No walkway.
 
 ## Open questions
 

@@ -199,10 +199,16 @@ charge **0–50 °C**, discharge −20 to 60 °C, 100 A BMS, recommended charge
   and the CS6365's 9.6. 60 A chargers would draw about 15 kW (twice any
   30 A feed) and charge at 0.6 C, past the cells' recommended rate; 120 A
   would be 31 kW and past the 100 A BMS.
-- Candidate (🤖, not chosen): **Victron Blue Smart IP67 12/25** (sealed;
-  $178–196; the 120 V model BPC122547106 takes 100–135 VAC, the 230 V model
-  180–265 VAC, so 208 or 240 V line to line, if sold here), or the **12/17**
-  to keep the total under 4.5 kW. To check: setting its charge voltage to
+- ~~Candidate: Victron Blue Smart IP67 12/25~~ (sealed, $178–196). Out
+  after 🧑 H82 asked for the charge rate in software: it is set only over
+  Bluetooth, in Victron's app.
+- 🤖 Candidate now: **Mean Well NPB-750-12** (14.4 V, up to 43 A, 90–264
+  VAC, so 208 or 240 V line to line). It has a **CANBus interface for
+  control and monitoring**, and its curve is programmable (retailer and
+  Mean Well Australia pages; protocol not yet read). One part covers 1× to
+  4× the pixels, with software setting the current. To check: its IP
+  rating and temperature derating (it is a fan-cooled bench charger, not a
+  sealed one), and that CAN sets the current, not only reads it. To check: setting its charge voltage to
   14.0–14.2 V, since the strips sit on the battery while it charges and
   WS2815's maximum voltage isn't checked.
 
@@ -213,8 +219,58 @@ TMY (`docs/pricing-solar-2026-10.md` §2b); flat is about 10 % less. So
 0.3 kW refills it on the worst day; **a 400–460 W panel** gives margin for
 dust. At 12 V that is up to 35 A: a **Victron SmartSolar MPPT 100/30**
 (440 W at 12 V) fits; a 100/20 (290 W) only with a 300 W panel. Prices not
-checked. **Where the panels go is open**: not on the ring (🧑 H49), so 16
-panels on the ground or the container, each wired up 21 ft to its box.
+checked.
+
+**Where the panels go: on top of the ring** (🧑 H81, 2026-11-08: "they
+would go on top of the ring and be a shade for the boxes too"; replaces
+H49 for panels). 🤖 Each segment's top is an arc of about 3.57 m on a
+0.3 m truss. **Two ~430 W panels (about 1.72 × 1.13 m) laid along it fit**
+(3.44 m), overhanging about 0.4 m each side: the overhang is the boxes'
+shade. That is **about 0.86 kW a box, 13.8 kW for the ring**, more than
+the central system's 12 kW. With the electronics on DC too (below), a box
+needs 1.0–2.0 kWh a day: two panels refill that on the worst day, and
+cover 2× the pixels on a mean day. Two in series suit a **SmartSolar
+150/60** (860 W at 12 V). Against: about 21 kg a panel, **about 700 kg of
+panels plus racking at 21 ft**, and 32 panels catching the wind on a
+light-duty truss (`plans/rigging.md`). Needs Tomcat's load table and a
+wind check before anything is bought.
+
+**Everything lights on DC; AC for the speakers** (🧑 H82: "we'll use the AC
+power for speakers we hang, and ideally just DC for everything lights").
+🤖 Read as the strips _and_ the boxes' electronics: the PixLite and the
+show computer take 12 V DC directly (the Nuvo-9160GC takes 8–48 V); the
+switch's 54 V PoE needs a 12 → 54 V DC-DC converter (not chosen). That
+adds the 300–600 W of electronics, all day: 19–38 W a box, 0.45–0.9 kWh a
+day. A night (10–11 h) is then **0.75–1.5 kWh a box**: one battery in the
+low case, **two in the high case**. But with speakers on AC the generator
+runs at night anyway, so the chargers carry the show and the battery is a
+buffer and a ride-through, not the night's whole supply.
+
+**Monitoring and control: a small Ethernet board in each node box**
+(🧑 H82: "Do we need a mini something to get that data on the network in
+each node box?"). 🤖 Yes. Nothing in the box today can read a serial port.
+Proposed:
+
+- **An ESP32 board with Ethernet and PoE** (for example Olimex
+  ESP32-POE-ISO, an industrial −40 to 85 °C version exists; not checked),
+  powered from one of the node switch's spare PoE ports. About $30–50.
+- **MPPT:** wired **VE.Direct** (Victron's serial port, isolated) to the
+  ESP32. It reads volts, amps, yield and state, and can set the MPPT's
+  maximum current (register 0xEDF0, 0.1 A units, per Victron's HEX docs
+  and forum; it writes to flash, so set it rarely, not as a control loop).
+  ESPHome has a VE.Direct component (krahabb/esphome-victron-vedirect).
+- **Charger:** the ESP32's built-in CAN controller plus a transceiver talks
+  to the NPB charger: **set the charge current in software**, read its
+  state.
+- **Battery:** a cheap cell's BMS speaks only Bluetooth. A **Victron
+  SmartShunt** (VE.Direct, about $130, price not checked) gives a wired
+  state of charge.
+- Data goes out on the ring's network (MQTT or ESPHome's API) to the show
+  machine, which logs it and sets each box's charge rate. That is
+  software work in the Empyrean repo, not a cost here.
+- Not a Raspberry Pi: rated 0–50 °C, and the box gets hotter. Victron's
+  own GX (Venus OS) would do all of this but costs about $300+ a box and
+  doesn't drive a Mean Well charger.
 
 **What it buys.** A generator outage or a tripped feed no longer darkens the
 Gate (a night on battery); the feed and generator can be smaller, and the
@@ -228,11 +284,14 @@ ages them); a DC fuse (Class T or MRBF) and disconnect at every battery;
 shipping and storing 17 lithium batteries; and a cheap cell's BMS is the
 only protection.
 
-**Rough cost** (🤖): battery $300, charger $180–200, fuse, disconnect and
-cable $50–100: about $530–600 a box, **$9,000–10,200 for 17** (16 + a
-spare), before contingency and less the pixel supplies it replaces. A panel
-and MPPT add about $350–530 a box, **$6,000–9,000**. Not in the budget
-until chosen.
+**Rough cost** (🤖, before H81–H82): battery $300, charger $180–200, fuse,
+disconnect and cable $50–100: about $530–600 a box, **$9,000–10,200 for 17**
+(16 + a spare), before contingency and less the pixel supplies it replaces.
+A panel and MPPT add about $350–530 a box, **$6,000–9,000**. Not in the
+budget until chosen. 🤖 Since H81–H82 (none checked): the NPB charger
+instead of the Victron, two panels and a 150/60 a box, the ESP32 board and
+shunt, a second battery in the high case, a DC-DC for the switch, and
+racking on top. Not repriced yet.
 
 ### With 2× or 4× the pixels (🧑 H80)
 

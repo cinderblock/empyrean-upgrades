@@ -41,7 +41,9 @@ power boxes**. Power and data never share a box.
   🧑 H51 ("probably, yes. something simple attached to truss above box").
   🤖 One per segment over both its boxes (16 + the brain box), white
   aluminium, $50–150 each.
-- **No solar panels or service walkway on top of the ring.** 🧑 H49.
+- **No service walkway on top of the ring.** 🧑 H49. Solar panels are back
+  for the battery option (🧑 H81), and would shade the boxes
+  (`plans/power.md`).
 - **Rain-proof is enough** for the power joints (🧑 H24). 🤖 The AI still
   specifies IP66 boxes and IP68 glands for the electronics.
 

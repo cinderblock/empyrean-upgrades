@@ -214,13 +214,13 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         name: "A 12 V battery in every power box, charged from the feed",
         by: {
-          h: ["H78"],
-          what: "A 100 Ah LiFePO4 battery per box running the strips, an AC charger, a small solar controller. The sizes are the AI's",
+          h: ["H78", "H81", "H82"],
+          what: "A 100 Ah LiFePO4 battery per box running the lights on DC, a charger set by software, an MPPT reporting its data, panels on top shading the boxes. The sizes and parts are the AI's",
         },
         verdict: "considered",
         price:
-          "about $9,000–$10,500 for 17 boxes; about $6,000–$9,000 more with a panel each",
-        why: "The strips run straight from a battery; a 17–25 A charger in each box refills it, and replaces the 12 V supplies. One battery carries a night at 64 spokes (two at 128, four at 256), the charger caps the whole Gate's draw near 5 kW whatever the show does, and a generator outage no longer darkens it. Against it: about 11 kg a box on the ring, and cells that stop charging above 50 °C.",
+          "about $9,000–$10,500 for 17 batteries and chargers; panels on top and monitoring not yet priced",
+        why: "The lights and the boxes' electronics run on DC from a battery; AC stays for hung speakers. A charger in each box, its rate set by software over CAN, refills it and replaces the 12 V supplies; two panels on each segment's top feed an MPPT and shade the boxes; a small Ethernet board in each node box reports it all. One battery carries a night at 64 spokes (two at 128, four at 256), the charger caps the whole Gate's draw near 5 kW whatever the show does, and a generator outage no longer darkens it. Against it: about 900 kg of panels, racking and batteries on the ring, and cells that stop charging above 50 °C.",
       },
       {
         name: "A 50 A feed instead: CS6364/CS6365 twist-locks on 6/4 cord",
@@ -439,11 +439,12 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         name: "OREI USB-C/DisplayPort and USB 3.2 extender, 115 ft on one Cat6a",
         by: {
-          h: ["H79"],
-          what: "The show computer up high, a full console on the ground, one Cat6a",
+          h: ["H79", "H83"],
+          what: "The show computer up high, a full console on the ground, one Cat6a; the specs and price",
         },
         verdict: "considered",
-        why: "Video, USB 3.2, RS-232 and audio on one Cat6a to 35 m, so the console on the ground can take a hub of touch screen, controllers and keyboard. Fed from the graphics card's DisplayPort. Not yet checked: that it carries USB 2 devices (touch, MIDI), its temperature rating for the brain-box end, and its price.",
+        price: "$600",
+        why: "Video, USB 3.2, RS-232 and audio on one Cat6a to 35 m, so the console on the ground takes a hub of touch screen, controllers and keyboard, for about $900–1,350 less than the Kramer pair. The catch: its input is USB-C with video, and the show computer's USB-C carries none. Not yet checked: an adapter or another computer for that, and its temperature rating for the brain box.",
         url: "https://www.orei.com/products/usb-c-dp-usb3-2-extender-rs232-audio-extract-115ft-cat6a-usb3-exb130cr-k",
       },
       {
