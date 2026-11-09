@@ -645,7 +645,7 @@ Cameron said, 2026-11-08 11:20 PM PST (this repo's chat):
 
 ⚠ AI's reading: Two ~430 W panels laid along each segment's top, and the weight and wind that brings, are the AI's.
 
-On the site: A 12 V battery in every power box, charged from the feed.
+On the site: A 12 V battery in every power box, charged from the feed (≠ the AI differs); A 12 V battery in every power box, charged from the feed (≠ the AI differs).
 
 ## H82: AC is for hung speakers; the lights run on DC from the batteries. The chargers' rate should be set by software, and every MPPT should report its data over a reliable link.
 
