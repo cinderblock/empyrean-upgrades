@@ -720,3 +720,13 @@ Cameron said, 2026-11-09 11:20 AM PST (this repo's chat):
 > Current PC has "thunderbolt" connections, which send power, displayport, and USB2 data over a single USB-C connection. The OEI transceiver pair extends that USB-C... if our video card choice forces us to use something that has displayport and USB separate input/output plugs, we can consider that...
 
 On the site: OREI USB-C/DisplayPort and USB 3.2 extender, 115 ft on one Cat6a.
+
+## H91: Cameron plays the VJ console, and sometimes friends or visitors talking with Cameron.
+
+Cameron answered, 2026-11-10 12:10 PM PST (this repo's chat):
+
+> Me, and maybe friends/visitors that talk to me
+
+⚠ AI's reading: That the console therefore needn't suit a touring guest VJ's habits is the AI's reading.
+
+On the site: VJ console: a touch panel, an X-Touch Compact, one cable.

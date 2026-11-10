@@ -107,8 +107,12 @@ knobs, maybe motorized ("flying") faders. It goes on the stretch-goal ladder
 - **Cable distance is not a constraint.** 🧑 H62: "if we get a fiber
   adapter, any length is possible." 🤖 So the fibre extender, sized for the
   longest likely run (100 m class).
+- **Who plays it:** Cameron, and sometimes friends or visitors talking
+  with him (🧑 H91, 2026-11-10). 🤖 So the console can suit one owner who
+  knows the show, with a simple mode for a visitor; it needn't match a
+  touring VJ's rig.
 - Open, for the user: whether the booth screen is the only
-  screen; motorized faders a must?; who plays it; screen size; shade by day;
+  screen; motorized faders a must?; screen size; shade by day;
   the booth's power; how the cable runs; is a network console acceptable; a
   budget ceiling.
 - **Software dependency:** the Empyrean app takes MIDI Timing Clock today but

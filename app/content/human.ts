@@ -852,6 +852,17 @@ export const HUMAN = {
       "The current show PC's Thunderbolt port carries DisplayPort and USB over one USB-C cable, and the OREI pair extends that. Separate DP and USB (the Kramer route) only if the V2 graphics card forces it.",
     thread: "upgrades",
   },
+  H91: {
+    at: "2026-11-10 12:10 PM PST",
+    who: C,
+    kind: "answered",
+    said: "Me, and maybe friends/visitors that talk to me",
+    meaning:
+      "Cameron plays the VJ console, and sometimes friends or visitors talking with Cameron.",
+    aiReading:
+      "That the console therefore needn't suit a touring guest VJ's habits is the AI's reading.",
+    thread: "upgrades",
+  },
 } as const satisfies Record<string, Said>;
 
 export type HumanId = keyof typeof HUMAN;

@@ -429,8 +429,8 @@ export const CATEGORIES: Record<CategoryId, Category> = {
       {
         name: "VJ console: a touch panel, an X-Touch Compact, one cable",
         by: {
-          h: ["H37"],
-          what: "Touch screen and faders. The parts are the AI's",
+          h: ["H37", "H91"],
+          what: "Touch screen and faders, played by Cameron and sometimes friends or visitors. The parts are the AI's",
         },
         verdict: "stretch",
         price: "about $2,600–$3,600",
@@ -489,7 +489,7 @@ export const CATEGORIES: Record<CategoryId, Category> = {
     unknowns: [
       "A benchmark on today's machine, to set a measured target for the new one.",
       "How much heat a GPU adds inside a sealed box in the sun.",
-      "For the VJ console: the cable route to the booth, and who will play it.",
+      "For the VJ console: the cable route to the booth.",
     ],
     maturity: "exploring",
     planFile: "plans/compute.md",
