@@ -53,10 +53,14 @@ test.describe("overview", () => {
     await page.goto("/");
     const center = page.locator(".screen-only .donut-center-label");
     await expect(center).toHaveText("High estimate");
-    await page
-      .locator(".screen-only .donut-legend tr", { hasText: "Power" })
-      .hover();
-    await expect(center).toHaveText("Power");
+    // A hover before React hydrates is lost; WebKit often gets there first.
+    await expect(async () => {
+      await page.mouse.move(0, 0);
+      await page
+        .locator(".screen-only .donut-legend tr", { hasText: "Power" })
+        .hover();
+      await expect(center).toHaveText("Power", { timeout: 1000 });
+    }).toPass();
   });
 
   test("the ring diagram steps through segments", async ({ page }) => {
